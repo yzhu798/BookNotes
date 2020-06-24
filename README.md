@@ -7,9 +7,17 @@ BookNotes
 (\*{2,2}[^\*]{1,}\*{2,2})
 <font color=\"red\">\1</font>
 ```
+```css
+code {
+	color: red!important;
+	background: white;
+}
 
-
-
+strong {
+    font-size: 1.2em;
+	color: #009ad6;
+}
+```
 
 
 TODO
