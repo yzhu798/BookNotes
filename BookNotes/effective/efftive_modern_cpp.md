@@ -454,7 +454,7 @@ decltype(auto) f2()
 ## 04 查看推断类型的方法
 * **最简单直接的方法是在 IDE 中将鼠标停放在变量**上
 
-![](./images/1-1.png)
+![](./efftive_modern_cpp.assets/1-1.png)
 
 * 利用报错信息，比如写一个声明但不定义的类模板，用这个模板创建实例时将出错，编译将提示错误原因
 ```cpp
@@ -1551,7 +1551,7 @@ std::vector<std::shared_ptr<A>> v{ p, q };
 ```
 * 删除器不影响[std::shared_ptr](https://en.cppreference.com/w/cpp/memory/shared_ptr)的尺寸，因为删除器不是[std::shared_ptr](https://en.cppreference.com/w/cpp/memory/shared_ptr)的一部分，而是位于堆上或自定义分配器的内存位置。[std::shared_ptr](https://en.cppreference.com/w/cpp/memory/shared_ptr)有一个 control block，它包含了引用计数的指针和自定义删除器的拷贝，以及一些其他数据（比如弱引用计数）
 
-![](./images/4-1.png)
+![](./efftive_modern_cpp.assets/4-1.png)
 
 * [std::shared_ptr](https://en.cppreference.com/w/cpp/memory/shared_ptr)内部实现如下
 ```cpp
@@ -1877,7 +1877,7 @@ struct default_delete // default deleter for unique_ptr
 };
 ```
 
-![](./images/4-2.png)
+![](./efftive_modern_cpp.assets/4-2.png)
 
 * 解决方法就是让析构[std::unique_ptr](https://en.cppreference.com/w/cpp/memory/unique_ptr)的代码看见完整类型，即让**析构函数的定义位于要析构的类型的定义之后**
 ```cpp
@@ -2680,11 +2680,11 @@ static_assert(std::is_same_v<const B&&, int&&>);
 * 除了上述情况，还有一些特殊场景无需使用移动语义，比如之前提到的[RVO](https://en.cppreference.com/w/cpp/language/copy_elision)
 * **移动不一定比拷贝代价小得多**。比如[std::array](https://en.cppreference.com/w/cpp/container/array)实际是带 STL 接口的内置数组。不同于其他容器的是，其他容器把元素存放于堆上，自身只持有一个指向堆内存的指针，移动容器时只需要移动指针，在常数时间内即可完成移动
 
-![](./images/5-1.png)
+![](./efftive_modern_cpp.assets/5-1.png)
 
 * **而[std::array](https://en.cppreference.com/w/cpp/container/array)自身存储了内容**，没有这样的指针，**移动或拷贝对元素逐个执行**，需要线性时间复杂度，所以移动并不比拷贝快多少
 
-![](./images/5-2.png)
+![](./efftive_modern_cpp.assets/5-2.png)
 
 * 另一个移动不一定比拷贝快的例子是[std::string](https://en.cppreference.com/w/cpp/string/basic_string)，一种实现是使用[small string optimization（SSO）](https://blogs.msmvps.com/gdicanio/2016/11/17/the-small-string-optimization/)，在字符串很小时（一般是15字节）存储在自身内部，而不使用堆上分配的内存，因此**对小型字符串的移动并不比拷贝快**
 
@@ -3512,7 +3512,7 @@ std::promise<int> ps;
 std::future<int> ft = ps.get_future();
 ```
 
-![](./images/7-1.png)
+![](./efftive_modern_cpp.assets/7-1.png)
 
 * callee 的结果存储在哪？caller 调用[get](https://en.cppreference.com/w/cpp/thread/future/get)之前，callee 可能已经执行完毕，因此结果不可能存储在 callee 的[std::promise](https://en.cppreference.com/w/cpp/thread/promise)对象中。但结果也不可能存储在caller的[std::future](https://en.cppreference.com/w/cpp/thread/future)中，因为[std::future](https://en.cppreference.com/w/cpp/thread/future)可以用来创建[std::shared_future](https://en.cppreference.com/w/cpp/thread/shared_future)
 ```cpp
@@ -3527,7 +3527,7 @@ auto sf3 = sf;
 ```
 * 因此结果只能存储在外部某个位置，这个位置称为 shared state
 
-![](./images/7-2.png)
+![](./efftive_modern_cpp.assets/7-2.png)
 
 * shared state 通常用堆上的对象表示，但类型、接口和具体实现由标准库作者决定。shared state 决定了[std::future](https://en.cppreference.com/w/cpp/thread/future)的析构函数行为：
   * 采用[std::launch::async](https://en.cppreference.com/w/cpp/thread/launch)启动策略的[std::async](https://en.cppreference.com/w/cpp/thread/async)返回的[std::future](https://en.cppreference.com/w/cpp/thread/future)中，最后一个引用 shared state的，析构函数会保持阻塞至任务执行完成。本质上，这样一个[std::future](https://en.cppreference.com/w/cpp/thread/future)的析构函数是对**异步运行**的底层线程执行了一次**隐式 join**
