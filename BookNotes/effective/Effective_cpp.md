@@ -1,6 +1,6 @@
 # 一.让自己习惯C++
 
-## 条款02：尽量以const,enum,inline替换\#define
+## 02：尽量以const,enum,inline替换\#define
 
 **这个条款或许改为“宁可以编译器替换预处理器”比较好**
 
@@ -56,7 +56,7 @@ CALL_WITH_MAX(++a,b + 10);  //a被累加1次
 
 使用inline函数可以减轻为参数加上括号以及参数被核算多次等问题。同时“类内的private inline函数”。
 
-## 条款03：尽可能使用const
+## 03：尽可能使用const
 
 ### 1）const修饰变量
 
@@ -141,7 +141,7 @@ public:
 };
 ```
 
-## 条款04：确定对象被使用前已先被初始化
+## 04：确定对象被使用前已先被初始化
 
 **后果**：不可预知的程序行为，以及许多令人不愉快的调试过程。
 
@@ -162,7 +162,7 @@ public:
 
 # 二.构造/析构/赋值运算
 
-## 条款05：了解C++默默编写并调用哪些函数
+## 05：了解C++默默编写并调用哪些函数
 
 编译器合成：
 
@@ -179,7 +179,7 @@ public:
 * **含有const成员**：const对象不应该修改。
 * **父类的copy assignment操作符被声明为private**：无法处理基类子对象，因此也就无法合成。
 
-## 条款06：若不想使用编译器自动生成的函数，就该明确拒绝
+## 06：若不想使用编译器自动生成的函数，就该明确拒绝
 
 一般情况下，不声明相应函数即可拒绝。但是编译器会为类合成一些函数，因此需要显式拒绝
 
@@ -190,12 +190,12 @@ public:
     + 可以使用一个基类，在基类中声明为private，并且继承，引发**编译期错误**，会被编译器拒绝。
 2. **使用delete**（C++11）。
 
-## 条款07：为多态基类声明virtual析构函数
+## 07：为多态基类声明virtual析构函数
 
 * **为基类声明virtual析构函数**：当派生类对象经由一个基类指针被删除，而该基类带有一个non-virtual析构函数，结果未定义——**对象的derived成分没有销毁**，即“局部销毁”，造成资源泄露。
 * **class不用作基类时，不要将析构函数声明为virtual**：virtual会引入虚函数指针，这会增加空间开销，使得类无法被C函数使用，从而不再具有移植性。
 
-## 条款08：别让异常逃离析构函数
+## 08：别让异常逃离析构函数
 
 **C++并不禁止析构函数吐出异常，但是并不鼓励这样做**
 
@@ -211,7 +211,7 @@ public:
 2. **在析构函数中catch异常**，然后记录该失败，即**吞掉异常**。
 3. 重新设计接口，让客户能够**在析构前主动调用可能引起异常的函数**，然后析构函数中使用一个bool变量，根据用户是否主动调用来决定析构函数中**是否应该调用可能引起异常的函数**，**让客户拥有主动权**。
 
-## 条款09：绝不在构造和析构过程中调用virtual函数
+## 09：绝不在构造和析构过程中调用virtual函数
 
 基类的构造函数中调用一个虚函数：实际上是基类版本，从构造顺序可知。
 
@@ -242,11 +242,11 @@ public:
 
 **同样的道理也适用于析构函数。一旦派生类析构函数开始执行，对象内的派生类成员变量便呈现未定义值，所以C++视它们仿佛不再存在。进入基类析构函数后对象就成为一个基类对象**。
 
-## 条款10：令operator=返回一个reference to \*this
+## 10：令operator=返回一个reference to \*this
 
 这是为了实现“**连续赋值**”。这个协议除了适用于**operator=、+=、-=、\*=**
 
-## 条款11：在operater=中处理“自我赋值”
+## 11：在operater=中处理“自我赋值”
 
 **不安全的实现**
 
@@ -304,7 +304,7 @@ Widget& Widget::operator=(const Widget& rhs){
     }
     ```
 
-## 条款12：复制对象时勿忘其每一个成分
+## 12：复制对象时勿忘其每一个成分
 
 * **copy构造函数**
     - **非继承中**：当**为类添加新成员**时，copy构造函数也需要**为新成员添加拷贝代码**。否则会调用新成员的默认构造函数初始化新成员。
@@ -315,7 +315,7 @@ Widget& Widget::operator=(const Widget& rhs){
 
 # 三.资源管理
 
-## 条款13：以对象管理资源
+## 13：以对象管理资源
 
 当申请一块动态内存时，可能会发生泄漏：
 
@@ -343,7 +343,7 @@ void f()
 
 > C++没有特别针对”动态分配数组“而设计的类似auto_ptr或tr1::shared_ptr那样的东西，甚至TR1中也没有。那是因为**vector和string几乎总是可以取代动态分配而得的数组**。因此当需要动态分配数组时，提倡使用vector（[可以使用unique_ptr管理动态数组](C++Primer.md#23-unique_ptr)）
 
-## 条款14：在资源管理类中小心copying行为
+## 14：在资源管理类中小心copying行为
 
 **并非所有资源都是动态内存，除此之外还有锁等资源**，也应该通过”对象管理资源“来确保获取资源后能够正确的释放，**根据资源的类型，和不同的需求，可能需要定义不同的copy行为**：
 
@@ -352,7 +352,7 @@ void f()
 3. **复制底部资源**：这种情况下，希望在复制RAII对象时，同时复制其关联的底层资源。展现出**“深拷贝”的行为**
 4. **转移底部资源的拥有**：如果希望任一时刻一个资源只由一个RAII对象管理，那么在复制RAII对象时，应该实现拥有权的“转移”，原RAII对象拥有的资源设为null（如auto_ptr）
 
-## 条款15：在资源管理类中提供对原始资源的访问
+## 15：在资源管理类中提供对原始资源的访问
 
 **API往往要求访问原始资源（即被RAII对象管理的资源，而不是直接访问RAII对象）**
 
@@ -369,7 +369,7 @@ FontHandle f2 = f1; //原意是想使用Font，复制一个RAII对象
 
 在上面的例子中，如果实现了隐式转换，底层资源会被复制，如果f1销毁，f2会成为“虚吊的”（dangle）.
 
-## 条款16：成对使用new和delete时要采取相同形式
+## 16：成对使用new和delete时要采取相同形式
 
 当使用new和delete时，发生2件事
 
@@ -382,7 +382,7 @@ FontHandle f2 = f1; //原意是想使用Font，复制一个RAII对象
 
 数组所用的内存通常还包括“数组大小”的记录，以便delete知道需要调用多少次析构函数：
 
-<div align="center"> <img src="../pic/cppeffective-3-1.png"/> </div>
+<div align="center"> <img src="Effective_cpp.assets/cppeffective-3-1.png"/> </div>
 
 因此，应该像这样使用new和delete
 
@@ -412,7 +412,7 @@ delete [] pa1;          //很好
 
 <br>
 
-## 条款17：以独立语句将newed对象置入智能指针
+## 17：以独立语句将newed对象置入智能指针
 
 考虑如下情况：
 
@@ -444,10 +444,10 @@ func1(p,func2());
 
 # 四.设计与声明
 
-## 条款18：让接口容易被正确使用，不易被误用
+## 18：让接口容易被正确使用，不易被误用
 
 1. **通过引入新类型来防止误用**
-    
+   
     ```c++
     class Month{
        Month static getMonth(int ){...}  
@@ -470,7 +470,7 @@ func1(p,func2());
 
 <br>
 
-## 条款19：设计class犹如设计type
+## 19：设计class犹如设计type
 
 在设计class时，下列问题将导致class你的设计规范：
 
@@ -489,7 +489,7 @@ func1(p,func2());
 
 <br>
 
-## 条款20：宁以pass-by-reference-to-const替换pass-by-value
+## 20：宁以pass-by-reference-to-const替换pass-by-value
 
 pass-by-reference-to-const有下列好处：
 
@@ -507,7 +507,7 @@ pass-by-reference-to-const有下列好处：
 
 <br>
 
-## 条款21：必须返回对象时，别妄想返回其reference
+## 21：必须返回对象时，别妄想返回其reference
 
 必须返回对象的最常见例子是运算符函数：
 
@@ -552,7 +552,7 @@ const Rational operator*(const Rational &lhs,const Rational &rhs);
 
 <br>
 
-## 条款22：将成员变量声明为private
+## 22：将成员变量声明为private
 
 ### 1）为什么不能是public
 
@@ -587,7 +587,7 @@ protected成员变量和public成员变量的论点十分相同。“语法一�
 
 <br>
 
-## 条款23：宁以non-member、non-friend替换member函数
+## 23：宁以non-member、non-friend替换member函数
 
 假设有个浏览器类，包含一些功能用来清除下载元素高速缓冲区、清除访问过的URLs的历史记录、以及移除系统中的所有cookies：
 
@@ -634,13 +634,13 @@ void clearEverything(WebBrowser& wb){
 
 一个像WebBrowser这样的class可能拥有大量便利函数，某些与书签有关，某些与打印有关，还有一些与cookie的管理有关...通常客户只对其中某些感兴趣。没道理一个只对书签相关便利函数感兴趣的客户却与一个cookie相关便利函数发生编译相依关系。分离它们的最直接做法就是将书签相关便利函数声明于一个头文件，将cookie相关便利函数声明于另一个头文件，再将打印相关...以此类推：
 
-<div align="center"> <img src="../pic/cppeffective-4-1.png"/> </div>
+<div align="center"> <img src="Effective_cpp.assets/cppeffective-4-1.png"/> </div>
 
 这正是C++标准库的组织方式。标准库并不是拥有单一、整体、庞大的<C++StandardLibrary>头文件并在其中内含std命名空间内的每一样东西，而是有数十个头文件（\<vector\>,\<algorithm\>,...），每个头文件声明std的某些机能。客户可以根据需要使用的机能选择性的包含头文件
 
 <br>
 
-## 条款24：若所有参数皆需类型转换，请为此采用non-member函数
+## 24：若所有参数皆需类型转换，请为此采用non-member函数
 
 为class支持隐式类型转换不是个好主意，但是在数值类型之间颇为合理。考虑有理数和内置整形之间的相乘运算。具有如下有理数：
 
@@ -679,19 +679,19 @@ result = 2 * oneHalf;                  // Error
 
 <br>
 
-## 条款25：考虑写出一个不抛出异常的swap函数
+## 25：考虑写出一个不抛出异常的swap函数
 
 ”以指针指向一个对象，内含真正数据“。这种设计的常见表现形式是所谓的”pimpl手法“。如下，WidgetImpl包含了Widget的真正数据，而Widget只包含一个WidgetImpl类型的指针，指向一个WidgetImpl对象。这种设计特点，决定了Widget的copying行为应该表现出一种”深拷贝“的行为：
 
-<div align="center"> <img src="../pic/cppeffective-4-2.png"/> </div>
+<div align="center"> <img src="Effective_cpp.assets/cppeffective-4-2.png"/> </div>
 
 因此，如果使用标准库的swap交换2个Widget对象，会引起WidgetImpl对象的拷贝，由于其内含有Widget的大量数据，因此效率可能十分低。实际上这种情况下，交换2个指针就可以了。为此，我们可能实现出下图右边中间的swap特化版来提升效率，但是由于其内直接访问Widget的private成员，因此无法通过编译。所以我们采用下图右下角的方案，在Widget类内实现一个public的swap函数，然后特化版的swap调用这个public的swap函数：
 
-<div align="center"> <img src="../pic/cppeffective-4-3.png"/> </div>
+<div align="center"> <img src="Effective_cpp.assets/cppeffective-4-3.png"/> </div>
 
 当问题更进一步发展时，即Widget和WidgetImpl为class template时，可能会将相同的思想迁移过来，实现出下图右边左上角的偏特化版本。但是问题是：**C++只允许偏特化class template，而不允许偏特化function template**。所以行不通，因此可以使用下图右下角的重载方式，但是**客户可以全特化std内的模板，但是不能添加新的模板到std内**，因此正确的做法是下图左下角
 
-<div align="center"> <img src="../pic/cppeffective-4-4.png"/> </div>
+<div align="center"> <img src="Effective_cpp.assets/cppeffective-4-4.png"/> </div>
 
 总结起来就是：
 
@@ -707,7 +707,7 @@ result = 2 * oneHalf;                  // Error
 
 # 五.实现
 
-## 条款26：尽可能延后变量定义式的出现时间
+## 26：尽可能延后变量定义式的出现时间
 
 只要定义了一个变量而其类型带有一个构造函数或析构函数，那么
 
@@ -718,7 +718,7 @@ result = 2 * oneHalf;                  // Error
 
 当考虑循环时，有下列2种情况：
 
-<div align="center"> <img src="../pic/cppeffective-5-1.png"/> </div>
+<div align="center"> <img src="Effective_cpp.assets/cppeffective-5-1.png"/> </div>
 
 2种写法的成本如下；
 
@@ -738,7 +738,7 @@ result = 2 * oneHalf;                  // Error
 
 <br>
 
-## 条款27：尽量少做转型动作
+## 27：尽量少做转型动作
 
 转型分类：
 
@@ -814,7 +814,7 @@ result = 2 * oneHalf;                  // Error
 
 <br>
 
-## 条款28：避免返回handles指向对象内部成分
+## 28：避免返回handles指向对象内部成分
 
 > References、指针和迭代器统统都是所谓的handles
 
@@ -832,7 +832,7 @@ result = 2 * oneHalf;                  // Error
 
 <br>
 
-## 条款29：为“异常安全”而努力是值得的
+## 29：为“异常安全”而努力是值得的
 
 考虑下面例子，有一个菜单类，changeBg函数可以改变它的背景，切换背景计数，同时提供线程安全：
 
@@ -924,7 +924,7 @@ copy and swap策略能够**为对象**提供异常安全的“强烈保证”。
 
 <br>
 
-## 条款30：透彻了解inlining的里里外外
+## 30：透彻了解inlining的里里外外
 
 **inline的优劣**：
 
@@ -992,7 +992,7 @@ Derived::Derived()
 
 <br>
 
-## 条款31：将文件间的编译依存关系将至最低
+## 31：将文件间的编译依存关系将至最低
 
 C++并没有把“将接口从实现中分离”这件事做得很好。例如：
 
@@ -1108,7 +1108,7 @@ shared_ptr<Person> p(Person::create("alice"));
 
 # 六.继承与面向对象设计
 
-## 条款32：确定你的public继承塑模出is-a关系
+## 32：确定你的public继承塑模出is-a关系
 
 **public隐含的寓意**：每个派生类对象同时也是一个基类对象(反之不成立)，只不过基类比派生类表现出更一般化的概念，派生类比基类表现出更特殊化的概念。
 
@@ -1143,31 +1143,31 @@ study(p);   //错误
 
 <br>
 
-## 条款33：避免遮掩继承而来的名称
+## 33：避免遮掩继承而来的名称
 
 ### 1）继承中的作用域嵌套
 
-<div align="center"> <img src="../pic/cppeffective-6-1.png"/> </div>
+<div align="center"> <img src="Effective_cpp.assets/cppeffective-6-1.png"/> </div>
 
 名字查找会从内层作用域向外层作用域延伸
 
 ### 2）名称遮掩会遮掩基类所有重载版本
 
-<div align="center"> <img src="../pic/cppeffective-6-2.png"/> </div>
+<div align="center"> <img src="Effective_cpp.assets/cppeffective-6-2.png"/> </div>
 
 派生类中同名的名称会遮掩基类中相同的名称，如果基类包含重载函数，所有重载函数都会被遮掩
 
 解决办法是使用using引入被遮掩的名字：
 
-<div align="center"> <img src="../pic/cppeffective-6-3.png"/> </div>
+<div align="center"> <img src="Effective_cpp.assets/cppeffective-6-3.png"/> </div>
 
 如果只想引入基类被遮掩函数中某个版本（注意，这种需求一般只在private继承中出现，因为如果只继承基类的部分操作，违背了[条款32](#条款32确定你的public继承塑模出is-a关系)），可以直接定义一个同名同参的函数，然后在这个函数内调用基类的版本，做一个转调用。这实际上称为一种实现技术(而不是引入)更为恰当：
 
-<div align="center"> <img src="../pic/cppeffective-6-4.png"/> </div>
+<div align="center"> <img src="Effective_cpp.assets/cppeffective-6-4.png"/> </div>
 
 <br>
 
-## 条款34：区分接口继承和实现继承
+## 34：区分接口继承和实现继承
 
 > 纯虚函数一般作为接口，基类一般不提供定义，但是基类可以为纯虚函数提供定义。派生类必须声明纯虚函数，如果想要使用纯虚函数，派生类必须提供一份定义，即使基类已经为该纯虚函数提供了定义。如果派生类不提供定义，仍然是一个抽象基类
 
@@ -1252,7 +1252,7 @@ public:
 
 <br>
 
-## 条款35：考虑virtual函数以外的其他选择
+## 35：考虑virtual函数以外的其他选择
 
 > 在面向对象中，如果希望某个操作存在缺省算法，并且各派生类可以定制适合自己的操作。可以使用public virtual函数，这是最简单直白且容易想到的方法，但是除此之外，也存在其它可替代的方案。它们有各自的优缺点，应该将所有方案全部列入考入
 
@@ -1344,7 +1344,7 @@ private:
 
 传统的Stategy模式做法会将健康计算函数做成一个分离的继承体系中的virtual成员函数，设计结果看起来像这样:
 
-<div align="center"> <img src="../pic/cppeffective-6-5.png"/> </div>
+<div align="center"> <img src="Effective_cpp.assets/cppeffective-6-5.png"/> </div>
 
 <br>
 
@@ -1377,7 +1377,7 @@ private:
 
 <br>
 
-## 条款36：绝不重新定义继承而来的non-virtual函数
+## 36：绝不重新定义继承而来的non-virtual函数
 
 从规范上说，[条款34](#条款34区分接口继承和实现继承)提到，如果某个操作在整个继承体系应该是不变的，那么使用non-virtual函数，此时派生类从基类继承接口以及一份强制实现。如果派生类希望表现出不同行为，那么应该使用virtual函数
 
@@ -1407,7 +1407,7 @@ pD->mf();       //调用D::mf
 
 <br>
 
-## 条款37：绝不重新定义继承而来的缺省参数值
+## 37：绝不重新定义继承而来的缺省参数值
 
 [条款36](#条款36绝不重新定义继承而来的non-virtual函数)论述了non-virtual函数不应该被重新定义，那么non-virtual函数中的参数也就不存在被重新定义的机会。因此这里主要针对的是virtual函数
 
@@ -1483,7 +1483,7 @@ private:
 };
 ```
 
-## 条款38：通过复合塑模出has-a或“根据某物实现出”
+## 38：通过复合塑模出has-a或“根据某物实现出”
 
 > 复合是类型间的一种关系，当某种类型的对象含有另一种类型的对象，便是这种关系
 
@@ -1518,7 +1518,7 @@ private:
 
 <br>
 
-## 条款39：明智而审慎地使用private继承
+## 39：明智而审慎地使用private继承
 
 **private继承和public继承的不同之处**：
 
@@ -1584,7 +1584,7 @@ private:
 
 <br>
 
-## 条款40：明智而审慎地使用多重继承
+## 40：明智而审慎地使用多重继承
 
 使用多继承时，一个问题是不同基类可能具有相同名称，产生歧义（即使一个名字可访问，另一个不可访问）
 
@@ -1592,14 +1592,14 @@ private:
 
 * 一般的多重继承
     - 如果某个基类到派生类之间存在多条路径，那么派生类会包含重复的基类成员
-    <div align="center"> <img src="../pic/cppeffective-6-6.png"/> </div>
+    <div align="center"> <img src="Effective_cpp.assets/cppeffective-6-6.png"/> </div>
 * 虚继承（此时基类是虚基类）
     - 如果某个基类到派生类之间存在多条路径，派生类只包含一份基类成员，但是这会带来额外开销
         + 为避免重复，编译器必须提供一些机制，后果就是virtual继承的那些classes所产生的对象往往比non-virtual继承的体积大，访问virtual base classes的成员变量时，速度也更慢
         + virtual base的初始化由继承体系中的最底层class负责，这会带来开销
             * classes若派生自virtual bases而需要初始化，必须认知其virtual bases——无论那些bases距离多远
             * 当一个新derived class加入继承体系中，它必须承担其virtual bases的初始化责任
-    <div align="center"> <img src="../pic/cppeffective-6-7.png"/> </div>
+    <div align="center"> <img src="Effective_cpp.assets/cppeffective-6-7.png"/> </div>
 
 如果你有一个单一继承的设计方案，而它大约等价于一个多重继承方案，那么单一继承设计方案几乎一定比较受欢迎。如果你唯一能够提出的设计方案涉及多重继承，你应该更努力想一想——几乎可以说一定会有某些方案让单一继承行得通。然而多重继承有时候是完成任务的最简洁、最易维护、最合理的做法，果真如此就别害怕使用它。只要确定，你的确是在明智而审慎的情况下使用它
 
@@ -1608,14 +1608,14 @@ private:
 
 # 七.模板与泛型编程
 
-## 条款41：了解隐式接口和编译器多态
+## 41：了解隐式接口和编译器多态
 
 面向对象设计中的类（class）考虑的是显式接口（explicit interface）和运行时多态， 而模板编程中的**模板（template）考虑的是隐式接口（implicit interface）和编译期多态**。
 
 * 对类而言，显式接口是由函数签名表征的，运行时多态由虚函数实现
 * 对模板而言，隐式接口是由表达式的合法性表征的，编译期多态由模板初始化和函数重载的解析实现
 
-## 条款42：了解typename的双重意义
+## 42：了解typename的双重意义
 
 以下代码中，typename和class等价：
 
@@ -1668,7 +1668,7 @@ typename相关规则在不同的编译器上有不同的实践。某些编译器
 
 <br>
 
-## 条款43：学习处理模板化基类内的名称
+## 43：学习处理模板化基类内的名称
 
 假设以下MsgSender类可以通过两种方式发送信息到各个公司：
 
@@ -1779,7 +1779,7 @@ public:
 
 <br>
 
-## 条款44：将与参数无关的代码抽离templates
+## 44：将与参数无关的代码抽离templates
 
 模板提供的是编译期的多态， 即使你的代码看起来非常简洁短小，生成的二进制文件也可能包含大量的冗余代码。 因为模板每次实例化都会生成一个完整的副本，所以其中与模板参数无关的部分会造成代码膨胀
 
@@ -1824,7 +1824,7 @@ public:
 
 <br>
 
-## 条款45：运用成员函数模板接受所有兼容类型
+## 45：运用成员函数模板接受所有兼容类型
 
 需要使用成员函数模板的一个例子是构造函数和copying赋值运算符。例如，假设SmartPtr是一种智能指针，并且它是一个template class。现在有一个继承体系：
 
@@ -1860,7 +1860,7 @@ private:
 
 <br>
 
-## 条款46：需要类型转换时请为模板定义非成员函数
+## 46：需要类型转换时请为模板定义非成员函数
 
 **template实参推导过程中从不将隐式类型转换函数纳入考虑**，下列将[条款24](#条款24若所有参数皆需类型转换请为此采用non-member函数)中的Rational和operator\*改成了template，混合运算会编译错误：
 
@@ -1925,7 +1925,7 @@ public:
 
 <br>
 
-## 条款47：请使用traits classes表现类型信息
+## 47：请使用traits classes表现类型信息
 
 * Traits classes使得“类型相关信息”在编译期可用。它们以templates和“templates特化”完成实现
 * 整合重载技术后，traits classes有可能在编译期对类型执行if...else测试
@@ -1934,7 +1934,7 @@ public:
 
 <br>
 
-## 条款48：认识template元编程
+## 48：认识template元编程
 
 * Template metaprogramming(TMP)是编写template-based C++程序并执行于编译期的过程
 * Template metaprogram(模板元程序)是以C++写成、执行于C++编译器内的程序
@@ -1986,7 +1986,7 @@ TMP能够达到以下目标（这部分可以等有实际需求了再去详细�
 * Arrays所用的内存由operator new\[\]分配出来，并由operator delete\[\]归还
 * STL容器使用的heap内存由容器所拥有的分配器对象管理
 
-## 条款49：了解new-handler的行为
+## 49：了解new-handler的行为
 
 operator new抛出异常以反映一个未获满足的内存需求之前，会先调用一个客户指定的错误处理函数，new-handler，可以通过调用```std::set_new_handler()```来设置，```std::set_new_handler()```定义在\<new\>中：
 
@@ -2073,7 +2073,7 @@ nothrow new只能保证所调用的nothrow版的operator new不抛出异常，�
 
 <br>
 
-## 条款50：了解new和delete的合理替换时机
+## 50：了解new和delete的合理替换时机
 
 一般出于下列原因可能想要替换编译器提供的operator new或operator delete：
 
@@ -2115,7 +2115,7 @@ void* operator new(std::size_t size) throw(std::bad_alloc) {
 
 <br>
 
-## 条款51：编写new和delete时需固守常规
+## 51：编写new和delete时需固守常规
 
 前一条款是解释什么时候会想实现自己的 operator new 和 operator delete，这个条款是解释当实现自己的 operator new 和 operator delete 时，必须遵守的规则
 
@@ -2204,7 +2204,7 @@ void* Base::operator delete(void* rawMemory,std::size_t size) throw()
 
 <br>
 
-## 条款52：写了placement new也要写placement delete
+## 52：写了placement new也要写placement delete
 
 placement new是带有额外参数的operator new，但是通常都指“接受一个指针指向对象该被构造之处”的operator new。这个版本被纳入了C++标准程序库，只要#include\<new>\就可以使用：
 
