@@ -106,28 +106,28 @@ int main()
 字符型分为`char`、`signed char`和`unsigned char`三种，但是表现形式只有带符号和无符号两种。类型`char`和`signed char`并不一样， `char`的具体形式由编译器（compiler）决定。
 
 如何选择算数类型：
-- <font color='red'>**当明确知晓数值不可能为负时，应该使用无符号类型。**</font>
+- **当明确知晓数值不可能为负时，应该使用无符号类型。**
 
-- <font color='red'>**使用`int`执行整数运算**</font>，如果数值超过了`int`的表示范围，应该使用`long long`类型。
+- **使用`int`执行整数运算**，如果数值超过了`int`的表示范围，应该使用`long long`类型。
 
-- 在算数表达式中不要使用`char`和`bool`类型。<font color='red'>**如果需要使用一个不大的整数，应该明确指定它的类型是`signed char`还是`unsigned char`。**</font>
+- 在算数表达式中不要使用`char`和`bool`类型。**如果需要使用一个不大的整数，应该明确指定它的类型是`signed char`还是`unsigned char`。**
 
-- 执行浮点数运算时<font color='red'>**建议使用`double`类型。**</font>
+- 执行浮点数运算时**建议使用`double`类型。**
 
 ### 类型转换（Type Conversions）
 
-进行类型转换时，类型所能表示的<font color='red'>**值的范围决定了转换的过程**</font>。
+进行类型转换时，类型所能表示的**值的范围决定了转换的过程**。
 
-- 把非布尔类型的算术值<font color='red'>**赋给布尔类型时**</font>，初始值为0则结果为`false`，否则结果为`true`。
-- 把布尔值<font color='red'>**赋给非布尔类型时**</font>，初始值为`false`则结果为0，初始值为`true`则结果为1。
+- 把非布尔类型的算术值**赋给布尔类型时**，初始值为0则结果为`false`，否则结果为`true`。
+- 把布尔值**赋给非布尔类型时**，初始值为`false`则结果为0，初始值为`true`则结果为1。
 - 把浮点数赋给整数类型时，进行近似处理，结果值仅保留浮点数中的整数部分。
 - 把整数值赋给浮点类型时，小数部分记为0。如果该整数所占的空间超过了浮点类型的容量，精度可能有损失。
-- <font color='red'>**赋给无符号类型一个超出它表示范围的值时**</font>，结果是初始值对无符号类型表示数值总数（8比特大小的`unsigned char`能表示的数值总数是256）<font color='red'>**取模后的余数。**</font>
-- 赋给<font color='red'>**带符号类型一个超出它表示范围的值时，结果是未定义的**</font>（undefined）。
+- **赋给无符号类型一个超出它表示范围的值时**，结果是初始值对无符号类型表示数值总数（8比特大小的`unsigned char`能表示的数值总数是256）**取模后的余数。**
+- 赋给**带符号类型一个超出它表示范围的值时，结果是未定义的**（undefined）。
 
-<font color='red'>**避免无法预知和依赖于实现环境的行为。**</font>
+**避免无法预知和依赖于实现环境的行为。**
 
-<font color='red'>**无符号数不会小于0**</font>这一事实关系到循环的写法。
+**无符号数不会小于0**这一事实关系到循环的写法。
 
 ```C++
 // WRONG: u can never be less than 0; the condition will always succeed
@@ -135,7 +135,7 @@ for (unsigned u = 10; u >= 0; --u)
     std::cout << u << std::endl;
 ```
 
-当*u*等于0时，*--u*的结果将会是4294967295。<font color='red'>**一种解决办法是用`while`语句来代替`for`语句，前者可以在输出变量前先减去1。**</font> 
+当*u*等于0时，*--u*的结果将会是4294967295。**一种解决办法是用`while`语句来代替`for`语句，前者可以在输出变量前先减去1。** 
 
 ```c++
 unsigned u = 11;    // start the loop one past the first element we want to print
@@ -146,7 +146,7 @@ while (u > 0)
 }
 ```
 
-<font color='red'>**不要混用带符号类型和无符号类型。**</font> 
+**不要混用带符号类型和无符号类型。** 
 
 ### 字面值常量（Literals） 
 
@@ -154,7 +154,7 @@ while (u > 0)
 
 整型字面值具体的数据类型由它的值和符号决定。
 
-C++14新增了单引号`'`形式的数字分隔符。<font color='red'>**数字分隔符不会影响数字的值，但可以通过分隔符将数字分组，使数值读写更容易。**</font>
+C++14新增了单引号`'`形式的数字分隔符。**数字分隔符不会影响数字的值，但可以通过分隔符将数字分组，使数值读写更容易。**
 
 ```c++
 // 按照书写形式，每3位分为一组
@@ -166,7 +166,7 @@ std::cout << 1'100'000; // 输出"1100000"
 
 由单引号括起来的一个字符称为`char`型字面值，双引号括起来的零个或多个字符称为字符串字面值。
 
-<font color='red'>**字符串字面值的类型是由常量字符构成的数组（array）**</font>。编译器在每个字符串的<font color='red'>**结尾处添加一个空字符**</font>`'\0'`，因此字符串字面值的实际长度要比它的内容多一位。 
+**字符串字面值的类型是由常量字符构成的数组（array）**。编译器在每个字符串的**结尾处添加一个空字符**`'\0'`，因此字符串字面值的实际长度要比它的内容多一位。 
 
 转义序列： 
 
@@ -196,11 +196,11 @@ std::cout << "Hi \x4dO\115!\n"; // prints Hi MOM! followed by a newline
 std::cout << '\115' << '\n';    // prints M followed by a newline
 ```
 
-<font color='red'>**添加特定的前缀和后缀**</font>，可以改变整型、浮点型和字符型字面值的默认类型。 
+**添加特定的前缀和后缀**，可以改变整型、浮点型和字符型字面值的默认类型。 
 
 ![2-2](CppPrimer.assets/2-2.png)
 
-使用一个长整型字面值时，最好使用<font color='red'>**大写字母**</font>`L`进行标记，小写字母`l`和数字`1`容易混淆。
+使用一个长整型字面值时，最好使用**大写字母**`L`进行标记，小写字母`l`和数字`1`容易混淆。
 
 ## 变量（Variables）
 
@@ -208,9 +208,9 @@ std::cout << '\115' << '\n';    // prints M followed by a newline
 
 变量定义的基本形式：类型说明符（type specifier）后紧跟由一个或多个变量名组成的列表，其中变量名以逗号分隔，最后以分号结束。定义时可以为一个或多个变量赋初始值（初始化，initialization）。
 
-初始化不等于赋值（assignment）。<font color='red'>**初始化的含义是创建变量时赋予其一个初始值**</font>，而<font color='red'>**赋值的含义是把对象的当前值擦除，再用一个新值来替代。**</font>
+初始化不等于赋值（assignment）。**初始化的含义是创建变量时赋予其一个初始值**，而**赋值的含义是把对象的当前值擦除，再用一个新值来替代。**
 
-<font color='red'>**用花括号初始化变量称为列表初始化**</font>（list initialization）。当用于内置类型的变量时，如果使用了列表初始化并<font color='red'>**且初始值存在丢失信息的风险**</font>，则编译器会报错。
+**用花括号初始化变量称为列表初始化**（list initialization）。当用于内置类型的变量时，如果使用了列表初始化并**且初始值存在丢失信息的风险**，则编译器会报错。
 
 ```c++
 long double ld = 3.1415926536;
@@ -220,19 +220,19 @@ int c(ld), d = ld;      // ok: but value will be truncated
 
 如果定义变量时未指定初值，则变量被默认初始化（default initialized）。
 
-对于<font color='red'>**内置类型，定义于任何函数体之外的变量被初始化为0，函数体内部的变量将不被初始化**</font>（uninitialized）。
+对于**内置类型，定义于任何函数体之外的变量被初始化为0，函数体内部的变量将不被初始化**（uninitialized）。
 
-定义于<font color='red'>**函数体内**</font>的内置类型对象如果<font color='red'>**没有初始化，则其值未定义**</font>，使用该类值是一种错误的编程行为且很难调试。类的对象如果没有显式初始化，则其值由类确定。
+定义于**函数体内**的内置类型对象如果**没有初始化，则其值未定义**，使用该类值是一种错误的编程行为且很难调试。类的对象如果没有显式初始化，则其值由类确定。
 
-<font color='red'>**建议初始化每一个内置类型的变量。**</font>
+**建议初始化每一个内置类型的变量。**
 
 ### 变量声明和定义的关系（Variable Declarations and Definitions）
 
-<font color='red'>**声明（declaration）使得名字为程序所知**</font>。一个文件如果想使用其他地方定义的名字，则必须先包含对那个名字的声明。
+**声明（declaration）使得名字为程序所知**。一个文件如果想使用其他地方定义的名字，则必须先包含对那个名字的声明。
 
-<font color='red'>**定义（definition）负责创建与名字相关联的实体**</font>。
+**定义（definition）负责创建与名字相关联的实体**。
 
-<font color='red'>**如果想声明一个变量而不定义它，就在变量名前添加关键字`extern`，并且不要显式地初始化变量。**</font>
+**如果想声明一个变量而不定义它，就在变量名前添加关键字`extern`，并且不要显式地初始化变量。**
 
 ```c++
 extern int i; // declares but does not define i
@@ -241,25 +241,25 @@ int j;      // declares and defines j
 
 `extern`语句如果包含了初始值就不再是声明了，而变成了定义。
 
-<font color='red'>**变量能且只能被定义一次，但是可以被声明多次。**</font>
+**变量能且只能被定义一次，但是可以被声明多次。**
 
-如果要在<font color='red'>**多个文件中使用同一个变量，就必须将声明和定义分开**</font>。此时变量的定义必须出现且只能出现在一个文件中，其他使用该变量的文件必须对其进行声明，但绝对不能重复定义。
+如果要在**多个文件中使用同一个变量，就必须将声明和定义分开**。此时变量的定义必须出现且只能出现在一个文件中，其他使用该变量的文件必须对其进行声明，但绝对不能重复定义。
 
 ### 标识符（Identifiers）
 
-C++的标识符由字母、数字和下划线组成，其中必须以字母或下划线开头。标识符的长度没有限制，但是对大小写字母敏感。C++为标准库保留了一些名字。用户自定义的标识符<font color='red'>**不能连续出现两个下划线**</font>，<font color='red'>**也不能以下划线紧连大写字母开头**</font>。此外，定义在函数体外的标识符不能以下划线开头。
+C++的标识符由字母、数字和下划线组成，其中必须以字母或下划线开头。标识符的长度没有限制，但是对大小写字母敏感。C++为标准库保留了一些名字。用户自定义的标识符**不能连续出现两个下划线**，**也不能以下划线紧连大写字母开头**。此外，定义在函数体外的标识符不能以下划线开头。
 
 ![2-3](CppPrimer.assets/2-3.png)
 
 ### 名字的作用域（Scope of a Name）
 
-<font color='red'>**定义在函数体之外的名字拥有全局作用域**</font>（global scope）。声明之后，该名字在整个程序范围内都可使用。
+**定义在函数体之外的名字拥有全局作用域**（global scope）。声明之后，该名字在整个程序范围内都可使用。
 
-<font color='red'>**最好在第一次使用变量时再去定义它。**</font>这样做更容易找到变量的定义位置，并且也可以赋给它一个比较合理的初始值。
+**最好在第一次使用变量时再去定义它。**这样做更容易找到变量的定义位置，并且也可以赋给它一个比较合理的初始值。
 
-作用域中一旦声明了某个名字，在它所嵌套着的所有作用域中都能访问该名字。同时，允许在内层作用域中重新定义外层作用域已有的名字，<font color='red'>**此时内层作用域中新定义的名字将屏蔽外层作用域的名字**</font>。
+作用域中一旦声明了某个名字，在它所嵌套着的所有作用域中都能访问该名字。同时，允许在内层作用域中重新定义外层作用域已有的名字，**此时内层作用域中新定义的名字将屏蔽外层作用域的名字**。
 
-可以用作用域操作符`::`来覆盖默认的作用域规则。因为全局作用域本身并没有名字，<font color='red'>**所以当作用域操作符的左侧为空时，会向全局作用域发出请求获取作用域操作符右侧名字对应的变量。**</font>
+可以用作用域操作符`::`来覆盖默认的作用域规则。因为全局作用域本身并没有名字，**所以当作用域操作符的左侧为空时，会向全局作用域发出请求获取作用域操作符右侧名字对应的变量。**
 
 ```c++
 #include <iostream>
@@ -294,49 +294,49 @@ int &refVal = ival; // refVal refers to (is another name for) ival
 int &refVal2;       // error: a reference must be initialized
 ```
 
-<font color='red'>**定义引用时，程序把引用和它的初始值绑定（bind）在一起**</font>，而不是将初始值拷贝给引用。一旦初始化完成，将无法再令引用重新绑定到另一个对象，因此引用必须初始化。
+**定义引用时，程序把引用和它的初始值绑定（bind）在一起**，而不是将初始值拷贝给引用。一旦初始化完成，将无法再令引用重新绑定到另一个对象，因此引用必须初始化。
 
-<font color='red'>**引用不是对象**</font>，它只是为一个已经存在的对象<font color='red'>**所起的另外一个名字**</font>。
+**引用不是对象**，它只是为一个已经存在的对象**所起的另外一个名字**。
 
 声明语句中引用的类型实际上被用于指定它所绑定的对象类型。大部分情况下，引用的类型要和与之绑定的对象严格匹配。
 
-<font color='red'>**引用只能绑定在对象上**</font>，不能与字面值或某个表达式的计算结果绑定在一起。
+**引用只能绑定在对象上**，不能与字面值或某个表达式的计算结果绑定在一起。
 
 ### 指针（Pointer）
 
-与引用类似，<font color='red'>**指针也实现了对其他对象的间接访问。**</font>
+与引用类似，**指针也实现了对其他对象的间接访问。**
 
-- <font color='red'>**指针本身就是一个对象，允许对指针赋值和拷贝**</font>，而且在生命周期内它可以先后指向不同的对象。
-- <font color='red'>**指针无须在定义时赋初值。**</font>和其他内置类型一样，在块作用域内定义的指针如果没有被初始化，也将拥有一个不确定的值。
+- **指针本身就是一个对象，允许对指针赋值和拷贝**，而且在生命周期内它可以先后指向不同的对象。
+- **指针无须在定义时赋初值。**和其他内置类型一样，在块作用域内定义的指针如果没有被初始化，也将拥有一个不确定的值。
 
-通过将声明符写成`*d`的形式来定义指针类型，其中*d*是变量名称。<font color='red'>**如果在一条语句中定义了多个指针变量，则每个量前都必须有符号`*`。**</font>
+通过将声明符写成`*d`的形式来定义指针类型，其中*d*是变量名称。**如果在一条语句中定义了多个指针变量，则每个量前都必须有符号`*`。**
 
 ```c++
 int *ip1, *ip2;     // both ip1 and ip2 are pointers to int
 double dp, *dp2;    // dp2 is a pointer to double; dp is a double
 ```
 
-<font color='red'>**指针存放某个对象的地址**</font>，要想获取对象的地址，需要使用<font color='red'>**取地址符`&`**</font>。 
+**指针存放某个对象的地址**，要想获取对象的地址，需要使用**取地址符`&`**。 
 
 ```c++
 int ival = 42;
 int *p = &ival; // p holds the address of ival; p is a pointer to ival
 ```
 
-<font color='red'>**因为引用不是对象**</font>，没有实际地址，所以<font color='red'>**不能定义指向引用的指针。**</font>
+**因为引用不是对象**，没有实际地址，所以**不能定义指向引用的指针。**
 
 声明语句中指针的类型实际上被用于指定它所指向的对象类型。大部分情况下，指针的类型要和它指向的对象严格匹配。
 
 指针的值（即地址）应属于下列状态之一：
 
-- <font color='red'>**指向一个对象**</font>。
-- 指向紧邻对象所占空间的<font color='red'>**下一个位置**</font>。
-- <font color='red'>**空指针**</font>，即指针没有指向任何对象。
-- <font color='red'>**无效指针**</font>，即上述情况之外的其他值。
+- **指向一个对象**。
+- 指向紧邻对象所占空间的**下一个位置**。
+- **空指针**，即指针没有指向任何对象。
+- **无效指针**，即上述情况之外的其他值。
 
-试图拷贝或以其他方式访问<font color='red'>**无效指针的值都会引发错误**</font>。
+试图拷贝或以其他方式访问**无效指针的值都会引发错误**。
 
-如果<font color='red'>**指针指向一个对象**</font>，可以使用解引用（dereference）符`*`来访问该对象。
+如果**指针指向一个对象**，可以使用解引用（dereference）符`*`来访问该对象。
 
 ```c++
 int ival = 42;
@@ -344,11 +344,11 @@ int *p = &ival; // p holds the address of ival; p is a pointer to ival
 cout << *p;     // * yields the object to which p points; prints 42
 ```
 
-<font color='red'>**给解引用的结果赋值就是给指针所指向的对象赋值。**</font>
+**给解引用的结果赋值就是给指针所指向的对象赋值。**
 
-<font color='red'>**解引用操作仅适用于那些确实指向了某个对象的有效指针。**</font>
+**解引用操作仅适用于那些确实指向了某个对象的有效指针。**
 
-空指针（null pointer）不指向任何对象，在试图使用一个指针前代码可以先检查它是否为空。得到空指针<font color='red'>**最直接的办法是用字面值`nullptr`来初始化指针**</font>。
+空指针（null pointer）不指向任何对象，在试图使用一个指针前代码可以先检查它是否为空。得到空指针**最直接的办法是用字面值`nullptr`来初始化指针**。
 
 旧版本程序通常使用`NULL`（预处理变量，定义于头文件*cstdlib*中，值为0）给指针赋值，但在C++11中，最好使用`nullptr`初始化空指针。
 
@@ -361,11 +361,11 @@ int *p3 = NULL;     // equivalent to int *p3 = 0;
 
 建议初始化所有指针。
 
-<font color='red'>**`void*`是一种特殊的指针类型，可以存放任意对象的地址，但不能直接操作`void*`指针所指的对象。**</font>
+**`void*`是一种特殊的指针类型，可以存放任意对象的地址，但不能直接操作`void*`指针所指的对象。**
 
 ### 理解复合类型的声明（Understanding Compound Type Declarations）
 
-<font color='red'>**指向指针的指针**</font>（Pointers to Pointers）：
+**指向指针的指针**（Pointers to Pointers）：
 
 ```c++
 int ival = 1024;
@@ -375,7 +375,7 @@ int **ppi = &pi;    // ppi points to a pointer to an int
 
 ![2-4](CppPrimer.assets/2-4.png)
 
-<font color='red'>**指向指针的引用**</font>（References to Pointers）：
+**指向指针的引用**（References to Pointers）：
 
 ```C++
 int i = 42;
@@ -385,24 +385,24 @@ r = &i;         // r refers to a pointer; assigning &i to r makes p point to i
 *r = 0;         // dereferencing r yields i, the object to which p points; changes i to 0
 ```
 
-面对一条比较复杂的指针或引用的声明语句时，<font color='red'>**从右向左阅读有助于弄清它的真实含义。 **</font>
+面对一条比较复杂的指针或引用的声明语句时，**从右向左阅读有助于弄清它的真实含义。 **
 
 ## const限定符（Const Qualifier）
 
-在变量类型前添加关键字`const`可以创建值不能被改变的对象。<font color='red'>**`const`变量必须被初始化。**</font>
+在变量类型前添加关键字`const`可以创建值不能被改变的对象。**`const`变量必须被初始化。**
 
 ```c++
 const int bufSize = 512;    // input buffer size
 bufSize = 512;      // error: attempt to write to const object
 ```
 
-<font color='red'>**默认情况下，`const`对象被设定成仅在文件内有效。**</font>当多个文件中出现了同名的`const`变量时，其实等同于在不同文件中分别定义了独立的变量。
+**默认情况下，`const`对象被设定成仅在文件内有效。**当多个文件中出现了同名的`const`变量时，其实等同于在不同文件中分别定义了独立的变量。
 
-如果想在<font color='red'>**多个文件间共享`const`对象**</font>：
+如果想在**多个文件间共享`const`对象**：
 
-- 若`const`对象的值在编译时已经确定，则应该<font color='red'>**定义在头文件中**</font>。其他源文件包含该头文件时，不会产生重复定义错误。
+- 若`const`对象的值在编译时已经确定，则应该**定义在头文件中**。其他源文件包含该头文件时，不会产生重复定义错误。
 
-- <font color='red'>**若`const`对象的值直到运行时才能确定，则应该在头文件中声明，在源文件中定义。**</font>此时`const`变量的声明和定义前都应该添加`extern`关键字。
+- **若`const`对象的值直到运行时才能确定，则应该在头文件中声明，在源文件中定义。**此时`const`变量的声明和定义前都应该添加`extern`关键字。
 
   ```c++
   // file_1.cc defines and initializes a const that is accessible to other files
@@ -413,7 +413,7 @@ bufSize = 512;      // error: attempt to write to const object
 
 ### const的引用（References to const）
 
-把引用绑定在`const`对象上即为对常量的引用（reference to const）。<font color='red'>**对常量的引用不能被用作修改它所绑定的对象。**</font>
+把引用绑定在`const`对象上即为对常量的引用（reference to const）。**对常量的引用不能被用作修改它所绑定的对象。**
 
 ```c++
 const int ci = 1024;
@@ -424,7 +424,7 @@ int &r2 = ci;   // error: non const reference to a const object
 
 大部分情况下，引用的类型要和与之绑定的对象严格匹配。但是有两个例外：
 
-- <font color='red'>**初始化常量引用时允许用任意表达式作为初始值**</font>，只要该表达式的结果能转换成引用的类型即可。
+- **初始化常量引用时允许用任意表达式作为初始值**，只要该表达式的结果能转换成引用的类型即可。
 
   ```c++
   int i = 42;
@@ -434,7 +434,7 @@ int &r2 = ci;   // error: non const reference to a const object
   int &r4 = r * 2;        // error: r4 is a plain, non const reference
   ```
 
-- <font color='red'>**允许为一个常量引用绑定非常量的对象、字面值或者一般表达式。**</font>
+- **允许为一个常量引用绑定非常量的对象、字面值或者一般表达式。**
 
   ```c++
   double dval = 3.14;
@@ -443,7 +443,7 @@ int &r2 = ci;   // error: non const reference to a const object
 
 ### 指针和const（Pointers and const）
 
-<font color='red'>**指向常量的指针（pointer to const）不能用于修改其所指向的对象。常量对象的地址只能使用指向常量的指针来存放，但是指向常量的指针可以指向一个非常量对象。**</font>
+**指向常量的指针（pointer to const）不能用于修改其所指向的对象。常量对象的地址只能使用指向常量的指针来存放，但是指向常量的指针可以指向一个非常量对象。**
 
 ```c++
 const double pi = 3.14;     // pi is const; its value may not be changed
@@ -454,7 +454,7 @@ double dval = 3.14; // dval is a double; its value can be changed
 cptr = &dval;       // ok: but can't change dval through cptr
 ```
 
-定义语句中把`*`放在`const`之前用来说明<font color='red'>**指针本身是一个常量**</font>，常量指针（const pointer）<font color='red'>**必须初始化**</font>。
+定义语句中把`*`放在`const`之前用来说明**指针本身是一个常量**，常量指针（const pointer）**必须初始化**。
 
 ```c++
 int errNumb = 0;
@@ -463,11 +463,11 @@ const double pi = 3.14159;
 const double *const pip = &pi;  // pip is a const pointer to a const object
 ```
 
-<font color='red'>**指针本身是常量并不代表不能通过指针修改其所指向的对象的值**</font>，能否这样做完全依赖于其指向对象的类型。 
+**指针本身是常量并不代表不能通过指针修改其所指向的对象的值**，能否这样做完全依赖于其指向对象的类型。 
 
 ### 顶层const（Top-Level const）
 
-<font color='red'>**顶层`const`表示指针本身是个常量，底层`const`（low-level const）表示指针所指的对象是一个常量。**</font>指针类型既可以是顶层`const`也可以是底层`const`。
+**顶层`const`表示指针本身是个常量，底层`const`（low-level const）表示指针所指的对象是一个常量。**指针类型既可以是顶层`const`也可以是底层`const`。
 
 ```c++
 int i = 0;
@@ -478,16 +478,16 @@ const int *const p3 = p2; // right-most const is top-level, left-most is not
 const int &r = ci;      // const in reference types is always low-level
 ```
 
-<font color='red'>**当执行拷贝操作时**</font>，常量是顶层`const`还是底层`const`区别明显：
+**当执行拷贝操作时**，常量是顶层`const`还是底层`const`区别明显：
 
-- <font color='red'>**顶层`const`没有影响。**</font>拷贝操作不会改变被拷贝对象的值，因此拷入和拷出的对象是否是常量无关紧要。
+- **顶层`const`没有影响。**拷贝操作不会改变被拷贝对象的值，因此拷入和拷出的对象是否是常量无关紧要。
 
   ```c++
   i = ci;     // ok: copying the value of ci; top-level const in ci is ignored
   p2 = p3;    // ok: pointed-to type matches; top-level const in p3 is ignored
   ```
 
-- <font color='red'>**拷入和拷出的对象必须具有相同的底层`const`资格。**</font>或者两个对象的数据类型可以相互转换。一般来说，<font color='red'>**非常量可以转换成常量**</font>，反之则不行。
+- **拷入和拷出的对象必须具有相同的底层`const`资格。**或者两个对象的数据类型可以相互转换。一般来说，**非常量可以转换成常量**，反之则不行。
 
   ```c++
   int *p = p3;    // error: p3 has a low-level const but p doesn't
@@ -499,9 +499,9 @@ const int &r = ci;      // const in reference types is always low-level
 
 ### constexpr和常量表达式（constexpr and Constant Expressions）
 
-<font color='red'>**常量表达式**</font>（constant expressions）<font color='red'>**指值不会改变并且在编译过程就能得到计算结果的表达式。**</font>
+**常量表达式**（constant expressions）**指值不会改变并且在编译过程就能得到计算结果的表达式。**
 
-一个对象是否为常量表达式由它的<font color='red'>**数据类型和初始值共同决定**</font>。
+一个对象是否为常量表达式由它的**数据类型和初始值共同决定**。
 
 ```c++
 const int max_files = 20;           // max_files is a constant expression
@@ -510,7 +510,7 @@ int staff_size = 27;        // staff_size is not a constant expression
 const int sz = get_size();  // sz is not a constant expression
 ```
 
-C++11允许将变量声明为`constexpr`类型以便由编译器来<font color='red'>**验证变量的值是否是一个常量表达式**</font>。
+C++11允许将变量声明为`constexpr`类型以便由编译器来**验证变量的值是否是一个常量表达式**。
 
 ```c++
 constexpr int mf = 20;          // 20 is a constant expression
@@ -518,11 +518,11 @@ constexpr int limit = mf + 1;   // mf + 1 is a constant expression
 constexpr int sz = size();      // ok only if size is a constexpr function
 ```
 
-指针和引用都能定义成`constexpr`，但是初始值受到严格限制。<font color='red'>**`constexpr`指针的初始值必须是0、`nullptr`或者是存储在某个固定地址中的对象。**</font>
+指针和引用都能定义成`constexpr`，但是初始值受到严格限制。**`constexpr`指针的初始值必须是0、`nullptr`或者是存储在某个固定地址中的对象。**
 
-函数体内定义的普通变量一般并非存放在固定地址中，因此`constexpr`指针不能指向这样的变量。相反，<font color='red'>**函数体外定义的变量地址固定不变**</font>，可以用来初始化`constexpr`指针。
+函数体内定义的普通变量一般并非存放在固定地址中，因此`constexpr`指针不能指向这样的变量。相反，**函数体外定义的变量地址固定不变**，可以用来初始化`constexpr`指针。
 
-在`constexpr`声明中如果定义了一个指针，限定符`constexpr`仅对指针本身有效，与指针所指的对象无关。<font color='red'>**`constexpr`把它所定义的对象置为了顶层`const`**</font>。
+在`constexpr`声明中如果定义了一个指针，限定符`constexpr`仅对指针本身有效，与指针所指的对象无关。**`constexpr`把它所定义的对象置为了顶层`const`**。
 
 ```c++
 constexpr int *p = nullptr;     // p是指向int的const指针
@@ -530,22 +530,22 @@ constexpr int i = 0;
 constexpr const int *cp = &i;   // cp是指向const int的const指针
 ```
 
-<font color='red'>**`const`和`constexpr`限定的值都是常量。但`constexpr`对象的值必须在编译期间确定，而`const`对象的值可以延迟到运行期间确定**</font>。
+**`const`和`constexpr`限定的值都是常量。但`constexpr`对象的值必须在编译期间确定，而`const`对象的值可以延迟到运行期间确定**。
 
-<font color='red'>**建议使用`constexpr`修饰表示数组大小的对象**</font>，因为数组的大小必须在编译期间确定且不能改变。
+**建议使用`constexpr`修饰表示数组大小的对象**，因为数组的大小必须在编译期间确定且不能改变。
 
 ## 处理类型（Dealing with Types）
 
 ### 类型别名（Type Aliases）
 
-类型别名是某种类型的同义词，传统方法是使用<font color='red'>**关键字`typedef`定义类型别名。**</font>
+类型别名是某种类型的同义词，传统方法是使用**关键字`typedef`定义类型别名。**
 
 ```c++
 typedef double wages;   // wages is a synonym for double
 typedef wages base, *p; // base is a synonym for double, p for double*
 ```
 
-C++11使用<font color='red'>**关键字`using`进行别名声明**</font>（alias declaration），作用是把等号左侧的名字规定成等号右侧类型的别名。
+C++11使用**关键字`using`进行别名声明**（alias declaration），作用是把等号左侧的名字规定成等号右侧类型的别名。
 
 ```c++
 using SI = Sales_item; // SI is a synonym for Sales_item
@@ -553,23 +553,23 @@ using SI = Sales_item; // SI is a synonym for Sales_item
 
 ### auto类型说明符（The auto Type Specifier）
 
-C++11新增`auto`类型说明符，能让编译器自动分析表达式所属的类型。<font color='red'>**`auto`定义的变量必须有初始值。**</font>
+C++11新增`auto`类型说明符，能让编译器自动分析表达式所属的类型。**`auto`定义的变量必须有初始值。**
 
 ```c++
 // the type of item is deduced from the type of the result of adding val1 and val2
 auto item = val1 + val2;    // item initialized to the result of val1 + val2
 ```
 
-编译器推断出来的<font color='red'>**`auto`类型有时和初始值的类型并不完全一样。**</font>
+编译器推断出来的**`auto`类型有时和初始值的类型并不完全一样。**
 
-- <font color='red'>**当引用被用作初始值时，编译器以引用对象的类型作为`auto`的类型。**</font>
+- **当引用被用作初始值时，编译器以引用对象的类型作为`auto`的类型。**
 
   ```c++
   int i = 0, &r = i;
   auto a = r;     // a is an int (r is an alias for i, which has type int)
   ```
 
-- <font color='red'>**`auto`一般会忽略顶层`const`。 **</font>
+- **`auto`一般会忽略顶层`const`。 **
 
   ```c++
   const int ci = i, &cr = ci;
@@ -579,7 +579,7 @@ auto item = val1 + val2;    // item initialized to the result of val1 + val2
   auto e = &ci;   // e is const int*(& of a const object is low-level const)
   ```
 
-  如果<font color='red'>**希望推断出的`auto`类型是一个顶层`const`，需要显式指定`const auto`**</font>。
+  如果**希望推断出的`auto`类型是一个顶层`const`，需要显式指定`const auto`**。
 
   ```C++
   const auto f = ci;  // deduced type of ci is int; f has type const int
@@ -596,13 +596,13 @@ const auto &j = 42;     // ok: we can bind a const reference to a literal
 
 ### decltype类型指示符（The decltype Type Specifier）
 
-C++11新增`decltype`类型指示符，<font color='red'>**作用是选择并返回操作数的数据类型**</font>，此过程中编译器不实际计算表达式的值。
+C++11新增`decltype`类型指示符，**作用是选择并返回操作数的数据类型**，此过程中编译器不实际计算表达式的值。
 
 ```c++
 decltype(f()) sum = x;  // sum has whatever type f returns
 ```
 
-`decltype`处理顶层`const`和引用的方式与`auto`有些不同，<font color='red'>**如果`decltype`使用的表达式是一个变量，则`decltype`返回该变量的类型（包括顶层`const`和引用）。**</font>
+`decltype`处理顶层`const`和引用的方式与`auto`有些不同，**如果`decltype`使用的表达式是一个变量，则`decltype`返回该变量的类型（包括顶层`const`和引用）。**
 
 ```c++
 const int ci = 0, &cj = ci;
@@ -613,15 +613,15 @@ decltype(cj) z;     // error: z is a reference and must be initialized
 
 如果`decltype`使用的表达式不是一个变量，则`decltype`返回表达式结果对应的类型。如果表达式的内容是解引用操作，则`decltype`将得到引用类型。如果`decltype`使用的是一个不加括号的变量，则得到的结果就是该变量的类型；如果给变量加上了一层或多层括号，则`decltype`会得到引用类型，因为变量是一种可以作为赋值语句左值的特殊表达式。
 
-<font color='red'>**`decltype((var))`的结果永远是引用，而`decltype(var)`的结果只有当*var*本身是一个引用时才会是引用。**</font>
+**`decltype((var))`的结果永远是引用，而`decltype(var)`的结果只有当*var*本身是一个引用时才会是引用。**
 
 ## 自定义数据结构（Defining Our Own Data Structures）
 
 C++11规定可以为类的数据成员（data member）提供一个类内初始值（in-class initializer）。创建对象时，类内初始值将用于初始化数据成员，没有初始值的成员将被默认初始化。
 
-<font color='red'>**类内初始值不能使用圆括号。**</font>
+**类内初始值不能使用圆括号。**
 
-<font color='red'>**类定义的最后应该加上分号。**</font>
+**类定义的最后应该加上分号。**
 
 
 
@@ -644,11 +644,11 @@ struct Sales_data
 
 在高级版本的IDE环境中，可以直接使用`#pragma once`命令来防止头文件的重复包含。
 
-<font color='red'>**预处理变量无视C++语言中关于作用域的规则。**</font>
+**预处理变量无视C++语言中关于作用域的规则。**
 
 整个程序中的预处理变量，包括头文件保护符必须唯一。预处理变量的名字一般均为大写。
 
-<font color='red'>**头文件即使目前还没有被包含在任何其他头文件中，也应该设置保护符。**</font>  
+**头文件即使目前还没有被包含在任何其他头文件中，也应该设置保护符。**  
 # 第3章 字符串、向量和数组
 
 ## 命名空间的using声明（Namespace using Declarations）
@@ -665,7 +665,7 @@ using std::cout;
 
 ## 标准库类型string（Library string Type）
 
-<font color='red'>**标准库类型`string`表示可变长的字符序列**</font>，定义在头文件*string*中。 
+**标准库类型`string`表示可变长的字符序列**，定义在头文件*string*中。 
 
 ### 定义和初始化string对象（Defining and Initializing strings）
 
@@ -673,7 +673,7 @@ using std::cout;
 
 ![3-1](CppPrimer.assets/3-1.png)
 
-<font color='red'>**如果使用等号初始化一个变量，实际上执行的是拷贝初始化**</font>（copy initialization），编译器把等号右侧的初始值拷贝到新创建的对象中去。<font color='red'>**如果不使用等号，则执行的是直接初始化**</font>（direct initializati<font color='red'>****</font>on）。 
+**如果使用等号初始化一个变量，实际上执行的是拷贝初始化**（copy initialization），编译器把等号右侧的初始值拷贝到新创建的对象中去。**如果不使用等号，则执行的是直接初始化**（direct initializati****on）。 
 
 ### string对象上的操作（Operations on strings）
 
@@ -683,13 +683,13 @@ using std::cout;
 
 在执行读取操作时，`string`对象会自动忽略开头的空白（空格符、换行符、制表符等）并从第一个真正的字符开始读取，直到遇见下一处空白为止。
 
-使用`getline`函数可以读取一整行字符。<font color='red'>**该函数只要遇到换行符就结束读取并返回结果，如果输入的开始就是一个换行符，则得到空`string`。**</font>触发`getline`函数返回的那个换行符实际上被丢弃掉了，得到的`string`对象中并不包含该换行符。
+使用`getline`函数可以读取一整行字符。**该函数只要遇到换行符就结束读取并返回结果，如果输入的开始就是一个换行符，则得到空`string`。**触发`getline`函数返回的那个换行符实际上被丢弃掉了，得到的`string`对象中并不包含该换行符。
 
 `size`函数返回`string`对象的长度，返回值是`string::size_type`类型，这是一种无符号类型。要使用`size_type`，必须先指定它是由哪种类型定义的。
 
-<font color='red'>**如果一个表达式中已经有了`size`函数就不要再使用`int`了，**</font>这样可以避免混用`int`和`unsigned int`可能带来的问题。
+**如果一个表达式中已经有了`size`函数就不要再使用`int`了，**这样可以避免混用`int`和`unsigned int`可能带来的问题。
 
-当把`string`对象和字符字面值及字符串字面值混合在一条语句中使用时，<font color='red'>**必须确保每个加法运算符两侧的运算对象中至少有一个是`string`。**</font>
+当把`string`对象和字符字面值及字符串字面值混合在一条语句中使用时，**必须确保每个加法运算符两侧的运算对象中至少有一个是`string`。**
 
 ```c++
 string s4 = s1 + ", ";          // ok: adding a string and a literal
@@ -697,7 +697,7 @@ string s5 = "hello" + ", ";     // error: no string operand
 string s6 = s1 + ", " + "world";    // ok: each + has a string operand
 ```
 
-<font color='red'>**为了与C兼容，C++语言中的字符串字面值并不是标准库`string`的对象。**</font> 
+**为了与C兼容，C++语言中的字符串字面值并不是标准库`string`的对象。** 
 
 ### 处理string对象中的字符（Dealing with the Characters in a string）
 
@@ -705,7 +705,7 @@ string s6 = s1 + ", " + "world";    // ok: each + has a string operand
 
 ![3-3](CppPrimer.assets/3-3.png)
 
-<font color='red'>**建议使用C++版本的C标准库头文件。**</font>C语言中名称为*name.h*的头文件，在C++中则被命名为*cname*。
+**建议使用C++版本的C标准库头文件。**C语言中名称为*name.h*的头文件，在C++中则被命名为*cname*。
 
 C++11提供了范围`for`（range for）语句，可以遍历给定序列中的每个元素并执行某种操作。
 
@@ -714,7 +714,7 @@ for (declaration : expression)
     statement
 ```
 
-*expression*部分是一个对象，用于表示一个序列。*declaration*部分负责定义一个变量，该变量被用于访问序列中的基础元素。<font color='red'>**每次迭代，*declaration*部分的变量都会被初始化为*expression*部分的下一个元素值。**</font>
+*expression*部分是一个对象，用于表示一个序列。*declaration*部分负责定义一个变量，该变量被用于访问序列中的基础元素。**每次迭代，*declaration*部分的变量都会被初始化为*expression*部分的下一个元素值。**
 
 ```c++
 string str("some string");
@@ -723,19 +723,19 @@ for (auto c : str)      // for every char in str
     cout << c << endl;  // print the current character followed by a newline
 ```
 
-如果想在范围`for`语句中<font color='red'>**改变**</font>`string`对象中字符的值，必须把<font color='red'>**循环变量定义成引用类型**</font>。
+如果想在范围`for`语句中**改变**`string`对象中字符的值，必须把**循环变量定义成引用类型**。
 
 下标运算符接收的输入参数是`string::size_type`类型的值，表示要访问字符的位置，返回值是该位置上字符的引用。
 
-下标数值从0记起，范围是0至*size - 1*。<font color='red'>**使用超出范围的下标将引发不可预知的后果。**</font>
+下标数值从0记起，范围是0至*size - 1*。**使用超出范围的下标将引发不可预知的后果。**
 
-C++标准并不要求标准库检测下标是否合法。编程时可以把<font color='red'>**下标的类型定义为相应的**</font>`size_type`，这是一种无符号数，可以确保下标不会小于0，此时代码只需要保证下标小于`size`的值就可以了。<font color='red'>**另一种确保下标合法的有效手段就是使用范围`for`语句。**</font>
+C++标准并不要求标准库检测下标是否合法。编程时可以把**下标的类型定义为相应的**`size_type`，这是一种无符号数，可以确保下标不会小于0，此时代码只需要保证下标小于`size`的值就可以了。**另一种确保下标合法的有效手段就是使用范围`for`语句。**
 
 ## 标准库类型vector（Library vector Type）
 
 标准库类型`vector`表示对象的集合，也叫做容器（container），定义在头文件*vector*中。`vector`中所有对象的类型都相同，每个对象都有一个索引与之对应并用于访问该对象。
 
-`vector`<font color='red'>**是模板（template）而非类型**</font>，由`vector`生成的类型必须包含`vector`中元素的类型，如`vector<int>`。
+`vector`**是模板（template）而非类型**，由`vector`生成的类型必须包含`vector`中元素的类型，如`vector<int>`。
 
 因为引用不是对象，所以不存在包含引用的`vector`。
 
@@ -747,7 +747,7 @@ C++标准并不要求标准库检测下标是否合法。编程时可以把<font
 
 ![3-4](CppPrimer.assets/3-4.png)
 
-<font color='red'>**初始化`vector`对象时如果使用圆括号，可以说提供的值是用来构造（construct）`vector`对象的；如果使用的是花括号，则是在列表初始化（list initialize）该`vector`对象。**</font>
+**初始化`vector`对象时如果使用圆括号，可以说提供的值是用来构造（construct）`vector`对象的；如果使用的是花括号，则是在列表初始化（list initialize）该`vector`对象。**
 
 可以只提供`vector`对象容纳的元素数量而省略初始值，此时会创建一个值初始化（value-initialized）的元素初值，并把它赋给容器中的所有元素。这个初值由`vector`对象中的元素类型决定。
 
@@ -762,7 +762,7 @@ for (int i = 0; i != 100; ++i)
 // at end of loop v2 has 100 elements, values 0 . . . 99
 ```
 
-<font color='red'>**范围`for`语句体内不应该改变其所遍历序列的大小。**</font>
+**范围`for`语句体内不应该改变其所遍历序列的大小。**
 
 ### 其他vector操作（Other vector Operations）
 
@@ -770,14 +770,14 @@ for (int i = 0; i != 100; ++i)
 
 ![3-5](CppPrimer.assets/3-5.png)
 
-`size`函数返回`vector`对象中元素的个数，返回值是由`vector`定义的`size_type`类型。<font color='red'>**`vector`对象的类型包含其中元素的类型。**</font> 
+`size`函数返回`vector`对象中元素的个数，返回值是由`vector`定义的`size_type`类型。**`vector`对象的类型包含其中元素的类型。** 
 
 ```c++
 vector<int>::size_type  // ok
 vector::size_type       // error
 ```
 
-<font color='red'>**`vector`和`string`对象的下标运算符只能用来访问已经存在的元素，而不能用来添加元素。 **</font>
+**`vector`和`string`对象的下标运算符只能用来访问已经存在的元素，而不能用来添加元素。 **
 
 ```c++
 vector<int> ivec;   // empty vector
@@ -790,7 +790,7 @@ for (decltype(ivec.size()) ix = 0; ix != 10; ++ix)
 
 ## 迭代器介绍（Introducing Iterators）
 
-迭代器的作用和下标类似，但是更加通用。<font color='red'>**所有标准库容器都可以使用迭代器**</font>，但是其中只有少数几种同时支持下标运算符。
+迭代器的作用和下标类似，但是更加通用。**所有标准库容器都可以使用迭代器**，但是其中只有少数几种同时支持下标运算符。
 
 ### 使用迭代器（Using Iterators）
 
@@ -801,19 +801,19 @@ for (decltype(ivec.size()) ix = 0; ix != 10; ++ix)
 auto b = ivec.begin(), e = ivec.end();    // b and e have the same type
 ```
 
-<font color='red'>**如果容器为空**</font>，则`begin`和`end`返回的是<font color='red'>**同一个迭代器，都是尾后迭代器。**</font>
+**如果容器为空**，则`begin`和`end`返回的是**同一个迭代器，都是尾后迭代器。**
 
 标准容器迭代器的运算符：
 
 ![3-6](CppPrimer.assets/3-6.png)
 
-<font color='red'>**因为`end`返回的迭代器**</font>并不实际指向某个元素，<font color='red'>**所以不能对其进行递增或者解引用的操作**</font>。
+**因为`end`返回的迭代器**并不实际指向某个元素，**所以不能对其进行递增或者解引用的操作**。
 
-在`for`或者其他循环语句的判断条件中，最好使用`!=`而不是`<`。<font color='red'>**所有标准库容器的迭代器都定义了`==`和`!=`，**</font>但是只有其中少数同时定义了`<`运算符。
+在`for`或者其他循环语句的判断条件中，最好使用`!=`而不是`<`。**所有标准库容器的迭代器都定义了`==`和`!=`，**但是只有其中少数同时定义了`<`运算符。
 
-<font color='red'>**如果`vector`或`string`对象是常量，则只能使用`const_iterator`迭代器，该迭代器只能读元素，不能写元素。**</font>
+**如果`vector`或`string`对象是常量，则只能使用`const_iterator`迭代器，该迭代器只能读元素，不能写元素。**
 
-<font color='red'>**`begin`和`end`返回的迭代器具体类型由对象是否是常量决定**</font>，如果对象是常量，则返回`const_iterator`；如果对象不是常量，则返回`iterator`。
+**`begin`和`end`返回的迭代器具体类型由对象是否是常量决定**，如果对象是常量，则返回`const_iterator`；如果对象不是常量，则返回`iterator`。
 
 ```c++
 vector<int> v;
@@ -822,9 +822,9 @@ auto it1 = v.begin();   // it1 has type vector<int>::iterator
 auto it2 = cv.begin();  // it2 has type vector<int>::const_iterator
 ```
 
-<font color='red'>**C++11新增了`cbegin`和`cend`函数**</font>，不论`vector`或`string`对象是否为常量，都返回`const_iterator`迭代器。 
+**C++11新增了`cbegin`和`cend`函数**，不论`vector`或`string`对象是否为常量，都返回`const_iterator`迭代器。 
 
-<font color='red'>**任何可能改变容器对象容量的操作，都会使该对象的迭代器失效。**</font> 
+**任何可能改变容器对象容量的操作，都会使该对象的迭代器失效。** 
 
 ### 迭代器运算（Iterator Arithmetic）
 
@@ -832,7 +832,7 @@ auto it2 = cv.begin();  // it2 has type vector<int>::const_iterator
 
 ![3-7](CppPrimer.assets/3-7.png)
 
-`difference_type`类型用来表示<font color='red'>**两个迭代器间的距离，这是一种带符号整数类型。**</font> 
+`difference_type`类型用来表示**两个迭代器间的距离，这是一种带符号整数类型。** 
 
 ## 数组（Arrays）
 
@@ -844,9 +844,9 @@ auto it2 = cv.begin();  // it2 has type vector<int>::const_iterator
 
 数组是一种复合类型，声明形式为`a[d]`，其中*a*是数组名称，*d*是数组维度（dimension）。维度必须是一个常量表达式。
 
-<font color='red'>**默认情况下，数组的元素被默认初始化。**</font>
+**默认情况下，数组的元素被默认初始化。**
 
-<font color='red'>**定义数组的时候必须指定数组的类型，不允许用`auto`关键字由初始值列表推断类型。**</font>
+**定义数组的时候必须指定数组的类型，不允许用`auto`关键字由初始值列表推断类型。**
 
 如果定义数组时提供了元素的初始化列表，则允许省略数组维度，编译器会根据初始值的数量计算维度。但如果显式指明了维度，那么初始值的数量不能超过指定的大小。如果维度比初始值的数量大，则用提供的值初始化数组中靠前的元素，剩下的元素被默认初始化。
 
@@ -859,7 +859,7 @@ string a4[3] = {"hi", "bye"};   // same as a4[] = {"hi", "bye", ""}
 int a5[2] = {0,1,2};    // error: too many initializers
 ```
 
-<font color='red'>**可以用字符串字面值初始化字符数组，但字符串字面值结尾处的空字符也会一起被拷贝到字符数组中。 **</font>
+**可以用字符串字面值初始化字符数组，但字符串字面值结尾处的空字符也会一起被拷贝到字符数组中。 **
 
 ```c++
 char a1[] = {'C', '+', '+'};        // list initialization, no null
@@ -868,9 +868,9 @@ char a3[] = "C++";      // null terminator added automatically
 const char a4[6] = "Daniel";    // error: no space for the null!
 ```
 
-<font color='red'>**不能用一个数组初始化或直接赋值给另一个数组。**</font>
+**不能用一个数组初始化或直接赋值给另一个数组。**
 
-从数组的名字开始<font color='red'>**由内向外阅读**</font>有助于理解复杂数组声明的含义。
+从数组的名字开始**由内向外阅读**有助于理解复杂数组声明的含义。
 
 ```c++
 int *ptrs[10];              // ptrs is an array of ten pointers to int
@@ -881,13 +881,13 @@ int (&arrRef)[10] = arr;    // arrRef refers to an array of ten ints
 
 ### 访问数组元素（Accessing the Elements of an Array）
 
-数组下标通常被定义成`size_t`类型，这是一种机器相关的无符号类型，可以表示内存中任意对象的大小。<font color='red'>**`size_t`定义在头文件*cstddef*中**</font>。
+数组下标通常被定义成`size_t`类型，这是一种机器相关的无符号类型，可以表示内存中任意对象的大小。**`size_t`定义在头文件*cstddef*中**。
 
-<font color='red'>**大多数常见的安全问题都源于缓冲区溢出错误。**</font>当数组或其他类似数据结构的下标越界并试图访问非法内存区域时，就会产生此类错误。
+**大多数常见的安全问题都源于缓冲区溢出错误。**当数组或其他类似数据结构的下标越界并试图访问非法内存区域时，就会产生此类错误。
 
 ### 指针和数组（Pointers and Arrays）
 
-<font color='red'>**在大多数表达式中，使用数组类型的对象其实是在使用一个指向该数组首元素的指针。**</font>
+**在大多数表达式中，使用数组类型的对象其实是在使用一个指向该数组首元素的指针。**
 
 ```c++
 string nums[] = {"one", "two", "three"};    // array of strings
@@ -899,7 +899,7 @@ string *p2 = nums;      // equivalent to p2 = &nums[0]
 
 ![3-8](CppPrimer.assets/3-8.png)
 
-<font color='red'>**当使用数组作为一个`auto`变量的初始值时，推断得到的类型是指针而非数组。但`decltype`关键字不会发生这种转换，直接返回数组类型。 **</font>
+**当使用数组作为一个`auto`变量的初始值时，推断得到的类型是指针而非数组。但`decltype`关键字不会发生这种转换，直接返回数组类型。 **
 
 ```c++
 int ia[] = {0,1,2,3,4,5,6,7,8,9};   // ia is an array of ten ints
@@ -922,28 +922,28 @@ int *last = end(ia);    // pointer one past the last element in ia
 
 两个指针相减的结果类型是`ptrdiff_t`，这是一种定义在头文件*cstddef*中的带符号类型。
 
-<font color='red'>**标准库类型限定使用的下标必须是无符号类型，而内置的下标运算无此要求。**</font>
+**标准库类型限定使用的下标必须是无符号类型，而内置的下标运算无此要求。**
 
 ### C风格字符串（C-Style Character Strings）
 
 C风格字符串是将字符串存放在字符数组中，并以空字符结束（null terminated）。这不是一种类型，而是一种为了表达和使用字符串而形成的书写方法。
 
-C++标准支持C风格字符串，但是最好不要在C++程序中使用它们。<font color='red'>**对大多数程序来说，使用标准库`string`要比使用C风格字符串更加安全和高效。**</font>
+C++标准支持C风格字符串，但是最好不要在C++程序中使用它们。**对大多数程序来说，使用标准库`string`要比使用C风格字符串更加安全和高效。**
 
 C风格字符串的函数：
 
 ![3-9](CppPrimer.assets/3-9.png)
 
-C风格字符串函数不负责验证其参数的正确性，<font color='red'>**传入此类函数的指针必须指向以空字符作为结尾的数组。**</font>
+C风格字符串函数不负责验证其参数的正确性，**传入此类函数的指针必须指向以空字符作为结尾的数组。**
 
 ### 与旧代码的接口（Interfacing to Older Code）
 
-<font color='red'>**任何出现字符串字面值的地方都可以用以空字符结束的字符数组来代替：
-**</font>
-- 允许使用以<font color='red'>**空字符结束的字符数组**</font>来初始化`string`对象或为`string`对象赋值。
-- 在`string`对象的<font color='red'>**加法运算中**</font>，允许使用以空字符结束的字符数组作为其中一个运算对象（不能两个运算对象都是）。
-- <font color='red'>**在`string`对象的复合赋值运算中，允许使用以空字符结束的字符数组作为右侧运算对象。
-**</font>
+**任何出现字符串字面值的地方都可以用以空字符结束的字符数组来代替：
+**
+- 允许使用以**空字符结束的字符数组**来初始化`string`对象或为`string`对象赋值。
+- 在`string`对象的**加法运算中**，允许使用以空字符结束的字符数组作为其中一个运算对象（不能两个运算对象都是）。
+- **在`string`对象的复合赋值运算中，允许使用以空字符结束的字符数组作为右侧运算对象。
+**
 不能用`string`对象直接初始化指向字符的指针。为了实现该功能，`string`提供了一个名为`c_str`的成员函数，返回`const char*`类型的指针，指向一个以空字符结束的字符数组，数组的数据和`string`对象一样。
 
 ```c++
@@ -952,17 +952,17 @@ char *str = s;  // error: can't initialize a char* from a string
 const char *str = s.c_str();    // ok
 ```
 
-<font color='red'>**针对`string`对象的后续操作有可能会让`c_str`函数之前返回的数组失去作用，如果程序想一直都能使用其返回的数组，最好将该数组重新拷贝一份。**</font>
+**针对`string`对象的后续操作有可能会让`c_str`函数之前返回的数组失去作用，如果程序想一直都能使用其返回的数组，最好将该数组重新拷贝一份。**
 
-<font color='red'>**可以使用数组来初始化`vector`对象，但是需要指明要拷贝区域的首元素地址和尾后地址。
-**</font>
+**可以使用数组来初始化`vector`对象，但是需要指明要拷贝区域的首元素地址和尾后地址。
+**
 ```c++
 int int_arr[] = {0, 1, 2, 3, 4, 5};
 // ivec has six elements; each is a copy of the corresponding element in int_arr
 vector<int> ivec(begin(int_arr), end(int_arr));
 ```
 
-<font color='red'>**在新版本的C++程序中应该尽量使用`vector`、`string`和迭代器**</font>，避免使用内置数组、C风格字符串和指针。 
+**在新版本的C++程序中应该尽量使用`vector`、`string`和迭代器**，避免使用内置数组、C风格字符串和指针。 
 
 ## 多维数组（Multidimensional Arrays）
 
@@ -985,7 +985,7 @@ int ic[3][4] = {{ 0 }, { 4 }, { 8 }};
 int id[3][4] = {0, 3, 6, 9};
 ```
 
-<font color='red'>**可以使用下标访问多维数组的元素，数组的每个维度对应一个下标运算符。如果表达式中下标运算符的数量和数组维度一样多，则表达式的结果是给定类型的元素。如果下标运算符数量比数组维度小，则表达式的结果是给定索引处的一个内层数组。 **</font>
+**可以使用下标访问多维数组的元素，数组的每个维度对应一个下标运算符。如果表达式中下标运算符的数量和数组维度一样多，则表达式的结果是给定类型的元素。如果下标运算符数量比数组维度小，则表达式的结果是给定索引处的一个内层数组。 **
 
 ```c++
 // assigns the first element of arr to the last element in the last row of ia
@@ -997,7 +997,7 @@ int (&row)[4] = ia[1];  // binds row to the second four-element array in ia
 
 ![3-10](CppPrimer.assets/3-10.png)
 
-<font color='red'>**使用范围`for`语句处理多维数组时，为了避免数组被自动转换成指针，语句中的外层循环控制变量必须声明成引用类型。 **</font>
+**使用范围`for`语句处理多维数组时，为了避免数组被自动转换成指针，语句中的外层循环控制变量必须声明成引用类型。 **
 
 ```c++
 for (const auto &row : ia)  // for every element in the outer array
@@ -1012,7 +1012,7 @@ for (auto row : ia)
     for (auto col : row)
 ```
 
-<font color='red'>**使用范围`for`语句处理多维数组时，除了最内层的循环，其他所有外层循环的控制变量都应该定义成引用类型。**</font>
+**使用范围`for`语句处理多维数组时，除了最内层的循环，其他所有外层循环的控制变量都应该定义成引用类型。**
 
 因为多维数组实际上是数组的数组，所以由多维数组名称转换得到的指针指向第一个内层数组。
 
@@ -1022,7 +1022,7 @@ int (*p)[4] = ia;   // p points to an array of four ints
 p = &ia[2];         // p now points to the last element in ia
 ```
 
-<font color='red'>**声明指向数组类型的指针时，必须带有圆括号。**</font> 
+**声明指向数组类型的指针时，必须带有圆括号。** 
 
 ```c++
 int *ip[4];     // array of pointers to int
@@ -1050,20 +1050,20 @@ for (auto p = ia; p != ia + 3; ++p)
 
 ### 基础概念（Basic Concepts）
 
-C++定义了一元运算符（unary operator）和二元运算符（binary operator）。除此之外，还有一个作用于三个运算对象的三元运算符。<font color='red'>**函数调用也是一种特殊的运算符，它对运算对象的数量没有限制。**</font>
+C++定义了一元运算符（unary operator）和二元运算符（binary operator）。除此之外，还有一个作用于三个运算对象的三元运算符。**函数调用也是一种特殊的运算符，它对运算对象的数量没有限制。**
 
-表达式求值过程中，<font color='red'>**小整数类型（如`bool`、`char`、`short`等）通常会被提升（promoted）为较大的整数类型，主要是`int`。**</font>
+表达式求值过程中，**小整数类型（如`bool`、`char`、`short`等）通常会被提升（promoted）为较大的整数类型，主要是`int`。**
 
-<font color='red'>**C++定义了运算符作用于内置类型和复合类型的运算对象时所执行的操作。当运算符作用于类类型的运算对象时，用户可以自定义其含义，这被称作运算符重载（overloaded operator）**</font>。
+**C++定义了运算符作用于内置类型和复合类型的运算对象时所执行的操作。当运算符作用于类类型的运算对象时，用户可以自定义其含义，这被称作运算符重载（overloaded operator）**。
 
-C++的表达式分为右值（rvalue）和左值（lvalue）。<font color='red'>**当一个对象被用作右值的时候，用的是对象的值（内容）；当对象被用作左值时，用的是对象的地址。**</font>需要右值的地方可以用左值代替，反之则不行。
+C++的表达式分为右值（rvalue）和左值（lvalue）。**当一个对象被用作右值的时候，用的是对象的值（内容）；当对象被用作左值时，用的是对象的地址。**需要右值的地方可以用左值代替，反之则不行。
 
-- <font color='red'>**赋值运算符需要一个非常量左值作为其左侧运算对象，返回结果也是一个左值。**</font>
-- <font color='red'>**取地址符作用于左值运算对象，返回指向该运算对象的指针，该指针是一个右值。**</font>
-- <font color='red'>**内置解引用运算符、下标运算符、迭代器解引用运算符、`string`和`vector`的下标运算符都返回左值。**</font>
-- <font color='red'>**内置类型和迭代器的递增递减运算符作用于左值运算对象。前置版本返回左值，后置版本返回右值。**</font>
+- **赋值运算符需要一个非常量左值作为其左侧运算对象，返回结果也是一个左值。**
+- **取地址符作用于左值运算对象，返回指向该运算对象的指针，该指针是一个右值。**
+- **内置解引用运算符、下标运算符、迭代器解引用运算符、`string`和`vector`的下标运算符都返回左值。**
+- **内置类型和迭代器的递增递减运算符作用于左值运算对象。前置版本返回左值，后置版本返回右值。**
 
-<font color='red'>**如果`decltype`作用于一个求值结果是左值的表达式，会得到引用类型。**</font>
+**如果`decltype`作用于一个求值结果是左值的表达式，会得到引用类型。**
 
 ### 优先级与结合律（Precedence and Associativity）
 
@@ -1073,7 +1073,7 @@ C++的表达式分为右值（rvalue）和左值（lvalue）。<font color='red'
 
 ### 求值顺序（Order of Evaluation）
 
-<font color='red'>**对于那些没有指定执行顺序的运算符来说，如果表达式指向并修改了同一个对象，将会引发错误并产生未定义的行为。**</font>
+**对于那些没有指定执行顺序的运算符来说，如果表达式指向并修改了同一个对象，将会引发错误并产生未定义的行为。**
 
 ```c++
 int i = 0;
@@ -1082,8 +1082,8 @@ cout << i << " " << ++i << endl;    // undefined
 
 处理复合表达式时建议遵循以下两点：
 
-- <font color='red'>**不确定求值顺序时，使用括号来强制让表达式的组合关系符合程序逻辑的要求。**</font>
-- <font color='red'>**如果表达式改变了某个运算对象的值，则在表达式的其他位置不要再使用这个运算对象。**</font>
+- **不确定求值顺序时，使用括号来强制让表达式的组合关系符合程序逻辑的要求。**
+- **如果表达式改变了某个运算对象的值，则在表达式的其他位置不要再使用这个运算对象。**
 
 当改变运算对象的子表达式本身就是另一个子表达式的运算对象时，第二条规则无效。如`*++iter`，递增运算符改变了*iter*的值，而改变后的*iter*又是解引用运算符的运算对象。类似情况下，求值的顺序不会成为问题。
 
@@ -1093,7 +1093,7 @@ cout << i << " " << ++i << endl;    // undefined
 
 ![4-1](CppPrimer.assets/4-1.png)
 
-<font color='red'>**在除法运算中，C++语言的早期版本允许结果为负数的商向上或向下取整，C++11新标准则规定商一律向0取整（即直接去除小数部分）**</font>。
+**在除法运算中，C++语言的早期版本允许结果为负数的商向上或向下取整，C++11新标准则规定商一律向0取整（即直接去除小数部分）**。
 
 ## 逻辑和关系运算符（Logical and Relational Operators）
 
@@ -1101,7 +1101,7 @@ cout << i << " " << ++i << endl;    // undefined
 
 ![4-2](CppPrimer.assets/4-2.png)
 
-逻辑与（logical AND）运算符`&&`和逻辑或（logical OR）运算符`||`都是先计算左侧运算对象的值再计算右侧运算对象的值，当且仅当左侧运算对象无法确定表达式的结果时才会去计算右侧运算对象的值。<font color='red'>**这种策略称为短路求值**</font>（short-circuit evaluation）。
+逻辑与（logical AND）运算符`&&`和逻辑或（logical OR）运算符`||`都是先计算左侧运算对象的值再计算右侧运算对象的值，当且仅当左侧运算对象无法确定表达式的结果时才会去计算右侧运算对象的值。**这种策略称为短路求值**（short-circuit evaluation）。
 
 - 对于逻辑与运算符来说，当且仅当左侧运算对象为真时才对右侧运算对象求值。
 - 对于逻辑或运算符来说，当且仅当左侧运算对象为假时才对右侧运算对象求值。
@@ -1112,7 +1112,7 @@ cout << i << " " << ++i << endl;    // undefined
 
 赋值运算符`=`的左侧运算对象必须是一个可修改的左值。
 
-C++11新标准允许使用花括号括起来的<font color='red'>**初始值列表作为赋值语句的右侧运算对象。**</font>
+C++11新标准允许使用花括号括起来的**初始值列表作为赋值语句的右侧运算对象。**
 
 ```c++
 vector<int> vi;     // initially empty
@@ -1126,7 +1126,7 @@ int ival, jval;
 ival = jval = 0;    // ok: each assigned 0
 ```
 
-<font color='red'>**因为赋值运算符的优先级低于关系运算符的优先级**</font>，所以在条件语句中，<font color='red'>**赋值部分通常应该加上括号。**</font>
+**因为赋值运算符的优先级低于关系运算符的优先级**，所以在条件语句中，**赋值部分通常应该加上括号。**
 
 不要混淆相等运算符`==`和赋值运算符`=`。
 
@@ -1138,8 +1138,8 @@ ival = jval = 0;    // ok: each assigned 0
 
 递增和递减运算符分为前置版本和后置版本：
 
-- <font color='red'>**前置版本**</font>首先将运算对象加1（或减1），然后将改变后的对象作为求值结果。
-- <font color='red'>**后置版本**</font>也会将运算对象加1（或减1），但求值结果是运算<font color='red'>**对象改变前的值的副本**</font>。
+- **前置版本**首先将运算对象加1（或减1），然后将改变后的对象作为求值结果。
+- **后置版本**也会将运算对象加1（或减1），但求值结果是运算**对象改变前的值的副本**。
 
 ```c++
 int i = 0, j;
@@ -1147,9 +1147,9 @@ j = ++i;    // j = 1, i = 1: prefix yields the incremented value
 j = i++;    // j = 1, i = 2: postfix yields the unincremented value
 ```
 
-除非必须，否则不应该使用递增或递减运算符的后置版本。后置版本需要将原始值存储下来以便于返回修改前的内容，如果我们不需要这个值，<font color='red'>**那么后置版本的操作就是一种浪费**</font>。
+除非必须，否则不应该使用递增或递减运算符的后置版本。后置版本需要将原始值存储下来以便于返回修改前的内容，如果我们不需要这个值，**那么后置版本的操作就是一种浪费**。
 
-在某些语句中<font color='red'>**混用解引用和递增运算符**</font>可以使程序更简洁。
+在某些语句中**混用解引用和递增运算符**可以使程序更简洁。
 
 ```c++
 cout << *iter++ << endl;
@@ -1180,7 +1180,7 @@ cond ? expr1 : expr2;
 
 条件运算符可以嵌套，但是考虑到代码的可读性，运算的嵌套层数最好不要超过两到三层。
 
-<font color='red'>**条件运算符的优先级非常低，因此当一个长表达式中嵌套了条件运算子表达式时，通常需要在它两端加上括号**</font>。
+**条件运算符的优先级非常低，因此当一个长表达式中嵌套了条件运算子表达式时，通常需要在它两端加上括号**。
 
 ## 位运算符（The Bitwise Operators）
 
@@ -1188,9 +1188,9 @@ cond ? expr1 : expr2;
 
 ![4-3](CppPrimer.assets/4-3.png)
 
-在位运算中符号位如何处理并没有明确的规定，<font color='red'>**所以建议仅将位运算符用于无符号类型的处理。**</font>
+在位运算中符号位如何处理并没有明确的规定，**所以建议仅将位运算符用于无符号类型的处理。**
 
-<font color='red'>**左移运算符`<<`在运算对象右侧插入值为0的二进制位。右移运算符`>>`的行为依赖于其左侧运算对象的类型：如果该运算对象是无符号类型，在其左侧插入值为0的二进制位；如果是带符号类型，在其左侧插入符号位的副本或者值为0的二进制位，如何选择视具体环境而定。**</font>
+**左移运算符`<<`在运算对象右侧插入值为0的二进制位。右移运算符`>>`的行为依赖于其左侧运算对象的类型：如果该运算对象是无符号类型，在其左侧插入值为0的二进制位；如果是带符号类型，在其左侧插入符号位的副本或者值为0的二进制位，如何选择视具体环境而定。**
 
 ## sizeof运算符（The sizeof Operator）
 
@@ -1199,14 +1199,14 @@ cond ? expr1 : expr2;
 在`sizeof`的运算对象中解引用一个无效指针仍然是一种安全的行为，因为指针实际上并没有被真正使用。
 
 `sizeof`运算符的结果部分依赖于其作用的类型：
-<font color='red'>**
+**
 - 对`char`或者类型为`char`的表达式执行`sizeof`运算，返回值为1。
 - 对引用类型执行`sizeof`运算得到被引用对象所占空间的大小。
 - 对指针执行`sizeof`运算得到指针本身所占空间的大小。
 - 对解引用指针执行`sizeof`运算得到指针指向的对象所占空间的大小，指针不需要有效。
 - 对数组执行`sizeof`运算得到整个数组所占空间的大小。
 - 对`string`或`vector`对象执行`sizeof`运算只返回该类型固定部分的大小，不会计算对象中元素所占空间的大小。
-**</font>
+**
 ## 逗号运算符（Comma Operator）
 
 逗号运算符`,`含有两个运算对象，按照从左向右的顺序依次求值，最后返回右侧表达式的值。逗号运算符经常用在`for`循环中。
@@ -1230,13 +1230,13 @@ for(vector<int>::size_type ix = 0; ix != ivec.size(); ++ix, --cnt)
 
 ### 其他隐式类型转换（Other Implicit Conversions）
 
-<font color='red'>**在大多数表达式中，数组名字自动转换成指向数组首元素的指针。**</font>
+**在大多数表达式中，数组名字自动转换成指向数组首元素的指针。**
 
-<font color='red'>**常量整数值0或字面值`nullptr`能转换成任意指针类型；指向任意非常量的指针能转换成`void*`；指向任意对象的指针能转换成`const void*`**</font>。
+**常量整数值0或字面值`nullptr`能转换成任意指针类型；指向任意非常量的指针能转换成`void*`；指向任意对象的指针能转换成`const void*`**。
 
-<font color='red'>**任意一种算术类型或指针类型都能转换成布尔类型。**</font>如果指针或算术类型的值为0，转换结果是`false`，否则是`true`。
+**任意一种算术类型或指针类型都能转换成布尔类型。**如果指针或算术类型的值为0，转换结果是`false`，否则是`true`。
 
-<font color='red'>**指向非常量类型的指针能转换成指向相应的常量类型的指针。**</font>
+**指向非常量类型的指针能转换成指向相应的常量类型的指针。**
 
 ### 显式转换（Explicit Conversions）
 
@@ -1247,15 +1247,15 @@ for(vector<int>::size_type ix = 0; ix != ivec.size(); ++ix, --cnt)
 ```c++
 cast-name<type>(expression);
 ```
-<font color='red'>****</font>
-<font color='red'>**其中*type*是转换的目标类型，*expression*是要转换的值。**</font>如果*type*是引用类型，则转换结果是左值。*cast-name*是`static_cast`、`dynamic_cast`、`const_cast`和`reinterpret_cast`中的一种，用来指定转换的方式。
+****
+**其中*type*是转换的目标类型，*expression*是要转换的值。**如果*type*是引用类型，则转换结果是左值。*cast-name*是`static_cast`、`dynamic_cast`、`const_cast`和`reinterpret_cast`中的一种，用来指定转换的方式。
 
 - `dynamic_cast`支持运行时类型识别。
-- 任何具有明确定义的类型转换，<font color='red'>**只要不包含底层`const`，都能使用`static_cast`**</font>。
-- `const_cast`只能改变运算对象的底层`const`，不能改变表达式的类型。同时也只有`const_cast`能改变表达式的常量属性。<font color='red'>**`const_cast`常常用于函数重载**</font>。
+- 任何具有明确定义的类型转换，**只要不包含底层`const`，都能使用`static_cast`**。
+- `const_cast`只能改变运算对象的底层`const`，不能改变表达式的类型。同时也只有`const_cast`能改变表达式的常量属性。**`const_cast`常常用于函数重载**。
 - `reinterpret_cast`通常为运算对象的。
 
-<font color='red'>**早期版本的C++语言中，显式类型转换包含两种形式：**</font> 
+**早期版本的C++语言中，显式类型转换包含两种形式：** 
 
 ```c++
 type (expression);    // function-style cast notation
@@ -1273,7 +1273,7 @@ while (cin >> s && s != sought)
     ;   // null statement
 ```
 
-<font color='red'>**使用空语句时应该加上注释，从而令读这段代码的人知道该语句是有意省略的。**</font>
+**使用空语句时应该加上注释，从而令读这段代码的人知道该语句是有意省略的。**
 
 多余的空语句并非总是无害的。
 
@@ -1283,11 +1283,11 @@ while (iter != svec.end()) ;    // the while body is the empty statement
     ++iter;     // increment is not part of the loop
 ```
 
-<font color='red'>**复合语句（compound statement）是指用花括号括起来的（可能为空）语句和声明的序列。**</font>复合语句也叫做块（block），一个块就是一个作用域。在块中引入的名字只能在块内部以及嵌套在块中的子块里访问。通常，名字在有限的区域内可见，该区域从名字定义处开始，到名字所在（最内层）块的结尾处为止。
+**复合语句（compound statement）是指用花括号括起来的（可能为空）语句和声明的序列。**复合语句也叫做块（block），一个块就是一个作用域。在块中引入的名字只能在块内部以及嵌套在块中的子块里访问。通常，名字在有限的区域内可见，该区域从名字定义处开始，到名字所在（最内层）块的结尾处为止。
 
 语句块不以分号作为结束。
 
-<font color='red'>**空块的作用等价于空语句。**</font>
+**空块的作用等价于空语句。**
 
 ## 语句作用域（Statement Scope）
 
@@ -1319,7 +1319,7 @@ else
     statement2
 ```
 
-其中*condition*是判断条件，可以是一个表达式或者初始化了的变量声明。<font color='red'>***condition*必须用圆括号括起来**</font>。
+其中*condition*是判断条件，可以是一个表达式或者初始化了的变量声明。***condition*必须用圆括号括起来**。
 
 - 如果*condition*为真，则执行*statement*。执行完成后，程序继续执行`if`语句后面的其他语句。
 - 如果*condition*为假，则跳过*statement*。对于简单`if`语句来说，程序直接执行`if`语句后面的其他语句；对于`if-else`语句来说，程序先执行*statement2*，再执行`if`语句后面的其他语句。
@@ -1332,7 +1332,7 @@ else
 
 ![5-1](CppPrimer.assets/5-1.png)
 
-`switch`语句先对括号里的表达式求值，值转换成整数类型后再与每个`case`标签（case label）的值进行比较。如果表达式的值和某个`case`标签匹配，程序从该标签之后的第一条语句开始执行，<font color='red'>**直到到达`switch`的结尾或者遇到`break`语句为止。**</font>`case`标签必须是整型常量表达式。
+`switch`语句先对括号里的表达式求值，值转换成整数类型后再与每个`case`标签（case label）的值进行比较。如果表达式的值和某个`case`标签匹配，程序从该标签之后的第一条语句开始执行，**直到到达`switch`的结尾或者遇到`break`语句为止。**`case`标签必须是整型常量表达式。
 
 通常情况下每个`case`分支后都有`break`语句。如果确实不应该出现`break`语句，最好写一段注释说明程序的逻辑。
 
@@ -1340,9 +1340,9 @@ else
 
 `switch`语句中可以添加一个`default`标签（default label），如果没有任何一个`case`标签能匹配上`switch`表达式的值，程序将执行`default`标签后的语句。
 
-<font color='red'>**即使不准备在`default`标签下做任何操作，程序中也应该定义一个`default`标签。其目的在于告诉他人我们已经考虑到了默认情况，只是目前不需要实际操作。**</font>
+**即使不准备在`default`标签下做任何操作，程序中也应该定义一个`default`标签。其目的在于告诉他人我们已经考虑到了默认情况，只是目前不需要实际操作。**
 
-不允许跨过变量的初始化语句直接跳转到该变量作用域内的另一个位置。<font color='red'>**如果需要为`switch`的某个`case`分支定义并初始化一个变量，则应该把变量定义在块内。**</font>
+不允许跨过变量的初始化语句直接跳转到该变量作用域内的另一个位置。**如果需要为`switch`的某个`case`分支定义并初始化一个变量，则应该把变量定义在块内。**
 
 ```c++
 case true:
@@ -1416,7 +1416,7 @@ while (condition);
 
 ### break语句（The break Statement）
 
-<font color='red'>**`break`语句只能出现在迭代语句或者`switch`语句的内部，负责终止离它最近的`while`、`do-while`、`for`或者`switch`语句，并从这些语句之后的第一条语句开始执行。**</font>
+**`break`语句只能出现在迭代语句或者`switch`语句的内部，负责终止离它最近的`while`、`do-while`、`for`或者`switch`语句，并从这些语句之后的第一条语句开始执行。**
 
 ```c++
 string buf;
@@ -1474,7 +1474,7 @@ goto label;
 
 ## try语句块和异常处理（try Blocks and Exception Handling）
 
-<font color='red'>**异常（exception）是指程序运行时的反常行为，这些行为超出了函数正常功能的范围。当程序的某一部分检测到一个它无法处理的问题时，需要使用异常处理（exception handling）。**</font>
+**异常（exception）是指程序运行时的反常行为，这些行为超出了函数正常功能的范围。当程序的某一部分检测到一个它无法处理的问题时，需要使用异常处理（exception handling）。**
 
 异常处理机制包括`throw`表达式（throw expression）、`try`语句块（try block）和异常类（exception class）。
 
@@ -1505,9 +1505,9 @@ catch (exception-declaration)
 } // . . .
 ```
 
-<font color='red'>**`try`语句块中的*program-statements*组成程序的正常逻辑，其内部声明的变量在块外无法访问，即使在`catch`子句中也不行。**</font>`catch`子句包含关键字`catch`、括号内一个对象的声明（异常声明，exception declaration）和一个块。<font color='red'>**当选中了某个`catch`子句处理异常后，执行与之对应的块。`catch`一旦完成，程序会跳过剩余的所有`catch`子句，继续执行后面的语句。**</font>
+**`try`语句块中的*program-statements*组成程序的正常逻辑，其内部声明的变量在块外无法访问，即使在`catch`子句中也不行。**`catch`子句包含关键字`catch`、括号内一个对象的声明（异常声明，exception declaration）和一个块。**当选中了某个`catch`子句处理异常后，执行与之对应的块。`catch`一旦完成，程序会跳过剩余的所有`catch`子句，继续执行后面的语句。**
 
-<font color='red'>**如果最终没能找到与异常相匹配的`catch`子句，程序会执行名为`terminate`的标准库函数。该函数的行为与系统有关，一般情况下，执行该函数将导致程序非正常退出。**</font>类似的，如果一段程序没有`try`语句块且发生了异常，系统也会调用`terminate`函数并终止当前程序的执行。
+**如果最终没能找到与异常相匹配的`catch`子句，程序会执行名为`terminate`的标准库函数。该函数的行为与系统有关，一般情况下，执行该函数将导致程序非正常退出。**类似的，如果一段程序没有`try`语句块且发生了异常，系统也会调用`terminate`函数并终止当前程序的执行。
 
 ### 标准异常（Standard Exceptions）
 
@@ -1555,15 +1555,15 @@ int main()
 }
 ```
 
-<font color='red'>**函数调用**</font>完成两项工作：
+**函数调用**完成两项工作：
 
-- <font color='red'>**用实参初始化对应的形参。**</font>
-- <font color='red'>**将控制权从主调函数转移给被调函数。**</font>此时，主调函数（calling function）的执行被暂时中断，被调函数（called function）开始执行。
+- **用实参初始化对应的形参。**
+- **将控制权从主调函数转移给被调函数。**此时，主调函数（calling function）的执行被暂时中断，被调函数（called function）开始执行。
 
-<font color='red'>**`return`语句结束函数的执行过程**</font>，完成两项工作：
+**`return`语句结束函数的执行过程**，完成两项工作：
 
-- <font color='red'>**返回`return`语句中的值**</font>（可能没有值）。
-- 将控制权从被调函数转移回主调函数，<font color='red'>**函数的返回值用于初始化调用表达式的结果**</font>。
+- **返回`return`语句中的值**（可能没有值）。
+- 将控制权从被调函数转移回主调函数，**函数的返回值用于初始化调用表达式的结果**。
 
 实参是形参的初始值，两者的顺序和类型必须一一对应。
 
@@ -1583,23 +1583,23 @@ int f4(int v1, int v2) { /* ... */ }  // ok
 
 函数的任意两个形参不能同名，函数最外层作用域中的局部变量也不能使用与函数形参一样的名字。
 
-<font color='red'>**形参的名字是可选的，但是无法使用未命名的形参。**</font>即使某个形参不被函数使用，也必须为它提供一个实参。
+**形参的名字是可选的，但是无法使用未命名的形参。**即使某个形参不被函数使用，也必须为它提供一个实参。
 
-<font color='red'>**函数的返回类型不能是数组类型或者函数类型，但可以是指向数组或函数的指针。**</font>
+**函数的返回类型不能是数组类型或者函数类型，但可以是指向数组或函数的指针。**
 
 ### 局部对象（Local Objects）
 
-<font color='red'>**形参和函数体内定义的变量统称为局部变量**</font>（local variable）。
+**形参和函数体内定义的变量统称为局部变量**（local variable）。
 
-<font color='red'>**局部静态对象（local static object）在程序的执行路径第一次经过对象定义语句时初始化**</font>，并且直到程序结束才被销毁，对象所在的函数结束执行并不会对它产生影响。在变量类型前添加关键字`static`可以定义局部静态对象。
+**局部静态对象（local static object）在程序的执行路径第一次经过对象定义语句时初始化**，并且直到程序结束才被销毁，对象所在的函数结束执行并不会对它产生影响。在变量类型前添加关键字`static`可以定义局部静态对象。
 
-<font color='red'>**如果局部静态对象没有显式的初始值，它将执行值初始化。**</font>
+**如果局部静态对象没有显式的初始值，它将执行值初始化。**
 
 ### 函数声明（Function Declarations）
 
-和变量类似，函数只能定义一次，但可以声明多次。<font color='red'>**函数声明也叫做函数原型（function prototype）。**</font>
+和变量类似，函数只能定义一次，但可以声明多次。**函数声明也叫做函数原型（function prototype）。**
 
-<font color='red'>**函数应该在头文件中声明，在源文件中定义。**</font>定义函数的源文件应该包含含有函数声明的头文件。
+**函数应该在头文件中声明，在源文件中定义。**定义函数的源文件应该包含含有函数声明的头文件。
 
 ### 分离式编译（Separate Compilation）
 
@@ -1611,14 +1611,14 @@ int f4(int v1, int v2) { /* ... */ }  // ok
 
 形参的类型决定了形参和实参交互的方式：
 
-- <font color='red'>**当形参是引用类型时，它对应的实参被引用传递（passed by reference）**</font>，函数被传引用调用（called by reference）。引用形参是它对应实参的别名。
-- 当形参不是引用类型时，形参和实参是两个相互独立的对象，<font color='red'>**实参的值会被拷贝给形参（值传递，passed by value）**</font>，函数被传值调用（called by value）。
+- **当形参是引用类型时，它对应的实参被引用传递（passed by reference）**，函数被传引用调用（called by reference）。引用形参是它对应实参的别名。
+- 当形参不是引用类型时，形参和实参是两个相互独立的对象，**实参的值会被拷贝给形参（值传递，passed by value）**，函数被传值调用（called by value）。
 
 ### 传值参数（Passing Arguments by Value）
 
-<font color='red'>**如果形参不是引用类型，则函数对形参做的所有操作都不会影响实参。
+**如果形参不是引用类型，则函数对形参做的所有操作都不会影响实参。
 
-使用指针类型的形参可以访问或修改函数外部的对象。**</font>
+使用指针类型的形参可以访问或修改函数外部的对象。**
 
 ```c++
 // function that takes a pointer and sets the pointed-to value to zero
@@ -1629,7 +1629,7 @@ void reset(int *ip)
 }
 ```
 
-<font color='red'>**如果想在函数体内访问或修改函数外部的对象，建议使用引用形参代替指针形参。**</font>
+**如果想在函数体内访问或修改函数外部的对象，建议使用引用形参代替指针形参。**
 
 ### 传引用参数（Passing Arguments by Reference）
 
@@ -1643,17 +1643,17 @@ void reset(int &i)  // i is just another name for the object passed to reset
 }
 ```
 
-<font color='red'>**使用引用形参可以避免拷贝操作，拷贝大的类类型对象或容器对象比较低效。另外有的类类型（如IO类型）根本就不支持拷贝操作，这时只能通过引用形参访问该类型的对象。
+**使用引用形参可以避免拷贝操作，拷贝大的类类型对象或容器对象比较低效。另外有的类类型（如IO类型）根本就不支持拷贝操作，这时只能通过引用形参访问该类型的对象。
 
 除了内置类型、函数对象和标准库迭代器外，其他类型的参数建议以引用方式传递。
 
 如果函数无须改变引用形参的值，最好将其声明为常量引用。
 
-一个函数只能返回一个值，但利用引用形参可以使函数返回额外信息。**</font>
+一个函数只能返回一个值，但利用引用形参可以使函数返回额外信息。**
 
 ### const形参和实参（const Parameters and Arguments）
 
-<font color='red'>**当形参有顶层`const`时，传递给它常量对象或非常量对象都是可以的。**</font>
+**当形参有顶层`const`时，传递给它常量对象或非常量对象都是可以的。**
 
 可以使用非常量对象初始化一个底层`const`形参，但是反过来不行。
 
@@ -1661,7 +1661,7 @@ void reset(int &i)  // i is just another name for the object passed to reset
 
 ### 数组形参（Array Parameters）
 
-因为不能拷贝数组，所以无法以值传递的方式使用数组参数，但是<font color='red'>**可以把形参写成类似数组的形式。**</font>
+因为不能拷贝数组，所以无法以值传递的方式使用数组参数，但是**可以把形参写成类似数组的形式。**
 
 ```c++
 // each function has a single parameter of type const int*
@@ -1670,17 +1670,17 @@ void print(const int[]);    // shows the intent that the function takes an array
 void print(const int[10]);  // dimension for documentation purposes (at best)
 ```
 
-<font color='red'>**因为数组会被转换成指针**</font>，所以当我们传递给函数一个数组时，实际上传递的是指向数组首元素的指针。
+**因为数组会被转换成指针**，所以当我们传递给函数一个数组时，实际上传递的是指向数组首元素的指针。
 
-因为数组是以指针的形式传递给函数的，所以一开始<font color='red'>**函数并不知道数组的确切尺寸**</font>，调用者应该为此提供一些额外信息。
+因为数组是以指针的形式传递给函数的，所以一开始**函数并不知道数组的确切尺寸**，调用者应该为此提供一些额外信息。
 
-以数组作为形参的函数<font color='red'>**必须确保使用数组时不会越界**</font>。
+以数组作为形参的函数**必须确保使用数组时不会越界**。
 
-如果函数不需要对数组元素执行写操作，应该把<font color='red'>**数组形参定义成指向常量的指针。**</font>
+如果函数不需要对数组元素执行写操作，应该把**数组形参定义成指向常量的指针。**
 
-<font color='red'>**形参可以是数组的引用，但此时维度是形参类型的一部分，函数只能作用于指定大小的数组。**</font>
+**形参可以是数组的引用，但此时维度是形参类型的一部分，函数只能作用于指定大小的数组。**
 
-<font color='red'>**将多维数组传递给函数时，数组第二维（以及后面所有维度）的大小是数组类型的一部分，不能省略。 **</font>
+**将多维数组传递给函数时，数组第二维（以及后面所有维度）的大小是数组类型的一部分，不能省略。 **
 
 ```c++
 f(int &arr[10])     // error: declares arr as an array of references
@@ -1698,7 +1698,7 @@ int main(int argc, char **argv) { /*...*/ }
 
 第二个形参*argv*是一个数组，数组元素是指向C风格字符串的指针；第一个形参*argc*表示数组中字符串的数量。
 
-当实参传递给`main`函数后，*argv*的<font color='red'>**第一个元素指向程序的名字或者一个空字符串**</font>，接下来的元素依次传递命令行提供的实参。最后一个指针之后的元素值保证为0。
+当实参传递给`main`函数后，*argv*的**第一个元素指向程序的名字或者一个空字符串**，接下来的元素依次传递命令行提供的实参。最后一个指针之后的元素值保证为0。
 
 在*Visual Studio*中可以设置`main`函数调试参数：
 
@@ -1706,7 +1706,7 @@ int main(int argc, char **argv) { /*...*/ }
 
 ### 含有可变形参的函数（Functions with Varying Parameters）
 
-C++11新标准提供了两种主要方法处理<font color='red'>**实参数量不定的函数**</font>s。
+C++11新标准提供了两种主要方法处理**实参数量不定的函数**s。
 
 - 如果实参类型相同，可以使用`initializer_list`标准库类型。
 
@@ -1721,19 +1721,19 @@ C++11新标准提供了两种主要方法处理<font color='red'>**实参数量�
 
 - 如果实参类型不同，可以定义可变参数模板。
 
-C++还可以使用<font color='red'>**省略符形参传递可变数量的实参，但这种功能一般只用在与C函数**</font>交换的接口程序中。
+C++还可以使用**省略符形参传递可变数量的实参，但这种功能一般只用在与C函数**交换的接口程序中。
 
-<font color='red'>**`initializer_list`是一种标准库类型，定义在头文件*initializer_list*中，表示某种特定类型的值的数组**</font>。
+**`initializer_list`是一种标准库类型，定义在头文件*initializer_list*中，表示某种特定类型的值的数组**。
 
 `initializer_list`提供的操作：
 
 ![6-2](CppPrimer.assets/6-2.png)
 
-拷贝或赋值一个`initializer_list`对象不会拷贝列表中的元素。<font color='red'>**拷贝后，原始列表和副本共享元素。**</font>
+拷贝或赋值一个`initializer_list`对象不会拷贝列表中的元素。**拷贝后，原始列表和副本共享元素。**
 
-<font color='red'>**`initializer_list`对象中的元素永远是常量值。**</font>
+**`initializer_list`对象中的元素永远是常量值。**
 
-如果想向`initializer_list`形参传递一个值的序列，则必须<font color='red'>**把序列放在一对花括号内。**</font>
+如果想向`initializer_list`形参传递一个值的序列，则必须**把序列放在一对花括号内。**
 
 ```c++
 if (expected != actual)
@@ -1742,11 +1742,11 @@ else
     error_msg(ErrCode(0), {"functionX", "okay"});
 ```
 
-因为`initializer_list`包含`begin`和`end`成员，所以<font color='red'>**可以使用范围`for`循环处理其中的元素。**</font>
+因为`initializer_list`包含`begin`和`end`成员，所以**可以使用范围`for`循环处理其中的元素。**
 
-<font color='red'>**省略符形参是为了便于C++程序访问某些特殊的C代码而设置的，这些代码使用了名为`varargs`的C标准库功能。**</font>通常，省略符形参不应该用于其他目的。
+**省略符形参是为了便于C++程序访问某些特殊的C代码而设置的，这些代码使用了名为`varargs`的C标准库功能。**通常，省略符形参不应该用于其他目的。
 
-<font color='red'>**省略符形参应该仅仅用于C和C++通用的类型，大多数类类型的对象在传递给省略符形参时都无法正确拷贝。**</font>
+**省略符形参应该仅仅用于C和C++通用的类型，大多数类类型的对象在传递给省略符形参时都无法正确拷贝。**
 
 ## 返回类型和return语句（Return Types and the return Statement）
 
@@ -1765,20 +1765,20 @@ return expression;
 
 一个返回类型是`void`的函数也能使用`return`语句的第二种形式，不过此时`return`语句的*expression*必须是另一个返回`void`的函数。
 
-<font color='red'>**强行令`void`函数返回其他类型的表达式将产生编译错误。**</font>
+**强行令`void`函数返回其他类型的表达式将产生编译错误。**
 
 ### 有返回值函数（Functions That Return a Value）
 
-`return`语句的第二种形式提供了函数的结果。<font color='red'>**只要函数的返回类型不是`void`，该函数内的每条`return`语句就必须返回一个值，并且返回值的类型必须与函数的返回类型相同**</font>，或者能隐式地转换成函数的返回类型（`main`函数例外）。
+`return`语句的第二种形式提供了函数的结果。**只要函数的返回类型不是`void`，该函数内的每条`return`语句就必须返回一个值，并且返回值的类型必须与函数的返回类型相同**，或者能隐式地转换成函数的返回类型（`main`函数例外）。
 
-<font color='red'>**在含有`return`语句的循环后面应该也有一条`return`语句**</font>，否则程序就是错误的，但很多编译器无法发现此错误。
+**在含有`return`语句的循环后面应该也有一条`return`语句**，否则程序就是错误的，但很多编译器无法发现此错误。
 
-<font color='red'>**函数返回一个值的方式和初始化一个变量或形参的方式完全一样：返回的值用于初始化调用点的一个临时量，该临时量就是函数调用的结果。**</font>
+**函数返回一个值的方式和初始化一个变量或形参的方式完全一样：返回的值用于初始化调用点的一个临时量，该临时量就是函数调用的结果。**
 
 如果函数返回引用类型，则该引用仅仅是它所引用对象的一个别名。
 
-<font color='red'>**函数不应该返回局部对象的指针或引用，因为一旦函数完成，局部对象将被释放。
-**</font>
+**函数不应该返回局部对象的指针或引用，因为一旦函数完成，局部对象将被释放。
+**
 
 ```c++
 // disaster: this function returns a reference to a local object
@@ -1793,16 +1793,16 @@ const string &manip()
 }
 ```
 
-<font color='red'>**如果函数返回指针、引用或类的对象，则可以使用函数调用的结果访问结果对象的成员。
+**如果函数返回指针、引用或类的对象，则可以使用函数调用的结果访问结果对象的成员。
 
 调用一个返回引用的函数会得到左值，其他返回类型得到右值。
-**</font>
+**
 C++11规定，函数可以返回用花括号包围的值的列表。同其他返回类型一样，列表也用于初始化表示函数调用结果的临时量。如果列表为空，临时量执行值初始化；否则返回的值由函数的返回类型决定。
-<font color='red'>**
+**
 - 如果函数返回内置类型，则列表内最多包含一个值，且该值所占空间不应该大于目标类型的空间。
 
 - 如果函数返回类类型，由类本身定义初始值如何使用。
-**</font>
+**
   ```c++
   vector<string> process()
   {
@@ -1817,9 +1817,9 @@ C++11规定，函数可以返回用花括号包围的值的列表。同其他返
   }
   ```
 
-<font color='red'>**`main`函数可以没有`return`语句直接结束。**</font>如果控制流到达了`main`函数的结尾处并且没有`return`语句，编译器会隐式地插入一条返回0的`return`语句。
+**`main`函数可以没有`return`语句直接结束。**如果控制流到达了`main`函数的结尾处并且没有`return`语句，编译器会隐式地插入一条返回0的`return`语句。
 
-<font color='red'>**`main`函数的返回值可以看作是状态指示器。返回0表示执行成功，返回其他值表示执行失败，其中非0值的具体含义依机器而定。**</font>
+**`main`函数的返回值可以看作是状态指示器。返回0表示执行成功，返回其他值表示执行失败，其中非0值的具体含义依机器而定。**
 
 为了使`main`函数的返回值与机器无关，头文件*cstdlib*定义了`EXIT_SUCCESS`和`EXIT_FAILURE`这两个预处理变量，分别表示执行成功和失败。
 
@@ -1849,14 +1849,14 @@ int factorial(int val)
 
 在递归函数中，一定有某条路径是不包含递归调用的，否则函数会一直递归下去，直到程序栈空间耗尽为止。
 
-<font color='red'>**相对于循环迭代，递归的效率较低。但在某些情况下使用递归可以增加代码的可读性。循环迭代适合处理线性问题（如链表，每个节点有唯一前驱、唯一后继），而递归适合处理非线性问题（如树，每个节点的前驱、后继不唯一）。**</font>
+**相对于循环迭代，递归的效率较低。但在某些情况下使用递归可以增加代码的可读性。循环迭代适合处理线性问题（如链表，每个节点有唯一前驱、唯一后继），而递归适合处理非线性问题（如树，每个节点的前驱、后继不唯一）。**
 
-<font color='red'>**`main`函数不能调用它自身。**</font>
+**`main`函数不能调用它自身。**
 
 ### 返回数组指针（Returning a Pointer to an Array）
 
-<font color='red'>**<font color='red'>**因为数组不能被拷贝，所以函数不能返回数组，但可以返回数组的指针或引用。**</font>
-**</font>
+****因为数组不能被拷贝，所以函数不能返回数组，但可以返回数组的指针或引用。**
+**
 返回数组指针的函数形式如下：
 
 ```c++
@@ -1865,7 +1865,7 @@ Type (*function(parameter_list))[dimension]
 
 其中*Type*表示元素类型，*dimension*表示数组大小，*(\*function (parameter_list))*两端的括号必须存在。
 
-C++11允许使用<font color='red'>**尾置返回类型（trailing return type）简化复杂函数声明**</font>。尾置返回类型跟在形参列表后面，并以一个`->`符号开头。为了表示函数真正的返回类型在形参列表之后，需要在本应出现返回类型的地方添加`auto`关键字。
+C++11允许使用**尾置返回类型（trailing return type）简化复杂函数声明**。尾置返回类型跟在形参列表后面，并以一个`->`符号开头。为了表示函数真正的返回类型在形参列表之后，需要在本应出现返回类型的地方添加`auto`关键字。
 
 ```c++
 // fcn takes an int argument and returns a pointer to an array of ten ints
@@ -1874,7 +1874,7 @@ auto func(int i) -> int(*)[10];
 
 任何函数的定义都能使用尾置返回类型，但是这种形式更适用于返回类型比较复杂的函数。
 
-如果我们知道函数返回的指针将指向哪个数组，就可以使用`decltype`关键字声明返回类型。<font color='red'>**但`decltype`并不会把数组类型转换成指针类型，所以还要在函数声明中添加一个`*`符号**</font>。
+如果我们知道函数返回的指针将指向哪个数组，就可以使用`decltype`关键字声明返回类型。**但`decltype`并不会把数组类型转换成指针类型，所以还要在函数声明中添加一个`*`符号**。
 
 ```c++
 int odd[] = {1,3,5,7,9};
@@ -1888,13 +1888,13 @@ decltype(odd) *arrPtr(int i)
 
 ## 函数重载（Overloaded Functions）
 
-同一作用域内的几个<font color='red'>**名字相同但形参列表不同的函数叫做重载函数。**</font>
+同一作用域内的几个**名字相同但形参列表不同的函数叫做重载函数。**
 
 `main`函数不能重载。
 
 不允许两个函数除了返回类型以外的其他所有要素都相同。
 
-<font color='red'>**顶层`const`不影响传入函数的对象**</font>，一个拥有顶层`const`的形参无法和另一个没有顶层`const`的形参区分开来。
+**顶层`const`不影响传入函数的对象**，一个拥有顶层`const`的形参无法和另一个没有顶层`const`的形参区分开来。
 
 ```c++
 Record lookup(Phone);
@@ -1903,7 +1903,7 @@ Record lookup(Phone*);
 Record lookup(Phone* const); // redeclares Record lookup(Phone*)
 ```
 
-<font color='red'>**如果形参是某种类型的指针或引用**</font>，则通过区分其指向的对象是常量还是非常量可以实现函数重载，<font color='red'>**此时的`const`是底层的。**</font>当我们传递给重载函数一个非常量对象或者指向非常量对象的指针时，编译器会优先选用非常量版本的函数。 
+**如果形参是某种类型的指针或引用**，则通过区分其指向的对象是常量还是非常量可以实现函数重载，**此时的`const`是底层的。**当我们传递给重载函数一个非常量对象或者指向非常量对象的指针时，编译器会优先选用非常量版本的函数。 
 
 ```c++
 // functions taking const and nonconst references or pointers have different parameters
@@ -1931,17 +1931,17 @@ string &shorterString(string &s1, string &s2)
 }
 ```
 
-<font color='red'>**函数匹配（function matching）也叫做重载确定（overload resolution），是指编译器将函数调用与一组重载函数中的某一个进行关联的过程。**</font>
+**函数匹配（function matching）也叫做重载确定（overload resolution），是指编译器将函数调用与一组重载函数中的某一个进行关联的过程。**
 
 调用重载函数时有三种可能的结果：
 
-- 编译器找到一个与实参<font color='red'>**最佳匹配**</font>（best match）的函数，并生成调用该函数的代码。
-- 编译器找不到任何一个函数与实参匹配，<font color='red'>**发出无匹配（no match）的错误信息**</font>。
-- 有一个以上的函数与实参匹配，但每一个都不是明显的最佳选择，此时编译器发出<font color='red'>**二义性调用（ambiguous call）的错误信息。**</font>
+- 编译器找到一个与实参**最佳匹配**（best match）的函数，并生成调用该函数的代码。
+- 编译器找不到任何一个函数与实参匹配，**发出无匹配（no match）的错误信息**。
+- 有一个以上的函数与实参匹配，但每一个都不是明显的最佳选择，此时编译器发出**二义性调用（ambiguous call）的错误信息。**
 
 ### 重载与作用域（Overloading and Scope）
 
-<font color='red'>**在不同的作用域中无法重载函数名。一旦在当前作用域内找到了所需的名字，编译器就会忽略掉外层作用域中的同名实体。**</font>
+**在不同的作用域中无法重载函数名。一旦在当前作用域内找到了所需的名字，编译器就会忽略掉外层作用域中的同名实体。**
 
 ```c++
 string read();
@@ -1965,7 +1965,7 @@ void fooBar(int ival)
 
 ### 默认实参（Default Arguments）
 
-默认实参作为形参的初始值出现在形参列表中。<font color='red'>**可以为一个或多个形参定义默认值，不过一旦某个形参被赋予了默认值，它后面的所有形参都必须有默认值。**</font>
+默认实参作为形参的初始值出现在形参列表中。**可以为一个或多个形参定义默认值，不过一旦某个形参被赋予了默认值，它后面的所有形参都必须有默认值。**
 
 ```c++
 typedef string::size_type sz;
@@ -1985,7 +1985,7 @@ string screen(sz, sz, char = '*');      // error: redeclaration
 string screen(sz = 24, sz = 80, char);  // ok: adds default
 ```
 
-<font color='red'>**默认实参只能出现在函数声明和定义其中一处。通常应该在函数声明中指定默认实参，并将声明放在合适的头文件中。 **</font>
+**默认实参只能出现在函数声明和定义其中一处。通常应该在函数声明中指定默认实参，并将声明放在合适的头文件中。 **
 
 ```c++
 // 函数声明
@@ -2038,8 +2038,8 @@ inline const string &horterString(const string &s1, const string &s2)
 
 在函数声明和定义中都能使用关键字`inline`，但是建议只在函数定义时使用。
 
-<font color='red'>**一般来说，内联机制适用于优化规模较小、流程直接、调用频繁的函数。内联函数中不允许有循环语句和`switch`语句，否则函数会被编译为普通函数。
-**</font>
+**一般来说，内联机制适用于优化规模较小、流程直接、调用频繁的函数。内联函数中不允许有循环语句和`switch`语句，否则函数会被编译为普通函数。
+**
 
 `constexpr`函数是指能用于常量表达式的函数。`constexpr`函数的返回类型及所有形参的类型都得是字面值类型。另外C++11标准要求`constexpr`函数体中必须有且只有一条`return`语句，但是此限制在C++14标准中被删除。
 
@@ -2052,7 +2052,7 @@ constexpr int new_sz()
 constexpr int foo = new_sz();   // ok: foo is a constant expression
 ```
 
-<font color='red'>**`constexpr`函数的返回值可以不是一个常量。**</font>
+**`constexpr`函数的返回值可以不是一个常量。**
 
 ```c++
 // scale(arg) is a constant expression if arg is a constant expression
@@ -2066,7 +2066,7 @@ int i = 2;          // i is not a constant expression
 int a2[scale(i)];   // error: scale(i) is not a constant expression
 ```
 
-<font color='red'>**`constexpr`函数被隐式地指定为内联函数。**</font>
+**`constexpr`函数被隐式地指定为内联函数。**
 
 和其他函数不同，内联函数和`constexpr`函数可以在程序中多次定义。因为在编译过程中，编译器需要函数的定义来随时展开函数。对于某个给定的内联函数或`constexpr`函数，它的多个定义必须完全一致。因此内联函数和`constexpr`函数通常定义在头文件中。
 
@@ -2084,7 +2084,7 @@ int a2[scale(i)];   // error: scale(i) is not a constant expression
 
 函数实参类型与形参类型越接近，它们匹配得越好。
 
-<font color='red'>**重载函数集中的函数称为候选函数**</font>（candidate function）。
+**重载函数集中的函数称为候选函数**（candidate function）。
 
 可行函数（viable function）的形参数量与函数调用所提供的实参数量相等，并且每个实参的类型与对应的形参类型相同，或者能转换成形参的类型。
 
@@ -2094,7 +2094,7 @@ int a2[scale(i)];   // error: scale(i) is not a constant expression
 
 所有算术类型转换的级别都一样。
 
-如果重载函数的区别在于它们的引用或指针类型的形参是否含有底层`const`，则调用发生时编译器通过<font color='red'>**实参是否是常量**</font>来决定函数的版本。
+如果重载函数的区别在于它们的引用或指针类型的形参是否含有底层`const`，则调用发生时编译器通过**实参是否是常量**来决定函数的版本。
 
 ```c++
 Record lookup(Account&);    // function that takes a reference to Account
@@ -2117,7 +2117,7 @@ bool lengthCompare(const string &, const string &);
 bool (*pf)(const string &, const string &); // uninitialized
 ```
 
-可以直接使用指向函数的<font color='red'>**指针来调用函数，无须提前解引用指针。**</font> 
+可以直接使用指向函数的**指针来调用函数，无须提前解引用指针。** 
 
 ```c++
 pf = lengthCompare; // pf now points to the function named lengthCompare
@@ -2128,7 +2128,7 @@ bool b2 = (*pf)("hello", "goodbye");    // equivalent call
 bool b3 = lengthCompare("hello", "goodbye");    // equivalent call
 ```
 
-<font color='red'>**对于重载函数，编译器通过指针类型决定函数版本，指针类型必须与重载函数中的某一个精确匹配。**</font>
+**对于重载函数，编译器通过指针类型决定函数版本，指针类型必须与重载函数中的某一个精确匹配。**
 
 ```c++
 void ff(int*);
@@ -2148,9 +2148,9 @@ void useBigger(const string &s1, const string &s2, bool (*pf)(const string &, co
 useBigger(s1, s2, lengthCompare);
 ```
 
-<font color='red'>**关键字`decltype`作用于函数时，返回的是函数类型，而不是函数指针类型。**</font>
+**关键字`decltype`作用于函数时，返回的是函数类型，而不是函数指针类型。**
 
-<font color='red'>**函数可以返回指向函数的指针。**</font>但返回类型不会像函数类型的形参一样自动地转换成指针，必<font color='red'>**须显式地将其指定为指针类型。 **</font> 
+**函数可以返回指向函数的指针。**但返回类型不会像函数类型的形参一样自动地转换成指针，必**须显式地将其指定为指针类型。 ** 
 # 第7章 类
 
 类的基本思想是数据抽象（data abstraction）和封装（encapsulation）。数据抽象是一种依赖于接口（interface）和实现（implementation）分离的编程及设计技术。类的接口包括用户所能执行的操作；类的实现包括类的数据成员、负责接口实现的函数体以及其他私有函数。
@@ -2163,7 +2163,7 @@ useBigger(s1, s2, lengthCompare);
 
 ### 定义改进的Sales_data类（Defining the Revised Sales_data Class）
 
-<font color='red'>**成员函数（member function）的声明必须在类的内部，定义则既可以在类的内部也可以在类的外部。定义在类内部的函数是隐式的内联函数。**</font>
+**成员函数（member function）的声明必须在类的内部，定义则既可以在类的内部也可以在类的外部。定义在类内部的函数是隐式的内联函数。**
 
 ```c++
 struct Sales_data
@@ -2180,7 +2180,7 @@ struct Sales_data
 };
 ```
 
-成员函数通过一个名为`this`的隐式额外参数来访问调用它的对象。`this`参数是一个常量指针，被初始化为调用该函数的对象地址。<font color='red'>**在函数体内可以显式使用`this`指针。 **</font>
+成员函数通过一个名为`this`的隐式额外参数来访问调用它的对象。`this`参数是一个常量指针，被初始化为调用该函数的对象地址。**在函数体内可以显式使用`this`指针。 **
 
 ```c++
 total.isbn()
@@ -2191,7 +2191,7 @@ std::string isbn() const { return this->bookNo; }
 std::string isbn() const { return bookNo; }
 ```
 
-<font color='red'>**默认情况下，`this`的类型是指向类类型非常量版本的常量指针。**</font>`this`也遵循初始化规则，
+**默认情况下，`this`的类型是指向类类型非常量版本的常量指针。**`this`也遵循初始化规则，
 
 C++允许在成员函数的参数列表后面添加关键字`const`，表示`this`是一个指向常量的指针。使用关键字`const`的成员函数被称作常量成员函数（const member function）。
 
@@ -2205,11 +2205,11 @@ std::string Sales_data::isbn(const Sales_data *const this)
 }
 ```
 
-<font color='red'>**常量对象和指向常量对象的引用或指针都只能调用常量成员函数。**</font>
+**常量对象和指向常量对象的引用或指针都只能调用常量成员函数。**
 
-<font color='red'>**类本身就是一个作用域，成员函数的定义嵌套在类的作用域之内。**</font>编译器处理类时，<font color='red'>**会先编译成员声明，再编译成员函数体（如果有的话）**</font>，因此成员函数可以随意使用类的其他成员而无须在意这些成员的出现顺序。
+**类本身就是一个作用域，成员函数的定义嵌套在类的作用域之内。**编译器处理类时，**会先编译成员声明，再编译成员函数体（如果有的话）**，因此成员函数可以随意使用类的其他成员而无须在意这些成员的出现顺序。
 
-在类的外部定义成员函数时，成员函数的定义必须与它的声明相匹配。<font color='red'>**如果成员函数被声明为常量成员函数，那么它的定义也必须在参数列表后面指定`const`属性。**</font>同时，类外部定义的成员名字必须包含它所属的类名。
+在类的外部定义成员函数时，成员函数的定义必须与它的声明相匹配。**如果成员函数被声明为常量成员函数，那么它的定义也必须在参数列表后面指定`const`属性。**同时，类外部定义的成员名字必须包含它所属的类名。
 
 ```c++
 double Sales_data::avg_price() const 
@@ -2221,7 +2221,7 @@ double Sales_data::avg_price() const
 }
 ```
 
-<font color='red'>**可以定义返回`this`对象**</font>的成员函数。
+**可以定义返回`this`对象**的成员函数。
 
 ```c++
 Sales_data& Sales_data::combine(const Sales_data &rhs)
@@ -2254,13 +2254,13 @@ ostream &print(ostream &os, const Sales_data &item)
 }
 ```
 
-<font color='red'>**如果非成员函数是类接口的组成部分，则这些函数的声明应该与类放在同一个头文件中。**</font>
+**如果非成员函数是类接口的组成部分，则这些函数的声明应该与类放在同一个头文件中。**
 
-一般来说，<font color='red'>**执行输出任务的函数应该尽量减少对格式的控制。**</font>
+一般来说，**执行输出任务的函数应该尽量减少对格式的控制。**
 
 ### 构造函数（Constructors）
 
-类通过一个或几个特殊的<font color='red'>**成员函数来控制其对象的初始化操作，这些函数被称作构造函数。只要类的对象被创建，就会执行构造函数。**</font>
+类通过一个或几个特殊的**成员函数来控制其对象的初始化操作，这些函数被称作构造函数。只要类的对象被创建，就会执行构造函数。**
 
 构造函数的名字和类名相同，没有返回类型，且不能被声明为`const`函数。构造函数在`const`对象的构造过程中可以向其写值。
 
@@ -2279,18 +2279,18 @@ struct Sales_data
 
 类通过默认构造函数（default constructor）来控制默认初始化过程，默认构造函数无须任何实参。
 
-如果类没有显式地定义构造函数，则编译器会为类隐式地定义一个默认构造函数，该构造函数也被称为合成的默认构造函数（synthesized default constructor）。对于大多数类来说，<font color='red'>**合成的默认构造函数初始化数据成员的规则**</font>如下：
-<font color='red'>**
+如果类没有显式地定义构造函数，则编译器会为类隐式地定义一个默认构造函数，该构造函数也被称为合成的默认构造函数（synthesized default constructor）。对于大多数类来说，**合成的默认构造函数初始化数据成员的规则**如下：
+**
 - 如果存在类内初始值，则用它来初始化成员。
-- 否则默认初始化该成员。**</font>
+- 否则默认初始化该成员。**
 
 某些类不能依赖于合成的默认构造函数。
 
-- <font color='red'>**只有当类没有声明任何构造函数时，编译器才会自动生成默认构造函数。**</font>一旦类定义了其他构造函数，那么除非再显式地定义一个默认的构造函数，否则类将没有默认构造函数。
-- <font color='red'>**如果类包含内置类型或者复合类型的成员，则只有当这些成员全部存在类内初始值时**</font>，这个类才适合使用合成的默认构造函数。否则用户在创建类的对象时就可能得到未定义的值。
-- <font color='red'>**编译器不能为某些类合成默认构造函数。例如类中包含一个其他类类型的成员，且该类型没有默认构造函数，那么编译器将无法初始化该成员。**</font>
+- **只有当类没有声明任何构造函数时，编译器才会自动生成默认构造函数。**一旦类定义了其他构造函数，那么除非再显式地定义一个默认的构造函数，否则类将没有默认构造函数。
+- **如果类包含内置类型或者复合类型的成员，则只有当这些成员全部存在类内初始值时**，这个类才适合使用合成的默认构造函数。否则用户在创建类的对象时就可能得到未定义的值。
+- **编译器不能为某些类合成默认构造函数。例如类中包含一个其他类类型的成员，且该类型没有默认构造函数，那么编译器将无法初始化该成员。**
 
-在C++11中，如果类需要默认的函数行为，可以通过在参数列表后面添加`=default`来要求编译器生成构造函数。其中`=default`既可以和函数声明一起出现在类的内部，也可以作为定义出现在类的外部。和<font color='red'>**其他函数一样，如果`=default`在类的内部，则默认构造函数是内联的。**</font>
+在C++11中，如果类需要默认的函数行为，可以通过在参数列表后面添加`=default`来要求编译器生成构造函数。其中`=default`既可以和函数声明一起出现在类的内部，也可以作为定义出现在类的外部。和**其他函数一样，如果`=default`在类的内部，则默认构造函数是内联的。**
 ```c++
 Sales_data() = default;
 ```
@@ -2301,7 +2301,7 @@ Sales_data(const std::string &s): bookNo(s) { }
 Sales_data(const std::string &s, unsigned n, double p):
     bookNo(s), units_sold(n), revenue(p*n) { }
 ```
-当某个数据成员被构造函数初始值列表忽略时，它会以与<font color='red'>**合成默认构造函数相同的方式隐式初始化。**</font>
+当某个数据成员被构造函数初始值列表忽略时，它会以与**合成默认构造函数相同的方式隐式初始化。**
 
 ```c++
 // has the same behavior as the original constructor defined above
@@ -2313,14 +2313,14 @@ Sales_data(const std::string &s):
 
 ### 拷贝、赋值和析构（Copy、Assignment，and Destruction）
 
-编译器能合成拷贝、赋值和析构函数，但是对于某些类来说合成的版本无法正常工作。特别是<font color='red'>**当类需要分配类对象之外的资源时，合成的版本通常会失效。**</font>
+编译器能合成拷贝、赋值和析构函数，但是对于某些类来说合成的版本无法正常工作。特别是**当类需要分配类对象之外的资源时，合成的版本通常会失效。**
 
 ## 访问控制与封装（Access Control and Encapsulation）
 
 使用访问说明符（access specifier）可以加强类的封装性：
 
-- 定义在`public`说明符之后的成员在整个程序内<font color='red'>**都可以被访问**</font>。`public`成员定义类的接口。
-- 定义在`private`说明符之后的成员<font color='red'>**可以被类的成员函数访问**</font>，但是不能被使用该类的代码访问。`private`部分封装了类的实现细节。
+- 定义在`public`说明符之后的成员在整个程序内**都可以被访问**。`public`成员定义类的接口。
+- 定义在`private`说明符之后的成员**可以被类的成员函数访问**，但是不能被使用该类的代码访问。`private`部分封装了类的实现细节。
 
 ```c++
 class Sales_data 
@@ -2344,11 +2344,11 @@ private: // access specifier added
 
 一个类可以包含零或多个访问说明符，每个访问说明符指定了接下来的成员的访问级别，其有效范围到出现下一个访问说明符或类的结尾处为止。
 
-<font color='red'>**使用关键字`struct`定义类时，定义在第一个访问说明符之前的成员是`public`的；而使用关键字`class`时，这些成员是`private`的。**</font>二者唯一的区别就是默认访问权限不同。
+**使用关键字`struct`定义类时，定义在第一个访问说明符之前的成员是`public`的；而使用关键字`class`时，这些成员是`private`的。**二者唯一的区别就是默认访问权限不同。
 
 ### 友元（Friends）
 
-类可以允许其他类或函数访问它的非公有成员，方法是使用关键字`friend`将<font color='red'>**其他类或函数声明为它的友元**</font>。
+类可以允许其他类或函数访问它的非公有成员，方法是使用关键字`friend`将**其他类或函数声明为它的友元**。
 
 ```C++
 class Sales_data 
@@ -2379,10 +2379,10 @@ Sales_data add(const Sales_data&, const Sales_data&);
 std::istream &read(std::istream&, Sales_data&);
 std::ostream &print(std::ostream&, const Sales_data&);
 ```
-<font color='red'>**
-友元声明只能出现在类定义的内部，具体位置不限。友元不是类的成员，也不受它所在区域访问级别的约束。**</font>
+**
+友元声明只能出现在类定义的内部，具体位置不限。友元不是类的成员，也不受它所在区域访问级别的约束。**
 
-<font color='red'>**通常情况下，最好在类定义开始或结束前的位置集中声明友元**</font>。
+**通常情况下，最好在类定义开始或结束前的位置集中声明友元**。
 
 封装的好处：
 
@@ -2391,7 +2391,7 @@ std::ostream &print(std::ostream&, const Sales_data&);
 
 友元声明仅仅指定了访问权限，而并非一个通常意义上的函数声明。如果希望类的用户能调用某个友元函数，就必须在友元声明之外再专门对函数进行一次声明（部分编译器没有该限制）。
 
-<font color='red'>**为了使友元对类的用户可见，通常会把友元的声明（类的外部）与类本身放在同一个头文件中。**</font>
+**为了使友元对类的用户可见，通常会把友元的声明（类的外部）与类本身放在同一个头文件中。**
 
 ## 类的其他特性（Additional Class Features）
 
@@ -2409,13 +2409,13 @@ public:
 };
 ```
 
-<font color='red'>**与普通成员不同，用来定义类型的成员必须先定义后使用。类型成员通常位于类起始处。**</font>
+**与普通成员不同，用来定义类型的成员必须先定义后使用。类型成员通常位于类起始处。**
 
 定义在类内部的成员函数是自动内联的。
 
-如果需要显式声明内联成员函数，<font color='red'>**建议只在类外部定义的位置说明`inline`**</font>。
+如果需要显式声明内联成员函数，**建议只在类外部定义的位置说明`inline`**。
 
-<font color='red'>**`inline`成员函数该与类定义在同一个头文件中。**</font>
+**`inline`成员函数该与类定义在同一个头文件中。**
 
 使用关键字`mutable`可以声明可变数据成员（mutable data member）。可变数据成员永远不会是`const`的，即使它在`const`对象内。因此`const`成员函数可以修改可变成员的值。
 
@@ -2440,9 +2440,9 @@ void Screen::some_member() const
 
 ### 返回\*this的成员函数（Functions That Return \*this）
 
-<font color='red'>**`const`成员函数如果以引用形式返回`*this`，则返回类型是常量引用。**</font>
+**`const`成员函数如果以引用形式返回`*this`，则返回类型是常量引用。**
 
-<font color='red'>**通过区分成员函数是否为`const`的，可以对其进行重载。在常量对象上只能调用`const`版本的函数；在非常量对象上，尽管两个版本都能调用，但会选择非常量版本。**</font>
+**通过区分成员函数是否为`const`的，可以对其进行重载。在常量对象上只能调用`const`版本的函数；在非常量对象上，尽管两个版本都能调用，但会选择非常量版本。**
 
 ```c++
 class Screen 
@@ -2471,15 +2471,15 @@ blank.display(cout);    // calls const version
 
 每个类定义了唯一的类型。即使两个类的成员列表完全一致，它们也是不同的类型。
 
-可以仅仅声明一个类而暂时不定义它。<font color='red'>**这种声明被称作前向声明**</font>（forward declaration），用于引入类的名字。在类声明之后定义之前都是一个不完全类型（incomplete type）。
+可以仅仅声明一个类而暂时不定义它。**这种声明被称作前向声明**（forward declaration），用于引入类的名字。在类声明之后定义之前都是一个不完全类型（incomplete type）。
 
 ```c++
 class Screen;   // declaration of the Screen class
 ```
 
-<font color='red'>**可以定义指向不完全类型的指针或引用**</font>，也可以声明（不能定义）以不完全类型作为参数或返回类型的函数。
+**可以定义指向不完全类型的指针或引用**，也可以声明（不能定义）以不完全类型作为参数或返回类型的函数。
 
-只有当类全部完成后才算被定义，所以一个类的成员类型不能是该类本身。但是一旦类的名字出现，就可以被认为是声明过了，<font color='red'>**因此类可以包含指向它自身类型的引用或指针。**</font>
+只有当类全部完成后才算被定义，所以一个类的成员类型不能是该类本身。但是一旦类的名字出现，就可以被认为是声明过了，**因此类可以包含指向它自身类型的引用或指针。**
 
 ```c++
 class Link_screen
@@ -2492,7 +2492,7 @@ class Link_screen
 
 ### 友元再探（Friendship Revisited）
 
-<font color='red'>**除了普通函数，类还可以把其他类或其他类的成员函数声明为友元。友元类的成员函数可以访问此类包括非公有成员在内的所有成员。**</font>
+**除了普通函数，类还可以把其他类或其他类的成员函数声明为友元。友元类的成员函数可以访问此类包括非公有成员在内的所有成员。**
 
 ```c++
 class Screen 
@@ -2503,7 +2503,7 @@ class Screen
 };
 ```
 
-<font color='red'>**友元函数可以直接定义在类的内部，这种函数是隐式内联的。但是必须在类外部提供相应声明令函数可见。**</font>
+**友元函数可以直接定义在类的内部，这种函数是隐式内联的。但是必须在类外部提供相应声明令函数可见。**
 
 ```c++
 struct X
@@ -2532,11 +2532,11 @@ class Screen
 };
 ```
 
-<font color='red'>**如果类想把一组重载函数声明为友元，需要对这组函数中的每一个分别声明。**</font>
+**如果类想把一组重载函数声明为友元，需要对这组函数中的每一个分别声明。**
 
 ## 类的作用域（Class Scope）
 
-当成员函数定义在类外时，<font color='red'>**返回类型中使用的名字位于类的作用域之外**</font>，此时返回类型必须指明它是哪个类的成员。
+当成员函数定义在类外时，**返回类型中使用的名字位于类的作用域之外**，此时返回类型必须指明它是哪个类的成员。
 
 ```c++
 class Window_mgr
@@ -2557,11 +2557,11 @@ Window_mgr::ScreenIndex Window_mgr::addScreen(const Screen &s)
 
 ### 名字查找与作用域（Name Lookup and Class Scope）
 
-<font color='red'>**成员函数体直到整个类可见后才会被处理，因此它能使用类中定义的任何名字。**</font>
+**成员函数体直到整个类可见后才会被处理，因此它能使用类中定义的任何名字。**
 
-声明中使用的名字，包括返回类型或参数列表，<font color='red'>**都必须确保使用前可见。**</font>
+声明中使用的名字，包括返回类型或参数列表，**都必须确保使用前可见。**
 
-<font color='red'>**如果类的成员使用了外层作用域的某个名字，而该名字表示一种类型，则类不能在之后重新定义该名字。**</font>
+**如果类的成员使用了外层作用域的某个名字，而该名字表示一种类型，则类不能在之后重新定义该名字。**
 
 ```c++
 typedef double Money;
@@ -2576,13 +2576,13 @@ private:
 };
 ```
 
-<font color='red'>**类型名定义通常出现在类起始处，这样能确保所有使用该类型的成员都位于类型名定义之后。**</font>
+**类型名定义通常出现在类起始处，这样能确保所有使用该类型的成员都位于类型名定义之后。**
 
 成员函数中名字的解析顺序：
 
-- <font color='red'>**在成员函数内**</font>查找该名字的声明，只有在函数使用之前出现的声明才会被考虑。
-- 如果在成员函数内没有找到，则会在<font color='red'>**类内继续查找**</font>，这时会考虑类的所有成员。
-- 如果类内也没有找到，<font color='red'>**会在成员函数定义之前的作用域查找**</font>。
+- **在成员函数内**查找该名字的声明，只有在函数使用之前出现的声明才会被考虑。
+- 如果在成员函数内没有找到，则会在**类内继续查找**，这时会考虑类的所有成员。
+- 如果类内也没有找到，**会在成员函数定义之前的作用域查找**。
 
 ```c++
 // it is generally a bad idea to use the same name for a parameter and a member
@@ -2602,7 +2602,7 @@ private:
 };
 ```
 
-<font color='red'>**可以通过作用域运算符`::`或显式`this`指针来强制访问被隐藏的类成员。**</font>
+**可以通过作用域运算符`::`或显式`this`指针来强制访问被隐藏的类成员。**
 
 ```c++
 // bad practice: names local to member functions shouldn't hide member names
@@ -2624,9 +2624,9 @@ void Screen::dummy_fcn(pos ht)
 
 ### 构造函数初始值列表（Constructor Initializer List）
 
-<font color='red'>**如果没有在构造函数初始值列表中显式初始化成员，该成员会在构造函数体之前执行默认初始化**</font>。
+**如果没有在构造函数初始值列表中显式初始化成员，该成员会在构造函数体之前执行默认初始化**。
 
-<font color='red'>**如果成员是`const`、引用，或者是某种未定义默认构造函数的类类型，必须在初始值列表中将其初始化。**</font>
+**如果成员是`const`、引用`＆`，或者是某种未定义默认构造函数的类类型，必须在初始值列表中将其初始化。**
 
 ```c++
 class ConstRef
@@ -2643,9 +2643,9 @@ private:
 ConstRef::ConstRef(int ii): i(ii), ci(ii), ri(i) { }
 ```
 
-<font color='red'>**最好令构造函数初始值的顺序与成员声明的顺序一致，并且尽量避免使用某些成员初始化其他成员。**</font>
+**最好令构造函数初始值的顺序与成员声明的顺序一致，并且尽量避免使用某些成员初始化其他成员。**
 
-<font color='red'>**如果一个构造函数为所有参数都提供了默认实参，则它实际上也定义了默认构造函数。**</font>
+**如果一个构造函数为所有参数都提供了默认实参，则它实际上也定义了默认构造函数。**
 
 ### 委托构造函数（Delegating Constructors）
 
@@ -2671,19 +2671,19 @@ public:
 
 默认初始化的发生情况：
 
-- 在块作用域内<font color='red'>**不使用初始值定义非静态变量或数组**</font>。
-- <font color='red'>**类本身含有类类型的成员且使用合成默认构造函数**</font>。
-- <font color='red'>**类类型的成员没有在构造函数初始值列表中显式初始化**</font>。
+- 在块作用域内**不使用初始值定义非静态变量或数组**。
+- **类本身含有类类型的成员且使用合成默认构造函数**。
+- **类类型的成员没有在构造函数初始值列表中显式初始化**。
 
-<font color='red'>**值初始化**</font>的发生情况：
+**值初始化**的发生情况：
 
-- 数组初始化时提供的<font color='red'>**初始值数量少于数组大小**</font>。
-- <font color='red'>**不使用初始值定义局部静态变量。**</font>
-- 通过`T()`形式（*T*为类型）的表达式<font color='red'>**显式地请求值初始化**</font>。
+- 数组初始化时提供的**初始值数量少于数组大小**。
+- **不使用初始值定义局部静态变量。**
+- 通过`T()`形式（*T*为类型）的表达式**显式地请求值初始化**。
 
 类必须包含一个默认构造函数。
 
-如果想定义一个使用<font color='red'>**默认构造函数进行初始化的对象**</font>，<font color='red'>**应该去掉对象名后的空括号对**</font>。
+如果想定义一个使用**默认构造函数进行初始化的对象**，**应该去掉对象名后的空括号对**。
 
 ```c++
 Sales_data obj();   // oops! declares a function, not an object
@@ -2692,7 +2692,7 @@ Sales_data obj2;    // ok: obj2 is an object, not a function
 
 ### 隐式的类类型转换（Implicit Class-Type Conversions）
 
-如果构造函数只接受一个实参，则它实际上定义了转换为此类类型的隐式转换机制。这种构造函数被称为<font color='red'>**转换构造函数**</font>（converting constructor）。
+如果构造函数只接受一个实参，则它实际上定义了转换为此类类型的隐式转换机制。这种构造函数被称为**转换构造函数**（converting constructor）。
 
 ```c++
 string null_book = "9-999-99999-9";
@@ -2701,7 +2701,7 @@ string null_book = "9-999-99999-9";
 item.combine(null_book);
 ```
 
-<font color='red'>**编译器只会自动执行一步类型转换。 **</font>
+**编译器只会自动执行一步类型转换。 **
 
 ```c++
 // error: requires two user-defined conversions:
@@ -2714,7 +2714,7 @@ item.combine(string("9-999-99999-9"));
 item.combine(Sales_data("9-999-99999-9"));
 ```
 
-在要求隐式转换的程序上下文中，可以<font color='red'>**通过将构造函数声明为`explicit`的加以阻止。**</font>
+在要求隐式转换的程序上下文中，可以**通过将构造函数声明为`explicit`的加以阻止。**
 
 ```c++
 class Sales_data
@@ -2733,7 +2733,7 @@ public:
 
 只能在类内声明构造函数时使用`explicit`关键字，在类外定义时不能重复。
 
-<font color='red'>**执行拷贝初始化时（使用`=`）会发生隐式转换，**</font><font color='red'>**所以`explicit`构造函数只能用于直接初始化。**</font>
+**执行拷贝初始化时（使用`=`）会发生隐式转换，**所以`explicit`构造函数只能用于直接初始化。
 
 ```c++
 Sales_data item1 (null_book);   // ok: direct initialization
@@ -2768,7 +2768,7 @@ struct Data
 };
 ```
 
-<font color='red'>**可以使用一个用花括号包围的成员初始值列表初始化聚合类的数据成员。**</font>初始值顺序必须与声明顺序一致。<font color='red'>**如果初始值列表中的元素个数少于类的成员个数，则靠后的成员被值初始化。**</font>
+**可以使用一个用花括号包围的成员初始值列表初始化聚合类的数据成员。**初始值顺序必须与声明顺序一致。**如果初始值列表中的元素个数少于类的成员个数，则靠后的成员被值初始化。**
 
 ```c++
 // val1.ival = 0; val1.s = string("Anna")
@@ -2777,10 +2777,10 @@ Data val1 = { 0, "Anna" };
 
 ### 字面值常量类（Literal Classes）
 
-<font color='red'>**数据成员都是字面值类型的聚合类是字面值常量类**</font>。或者一个类不是聚合类，但符合下列条件，则也是字面值常量类：
+**数据成员都是字面值类型的聚合类是字面值常量类**。或者一个类不是聚合类，但符合下列条件，则也是字面值常量类：
 
-- <font color='red'>**数据成员都是字面值类型。**</font>
-- <font color='red'>**类至少含有一个`constexpr`构造函数。**</font>
+- **数据成员都是字面值类型。**
+- **类至少含有一个`constexpr`构造函数。**
 - 如果数据成员含有类内初始值，则内置类型成员的初始值必须是常量表达式。如果成员属于类类型，则初始值必须使用成员自己的`constexpr`构造函数。
 - 类必须使用析构函数的默认定义。
 
@@ -2790,7 +2790,7 @@ Data val1 = { 0, "Anna" };
 
 ## 类的静态成员（static Class Members）
 
-使用关键字`static`可以声明类的静态成员。<font color='red'>**静态成员存在于任何对象之外，对象中不包含与静态成员相关的数据。**</font>
+使用关键字`static`可以声明类的静态成员。**静态成员存在于任何对象之外，对象中不包含与静态成员相关的数据。**
 
 ```c++
 class Account
@@ -2808,9 +2808,9 @@ private:
 };
 ```
 
-<font color='red'>**由于静态成员不与任何对象绑定，因此静态成员函数不能声明为`const`的，也不能在静态成员函数内使用`this`指针。**</font>
+**由于静态成员不与任何对象绑定，因此静态成员函数不能声明为`const`的，也不能在静态成员函数内使用`this`指针。**
 
-<font color='red'>**用户代码可以使用作用域运算符访问静态成员，也可以通过类对象、引用或指针访问。类的成员函数可以直接访问静态成员。**</font>
+**用户代码可以使用作用域运算符访问静态成员，也可以通过类对象、引用或指针访问。类的成员函数可以直接访问静态成员。**
 
 ```c++
 double r;
@@ -2832,18 +2832,18 @@ private:
 };
 ```
 
-<font color='red'>**在类外部定义静态成员时，不能重复`static`关键字，其只能用于类内部的声明语句。**</font>
+**在类外部定义静态成员时，不能重复`static`关键字，其只能用于类内部的声明语句。**
 
-由于静态数据成员不属于类的任何一个对象，因此它们并不是在创建类对象时被定义的。<font color='red'>**通常情况下，不应该在类内部初始化静态成员。而必须在类外部定义并初始化每个静态成员。**</font>一个静态成员只能被定义一次。一旦它被定义，就会一直存在于程序的整个生命周期中。
+由于静态数据成员不属于类的任何一个对象，因此它们并不是在创建类对象时被定义的。**通常情况下，不应该在类内部初始化静态成员。而必须在类外部定义并初始化每个静态成员。**一个静态成员只能被定义一次。一旦它被定义，就会一直存在于程序的整个生命周期中。
 
 ```c++
 // define and initialize a static class member
 double Account::interestRate = initRate();
 ```
 
-<font color='red'>**建议把静态数据成员的定义与其他非内联函数的定义放在同一个源文件中，这样可以确保对象只被定义一次。**</font>
+**建议把静态数据成员的定义与其他非内联函数的定义放在同一个源文件中，这样可以确保对象只被定义一次。**
 
-尽管在通常情况下，不应该在类内部初始化静态成员。<font color='red'>**但是可以为静态成员提供`const`整数类型的类内初始值，不过要求静态成员必须是字面值常量类型的`constexpr`。初始值必须是常量表达式。**</font>
+尽管在通常情况下，不应该在类内部初始化静态成员。**但是可以为静态成员提供`const`整数类型的类内初始值，不过要求静态成员必须是字面值常量类型的`constexpr`。初始值必须是常量表达式。**
 
 ```c++
 class Account
@@ -2857,7 +2857,7 @@ private:
 };
 ```
 
-<font color='red'>**静态数据成员的类型可以是它所属的类类型。**</font>
+**静态数据成员的类型可以是它所属的类类型。**
 
 ```c++
 class Bar
@@ -2868,7 +2868,7 @@ class Bar
 }
 ```
 
-<font color='red'>**可以使用静态成员作为函数的默认实参。**</font>
+**可以使用静态成员作为函数的默认实参。**
 
 ```c++
 class Screen
@@ -2887,7 +2887,7 @@ private:
 
 - `istream`：输入流类型，提供输入操作。
 - `ostream`：输出流类型，提供输出操作。
-- `cin`：`istream`对象，<font color='red'>**从标准输入读取数据。**</font>
+- `cin`：`istream`对象，**从标准输入读取数据。**
 - `cout`：`ostream`对象，向标准输出写入数据。
 - `cerr`：`ostream`对象，向标准错误写入数据。
 - `>>`运算符：从`istream`对象读取输入数据。
@@ -2896,17 +2896,17 @@ private:
 
 ## IO类（The IO Classes）
 
-<font color='red'>**头文件*iostream*定义了用于读写流的基本类型，*fstream*定义了读写命名文件的类型，*sstream*定义了读写内存中`string`对象的类型。**</font>
+**头文件*iostream*定义了用于读写流的基本类型，*fstream*定义了读写命名文件的类型，*sstream*定义了读写内存中`string`对象的类型。**
 
 ![8-1](CppPrimer.assets/8-1.png)
 
 宽字符版本的IO类型和函数的名字以`w`开始，如`wcin`、`wcout`和`wcerr`分别对应`cin`、`cout`和`cerr`。它们与其对应的普通`char`版本都定义在同一个头文件中，如头文件*fstream*定义了`ifstream`和`wifstream`类型。
 
-<font color='red'>**可以将派生类的对象当作其基类的对象使用。**</font>
+**可以将派生类的对象当作其基类的对象使用。**
 
 ### IO象无拷贝或赋值（No Copy or Assign for IO Objects）
 
-<font color='red'>**不能拷贝或对IO对象赋值。**</font>
+**不能拷贝或对IO对象赋值。**
 
 ```c++
 ofstream out1, out2;
@@ -2915,7 +2915,7 @@ ofstream print(ofstream);   // error: can't initialize the ofstream parameter
 out2 = print(out2);     // error: cannot copy stream objects
 ```
 
-<font color='red'>**由于IO对象不能拷贝，因此不能将函数形参或返回类型定义为流类型。进行IO操作的函数通常以引用方式传递和返回流。读写一个IO对象会改变其状态，因此传递和返回的引用不能是`const`的。**</font>
+**由于IO对象不能拷贝，因此不能将函数形参或返回类型定义为流类型。进行IO操作的函数通常以引用方式传递和返回流。读写一个IO对象会改变其状态，因此传递和返回的引用不能是`const`的。**
 
 ### 条件状态（Condition States）
 
@@ -2923,16 +2923,16 @@ IO库条件状态：
 
 ![8-2](CppPrimer.assets/8-2.png)
 
-<font color='red'>**`badbit`表示系统级错误**</font>，如不可恢复的读写错误。通常情况下，一旦`badbit`被置位，流就无法继续使用了。<font color='red'>**在发生可恢复错误后，`failbit`会被置位**</font>，如期望读取数值却读出一个字符。<font color='red'>**如果到达文件结束位置，`eofbit`和`failbit`都会被置位。**</font>如果流未发生错误，则`goodbit`的值为0。如果<font color='red'>**`badbit`、`failbit`和`eofbit`任何一个被置位，检测流状态的条件都会失败。**</font>
+**`badbit`表示系统级错误**，如不可恢复的读写错误。通常情况下，一旦`badbit`被置位，流就无法继续使用了。**在发生可恢复错误后，`failbit`会被置位**，如期望读取数值却读出一个字符。**如果到达文件结束位置，`eofbit`和`failbit`都会被置位。**如果流未发生错误，则`goodbit`的值为0。如果**`badbit`、`failbit`和`eofbit`任何一个被置位，检测流状态的条件都会失败。**
 
 ```c++
 while (cin >> word)
     // ok: read operation successful...
 ```
 
-`good`函数在所有错误均未置位时返回`true`。而`bad`、`fail`和`eof`函数在对应错误位被置位时返回`true`。此外，在`badbit`被置位时，`fail`函数也会返回`true`。<font color='red'>**因此应该使用`good`或`fail`函数确定流的总体状态，`eof`和`bad`只能检测特定错误。**</font>
+`good`函数在所有错误均未置位时返回`true`。而`bad`、`fail`和`eof`函数在对应错误位被置位时返回`true`。此外，在`badbit`被置位时，`fail`函数也会返回`true`。**因此应该使用`good`或`fail`函数确定流的总体状态，`eof`和`bad`只能检测特定错误。**
 
-流对象的`rdstate`成员返回一个`iostate`值，表示<font color='red'>**流的当前状态。**</font>`setstate`成员用于将指定条件置位（叠加原始流状态）。<font color='red'>**`clear`成员的无参版本清除所有错误标志**</font>；含参版本接受一个`iostate`值，用于设置流的新状态（覆盖原始流状态）。
+流对象的`rdstate`成员返回一个`iostate`值，表示**流的当前状态。**`setstate`成员用于将指定条件置位（叠加原始流状态）。**`clear`成员的无参版本清除所有错误标志**；含参版本接受一个`iostate`值，用于设置流的新状态（覆盖原始流状态）。
 
 ```c++
 // remember the current state of cin
@@ -2944,15 +2944,15 @@ cin.setstate(old_state);    // now reset cin to its old state
 
 ### 管理输出缓冲（Managing the Output Buffer）
 
-每个输出流都管理一个缓冲区，用于保存程序读写的数据。<font color='red'>**导致缓冲刷新**</font>（即数据真正写入输出设备或文件）的原因有很多：
+每个输出流都管理一个缓冲区，用于保存程序读写的数据。**导致缓冲刷新**（即数据真正写入输出设备或文件）的原因有很多：
 
 - 程序正常结束。
 - 缓冲区已满。
 - 使用操纵符（如`endl`）显式刷新缓冲区。
 - 在每个输出操作之后，可以用`unitbuf`操纵符设置流的内部状态，从而清空缓冲区。默认情况下，对`cerr`是设置`unitbuf`的，因此写到`cerr`的内容都是立即刷新的。
-- 一个输出流可以被关联到另一个流。这种情况下，当读写被关联的流时，关联到的流的缓冲区会被刷新。默认情况下，`cin`和`cerr`都关联到`cout`，<font color='red'>**因此，读`cin`或写`cerr`都会刷新`cout`的缓冲区。**</font>
+- 一个输出流可以被关联到另一个流。这种情况下，当读写被关联的流时，关联到的流的缓冲区会被刷新。默认情况下，`cin`和`cerr`都关联到`cout`，**因此，读`cin`或写`cerr`都会刷新`cout`的缓冲区。**
 
-<font color='red'>**`flush`操纵符刷新缓冲区，但不输出任何额外字符。`ends`向缓冲区插入一个空字符，然后刷新缓冲区。**</font>
+**`flush`操纵符刷新缓冲区，但不输出任何额外字符。`ends`向缓冲区插入一个空字符，然后刷新缓冲区。**
 
 ```c++
 cout << "hi!" << endl;   // writes hi and a newline, then flushes the buffer
@@ -2960,7 +2960,7 @@ cout << "hi!" << flush;  // writes hi, then flushes the buffer; adds no data
 cout << "hi!" << ends;   // writes hi and a null, then flushes the buffer
 ```
 
-<font color='red'>**如果想在每次输出操作后都刷新缓冲区，可以使用`unitbuf`操纵符。它令流在接下来的每次写操作后都进行一次`flush`操作。而`nounitbuf`操纵符则使流恢复使用正常的缓冲区刷新机制。 **</font>
+**如果想在每次输出操作后都刷新缓冲区，可以使用`unitbuf`操纵符。它令流在接下来的每次写操作后都进行一次`flush`操作。而`nounitbuf`操纵符则使流恢复使用正常的缓冲区刷新机制。 **
 
 ```C++
 cout << unitbuf;    // all writes will be flushed immediately
@@ -2970,15 +2970,15 @@ cout << nounitbuf;  // returns to normal buffering
 
 如果程序异常终止，输出缓冲区不会被刷新。
 
-当一个输入流被关联到一个输出流时，任何试图从输入流读取数据的操作都会先刷新关联的输出流。<font color='red'>**标准库将`cout`和`cin`关联在一起，因此下面的语句会导致`cout`的缓冲区被刷新：**</font>
+当一个输入流被关联到一个输出流时，任何试图从输入流读取数据的操作都会先刷新关联的输出流。**标准库将`cout`和`cin`关联在一起，因此下面的语句会导致`cout`的缓冲区被刷新：**
 
 ```c++
 cin >> ival;
 ```
 
-交互式系统通常应该关联输入流和输出流。<font color='red'>**这意味着包括用户提示信息在内的所有输出，都会在读操作之前被打印出来。**</font>
+交互式系统通常应该关联输入流和输出流。**这意味着包括用户提示信息在内的所有输出，都会在读操作之前被打印出来。**
 
-使用`tie`函数可以关联两个流。它有两个重载版本：<font color='red'>**无参版本返回指向输出流的指针。**</font>如果本对象已关联到一个输出流，则返回的就是指向这个流的指针，否则返回空指针。<font color='red'>**`tie`的第二个版本接受一个指向`ostream`的指针，将本对象关联到此`ostream`**</font>。
+使用`tie`函数可以关联两个流。它有两个重载版本：**无参版本返回指向输出流的指针。**如果本对象已关联到一个输出流，则返回的就是指向这个流的指针，否则返回空指针。**`tie`的第二个版本接受一个指向`ostream`的指针，将本对象关联到此`ostream`**。
 
 ```c++
 cin.tie(&cout);     // illustration only: the library ties cin and cout for us
@@ -2989,7 +2989,7 @@ cin.tie(&cerr);     // reading cin flushes cerr, not cout
 cin.tie(old_tie);   // reestablish normal tie between cin and cout
 ```
 
-每个流同时最多关联一个流，但多个流可以同时关联同一个`ostream`。<font color='red'>**向`tie`传递空指针可以解开流的关联。**</font>
+每个流同时最多关联一个流，但多个流可以同时关联同一个`ostream`。**向`tie`传递空指针可以解开流的关联。**
 
 ## 文件输入输出（File Input and Output）
 
@@ -3001,22 +3001,22 @@ cin.tie(old_tie);   // reestablish normal tie between cin and cout
 
 每个文件流类型都定义了`open`函数，它完成一些系统操作，定位指定文件，并视情况打开为读或写模式。
 
-<font color='red'>**创建文件流对象时，如果提供了文件名（可选），`open`会被自动调用。**</font>
+**创建文件流对象时，如果提供了文件名（可选），`open`会被自动调用。**
 
 ```C++
 ifstream in(ifile);   // construct an ifstream and open the given file
 ofstream out;   // output file stream that is not associated with any file
 ```
 
-<font color='red'>**在C++11中，文件流对象的文件名可以是`string`对象或C风格字符数组。**</font>旧版本的标准库只支持C风格字符数组。
+**在C++11中，文件流对象的文件名可以是`string`对象或C风格字符数组。**旧版本的标准库只支持C风格字符数组。
 
-<font color='red'>**在要求使用基类对象的地方，可以用继承类型的对象代替。**</font>因此一个接受`iostream`类型引用或指针参数的函数，可以用对应的`fstream`类型来调用。
+**在要求使用基类对象的地方，可以用继承类型的对象代替。**因此一个接受`iostream`类型引用或指针参数的函数，可以用对应的`fstream`类型来调用。
 
 可以先定义空文件流对象，再调用`open`函数将其与指定文件关联。如果`open`调用失败，`failbit`会被置位。
 
-<font color='red'>**对一个已经打开的文件流调用`open`会失败，并导致`failbit`被置位。**</font>随后试图使用文件流的操作都会失败。<font color='red'>**如果想将文件流关联到另一个文件，必须先调用`close`关闭当前文件，再调用`clear`重置流的条件状态（`close`不会重置流的条件状态）。**</font>
+**对一个已经打开的文件流调用`open`会失败，并导致`failbit`被置位。**随后试图使用文件流的操作都会失败。**如果想将文件流关联到另一个文件，必须先调用`close`关闭当前文件，再调用`clear`重置流的条件状态（`close`不会重置流的条件状态）。**
 
-<font color='red'>**当`fstream`对象被销毁时，`close`会自动被调用。**</font>
+**当`fstream`对象被销毁时，`close`会自动被调用。**
 
 ### 文件模式（File Modes）
 
@@ -3032,7 +3032,7 @@ ofstream out;   // output file stream that is not associated with any file
 - `ate`和`binary`模式可用于任何类型的文件流对象，并可以和其他任何模式组合使用。
 - 与`ifstream`对象关联的文件默认以`in`模式打开，与`ofstream`对象关联的文件默认以`out`模式打开，与`fstream`对象关联的文件默认以`in`和`out`模式打开。
 
-<font color='red'>**默认情况下，打开`ofstream`对象时，文件内容会被丢弃，阻止文件清空的方法是同时指定`app`或`in`模式。**</font>
+**默认情况下，打开`ofstream`对象时，文件内容会被丢弃，阻止文件清空的方法是同时指定`app`或`in`模式。**
 
 流对象每次打开文件时都可以改变其文件模式。
 
@@ -3110,28 +3110,28 @@ for (const auto &entry : people)
 |      类型      |                             特性                             |
 | :------------: | :----------------------------------------------------------: |
 |    `vector`    | 可变大小数组。支持快速随机访问。在尾部之外的位置插入/删除元素可能很慢 |
-|    `deque`     | <font color='red'>**双端队列。支持快速随机访问。**</font>在头尾位置插入/删除速度很快 |
+|    `deque`     | **双端队列。支持快速随机访问。**在头尾位置插入/删除速度很快 |
 |     `list`     | 双向链表。只支持双向顺序访问。在任何位置插入/删除速度都很快  |
 | `forward_list` | 单向链表。只支持单向顺序访问。在任何位置插入/删除速度都很快  |
-|    `array`     | <font color='red'>**固定大小数组。支持快速随机访问。不能添加/删除元素**</font> |
-|    `string`    | <font color='red'>**类似`vector`，但用于保存字符。支持快速随机访问。在尾部插入/删除速度很快**</font> |
+|    `array`     | **固定大小数组。支持快速随机访问。不能添加/删除元素** |
+|    `string`    | **类似`vector`，但用于保存字符。支持快速随机访问。在尾部插入/删除速度很快** |
 
 `forward_list`和`array`是C++11新增类型。与内置数组相比，`array`更安全易用。`forward_list`没有`size`操作。
 
 容器选择原则：
 
 - 除非有合适的理由选择其他容器，否则应该使用`vector`。
-- <font color='red'>**如果程序有很多小的元素，且空间的额外开销很重要**</font>，则不要使用`list`或`forward_list`。
-- 如果程序要求<font color='red'>**随机访问容器元素，则应该使用`vector`或`deque`。**</font>
-- <font color='red'>**如果程序需要在容器头尾位置插入/删除元素**</font>，但不会在中间位置操作，<font color='red'>**则应该使用`deque`**</font>。
+- **如果程序有很多小的元素，且空间的额外开销很重要**，则不要使用`list`或`forward_list`。
+- 如果程序要求**随机访问容器元素，则应该使用`vector`或`deque`。**
+- **如果程序需要在容器头尾位置插入/删除元素**，但不会在中间位置操作，**则应该使用`deque`**。
 - 如果程序只有在读取输入时才需要在容器中间位置插入元素，之后需要随机访问元素。则：
-  - 先确定是否真的需要在容器中间位置插入元素。当处理输入数据时，可<font color='red'>**以先向`vector`追加数据，再调用标准库的`sort`函数重排元素**</font>，从而避免在中间位置添加元素。
-  - <font color='red'>**如果必须在中间位置插入元素，可以在输入阶段使用`list`。输入完成后将`list`中的内容拷贝到`vector`中。**</font>
-- <font color='red'>**不确定应该使用哪种容器时，可以先只使用`vector`和`list`的公共操作：使用迭代器**</font>，不使用下标操作，避免随机访问。这样在必要时选择`vector`或`list`都很方便。
+  - 先确定是否真的需要在容器中间位置插入元素。当处理输入数据时，可**以先向`vector`追加数据，再调用标准库的`sort`函数重排元素**，从而避免在中间位置添加元素。
+  - **如果必须在中间位置插入元素，可以在输入阶段使用`list`。输入完成后将`list`中的内容拷贝到`vector`中。**
+- **不确定应该使用哪种容器时，可以先只使用`vector`和`list`的公共操作：使用迭代器**，不使用下标操作，避免随机访问。这样在必要时选择`vector`或`list`都很方便。
 
 ## 容器库概览（Container Library Overview）
 
-每个容器都定义在一个头文件中，文件名与类型名相同。<font color='red'>**容器均为模板类型。**</font>
+每个容器都定义在一个头文件中，文件名与类型名相同。**容器均为模板类型。**
 
 ![9-2](CppPrimer.assets/9-2.png)
 
@@ -3139,13 +3139,13 @@ for (const auto &entry : people)
 
 `forward_list`类型不支持递减运算符`--`。
 
-一个迭代器范围（iterator range）由一对迭代器表示。这两个迭代器通常被称为`begin`和`end`，分别指向同一个容器中的元素或尾后地址。<font color='red'>**`end`迭代器不会指向范围中的最后一个元素，而是指向尾元素之后的位置。**</font>这种元素范围被称为左闭合区间（left-inclusive interval），<font color='red'>**迭代器`begin`和`end`必须指向相同的容器**</font>，`end`可以与`begin`指向相同的位置，但不能指向`begin`之前的位置（由程序员确保）。
+一个迭代器范围（iterator range）由一对迭代器表示。这两个迭代器通常被称为`begin`和`end`，分别指向同一个容器中的元素或尾后地址。**`end`迭代器不会指向范围中的最后一个元素，而是指向尾元素之后的位置。**这种元素范围被称为左闭合区间（left-inclusive interval），**迭代器`begin`和`end`必须指向相同的容器**，`end`可以与`begin`指向相同的位置，但不能指向`begin`之前的位置（由程序员确保）。
 
-假定`begin`和`end`构成一个<font color='red'>**合法的迭代器范围**</font>，则：
-<font color='red'>**
+假定`begin`和`end`构成一个**合法的迭代器范围**，则：
+**
 - 如果`begin`等于`end`，则范围为空。
 - 如果`begin`不等于`end`，则范围内至少包含一个元素，且`begin`指向该范围内的第一个元素。
-- 可以递增`begin`若干次，令`begin`等于`end`。**</font>
+- 可以递增`begin`若干次，令`begin`等于`end`。**
 
 ```c++
 while (begin != end)
@@ -3163,7 +3163,7 @@ while (begin != end)
 
 `begin`和`end`操作生成指向容器中第一个元素和尾后地址的迭代器。其常见用途是形成一个包含容器中所有元素的迭代器范围。
 
-<font color='red'>**`begin`和`end`操作有多个版本：带`r`的版本返回反向迭代器。以`c`开头的版本（C++11新增）返回`const`迭代器。不以`c`开头的版本都是重载的，当对非常量对象调用这些成员时，返回普通迭代器，对`const`对象调用时，返回`const`迭代器。**</font>
+**`begin`和`end`操作有多个版本：带`r`的版本返回反向迭代器。以`c`开头的版本（C++11新增）返回`const`迭代器。不以`c`开头的版本都是重载的，当对非常量对象调用这些成员时，返回普通迭代器，对`const`对象调用时，返回`const`迭代器。**
 
 ```c++
 list<string> a = {"Milton", "Shakespeare", "Austen"};
@@ -3175,7 +3175,7 @@ auto it4 = a.crbegin();  // list<string>::const_reverse_iterator
 
 当`auto`与`begin`或`end`结合使用时，返回的迭代器类型依赖于容器类型。但调用以`c`开头的版本仍然可以获得`const`迭代器，与容器是否是常量无关。
 
-<font color='red'>**当程序不需要写操作时，应该使用`cbegin`和`cend`**</font>。
+**当程序不需要写操作时，应该使用`cbegin`和`cend`**。
 
 ### 容器定义和初始化（Defining and Initializing a Container）
 
@@ -3183,9 +3183,9 @@ auto it4 = a.crbegin();  // list<string>::const_reverse_iterator
 
 ![9-3](CppPrimer.assets/9-3.png)
 
-<font color='red'>**将一个容器初始化为另一个容器的拷贝时，两个容器的容器类型和元素类型都必须相同。**</font>
+**将一个容器初始化为另一个容器的拷贝时，两个容器的容器类型和元素类型都必须相同。**
 
-<font color='red'>**传递迭代器参数来拷贝一个范围时，不要求容器类型相同，而且新容器和原容器中的元素类型也可以不同，但是要能进行类型转换。**</font>
+**传递迭代器参数来拷贝一个范围时，不要求容器类型相同，而且新容器和原容器中的元素类型也可以不同，但是要能进行类型转换。**
 
 ```c++
 // each container has three elements, initialized from the given initializers
@@ -3198,7 +3198,7 @@ vector<string> words(articles);     // error: element types must match
 forward_list<string> words(articles.begin(), articles.end());
 ```
 
-<font color='red'>**C++11允许对容器进行列表初始化。**</font>
+**C++11允许对容器进行列表初始化。**
 
 ```c++
 // each container has three elements, initialized from the given initializers
@@ -3206,8 +3206,8 @@ list<string> authors = {"Milton", "Shakespeare", "Austen"};
 vector<const char*> articles = {"a", "an", "the"};
 ```
 
-<font color='red'>**定义和使用`array`类型时，需要同时指定元素类型和容器大小。
-**</font>
+**定义和使用`array`类型时，需要同时指定元素类型和容器大小。
+**
 ```c++
 array<int, 42>      // type is: array that holds 42 ints
 array<string, 10>   // type is: array that holds 10 strings
@@ -3215,9 +3215,9 @@ array<int, 10>::size_type i;   // array type includes element type and size
 array<int>::size_type j;       // error: array<int> is not a type
 ```
 
-对`array`进行列表初始化时，初始值的数量不能大于`array`的大小。如果初始值的数量小于`array`的大小，则只初始化靠前的元素，剩余元素会被值初始化。<font color='red'>**如果元素类型是类类型，则该类需要一个默认构造函数。 **</font>
+对`array`进行列表初始化时，初始值的数量不能大于`array`的大小。如果初始值的数量小于`array`的大小，则只初始化靠前的元素，剩余元素会被值初始化。**如果元素类型是类类型，则该类需要一个默认构造函数。 **
 
-<font color='red'>**可以对`array`进行拷贝或赋值操作，但要求二者的元素类型和大小都相同。**</font>
+**可以对`array`进行拷贝或赋值操作，但要求二者的元素类型和大小都相同。**
 
 ### 赋值和swap（Assignment and swap）
 
@@ -3225,7 +3225,7 @@ array<int>::size_type j;       // error: array<int> is not a type
 
 ![9-4](CppPrimer.assets/9-4.png)
 
-赋值运算符两侧的运算对象必须类型相同。<font color='red'>**`assign`允许用不同但相容的类型赋值，或者用容器的子序列赋值。**</font>
+赋值运算符两侧的运算对象必须类型相同。**`assign`允许用不同但相容的类型赋值，或者用容器的子序列赋值。**
 
 ```c++
 list<string> names;
@@ -3235,9 +3235,9 @@ names = oldstyle;   // error: container types don't match
 names.assign(oldstyle.cbegin(), oldstyle.cend());
 ```
 
-由于其旧元素被替换，<font color='red'>**因此传递给`assign`的迭代器不能指向调用`assign`的容器本身。**</font>
+由于其旧元素被替换，**因此传递给`assign`的迭代器不能指向调用`assign`的容器本身。**
 
-`swap`交换两个相同类型容器的内容。<font color='red'>**除`array`外，`swap`不对任何元素进行拷贝、删除或插入操作，只交换两个容器的内部数据结构，因此可以保证快速完成。**</font>
+`swap`交换两个相同类型容器的内容。**除`array`外，`swap`不对任何元素进行拷贝、删除或插入操作，只交换两个容器的内部数据结构，因此可以保证快速完成。**
 
 ```c++
 vector<string> svec1(10);   // vector with ten elements
@@ -3245,9 +3245,9 @@ vector<string> svec2(24);   // vector with 24 elements
 swap(svec1, svec2);
 ```
 
-<font color='red'>**赋值相关运算会导致指向左边容器内部的迭代器、引用和指针失效。**</font>而`swap`操作交换容器内容，不会导致迭代器、引用和指针失效<font color='red'>**（`array`和`string`除外）。**</font>
+**赋值相关运算会导致指向左边容器内部的迭代器、引用和指针失效。**而`swap`操作交换容器内容，不会导致迭代器、引用和指针失效**（`array`和`string`除外）。**
 
-对于`array`，`swap`会真正交换它们的元素。<font color='red'>**因此在`swap`操作后，指针、引用和迭代器所绑定的元素不变，但元素值已经被交换。**</font>
+对于`array`，`swap`会真正交换它们的元素。**因此在`swap`操作后，指针、引用和迭代器所绑定的元素不变，但元素值已经被交换。**
 
 ```c++
 array<int, 3> a = { 1, 2, 3 };
@@ -3262,7 +3262,7 @@ while (p != q)
 }
 ```
 
-<font color='red'>**对于其他容器类型（除`string`），指针、引用和迭代器在`swap`操作后仍指向操作前的元素，但这些元素已经属于不同的容器了。**</font>
+**对于其他容器类型（除`string`），指针、引用和迭代器在`swap`操作后仍指向操作前的元素，但这些元素已经属于不同的容器了。**
 
 ```c++
 vector<int> a = { 1, 2, 3 };
@@ -3277,7 +3277,7 @@ while (p != q)
 }
 ```
 
-<font color='red'>**`array`不支持`assign`，也不允许用花括号列表进行赋值。**</font>
+**`array`不支持`assign`，也不允许用花括号列表进行赋值。**
 
 ```c++
 array<int, 10> a1 = {0,1,2,3,4,5,6,7,8,9};
@@ -3286,21 +3286,21 @@ a1 = a2;    // replaces elements in a1
 a2 = {0};   // error: cannot assign to an array from a braced list
 ```
 
-新标准库同时提供了成员和非成员函数版本的`swap`。<font color='red'>**非成员版本的`swap`在泛型编程中非常重要，建议统一使用非成员版本的`swap`**</font>。
+新标准库同时提供了成员和非成员函数版本的`swap`。**非成员版本的`swap`在泛型编程中非常重要，建议统一使用非成员版本的`swap`**。
 
 ### 容器大小操作（Container Size Operations）
 
-<font color='red'>**`size`成员返回容器中元素的数量；**</font>`empty`当`size`为0时返回`true`，否则返回`false`；`max_size`返回一个大于或等于该类型容器所能容纳的最大元素数量的值。`forward_list`支持`max_size`和`empty`，但不支持`size`。
+**`size`成员返回容器中元素的数量；**`empty`当`size`为0时返回`true`，否则返回`false`；`max_size`返回一个大于或等于该类型容器所能容纳的最大元素数量的值。`forward_list`支持`max_size`和`empty`，但不支持`size`。
 
 ### 关系运算符（Relational Operators）
 
-<font color='red'>**每个容器类型都支持相等运算符（`==`、`!=`）**</font>。<font color='red'>**除无序关联容器外，其他容器都支持关系运算符**</font>（`>`、`>=`、`<`、`<=`）。关系运算符两侧的<font color='red'>**容器类型**</font>和保存<font color='red'>**元素类型都必须相同**</font>。
+**每个容器类型都支持相等运算符（`==`、`!=`）**。**除无序关联容器外，其他容器都支持关系运算符**（`>`、`>=`、`<`、`<=`）。关系运算符两侧的**容器类型**和保存**元素类型都必须相同**。
 
 两个容器的比较实际上是元素的逐对比较，其工作方式与`string`的关系运算符类似：
 
-- 如果两个容器<font color='red'>**大小相同且所有元素对应相等**</font>，则这两个容器相等。
-- 如果两个容器大小不同，但较小容器中的每个元素都等于较大容器中的对应元素，<font color='red'>**则较小容器小于较大容器**</font>。
-- 如果两个容器都不是对方的前缀子序列，则两个容器的比较结果<font color='red'>**取决于第一个不等元素的比较结果**</font>。
+- 如果两个容器**大小相同且所有元素对应相等**，则这两个容器相等。
+- 如果两个容器大小不同，但较小容器中的每个元素都等于较大容器中的对应元素，**则较小容器小于较大容器**。
+- 如果两个容器都不是对方的前缀子序列，则两个容器的比较结果**取决于第一个不等元素的比较结果**。
 
 ```c++
 vector<int> v1 = { 1, 3, 5, 7, 9, 12 };
@@ -3319,7 +3319,7 @@ v1 == v2    // false; v2 has fewer elements than v1
 
 ### 向顺序容器添加元素（Adding Elements to a Sequential Container）
 
-<font color='red'>**除`array`外，所有标准库容器都提供灵活的内存管理，在运行时可以动态添加或删除元素。**</font>
+**除`array`外，所有标准库容器都提供灵活的内存管理，在运行时可以动态添加或删除元素。**
 
 ![9-5](CppPrimer.assets/9-5.png)
 
@@ -3332,7 +3332,7 @@ while (cin >> word)
     container.push_back(word);
 ```
 
-<font color='red'>**`insert`将元素插入到迭代器指定的位置之前。**</font>一些不支持`push_front`的容器可以使用`insert`将元素插入开始位置。
+**`insert`将元素插入到迭代器指定的位置之前。**一些不支持`push_front`的容器可以使用`insert`将元素插入开始位置。
 
 ```c++
 vector<string> svec;
@@ -3346,7 +3346,7 @@ svec.insert(svec.begin(), "Hello!");
 
 将元素插入到`vector`、`deque`或`string`的任何位置都是合法的，但可能会很耗时。
 
-<font color='red'>**在新标准库中，接受元素个数或范围的`insert`版本返回指向第一个新增元素的迭代器**</font>，而旧版本中这些操作返回`void`。如果范围为空，不插入任何元素，`insert`会返回第一个参数。
+**在新标准库中，接受元素个数或范围的`insert`版本返回指向第一个新增元素的迭代器**，而旧版本中这些操作返回`void`。如果范围为空，不插入任何元素，`insert`会返回第一个参数。
 
 ```c++
 list<string> 1st;
@@ -3355,7 +3355,7 @@ while (cin >> word)
     iter = 1st.insert(iter, word);  // same as calling push_front
 ```
 
-新标准库增加了<font color='red'>**三个直接构造**</font>而不是拷贝元素的操作：`emplace_front`、`emplace_back`和`emplace`，其分别对应`push_front`、`push_back`和`insert`。当调用`push`或`insert`时，元素对象被拷贝到容器中。而调用`emplace`时，<font color='red'>**则是将参数传递给元素类型的构造函数，直接在容器的内存空间中构造元素**</font>。
+新标准库增加了**三个直接构造**而不是拷贝元素的操作：`emplace_front`、`emplace_back`和`emplace`，其分别对应`push_front`、`push_back`和`insert`。当调用`push`或`insert`时，元素对象被拷贝到容器中。而调用`emplace`时，**则是将参数传递给元素类型的构造函数，直接在容器的内存空间中构造元素**。
 
 ```c++
 // construct a Sales_data object at the end of c
@@ -3373,9 +3373,9 @@ c.push_back(Sales_data("978-0590353403", 25, 15.99));
 
 ### 访问元素（Accessing Elements）
 
-每个顺序容器都有一个`front`成员函数，而除了`forward_list`之外的顺序容器还有一个`back`成员函数。<font color='red'>**这两个操作分别返回首元素和尾元素的引用。**</font>
+每个顺序容器都有一个`front`成员函数，而除了`forward_list`之外的顺序容器还有一个`back`成员函数。**这两个操作分别返回首元素和尾元素的引用。**
 
-<font color='red'>**在调用`front`和`back`之前，要确保容器非空。**</font>
+**在调用`front`和`back`之前，要确保容器非空。**
 
 顺序容器的元素访问操作：
 
@@ -3383,7 +3383,7 @@ c.push_back(Sales_data("978-0590353403", 25, 15.99));
 
 在容器中访问元素的成员函数都返回引用类型。如果容器是`const`对象，则返回`const`引用，否则返回普通引用。
 
-可以快速随机访问的容器（`string`、`vector`、`deque`和`array`）都提供下标运算符。保证下标有效是程序员的责任。如果希望确保下标合法，可以使用`at`成员函数。<font color='red'>**`at`类似下标运算，但如果下标越界，`at`会抛出`out_of_range`异常。**</font>
+可以快速随机访问的容器（`string`、`vector`、`deque`和`array`）都提供下标运算符。保证下标有效是程序员的责任。如果希望确保下标合法，可以使用`at`成员函数。**`at`类似下标运算，但如果下标越界，`at`会抛出`out_of_range`异常。**
 
 ```c++
 vector<string> svec;  // empty vector
@@ -3397,13 +3397,13 @@ cout << svec.at(0);   // throws an out_of_range exception
 
 ![9-7](CppPrimer.assets/9-7.png)
 
-<font color='red'>**删除`deque`中除首尾位置之外**</font>的任何元素都会使所有迭代器、引用和指针失效。删除`vector`或`string`的元素后，指向<font color='red'>**删除点之后位置**</font>的迭代器、引用和指针也都会失效。
+**删除`deque`中除首尾位置之外**的任何元素都会使所有迭代器、引用和指针失效。删除`vector`或`string`的元素后，指向**删除点之后位置**的迭代器、引用和指针也都会失效。
 
-<font color='red'>**删除元素前，程序员必须确保目标元素存在。**</font>
+**删除元素前，程序员必须确保目标元素存在。**
 
 `pop_front`和`pop_back`函数分别删除首元素和尾元素。`vector`和`string`类型不支持`pop_front`，`forward_list`类型不支持`pop_back`。
 
-`erase`函数删除指定位置的元素。可以删除由一个迭代器指定的单个元素，也可以删除由一对迭代器指定的范围内的所有元素。两种形式的`erase`都返回指向删除元素（最后一个）<font color='red'>**之后位置的迭代器**</font>。
+`erase`函数删除指定位置的元素。可以删除由一个迭代器指定的单个元素，也可以删除由一对迭代器指定的范围内的所有元素。两种形式的`erase`都返回指向删除元素（最后一个）**之后位置的迭代器**。
 
 ```c++
 // delete the range of elements between two iterators
@@ -3411,7 +3411,7 @@ cout << svec.at(0);   // throws an out_of_range exception
 elem1 = slist.erase(elem1, elem2);  // after the call elem1 == elem2
 ```
 
-<font color='red'>**`clear`函数删除容器内的所有元素。**</font>
+**`clear`函数删除容器内的所有元素。**
 
 ### 特殊的forward_list操作（Specialized forward_list Operations）
 
@@ -3431,22 +3431,22 @@ elem1 = slist.erase(elem1, elem2);  // after the call elem1 == elem2
 
 `resize`函数接受一个可选的元素值参数，用来初始化添加到容器中的元素，否则新元素进行值初始化。如果容器保存的是类类型元素，且`resize`向容器添加新元素，则必须提供初始值，或元素类型提供默认构造函数。
 
-### 容器操作<font color='red'>**可能使迭代器失效**</font>（Container Operations May Invalidate Iterators）
+### 容器操作**可能使迭代器失效**（Container Operations May Invalidate Iterators）
 
-<font color='red'>**向容器中添加或删除元素可能会使指向容器元素的指针、引用或迭代器失效。**</font>失效的指针、引用或迭代器不再表示任何元素，使用它们是一种严重的程序设计错误。
+**向容器中添加或删除元素可能会使指向容器元素的指针、引用或迭代器失效。**失效的指针、引用或迭代器不再表示任何元素，使用它们是一种严重的程序设计错误。
 
 - 向容器中添加元素后：
-  - 如果容器是`vector`或`string`类型，且<font color='red'>**存储空间被重新分配**</font>，则指向容器的迭代器、指针和引用<font color='red'>**都会失效**</font>。如果存储空间未重新分配，指向插入位置<font color='red'>**之前元素**</font>的迭代器、指针和引用<font color='red'>**仍然有效**</font>，但指向插入位置<font color='red'>**之后**</font>元素的迭代器、指针和引用都会失效**</font>。
-  - 如果容器是`deque`类型，添加到除<font color='red'>**首尾之外**</font>的任何位置都会使迭代器、指针和引用<font color='red'>**失效**</font>。如果添加到<font color='red'>**首尾位置**</font>，则<font color='red'>**迭代器会失效**</font>，而指针和引用不会失效。
-  - 如果<font color='red'>**容器是`list`或`forward_list`类型**</font>，指向容器的迭代器、指针和引用<font color='red'>**仍然有效。**</font>
+  - 如果容器是`vector`或`string`类型，且**存储空间被重新分配**，则指向容器的迭代器、指针和引用**都会失效**。如果存储空间未重新分配，指向插入位置**之前元素**的迭代器、指针和引用**仍然有效**，但指向插入位置**之后**元素的迭代器、指针和引用都会失效**。
+  - 如果容器是`deque`类型，添加到除**首尾之外**的任何位置都会使迭代器、指针和引用**失效**。如果添加到**首尾位置**，则**迭代器会失效**，而指针和引用不会失效。
+  - 如果**容器是`list`或`forward_list`类型**，指向容器的迭代器、指针和引用**仍然有效。**
 - 从容器中删除元素后，指向被删除元素的迭代器、指针和引用失效：
-  - 如果<font color='red'>**容器是`list`或`forward_list`**</font>类型，指向容器其他位置的迭代器、指针和引用<font color='red'>**仍然有效**</font>。
-  - 如果容器是`deque`类型，删除除<font color='red'>**首尾之外**</font>的任何元素都会使迭代器、指针和引用<font color='red'>**失效**</font>。如果<font color='red'>**删除尾元素**</font>，则<font color='red'>**尾后迭代器失效**</font>，其他迭代器、指针和引用不受影响。如果<font color='red'>**删除首元素**</font>，这些也<font color='red'>**不会受影响**</font>。
-  - 如果容器是`vector`或`string`类型，指向<font color='red'>**删除位置之前**</font>元素的迭代器、指针和引用仍然<font color='red'>**有效**</font>。但<font color='red'>**尾后迭代器总会失效**</font>。
+  - 如果**容器是`list`或`forward_list`**类型，指向容器其他位置的迭代器、指针和引用**仍然有效**。
+  - 如果容器是`deque`类型，删除除**首尾之外**的任何元素都会使迭代器、指针和引用**失效**。如果**删除尾元素**，则**尾后迭代器失效**，其他迭代器、指针和引用不受影响。如果**删除首元素**，这些也**不会受影响**。
+  - 如果容器是`vector`或`string`类型，指向**删除位置之前**元素的迭代器、指针和引用仍然**有效**。但**尾后迭代器总会失效**。
 
-必须保证在每次改变容器后都正确地<font color='red'>**重新定位**</font>迭代器。
+必须保证在每次改变容器后都正确地**重新定位**迭代器。
 
-<font color='red'>**不要保存`end`函数**</font>返回的迭代器。
+**不要保存`end`函数**返回的迭代器。
 
 ```c++
 // safer: recalculate end on each trip whenever the loop adds/erases elements
@@ -3467,13 +3467,13 @@ while (begin != v.end())
 
 ![9-11](CppPrimer.assets/9-11.png)
 
-`capacity`函数返回容器在<font color='red'>**不扩充**</font>内存空间的情况下<font color='red'>**最多可以容纳的元素数量**</font>。`reserve`函数告知容器应该<font color='red'>**准备保存多少元素**</font>，它并不改变容器中元素的数量，仅影响容器预先分配的内存空间大小。
+`capacity`函数返回容器在**不扩充**内存空间的情况下**最多可以容纳的元素数量**。`reserve`函数告知容器应该**准备保存多少元素**，它并不改变容器中元素的数量，仅影响容器预先分配的内存空间大小。
 
 ![9-12](CppPrimer.assets/9-12.png)
 
-只有当需要的内存空间<font color='red'>**超过当前容量**</font>时，`reserve`才会真正改变容器容量，分配不小于需求大小的内存空间。当需求容量小于当前容量时，`reserve`并不会退回内存空间。因此在调用`reserve`之后，`capacity`会大于或等于传递给`reserve`的参数。
+只有当需要的内存空间**超过当前容量**时，`reserve`才会真正改变容器容量，分配不小于需求大小的内存空间。当需求容量小于当前容量时，`reserve`并不会退回内存空间。因此在调用`reserve`之后，`capacity`会大于或等于传递给`reserve`的参数。
 
-在C++11中可以使用`shrink_to_fit`函数来要求`deque`、`vector`和`string`退回不需要的内存空间（<font color='red'>**并不保证退回**</font>）。
+在C++11中可以使用`shrink_to_fit`函数来要求`deque`、`vector`和`string`退回不需要的内存空间（**并不保证退回**）。
 
 ## 额外的string操作（Additional string Operations）
 
@@ -3489,7 +3489,7 @@ while (begin != v.end())
 
 ![9-14](CppPrimer.assets/9-14.png)
 
-如果传递给`substr`函数的<font color='red'>**开始位置超过`string`的大小**</font>，则函数会抛出`out_of_range`异常。
+如果传递给`substr`函数的**开始位置超过`string`的大小**，则函数会抛出`out_of_range`异常。
 
 ### 改变string的其他方法（Other Ways to Change a string）
 
@@ -3517,7 +3517,7 @@ s2.replace(11, 3, "5th");   // equivalent: s == s2
 
 ### string搜索操作（string Search Operations）
 
-`string`的每个搜索操作都<font color='red'>**返回一个`string::size_type`值**</font>，表示匹配位置的下标。<font color='red'>**如果搜索失败**</font>，则返回一个名为`string::npos`的`static`成员。标准库将`npos`定义为`const string::size_type`类型，<font color='red'>**并初始化为-1**</font>。
+`string`的每个搜索操作都**返回一个`string::size_type`值**，表示匹配位置的下标。**如果搜索失败**，则返回一个名为`string::npos`的`static`成员。标准库将`npos`定义为`const string::size_type`类型，**并初始化为-1**。
 
 不建议用`int`或其他带符号类型来保存`string`搜索函数的返回值。
 
@@ -3545,13 +3545,13 @@ C++11增加了`string`和数值之间的转换函数：
 
 ## 容器适配器（Container Adaptors）
 
-标准库定义了`stack`、`queue`和`priority_queue`三种容器适配器。<font color='red'>**容器适配器**</font>可以<font color='red'>**改变**</font>已有容器的<font color='red'>**工作机制**</font>。
+标准库定义了`stack`、`queue`和`priority_queue`三种容器适配器。**容器适配器**可以**改变**已有容器的**工作机制**。
 
 所有容器适配器都支持的操作和类型：
 
 ![9-19](CppPrimer.assets/9-19.png)
 
-<font color='red'>**默认情况下，`stack`和`queue`是基于`deque`实现的，`priority_queue`是基于`vector`实现的。**</font>可以在创建适配器时将一个命名的<font color='red'>**顺序容器作为第二个类型参数，来重载默认容器类型**</font>。
+**默认情况下，`stack`和`queue`是基于`deque`实现的，`priority_queue`是基于`vector`实现的。**可以在创建适配器时将一个命名的**顺序容器作为第二个类型参数，来重载默认容器类型**。
 
 ```c++
 // empty stack implemented on top of vector
@@ -3560,17 +3560,17 @@ stack<string, vector<string>> str_stk;
 stack<string, vector<string>> str_stk2(svec);
 ```
 
-所有适配器都要求容器具有<font color='red'>**添加和删除**</font>元素的能力，因此适配器不能构造在`array`上。<font color='red'>**适配器还要求容器具有添加、删除和访问尾元素**</font>的能力，因此也不能用`forward_list`构造适配器。
+所有适配器都要求容器具有**添加和删除**元素的能力，因此适配器不能构造在`array`上。**适配器还要求容器具有添加、删除和访问尾元素**的能力，因此也不能用`forward_list`构造适配器。
 
 栈适配器`stack`定义在头文件*stack*中，其支持的操作如下：
 
 ![9-20](CppPrimer.assets/9-20.png)
 
-<font color='red'>**队列适配器`queue`和`priority_queue`定义在头文件*queue*中**</font>，其支持的操作如下：
+**队列适配器`queue`和`priority_queue`定义在头文件*queue*中**，其支持的操作如下：
 
 ![9-21](CppPrimer.assets/9-21.png)
 
-`queue`使用先进先出（first-in，first-out，FIFO）的存储和访问策略。<font color='red'>**进入队列**</font>的对象被放置到<font color='red'>**队尾**</font>，而<font color='red'>**离开**</font>队列的对象则从<font color='red'>**队首**</font>删除。  
+`queue`使用先进先出（first-in，first-out，FIFO）的存储和访问策略。**进入队列**的对象被放置到**队尾**，而**离开**队列的对象则从**队首**删除。  
 # 第10章 泛型算法
 
 ## 概述（Overview）
@@ -3590,7 +3590,7 @@ cout << "The value " << val
 
 迭代器参数令算法不依赖于特定容器，但依赖于元素类型操作。
 
-<font color='red'>**泛型算法本身不会执行容器操作，它们只会运行于迭代器之上，执行迭代器操作**</font>。算法可能改变容器中元素的值，或者在容器内移动元素，但不会改变底层容器的大小（<font color='red'>**当算法操作插入迭代器时，迭代器可以向容器中添加元素**</font>，但算法自身不会进行这种操作）。
+**泛型算法本身不会执行容器操作，它们只会运行于迭代器之上，执行迭代器操作**。算法可能改变容器中元素的值，或者在容器内移动元素，但不会改变底层容器的大小（**当算法操作插入迭代器时，迭代器可以向容器中添加元素**，但算法自身不会进行这种操作）。
 
 ## 初识泛型算法（A First Look at the Algorithms）
 
@@ -3606,9 +3606,9 @@ string sum = accumulate(v.cbegin(), v.cend(), string(""));
 string sum = accumulate(v.cbegin(), v.cend(), "");
 ```
 
-<font color='red'>**建议在只读算法中使用`cbegin`和`cend`函数。**</font>
+**建议在只读算法中使用`cbegin`和`cend`函数。**
 
-`equal`函数用于确定两个序列是否保存相同的值。它接受三个迭代器参数，前两个参数指定第一个序列范围，第三个参数指定第二个序列的首元素。`equal`函数<font color='red'>**假定第二个序列至少与第一个序列一样长**</font>。
+`equal`函数用于确定两个序列是否保存相同的值。它接受三个迭代器参数，前两个参数指定第一个序列范围，第三个参数指定第二个序列的首元素。`equal`函数**假定第二个序列至少与第一个序列一样长**。
 
 ```c++
 // roster2 should have at least as many elements as roster1
@@ -3619,25 +3619,25 @@ equal(roster1.cbegin(), roster1.cend(), roster2.cbegin());
 
 ### 写容器元素的算法（Algorithms That Write Container Elements）
 
-`fill`函数接受两个迭代器参数表示序列范围，还接受一个值作为第三个参数，它将给定值<font color='red'>**赋予**</font>范围内的<font color='red'>**每个元素**</font>。
+`fill`函数接受两个迭代器参数表示序列范围，还接受一个值作为第三个参数，它将给定值**赋予**范围内的**每个元素**。
 
 ```c++
 // reset each element to 0
 fill(vec.begin(), vec.end(), 0);
 ```
 
-`fill_n`函数接受单个迭代器参数、一个<font color='red'>**计数值**</font>和一个值，它将给定值赋予迭代器指向位置开始的指定个元素。
+`fill_n`函数接受单个迭代器参数、一个**计数值**和一个值，它将给定值赋予迭代器指向位置开始的指定个元素。
 
 ```c++
 // reset all the elements of vec to 0
 fill_n(vec.begin(), vec.size(), 0);
 ```
 
-向目的位置迭代器写入数据的算法都<font color='red'>**假定目的位置足够大**</font>，能容纳要写入的元素。
+向目的位置迭代器写入数据的算法都**假定目的位置足够大**，能容纳要写入的元素。
 
 插入迭代器（insert iterator）是一种向容器内添加元素的迭代器。通过插入迭代器赋值时，一个与赋值号右侧值相等的元素会被添加到容器中。
 
-`back_inserter`函数（定义在头文件*iterator*中）<font color='red'>**接受一个指向容器的引用，返回与该容器绑定的插入迭代器**</font>。通过此迭代器赋值时，赋值运算符会调用`push_back`将一个具有给定值的元素添加到容器中。
+`back_inserter`函数（定义在头文件*iterator*中）**接受一个指向容器的引用，返回与该容器绑定的插入迭代器**。通过此迭代器赋值时，赋值运算符会调用`push_back`将一个具有给定值的元素添加到容器中。
 
 ```c++
 vector<int> vec;    // empty vector
@@ -3663,7 +3663,7 @@ auto ret = copy(begin(a1), end(a1), a2);    // copy a1 into a2
 replace(ilst.begin(), ilst.end(), 0, 42);
 ```
 
-相对于`replace`，<font color='red'>**`replace_copy`函数可以保留原序列不变。它接受第三个迭代器参数，指定调整后序列的保存位置。**</font>
+相对于`replace`，**`replace_copy`函数可以保留原序列不变。它接受第三个迭代器参数，指定调整后序列的保存位置。**
 
 ```c++
 // use back_inserter to grow destination as needed
@@ -3689,7 +3689,7 @@ void elimDups(vector<string> &words)
 }
 ```
 
-<font color='red'>**`unique`函数重排输入序列，消除相邻的重复项，返回指向不重复值范围末尾的迭代器。**</font>
+**`unique`函数重排输入序列，消除相邻的重复项，返回指向不重复值范围末尾的迭代器。**
 
 ![10-1](CppPrimer.assets/10-1.png)
 
@@ -3716,7 +3716,7 @@ sort(words.begin(), words.end(), isShorter);
 
 ### lambda表达式（Lambda Expressions）
 
-`find_if`函数接受两个迭代器参数和一个谓词参数。迭代器参数用于指定序列范围，之后对序列中的每个元素调用给定谓词，<font color='red'>**并返回第一个使谓词返回非0值的元素。如果不存在，则返回尾迭代器。**</font>
+`find_if`函数接受两个迭代器参数和一个谓词参数。迭代器参数用于指定序列范围，之后对序列中的每个元素调用给定谓词，**并返回第一个使谓词返回非0值的元素。如果不存在，则返回尾迭代器。**
 
 对于一个对象或表达式，如果可以对其使用调用运算符`()`，则称它为可调用对象（callable object）。可以向算法传递任何类别的可调用对象。
 
@@ -3726,7 +3726,7 @@ sort(words.begin(), words.end(), isShorter);
 [capture list] (parameter list) -> return type { function body }
 ```
 
-其中，*capture list*（捕获列表）是一个由`lambda`所在函数定义的局部变量的列表（通常为空）。*return type*、*parameter list*和*function body*与普通函数一样，分别表示返回类型、参数列表和函数体。但与普通函数不同，<font color='red'>**`lambda`必须使用尾置返回类型，且不能有默认实参**</font>。
+其中，*capture list*（捕获列表）是一个由`lambda`所在函数定义的局部变量的列表（通常为空）。*return type*、*parameter list*和*function body*与普通函数一样，分别表示返回类型、参数列表和函数体。但与普通函数不同，**`lambda`必须使用尾置返回类型，且不能有默认实参**。
 
 定义`lambda`时可以省略参数列表和返回类型，但必须包含捕获列表和函数体。省略参数列表等价于指定空参数列表。省略返回类型时，若函数体只是一个`return`语句，则返回类型由返回表达式的类型推断而来。否则返回类型为`void`。
 
@@ -3743,7 +3743,7 @@ auto wc = find_if(words.begin(), words.end(),
                     [sz](const string &a) { return a.size() >= sz; });
 ```
 
-<font color='red'>**`for_each`函数接受一个输入序列和一个可调用对象，它对输入序列中的每个元素调用此对象。**</font>
+**`for_each`函数接受一个输入序列和一个可调用对象，它对输入序列中的每个元素调用此对象。**
 
 ```c++
 // print words of the given size or longer, each one followed by a space
@@ -3753,7 +3753,7 @@ for_each(wc, words.end(),
 
 ### lambda捕获和返回（Lambda Captures and Returns）
 
-<font color='red'>**被`lambda`捕获的变量的值是在`lambda`创建时拷贝**</font>，而不是调用时拷贝。<font color='red'>**在`lambda`创建后修改局部变量不会影响`lambda`内对应的值。**</font>
+**被`lambda`捕获的变量的值是在`lambda`创建时拷贝**，而不是调用时拷贝。**在`lambda`创建后修改局部变量不会影响`lambda`内对应的值。**
 
 ```c++
 size_t v1 = 42; // local variable
@@ -3763,7 +3763,7 @@ v1 = 0;
 auto j = f();   // j is 42; f stored a copy of v1 when we created it
 ```
 
-<font color='red'>**`lambda`可以以引用方式捕获变量**</font>，但必须保证`lambda`执行时变量存在。
+**`lambda`可以以引用方式捕获变量**，但必须保证`lambda`执行时变量存在。
 
 ```c++
 size_t v1 = 42; // local variable
@@ -3790,7 +3790,7 @@ for_each(words.begin(), words.end(),
 
 ![10-2](CppPrimer.assets/10-2.png)
 
-默认情况下，对于值方式捕获的变量，`lambda`不能修改其值。<font color='red'>**如果希望修改，就必须在参数列表后添加关键字`mutable`。**</font>
+默认情况下，对于值方式捕获的变量，`lambda`不能修改其值。**如果希望修改，就必须在参数列表后添加关键字`mutable`。**
 
 ```c++
 size_t v1 = 42; // local variable
@@ -3802,7 +3802,7 @@ auto j = f();   // j is 43
 
 对于引用方式捕获的变量，`lambda`是否可以修改依赖于此引用指向的是否是`const`类型。
 
-`transform`函数接受三个迭代器参数和一个可调用对象。前两个迭代器参数指定输入序列，第三个迭代器参数表示目的位置。<font color='red'>**它对输入序列中的每个元素调用可调用对象，并将结果写入目的位置。**</font>
+`transform`函数接受三个迭代器参数和一个可调用对象。前两个迭代器参数指定输入序列，第三个迭代器参数表示目的位置。**它对输入序列中的每个元素调用可调用对象，并将结果写入目的位置。**
 
 ```c++
 transform(vi.begin(), vi.end(), vi.begin(),
@@ -3813,7 +3813,7 @@ transform(vi.begin(), vi.end(), vi.begin(),
 
 ### 参数绑定（Binding Arguments）
 
-<font color='red'>**`bind`函数定义在头文件*functional*中，相当于一个函数适配器**</font>，它接受一个可调用对象，生成一个新的可调用对象来适配原对象的参数列表。一般形式如下：
+**`bind`函数定义在头文件*functional*中，相当于一个函数适配器**，它接受一个可调用对象，生成一个新的可调用对象来适配原对象的参数列表。一般形式如下：
 
 ```c++
 auto newCallable = bind(callable, arg_list);
@@ -3842,9 +3842,9 @@ sort(words.begin(), words.end(), isShorter);
 sort(words.begin(), words.end(), bind(isShorter, _2, _1));
 ```
 
-<font color='red'>**默认情况下，`bind`函数的非占位符参数被拷贝到`bind`返回的可调用对象中。但有些类型不支持拷贝操作。**</font>
+**默认情况下，`bind`函数的非占位符参数被拷贝到`bind`返回的可调用对象中。但有些类型不支持拷贝操作。**
 
-<font color='red'>**如果希望传递给`bind`一个对象而又不拷贝它，则必须使用标准库的`ref`函数。`ref`函数返回一个对象，包含给定的引用，此对象是可以拷贝的。`cref`函数生成保存`const`引用的类。**</font>
+**如果希望传递给`bind`一个对象而又不拷贝它，则必须使用标准库的`ref`函数。`ref`函数返回一个对象，包含给定的引用，此对象是可以拷贝的。`cref`函数生成保存`const`引用的类。**
 
 ```c++
 ostream &print(ostream &os, const string &s, char c);
@@ -3858,7 +3858,7 @@ for_each(words.begin(), words.end(), bind(print, ref(os), _1, ' '));
 - 插入迭代器（insert iterator）：该类型迭代器被绑定到容器对象上，可用来向容器中插入元素。
 - 流迭代器（stream iterator）：该类型迭代器被绑定到输入或输出流上，可用来遍历所关联的IO流。
 - 反向迭代器（reverse iterator）：该类型迭代器向后而不是向前移动。除了`forward_list`之外的标准库容器都有反向迭代器。
-- <font color='red'>**移动迭代器（move iterator）：该类型迭代器用来移动容器元素。**</font>
+- **移动迭代器（move iterator）：该类型迭代器用来移动容器元素。**
 
 ### 插入迭代器（Insert Iterators）
 
@@ -3896,8 +3896,8 @@ ifstream in("afile");
 istream_iterator<string> str_it(in);   // reads strings from "afile"
 ```
 
-<font color='red'>**对于一个绑定到流的迭代器，一旦其关联的流遇到文件尾或IO错误，迭代器的值就与尾后迭代器相等。
-**</font>
+**对于一个绑定到流的迭代器，一旦其关联的流遇到文件尾或IO错误，迭代器的值就与尾后迭代器相等。
+**
 ```c++
 istream_iterator<int> in_iter(cin);     // read ints from cin
 istream_iterator<int> eof;      // istream ''end'' iterator
@@ -3918,9 +3918,9 @@ vector<int> vec(in_iter, eof);      // construct vec from an iterator range
 
 ![10-4](CppPrimer.assets/10-4.png)
 
-将`istream_iterator`绑定到一个流时，标准库并不保证迭代器立即从流读取数据。<font color='red'>**但可以保证在第一次解引用迭代器之前，从流中读取数据的操作已经完成了。**</font>
+将`istream_iterator`绑定到一个流时，标准库并不保证迭代器立即从流读取数据。**但可以保证在第一次解引用迭代器之前，从流中读取数据的操作已经完成了。**
 
-<font color='red'>**定义`ostream_iterator`对象时，必须将其绑定到一个指定的流。**</font>不允许定义空的或者表示尾后位置的`ostream_iterator`。
+**定义`ostream_iterator`对象时，必须将其绑定到一个指定的流。**不允许定义空的或者表示尾后位置的`ostream_iterator`。
 
 `ostream_iterator`操作：
 
@@ -3978,23 +3978,23 @@ C++标准指定了泛型和数值算法的每个迭代器参数的最小类别�
 
 迭代器类别：
 
-- <font color='red'>**输入迭代器**</font>（input iterator）：可以读取序列中的元素，只能用于单遍扫描算法。必须支持以下操作：
+- **输入迭代器**（input iterator）：可以读取序列中的元素，只能用于单遍扫描算法。必须支持以下操作：
 
   - 用于比较两个迭代器相等性的相等`==`和不等运算符`!=`。
   - 用于推进迭代器位置的前置和后置递增运算符`++`。
   - 用于读取元素的解引用运算符`*`；解引用只能出现在赋值运算符右侧。
   - 用于读取元素的箭头运算符`->`。
 
-- <font color='red'>**输出迭代器**</font>（output iterator）：可以读写序列中的元素，只能用于单遍扫描算法，通常指向目的位置。必须支持以下操作：
+- **输出迭代器**（output iterator）：可以读写序列中的元素，只能用于单遍扫描算法，通常指向目的位置。必须支持以下操作：
 
   - 用于推进迭代器位置的前置和后置递增运算符`++`。
   - 用于读取元素的解引用运算符`*`；解引用只能出现在赋值运算符左侧（向已经解引用的输出迭代器赋值，等价于将值写入其指向的元素）。
 
-- <font color='red'>**前向迭代器**</font>（forward iterator）：可以读写序列中的元素。只能在序列中沿一个方向移动。支持所有输入和输出迭代器的操作，而且可以多次读写同一个元素。因此可以使用前向迭代器对序列进行多遍扫描。
+- **前向迭代器**（forward iterator）：可以读写序列中的元素。只能在序列中沿一个方向移动。支持所有输入和输出迭代器的操作，而且可以多次读写同一个元素。因此可以使用前向迭代器对序列进行多遍扫描。
 
-- <font color='red'>**双向迭代器**</font>（bidirectional iterator）：可以正向/反向读写序列中的元素。除了支持所有前向迭代器的操作之外，还支持前置和后置递减运算符`--`。除`forward_list`之外的其他标准库容器都提供符合双向迭代器要求的迭代器。
+- **双向迭代器**（bidirectional iterator）：可以正向/反向读写序列中的元素。除了支持所有前向迭代器的操作之外，还支持前置和后置递减运算符`--`。除`forward_list`之外的其他标准库容器都提供符合双向迭代器要求的迭代器。
 
-- <font color='red'>**随机访问迭代器**</font>s（random-access iterator）：可以在常量时间内访问序列中的任何元素。除了支持所有双向迭代器的操作之外，还必须支持以下操作：
+- **随机访问迭代器**s（random-access iterator）：可以在常量时间内访问序列中的任何元素。除了支持所有双向迭代器的操作之外，还必须支持以下操作：
   - 用于比较两个迭代器相对位置的关系运算符`<`、`<=`、`>`、`>=`。
   - 迭代器和一个整数值的加减法运算`+`、`+=`、`-`、`-=`，计算结果是迭代器在序列中前进或后退给定整数个元素后的位置。
   - 用于两个迭代器上的减法运算符`-`，计算得到两个迭代器的距离。
@@ -4013,37 +4013,37 @@ alg(beg, end, beg2, end2, other args);
 
 其中*alg*是算法名称，*beg*和*end*表示算法所操作的输入范围。几乎所有算法都接受一个输入范围，是否有其他参数依赖于算法操作。*dest*表示输出范围，*beg2*和*end2*表示第二个输入范围。
 
-<font color='red'>**向输出迭代器写入数据的算法都假定目标空间足够容纳要写入的数据。**</font>
+**向输出迭代器写入数据的算法都假定目标空间足够容纳要写入的数据。**
 
 接受单独一个迭代器参数表示第二个输入范围的算法都假定从迭代器参数开始的序列至少与第一个输入范围一样大。
 
 ### 算法命名规范（Algorithm Naming Conventions）
 
-<font color='red'>**接受谓词参数的算法都有附加的`_if`后缀**</font>。
+**接受谓词参数的算法都有附加的`_if`后缀**。
 
 ```c++
 find(beg, end, val);       // find the first instance of val in the input range
 find_if(beg, end, pred);   // find the first instance for which pred is true
 ```
 
-将执行结果写入<font color='red'>**额外目的空间的算法都有`_copy`后缀。
-**</font>
+将执行结果写入**额外目的空间的算法都有`_copy`后缀。
+**
 ```c++
 reverse(beg, end);              // reverse the elements in the input range
 reverse_copy(beg, end, dest);   // copy elements in reverse order into dest
 ```
 
-<font color='red'>**一些算法同时提供`_copy`和`_if`版本。**</font>
+**一些算法同时提供`_copy`和`_if`版本。**
 
 ## 特定容器算法（Container-Specific Algorithms）
 
-对于`list`和`forward_list`类型，应该优先使用<font color='red'>**成员函数**</font>版本的算法，而非通用算法。
+对于`list`和`forward_list`类型，应该优先使用**成员函数**版本的算法，而非通用算法。
 
 `list`和`forward_list`成员函数版本的算法：
 
 ![10-9](CppPrimer.assets/10-9.png)
 
-`list`和`forward_list`的`splice`<font color='red'>**函数可以进行容器合并，其参数如下：**</font>
+`list`和`forward_list`的`splice`**函数可以进行容器合并，其参数如下：**
 
 ![10-10](CppPrimer.assets/10-10.png)
 
@@ -4052,16 +4052,16 @@ reverse_copy(beg, end, dest);   // copy elements in reverse order into dest
 
 关联容器支持高效的关键字查找和访问操作。2个主要的关联容器（associative-container）类型是`map`和`set`。
 
-- `map`中的元素是一些键值对（<font color='red'>**key-value**</font>）：<font color='red'>**关键字起索引作用**</font>，值表示与索引相关联的数据。
-- `set`中每个元素只包含一个关键字，<font color='red'>**支持高效的关键字查询操作**</font>：检查一个给定关键字是否在`set`中。
+- `map`中的元素是一些键值对（**key-value**）：**关键字起索引作用**，值表示与索引相关联的数据。
+- `set`中每个元素只包含一个关键字，**支持高效的关键字查询操作**：检查一个给定关键字是否在`set`中。
 
 标准库提供了8个关联容器，它们之间的不同体现在三个方面：
 
-- <font color='red'>**是`map`还是`set`类型**</font>。
-- 是否允许保存<font color='red'>**重复**</font>的关键字。
-- 是否按<font color='red'>**顺序**</font>保存元素。
+- **是`map`还是`set`类型**。
+- 是否允许保存**重复**的关键字。
+- 是否按**顺序**保存元素。
 
-<font color='red'>**允许重复**</font>保存关键字的容器名字都包含单词`multi`；无序保存元素的容器名字都以<font color='red'>**单词`unordered`开头**</font>。
+**允许重复**保存关键字的容器名字都包含单词`multi`；无序保存元素的容器名字都以**单词`unordered`开头**。
 
 ![11-1](CppPrimer.assets/11-1.png)
 
@@ -4071,7 +4071,7 @@ reverse_copy(beg, end, dest);   // copy elements in reverse order into dest
 
 `map`类型通常被称为关联数组（associative array）。
 
-从`map`中提取一个元素时，会得到一个`pair`类型的对象。`pair`是一个模板类型，保存两个名为`first`和`second`的<font color='red'>**公有数据成员**</font>。`map`所使用的`pair`用`first`成员保存关键字，用`second`成员保存对应的值。
+从`map`中提取一个元素时，会得到一个`pair`类型的对象。`pair`是一个模板类型，保存两个名为`first`和`second`的**公有数据成员**。`map`所使用的`pair`用`first`成员保存关键字，用`second`成员保存对应的值。
 
 ```c++
 // count the number of times each word occurs in the input
@@ -4085,13 +4085,13 @@ for (const auto &w : word_count)    // for each element in the map
         << ((w.second > 1) ? " times" : " time") << endl;
 ```
 
-`set`类型的`find`成员返回一个<font color='red'>**迭代器**</font>。如果给定关键字在`set`中，则迭代器指向该关键字，否则返回的是尾后迭代器。
+`set`类型的`find`成员返回一个**迭代器**。如果给定关键字在`set`中，则迭代器指向该关键字，否则返回的是尾后迭代器。
 
 ## 关联容器概述（Overview of the Associative Containers）
 
 ### 定义关联容器（Defining an Associative Container）
 
-定义`map`时，必须<font color='red'>**指定**</font>关键字类型和值<font color='red'>**类型**</font>；定义`set`时，只需指定关键字类型。
+定义`map`时，必须**指定**关键字类型和值**类型**；定义`set`时，只需指定关键字类型。
 
 初始化`map`时，提供的每个键值对用花括号`{}`包围。
 
@@ -4108,13 +4108,13 @@ map<string, string> authors =
 };
 ```
 
-`map`和`set`中的<font color='red'>**关键字必须唯一**</font>，`multimap`和`multiset`没有此限制。
+`map`和`set`中的**关键字必须唯一**，`multimap`和`multiset`没有此限制。
 
 ### 关键字类型的要求（Requirements on Key Type）
 
-对于<font color='red'>**有序容器**</font>——`map`、`multimap`、`set`和`multiset`，关键字类型必须定义元素比较的方法。默认情况下，标准库使用关键字类型的`<`运算符来进行<font color='red'>**比较操作**</font>。
+对于**有序容器**——`map`、`multimap`、`set`和`multiset`，关键字类型必须定义元素比较的方法。默认情况下，标准库使用关键字类型的`<`运算符来进行**比较操作**。
 
-用来组织容器元素的操作的类型也是该容器类型的一部分。如果需要使用自定义的比较操作，则必须在定义关联容器类型时提供此操作的类型。操作类型在<font color='red'>**尖括号**</font>中紧跟着<font color='red'>**元素类型**</font>给出。
+用来组织容器元素的操作的类型也是该容器类型的一部分。如果需要使用自定义的比较操作，则必须在定义关联容器类型时提供此操作的类型。操作类型在**尖括号**中紧跟着**元素类型**给出。
 
 ```c++
 bool compareIsbn(const Sales_data &lhs, const Sales_data &rhs)
@@ -4137,13 +4137,13 @@ pair<string, size_t> word_count;  // holds a string and an size_t
 pair<string, vector<int>> line;   // holds string and vector<int>
 ```
 
-`pair`的默认构造函数对数据成员进行<font color='red'>**值初始化**</font>。
+`pair`的默认构造函数对数据成员进行**值初始化**。
 
 `pair`支持的操作：
 
 ![11-2](CppPrimer.assets/11-2.png)
 
-在C++11中，如果函数需要返回`pair`，可以对返回值进行列表初始化。早期C++版本中必须<font color='red'>**显式构造返回值**</font>。
+在C++11中，如果函数需要返回`pair`，可以对返回值进行列表初始化。早期C++版本中必须**显式构造返回值**。
 
 ```c++
 pair<string, int> process(vector<string> &v)
@@ -4164,7 +4164,7 @@ pair<string, int> process(vector<string> &v)
 
 ![11-3](CppPrimer.assets/11-3.png)
 
-对于`set`类型，`key_type`和`value_type`是一样的。`set`中保存的值就是关键字。对于`map`类型，元素是关键字-值对。即每个元素是一个`pair`对象，包含一个关键字和一个关联的值。由于元素关键字不能改变，因此<font color='red'>**`pair`的关键字部分是`const`的**</font>。另外，只有`map`类型（`unordered_map`、`unordered_multimap`、`multimap`、`map`）<font color='red'>**才定义了`mapped_type`**</font>。
+对于`set`类型，`key_type`和`value_type`是一样的。`set`中保存的值就是关键字。对于`map`类型，元素是关键字-值对。即每个元素是一个`pair`对象，包含一个关键字和一个关联的值。由于元素关键字不能改变，因此**`pair`的关键字部分是`const`的**。另外，只有`map`类型（`unordered_map`、`unordered_multimap`、`multimap`、`map`）**才定义了`mapped_type`**。
 
 ```c++
 set<string>::value_type v1;        // v1 is a string
@@ -4176,7 +4176,7 @@ map<string, int>::mapped_type v5;  // v5 is an int
 
 ### 关联容器迭代器（Associative Container Iterators）
 
-解引用关联容器迭代器时，会得到一个类型为容器的`value_type`的引用。<font color='red'>**对`map`而言，`value_type`是`pair`类型**</font>，其`first`成员保存`const`的关键字，`second`成员保存值。
+解引用关联容器迭代器时，会得到一个类型为容器的`value_type`的引用。**对`map`而言，`value_type`是`pair`类型**，其`first`成员保存`const`的关键字，`second`成员保存值。
 
 ```c++
 // get an iterator to an element in word_count
@@ -4188,7 +4188,7 @@ map_it->first = "new key";      // error: key is const
 ++map_it->second;               // ok: we can change the value through an iterator
 ```
 
-虽然`set`同时定义了`iterator`和`const_iterator`类型，但两种迭代器都只允许只读访问`set`中的元素。<font color='red'>**类似`map`，`set`中的关键字也是`const`的**</font>。
+虽然`set`同时定义了`iterator`和`const_iterator`类型，但两种迭代器都只允许只读访问`set`中的元素。**类似`map`，`set`中的关键字也是`const`的**。
 
 ```c++
 set<int> iset = {0,1,2,3,4,5,6,7,8,9};
@@ -4202,13 +4202,13 @@ if (set_it != iset.end())
 
 `map`和`set`都支持`begin`和`end`操作。使用迭代器遍历`map`、`multimap`、`set`或`multiset`时，迭代器按关键字升序遍历元素。
 
-<font color='red'>**通常不对关联容器使用泛型算法。**</font>
+**通常不对关联容器使用泛型算法。**
 
 ### 添加元素（Adding Elements）
 
-使用`insert`成员可以向关联容器中添加元素。向`map`和`set`中添加<font color='red'>**已存在**</font>的元素对容器<font color='red'>**没有影响**</font>。
+使用`insert`成员可以向关联容器中添加元素。向`map`和`set`中添加**已存在**的元素对容器**没有影响**。
 
-通常情况下，对于想要添加到`map`中的数据，并没有现成的`pair`对象。可以直接在`insert`的<font color='red'>**参数列表中创建`pair`**</font>。
+通常情况下，对于想要添加到`map`中的数据，并没有现成的`pair`对象。可以直接在`insert`的**参数列表中创建`pair`**。
 
 ```c++
 // four ways to add word to word_count
@@ -4224,8 +4224,8 @@ word_count.insert(map<string, size_t>::value_type(word, 1));
 
 `insert`或`emplace`的返回值依赖于容器类型和参数：
 
-- 对于<font color='red'>**不包含重复**</font>关键字的容器，添加<font color='red'>**单一元素**</font>的`insert`和`emplace`版本返回一个`pair`，表示操作是否成功。`pair`的`first`成员是一个<font color='red'>**迭代器**</font>，指向具有给定关键字的元素；`second`成员是一个`bool`值。如果关键字已在容器中，则`insert`直接返回，`bool`值为`false`。如果关键字不存在，元素会被添加至容器中，`bool`值为`true`。
-- 对于允许<font color='red'>**包含重复**</font>关键字的容器，添加单一元素的`insert`和`emplace`版本<font color='red'>**返回指向新元素的迭代器**</font>。
+- 对于**不包含重复**关键字的容器，添加**单一元素**的`insert`和`emplace`版本返回一个`pair`，表示操作是否成功。`pair`的`first`成员是一个**迭代器**，指向具有给定关键字的元素；`second`成员是一个`bool`值。如果关键字已在容器中，则`insert`直接返回，`bool`值为`false`。如果关键字不存在，元素会被添加至容器中，`bool`值为`true`。
+- 对于允许**包含重复**关键字的容器，添加单一元素的`insert`和`emplace`版本**返回指向新元素的迭代器**。
 
 ### 删除元素（Erasing Elements）
 
@@ -4233,19 +4233,19 @@ word_count.insert(map<string, size_t>::value_type(word, 1));
 
 ![11-5](CppPrimer.assets/11-5.png)
 
-与顺序容器不同，关联容器提供了一个额外的`erase`操作。它接受一个`key_type`参数，删除所有匹配给定关键字的元素（如果存在），<font color='red'>**返回实际删除的元素数量。对于不包含重复关键字的容器，`erase`的返回值总是1或0。若返回值为0，则表示想要删除的元素并不在容器中**</font>。
+与顺序容器不同，关联容器提供了一个额外的`erase`操作。它接受一个`key_type`参数，删除所有匹配给定关键字的元素（如果存在），**返回实际删除的元素数量。对于不包含重复关键字的容器，`erase`的返回值总是1或0。若返回值为0，则表示想要删除的元素并不在容器中**。
 
 ### map的下标操作（Subscripting a map）
 
 `map`下标运算符接受一个关键字，获取与此关键字相关联的值。如果关键字不在容器中，下标运算符会向容器中添加该关键字，并值初始化关联值。
 
-<font color='red'>**由于下标运算符可能向容器中添加元素，所以只能对非`const`的`map`使用下标操作**</font>。
+**由于下标运算符可能向容器中添加元素，所以只能对非`const`的`map`使用下标操作**。
 
 `map`和`unordered_map`的下标操作：
 
 ![11-6](CppPrimer.assets/11-6.png)
 
-<font color='red'>**对`map`进行下标操作时，返回的是`mapped_type`类型的对象；解引用`map`迭代器时，返回的是`value_type`类型的对象**</font>。
+**对`map`进行下标操作时，返回的是`mapped_type`类型的对象；解引用`map`迭代器时，返回的是`value_type`类型的对象**。
 
 ### 访问元素（Accessing Elements）
 
@@ -4253,7 +4253,7 @@ word_count.insert(map<string, size_t>::value_type(word, 1));
 
 ![11-7](CppPrimer.assets/11-7.png)
 
-如果`multimap`或`multiset`中有多个元素具有<font color='red'>**相同关键字**</font>，则这些元素在容器中会<font color='red'>**相邻存储**</font>。
+如果`multimap`或`multiset`中有多个元素具有**相同关键字**，则这些元素在容器中会**相邻存储**。
 
 ```c++
 multimap<string, string> authors;
@@ -4274,7 +4274,7 @@ while(entries)
 }
 ```
 
-`lower_bound`和`upper_bound`操作都接受一个关键字，返回一个迭代器。如果关键字在容器中，`lower_bound`返回的迭代器会指向<font color='red'>**第一个匹配**</font>给定关键字的元素，而`upper_bound`返回的迭代器则指向<font color='red'>**最后**</font>一个匹配元素<font color='red'>**之后的位置**</font>。如果关键字<font color='red'>**不在**</font>`multimap`中，则`lower_bound`和`upper_bound`会<font color='red'>**返回相等的迭代器**</font>，指向一个不影响排序的关键字插入位置。因此用相同的关键字调用`lower_bound`和`upper_bound`会得到一个迭代器范围，表示所有具有该关键字的元素范围。
+`lower_bound`和`upper_bound`操作都接受一个关键字，返回一个迭代器。如果关键字在容器中，`lower_bound`返回的迭代器会指向**第一个匹配**给定关键字的元素，而`upper_bound`返回的迭代器则指向**最后**一个匹配元素**之后的位置**。如果关键字**不在**`multimap`中，则`lower_bound`和`upper_bound`会**返回相等的迭代器**，指向一个不影响排序的关键字插入位置。因此用相同的关键字调用`lower_bound`和`upper_bound`会得到一个迭代器范围，表示所有具有该关键字的元素范围。
 
 ```c++
 // definitions of authors and search_item as above
@@ -4287,7 +4287,7 @@ for (auto beg = authors.lower_bound(search_item),
 
 `lower_bound`和`upper_bound`有可能返回尾后迭代器。如果查找的元素具有容器中最大的关键字，则`upper_bound`返回尾后迭代器。如果关键字不存在，且大于容器中任何关键字，则`lower_bound`也返回尾后迭代器。
 
-`equal_range`操作接受一个关键字<font color='red'>**，返回一个迭代器`pair`**</font>。若关键字存在，则第一个迭代器指向第一个匹配关键字的元素，第二个迭代器指向最后一个匹配元素之后的位置。若关键字不存在，则两个迭代器都指向一个不影响排序的关键字插入位置。
+`equal_range`操作接受一个关键字**，返回一个迭代器`pair`**。若关键字存在，则第一个迭代器指向第一个匹配关键字的元素，第二个迭代器指向最后一个匹配元素之后的位置。若关键字不存在，则两个迭代器都指向一个不影响排序的关键字插入位置。
 
 ```c++
 // definitions of authors and search_item as above
@@ -4303,26 +4303,26 @@ for (auto pos = authors.equal_range(search_item);
 
 无序容器和对应的有序容器通常可以相互替换。但是由于元素未按顺序存储，使用无序容器的程序输出一般会与有序容器的版本不同。
 
-无序容器在存储上组织为一组桶，每个桶保存零或多个元素。无序容器使用一个哈希函数将元素映射到桶。为了访问一个元素，容器首先计算元素的哈希值，它指出应该搜索哪个桶。容器将具有一个特定哈希值的所有元素都保存在相同的桶中。<font color='red'>**因此无序容器的性能依赖于哈希函数的质量和桶的数量及大小。**</font>
+无序容器在存储上组织为一组桶，每个桶保存零或多个元素。无序容器使用一个哈希函数将元素映射到桶。为了访问一个元素，容器首先计算元素的哈希值，它指出应该搜索哪个桶。容器将具有一个特定哈希值的所有元素都保存在相同的桶中。**因此无序容器的性能依赖于哈希函数的质量和桶的数量及大小。**
 
 无序容器管理操作：
 
 ![11-8](CppPrimer.assets/11-8.png)
 
-默认情况下，<font color='red'>**无序容器**</font>使用关键字类型的<font color='red'>**`==`运算符**</font>比较元素，还使用一个`hash<key_type>`类型的对象来生成每个元素的<font color='red'>**哈希值**</font>。标准库为内置类型和一些标准库类型提供了hash模板。因此可以直接定义关键字是这些类型的无序容器，而不能直接定义关键字类型为自定义类类型的无序容器，必须先提供对应的hash模板版本。  
+默认情况下，**无序容器**使用关键字类型的**`==`运算符**比较元素，还使用一个`hash<key_type>`类型的对象来生成每个元素的**哈希值**。标准库为内置类型和一些标准库类型提供了hash模板。因此可以直接定义关键字是这些类型的无序容器，而不能直接定义关键字类型为自定义类类型的无序容器，必须先提供对应的hash模板版本。  
 # 第12章 动态内存
 
-程序用堆（heap）来存储动态分配（dynamically allocate）的对象。<font color='red'>**动态对象的生存期由程序控制**</font>。
+程序用堆（heap）来存储动态分配（dynamically allocate）的对象。**动态对象的生存期由程序控制**。
 
 ## 动态内存与智能指针（Dynamic Memory and Smart Pointers）
 
-C++中的动态内存管理通过一对运算符完成：`new`在动态内存中为对象<font color='red'>**分配空间**</font>并返回指向该对象的<font color='red'>**指针**</font>，可以选择对对象进行<font color='red'>**初始化**</font>；`delete`接受一个动态对象的指针，销毁该对象并<font color='red'>**释放**</font>与之关联的<font color='red'>**内存**</font>。
+C++中的动态内存管理通过一对运算符完成：`new`在动态内存中为对象**分配空间**并返回指向该对象的**指针**，可以选择对对象进行**初始化**；`delete`接受一个动态对象的指针，销毁该对象并**释放**与之关联的**内存**。
 
-新标准库提供了两种智能指针（smart pointer）类型来管理动态对象。<font color='red'>**智能指针**</font>的行为类似常规指针，但它<font color='red'>**自动释放**</font>所指向的对象。这两种智能指针的区别在于<font color='red'>**管理底层指针的方式**</font>：`shared_ptr`<font color='red'>**允许多个**</font>指针指向同一个对象；`unique_ptr`<font color='red'>**独占**</font>所指向的对象。标准库还定义了一个名为`weak_ptr`的伴随类，它是一种<font color='red'>**弱引用**</font>，<font color='red'>**指向**</font>`shared_ptr`所管理的对象。这三种类型都定义在头文件*memory*中。
+新标准库提供了两种智能指针（smart pointer）类型来管理动态对象。**智能指针**的行为类似常规指针，但它**自动释放**所指向的对象。这两种智能指针的区别在于**管理底层指针的方式**：`shared_ptr`**允许多个**指针指向同一个对象；`unique_ptr`**独占**所指向的对象。标准库还定义了一个名为`weak_ptr`的伴随类，它是一种**弱引用**，**指向**`shared_ptr`所管理的对象。这三种类型都定义在头文件*memory*中。
 
 ### shared_ptr类（The shared_ptr Class）
 
-智能指针是模板，创建时需要指明指针<font color='red'>**可以指向的类型**</font>。<font color='red'>**默认初始化的智能指针**</font>中保存着一个<font color='red'>**空指针**</font>。
+智能指针是模板，创建时需要指明指针**可以指向的类型**。**默认初始化的智能指针**中保存着一个**空指针**。
 
 ```c++
 shared_ptr<string> p1;      // shared_ptr that can point at a string
@@ -4337,7 +4337,7 @@ shared_ptr<list<int>> p2;   // shared_ptr that can point at a list of ints
 
 ![12-2](CppPrimer.assets/12-2.png)
 
-`make_shared`函数（定义在头文件*memory*中）在动态内存中<font color='red'>**分配一个对象并初始化它**</font>，返回指向此对象的`shared_ptr`。
+`make_shared`函数（定义在头文件*memory*中）在动态内存中**分配一个对象并初始化它**，返回指向此对象的`shared_ptr`。
 
 ```c++
 // shared_ptr that points to an int with value 42
@@ -4356,7 +4356,7 @@ auto q(p);  // p and q point to the same object
             // object to which p and q point has two users
 ```
 
-每个`shared_ptr`都有一个与之关联的计数器，通常称为引用计数（reference count）。<font color='red'>**拷贝**</font>`shared_ptr`时引用计数会<font color='red'>**递增**</font>。例如使用一个`shared_ptr`初始化另一个`shared_ptr`，或将它作为参数传递给函数以及作为函数的返回值返回。给`shared_ptr`<font color='red'>**赋予新值**</font>或`shared_ptr`被销毁时引用计数会<font color='red'>**递减**</font>。例如一个局部`shared_ptr`离开其作用域。一旦一个`shared_ptr`的引用计数变为0，它就会自动释放其所管理的对象。
+每个`shared_ptr`都有一个与之关联的计数器，通常称为引用计数（reference count）。**拷贝**`shared_ptr`时引用计数会**递增**。例如使用一个`shared_ptr`初始化另一个`shared_ptr`，或将它作为参数传递给函数以及作为函数的返回值返回。给`shared_ptr`**赋予新值**或`shared_ptr`被销毁时引用计数会**递减**。例如一个局部`shared_ptr`离开其作用域。一旦一个`shared_ptr`的引用计数变为0，它就会自动释放其所管理的对象。
 
 ```c++
 auto r = make_shared<int>(42);  // int to which r points has one user
@@ -4366,28 +4366,28 @@ r = q;  // assign to r, making it point to a different address
         // the object r had pointed to has no users; that object is automatically freed
 ```
 
-`shared_ptr`的析构函数会<font color='red'>**递减**</font>它所指向对象的引用计数。如果<font color='red'>**引用计数**</font>变为0，`shared_ptr`的析构函数会<font color='red'>**销毁**</font>对象并释放空间。
+`shared_ptr`的析构函数会**递减**它所指向对象的引用计数。如果**引用计数**变为0，`shared_ptr`的析构函数会**销毁**对象并释放空间。
 
 如果将`shared_ptr`存放于容器中，而后不再需要全部元素，而只使用其中一部分，应该用`erase`删除不再需要的元素。
 
 程序使用动态内存通常出于以下三种原因之一：
 
-- <font color='red'>**不确定**</font>需要使用多少对象。
-- <font color='red'>**不确定**</font>所需对象的准确类型。
-- 需要在<font color='red'>**多个对象间共享**</font>数据。
+- **不确定**需要使用多少对象。
+- **不确定**所需对象的准确类型。
+- 需要在**多个对象间共享**数据。
 
 ### 直接管理内存（Managing Memory Directly）
 
 相对于智能指针，使用`new`和`delete`管理内存很容易出错。
 
-默认情况下，动态分配的对象是默认初始化的。所以内置类型或组合类型的对象的值将是未定义的，而类类型对象将用<font color='red'>**默认构造函数**</font>进行初始化。
+默认情况下，动态分配的对象是默认初始化的。所以内置类型或组合类型的对象的值将是未定义的，而类类型对象将用**默认构造函数**进行初始化。
 
 ```c++
 string *ps = new string;    // initialized to empty string
 int *pi = new int;     // pi points to an uninitialized int
 ```
 
-可以使用<font color='red'>**值初始化**</font>方式、<font color='red'>**直接初始化**</font>方式、<font color='red'>**传统构造**</font>方式（圆括号`()`）或新标准下的<font color='red'>**列表初始化**</font>方式（花括号`{}`）初始化动态分配的对象。
+可以使用**值初始化**方式、**直接初始化**方式、**传统构造**方式（圆括号`()`）或新标准下的**列表初始化**方式（花括号`{}`）初始化动态分配的对象。
 
 ```c++
 int *pi = new int(1024);            // object to which pi points has value 1024
@@ -4400,7 +4400,7 @@ int *pi1 = new int;      // default initialized; *pi1 is undefined
 int *pi2 = new int();    // value initialized to 0; *pi2 is 0
 ```
 
-只有当初始化的括号中<font color='red'>**仅有单一初始化**</font>器时才可以使用`auto`。
+只有当初始化的括号中**仅有单一初始化**器时才可以使用`auto`。
 
 ```c++
 auto p1 = new auto(obj);    // p points to an object of the type of obj
@@ -4408,7 +4408,7 @@ auto p1 = new auto(obj);    // p points to an object of the type of obj
 auto p2 = new auto{a,b,c};  // error: must use parentheses for the initializer
 ```
 
-<font color='red'>**可以用`new`分配`const`对象，返回指向`const`类型的指针。动态分配的`const`对象必须初始化**</font>。
+**可以用`new`分配`const`对象，返回指向`const`类型的指针。动态分配的`const`对象必须初始化**。
 
 默认情况下，如果`new`不能分配所要求的内存空间，会抛出`bad_alloc`异常。使用定位`new`（placement new）可以阻止其抛出异常。定位`new`表达式允许程序向`new`传递额外参数。如果将`nothrow`传递给`new`，则`new`在分配失败后会返回空指针。`bad_alloc`和`nothrow`都定义在头文件*new*中。
 
@@ -4418,11 +4418,11 @@ int *p1 = new int;            // if allocation fails, new throws std::bad_alloc
 int *p2 = new (nothrow) int;  // if allocation fails, new returns a null pointer
 ```
 
-使用`delete`<font color='red'>**释放一块并非`new`分配**</font>的内存，或者将相同的指针值<font color='red'>**释放多次**</font>的行为是<font color='red'>**未定义**</font>的。
+使用`delete`**释放一块并非`new`分配**的内存，或者将相同的指针值**释放多次**的行为是**未定义**的。
 
 由内置指针管理的动态对象在被显式释放前一直存在。
 
-<font color='red'>**`delete`一个指针后**</font>，指针值就无效了（空悬指针，dangling pointer）。为了防止后续的错误访问，<font color='red'>**应该在`delete`之后将指针值置空**</font>。
+**`delete`一个指针后**，指针值就无效了（空悬指针，dangling pointer）。为了防止后续的错误访问，**应该在`delete`之后将指针值置空**。
 
 ### shared_ptr和new结合使用（Using shared_ptrs with new）
 
@@ -4437,8 +4437,8 @@ shared_ptr<int> p2(new int(1024));     // ok: uses direct initialization
 
 ![12-3](CppPrimer.assets/12-3.png)
 
-<font color='red'>**
-不要混合使用内置指针和智能指针**</font>。当将`shared_ptr`绑定到内置指针后，资源管理就应该交由`shared_ptr`负责。不应该再使用内置指针访问`shared_ptr`指向的内存。
+**
+不要混合使用内置指针和智能指针**。当将`shared_ptr`绑定到内置指针后，资源管理就应该交由`shared_ptr`负责。不应该再使用内置指针访问`shared_ptr`指向的内存。
 
 ```c++
 // ptr is created and initialized when process is called
@@ -4457,9 +4457,9 @@ process(p);     // copying p increments its count; in process the reference coun
 int i = *p;     // ok: reference count is 1
 ```
 
-智能指针的`get`函数返回一个内置指针，指向智能指针管理的对象。主要用于向不能使用智能指针的代码传递内置指针。<font color='red'>**使用`get`返回指针的代码不能`delete`此指针**</font>。
+智能指针的`get`函数返回一个内置指针，指向智能指针管理的对象。主要用于向不能使用智能指针的代码传递内置指针。**使用`get`返回指针的代码不能`delete`此指针**。
 
-<font color='red'>**不要使用`get`初始化另一个智能指针或为智能指针赋值**</font>。
+**不要使用`get`初始化另一个智能指针或为智能指针赋值**。
 
 ```c++
 shared_ptr<int> p(new int(42));    // reference count is 1
@@ -4471,7 +4471,7 @@ int *q = p.get();   // ok: but don't use q in any way that might delete its poin
 int foo = *p;   // undefined; the memory to which p points was freed
 ```
 
-<font color='red'>**可以用`reset`函数将新的指针赋予`shared_ptr`**</font>。与赋值类似，`reset`会更新引用计数，如果需要的话，还会释放内存空间。<font color='red'>**`reset`经常与`unique`一起使用，来控制多个`shared_ptr`共享的对象**</font>。
+**可以用`reset`函数将新的指针赋予`shared_ptr`**。与赋值类似，`reset`会更新引用计数，如果需要的话，还会释放内存空间。**`reset`经常与`unique`一起使用，来控制多个`shared_ptr`共享的对象**。
 
 ```c++
 if (!p.unique())
@@ -4498,7 +4498,7 @@ void f()
 } // shared_ptr freed automatically when the function ends
 ```
 
-默认情况下`shared_ptr`假定其指向动态内存，使用`delete`释放对象。创建`shared_ptr`时可以传递一个（可选）指向<font color='red'>**删除函数**</font>的指针参数，用来代替`delete`。
+默认情况下`shared_ptr`假定其指向动态内存，使用`delete`释放对象。创建`shared_ptr`时可以传递一个（可选）指向**删除函数**的指针参数，用来代替`delete`。
 
 ```c++
 struct destination;    // represents what we are connecting to
@@ -4519,17 +4519,17 @@ void f(destination &d /* other parameters */)
 }
 ```
 
-<font color='red'>**智能指针规范：**</font>
+**智能指针规范：**
 
 - 不使用相同的内置指针值初始化或`reset`多个智能指针。
-- <font color='red'>**不释放**</font>`get`返回的指针。
-- <font color='red'>**不使用**</font>`get`<font color='red'>**初始化**</font>或`reset`另一个智能指针。
+- **不释放**`get`返回的指针。
+- **不使用**`get`**初始化**或`reset`另一个智能指针。
 - 使用`get`返回的指针时，如果最后一个对应的智能指针被销毁，指针就无效了。
-- 使用`shared_ptr`管理并<font color='red'>**非`new`分配的资源**</font>时，应该传递删除函数。
+- 使用`shared_ptr`管理并**非`new`分配的资源**时，应该传递删除函数。
 
 ### unique_ptr（unique_ptr）
 
-与`shared_ptr`不同，同一时刻<font color='red'>**只能有一个**</font>`unique_ptr`指向给定的对象。当`unique_ptr`被销毁时，它指向的对象也会被销毁。
+与`shared_ptr`不同，同一时刻**只能有一个**`unique_ptr`指向给定的对象。当`unique_ptr`被销毁时，它指向的对象也会被销毁。
 
 `make_unique`函数（C++14新增，定义在头文件*memory*中）在动态内存中分配一个对象并初始化它，返回指向此对象的`unique_ptr`。
 
@@ -4539,15 +4539,15 @@ unique_ptr<int> p1(new int(42));
 unique_ptr<int> p2 = make_unique<int>(42);
 ```
 
-由于`unique_ptr`独占其指向的对象，因此`unique_ptr`<font color='red'>**不支持**</font>普通的<font color='red'>**拷贝**</font>或<font color='red'>**赋值**</font>操作。
+由于`unique_ptr`独占其指向的对象，因此`unique_ptr`**不支持**普通的**拷贝**或**赋值**操作。
 
 `unique_ptr`操作：
 
 ![12-4](CppPrimer.assets/12-4.png)
 
-`release`函数返回`unique_ptr`当前保存的<font color='red'>**指针**</font>并将其<font color='red'>**置为空**</font>。
+`release`函数返回`unique_ptr`当前保存的**指针**并将其**置为空**。
 
-`reset`函数成员接受一个可选的指针参数，重新设置`unique_ptr`保存的指针。如果`unique_ptr`<font color='red'>**不为空，则它原来指向的对象会被释放**</font>。
+`reset`函数成员接受一个可选的指针参数，重新设置`unique_ptr`保存的指针。如果`unique_ptr`**不为空，则它原来指向的对象会被释放**。
 
 ```c++
 // transfers ownership from p1 (which points to the string Stegosaurus) to p2
@@ -4557,7 +4557,7 @@ unique_ptr<string> p3(new string("Trex"));
 p2.reset(p3.release()); // reset deletes the memory to which p2 had pointed
 ```
 
-调用`release`会<font color='red'>**切断**</font>`unique_ptr`和它原来管理的对象之间的<font color='red'>**联系**</font>。`release`返回的指针通常被用来初始化<font color='red'>**另一个智能指针**</font>或给智能指针赋值。如果<font color='red'>**没有用另一个智能指针**</font>保存`release`返回的指针，程序就要负责资源的<font color='red'>**释放**</font>。
+调用`release`会**切断**`unique_ptr`和它原来管理的对象之间的**联系**。`release`返回的指针通常被用来初始化**另一个智能指针**或给智能指针赋值。如果**没有用另一个智能指针**保存`release`返回的指针，程序就要负责资源的**释放**。
 
 ```c++
 p2.release();   // WRONG: p2 won't free the memory and we've lost the pointer
@@ -4596,7 +4596,7 @@ void f(destination &d /* other needed parameters */)
 
 ### weak_ptr（weak_ptr）
 
-`weak_ptr`是一种<font color='red'>**不控制所指向对象生存期的智能指针**</font>，它指向一个由`shared_ptr`管理的对象。将`weak_ptr`绑定到`shared_ptr`<font color='red'>**不会改变**</font>`shared_ptr`的<font color='red'>**引用计数**</font>。如果`shared_ptr`被销毁，即使有`weak_ptr`指向对象，对象仍然有可能被释放。
+`weak_ptr`是一种**不控制所指向对象生存期的智能指针**，它指向一个由`shared_ptr`管理的对象。将`weak_ptr`绑定到`shared_ptr`**不会改变**`shared_ptr`的**引用计数**。如果`shared_ptr`被销毁，即使有`weak_ptr`指向对象，对象仍然有可能被释放。
 
 ![12-5](CppPrimer.assets/12-5.png)
 
@@ -4607,7 +4607,7 @@ auto p = make_shared<int>(42);
 weak_ptr<int> wp(p);    // wp weakly shares with p; use count in p is unchanged
 ```
 
-<font color='red'>**使用`weak_ptr`访问对象时，必须先调用`lock`函数**</font>。该函数检查`weak_ptr`指向的对象是否仍然存在。如果存在，则返回指向共享对象的`shared_ptr`，否则返回空指针。
+**使用`weak_ptr`访问对象时，必须先调用`lock`函数**。该函数检查`weak_ptr`指向的对象是否仍然存在。如果存在，则返回指向共享对象的`shared_ptr`，否则返回空指针。
 
 ```c++
 if (shared_ptr<int> np = wp.lock())
@@ -4619,20 +4619,20 @@ if (shared_ptr<int> np = wp.lock())
 
 ## 动态数组（Dynamic Arrays）
 
-使用`allocator`类可以将<font color='red'>**内存分配**</font>和<font color='red'>**初始化**</font>过程分离，这通常会提供更好的性能和更灵活的内存管理能力。
+使用`allocator`类可以将**内存分配**和**初始化**过程分离，这通常会提供更好的性能和更灵活的内存管理能力。
 
 ### new和数组（new and Arrays）
 
-使用`new`<font color='red'>**分配对象数组**</font>时需要在类型名之后跟一对方括号，在其中指明要<font color='red'>**分配的对象数量（必须是整型，但不必是常量）**</font>。`new`返回指向第一个对象的指针（元素类型）。
+使用`new`**分配对象数组**时需要在类型名之后跟一对方括号，在其中指明要**分配的对象数量（必须是整型，但不必是常量）**。`new`返回指向第一个对象的指针（元素类型）。
 
 ```c++
 // call get_size to determine how many ints to allocate
 int *pia = new int[get_size()];   // pia points to the first of these ints
 ```
 
-由于`new`分配的内存并<font color='red'>**不是数组**</font>类型，因此<font color='red'>**不能**</font>对动态数组调用`begin`和`end`，也<font color='red'>**不能用范围`for`语句**</font>处理其中的元素。
+由于`new`分配的内存并**不是数组**类型，因此**不能**对动态数组调用`begin`和`end`，也**不能用范围`for`语句**处理其中的元素。
 
-默认情况下，`new`分配的对象是默认初始化的。可以对数组中的元素进行值初始化，方法是在大小后面跟一对<font color='red'>**空括号**</font>`()`。在新标准中，还可以提供一个元素初始化器的花括号列表。如果<font color='red'>**初始化器数量大于**</font>元素数量，则`new`表达式失败，<font color='red'>**不会分配**</font>任何内存，并抛出`bad_array_new_length`异常。
+默认情况下，`new`分配的对象是默认初始化的。可以对数组中的元素进行值初始化，方法是在大小后面跟一对**空括号**`()`。在新标准中，还可以提供一个元素初始化器的花括号列表。如果**初始化器数量大于**元素数量，则`new`表达式失败，**不会分配**任何内存，并抛出`bad_array_new_length`异常。
 
 ```c++
 int *pia = new int[10];     // block of ten uninitialized ints
@@ -4646,9 +4646,9 @@ int *pia3 = new int[10] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 string *psa3 = new string[10] { "a", "an", "the", string(3,'x') };
 ```
 
-虽然可以使用空括号对`new`分配的数组元素进行值初始化，但不能在括号中指定初始化器。这意味<font color='red'>**着不能用`auto`分配数组**</font>。
+虽然可以使用空括号对`new`分配的数组元素进行值初始化，但不能在括号中指定初始化器。这意味**着不能用`auto`分配数组**。
 
-<font color='red'>**动态分配一个空数组是合法的，此时`new`会返回一个合法的非空指针**</font>。对于零长度的数组来说，该指针<font color='red'>**类似尾后指针**</font>，不能解引用。
+**动态分配一个空数组是合法的，此时`new`会返回一个合法的非空指针**。对于零长度的数组来说，该指针**类似尾后指针**，不能解引用。
 
 使用`delete[]`释放动态数组。
 
@@ -4659,7 +4659,7 @@ delete [] pa;   // pa must point to a dynamically allocated array or be null
 
 如果在`delete`数组指针时忘记添加方括号，或者在`delete`单一对象时使用了方括号，编译器很可能不会给出任何警告，程序可能会在执行过程中行为异常。
 
-<font color='red'>**`unique_ptr`可以直接管理动态数组**</font>，定义时需要在对象类型后添加一对空方括号`[]`。
+**`unique_ptr`可以直接管理动态数组**，定义时需要在对象类型后添加一对空方括号`[]`。
 
 ```c++
 // up points to an array of ten uninitialized ints
@@ -4671,7 +4671,7 @@ up.release();   // automatically uses delete[] to destroy its pointer
 
 ![12-6](CppPrimer.assets/12-6.png)
 
-与`unique_ptr`不同，<font color='red'>**`shared_ptr`不直接支持动态数组管理**</font>。如果想用`shared_ptr`管理动态数组，必须提供自定义的<font color='red'>**删除器**</font>。
+与`unique_ptr`不同，**`shared_ptr`不直接支持动态数组管理**。如果想用`shared_ptr`管理动态数组，必须提供自定义的**删除器**。
 
 ```c++
 // to use a shared_ptr we must supply a deleter
@@ -4679,7 +4679,7 @@ shared_ptr<int> sp(new int[10], [](int *p) { delete[] p; });
 sp.reset();    // uses the lambda we supplied that uses delete[] to free the array
 ```
 
-<font color='red'>**`shared_ptr`未定义下标运算符**</font>，智能指针类型也不支持指针算术运算。因此如果想访问`shared_ptr`管理的数组元素，必须先<font color='red'>**用`get`获取内置指针**</font>，再用内置指针进行访问。
+**`shared_ptr`未定义下标运算符**，智能指针类型也不支持指针算术运算。因此如果想访问`shared_ptr`管理的数组元素，必须先**用`get`获取内置指针**，再用内置指针进行访问。
 
 ```c++
 // shared_ptrs don't have subscript operator and don't support pointer arithmetic
@@ -4747,7 +4747,7 @@ alloc.deallocate(p, n);
 
 ### 拷贝构造函数（The Copy Constructor）
 
-如果一个构造函数的第一个参数是自身类类型的引用（几乎总是`const`引用），且任何额外参数都有默认值，则此构造函数是<font color='red'>**拷贝构造函数**</font>。
+如果一个构造函数的第一个参数是自身类类型的引用（几乎总是`const`引用），且任何额外参数都有默认值，则此构造函数是**拷贝构造函数**。
 
 ```c++
 class Foo
@@ -4761,7 +4761,7 @@ public:
 
 由于拷贝构造函数在一些情况下会被隐式使用，因此通常不会声明为`explicit`的。
 
-如果类未定义自己的拷贝构造函数，编译器会为类合成一个。一般情况下，合成拷贝构造函数（synthesized copy constructor）会将其参数的<font color='red'>**非`static`**</font>成员<font color='red'>**逐个拷贝**</font>到正在创建的对象中。
+如果类未定义自己的拷贝构造函数，编译器会为类合成一个。一般情况下，合成拷贝构造函数（synthesized copy constructor）会将其参数的**非`static`**成员**逐个拷贝**到正在创建的对象中。
 
 ```c++
 class Sales_data
@@ -4794,16 +4794,16 @@ string null_book = "9-999-99999-9";    // copy initialization
 string nines = string(100, '9');       // copy initialization
 ```
 
-拷贝初始化通常使用拷贝构造函数来完成。但如果一个类拥有<font color='red'>**移动构造函数**</font>，则拷贝初始化有时会使用移动构造函数而非拷贝构造函数来完成。
+拷贝初始化通常使用拷贝构造函数来完成。但如果一个类拥有**移动构造函数**，则拷贝初始化有时会使用移动构造函数而非拷贝构造函数来完成。
 
-发生<font color='red'>**拷贝初始化**</font>的情况：
+发生**拷贝初始化**的情况：
 
 - 用`=`定义变量。
-- 将对象作为<font color='red'>**实参传递**</font>给<font color='red'>**非引用**</font>类型的形参。
-- 从返回类型为<font color='red'>**非引用**</font>类型的函数<font color='red'>**返回对象**</font>。
-- 用<font color='red'>**花括号列表**</font>初始化数组中的元素或聚合类中的成员。
+- 将对象作为**实参传递**给**非引用**类型的形参。
+- 从返回类型为**非引用**类型的函数**返回对象**。
+- 用**花括号列表**初始化数组中的元素或聚合类中的成员。
 
-当传递一个实参或者从函数返回一个值时，<font color='red'>**不能隐式使用`explicit`构造函数**</font>。
+当传递一个实参或者从函数返回一个值时，**不能隐式使用`explicit`构造函数**。
 
 ```c++
 vector<int> v1(10);     // ok: direct initialization
@@ -4817,9 +4817,9 @@ f(vector<int>(10));     // ok: directly construct a temporary vector from an int
 
 重载运算符（overloaded operator）的参数表示运算符的运算对象。
 
-如果一个运算符是<font color='red'>**成员函数**</font>，则其左侧运算对象会绑定到<font color='red'>**隐式**</font>的`this`参数上。
+如果一个运算符是**成员函数**，则其左侧运算对象会绑定到**隐式**的`this`参数上。
 
-<font color='red'>**赋值运算符**</font>通常应该返回一个<font color='red'>**指向其左侧**</font>运算对象的<font color='red'>**引用**</font>。
+**赋值运算符**通常应该返回一个**指向其左侧**运算对象的**引用**。
 
 ```c++
 class Foo
@@ -4830,9 +4830,9 @@ public:
 };
 ```
 
-标准库通常要求保存在容器中的类型要具有<font color='red'>**赋值运算符**</font>，且其返回值是左侧运算对象的引用。
+标准库通常要求保存在容器中的类型要具有**赋值运算符**，且其返回值是左侧运算对象的引用。
 
-如果类未定义自己的拷贝赋值运算符，编译器会为类合成一个。一般情况下，合成拷贝赋值运算符（synthesized copy-assignment operator）会将其右侧运算对象的非`static`成员逐个赋值给左侧运算对象的对应成员，之后返回<font color='red'>**左侧运算对象的引用**</font>。
+如果类未定义自己的拷贝赋值运算符，编译器会为类合成一个。一般情况下，合成拷贝赋值运算符（synthesized copy-assignment operator）会将其右侧运算对象的非`static`成员逐个赋值给左侧运算对象的对应成员，之后返回**左侧运算对象的引用**。
 
 ```c++
 // equivalent to the synthesized copy-assignment operator
@@ -4848,7 +4848,7 @@ Sales_data& Sales_data::operator=(const Sales_data &rhs)
 
 ### 析构函数（The Destructor）
 
-析构函数负责释放对象使用的资源，并<font color='red'>**销毁对象的非`static`数据成员**</font>。
+析构函数负责释放对象使用的资源，并**销毁对象的非`static`数据成员**。
 
 析构函数的名字由波浪号`~`接类名构成，它没有返回值，也不接受参数。
 
@@ -4861,27 +4861,27 @@ public:
 };
 ```
 
-由于析构函数<font color='red'>**不接受参数**</font>，所以它<font color='red'>**不能被重载**</font>。
+由于析构函数**不接受参数**，所以它**不能被重载**。
 
 如果类未定义自己的析构函数，编译器会为类合成一个。合成析构函数（synthesized destructor）的函数体为空。
 
-析构函数<font color='red'>**首先执行函数体**</font>，然后<font color='red'>**再销毁数据成员**</font>。在整个对象销毁过程中，析构函数体是作为成员销毁步骤之外的另一部分而进行的。成员按照<font color='red'>**初始化顺序的逆序销毁**</font>。
+析构函数**首先执行函数体**，然后**再销毁数据成员**。在整个对象销毁过程中，析构函数体是作为成员销毁步骤之外的另一部分而进行的。成员按照**初始化顺序的逆序销毁**。
 
-隐式销毁一个<font color='red'>**内置指针**</font>类型的成员<font color='red'>**不会`delete`它所指向的对象**</font>。
+隐式销毁一个**内置指针**类型的成员**不会`delete`它所指向的对象**。
 
 无论何时一个对象被销毁，都会自动调用其析构函数。
 
-当指向一个对象的<font color='red'>**引用或指针**</font>离开作用域时，该对象的<font color='red'>**析构函数不会执行**</font>。
+当指向一个对象的**引用或指针**离开作用域时，该对象的**析构函数不会执行**。
 
 ### 三/五法则（The Rule of Three/Five）
 
-需要<font color='red'>**析构函数**</font>的类一般也需要<font color='red'>**拷贝**</font>和<font color='red'>**赋值**</font>操作。
+需要**析构函数**的类一般也需要**拷贝**和**赋值**操作。
 
 需要拷贝操作的类一般也需要赋值操作，反之亦然。
 
 ### 使用=default（Using =default）
 
-可以通过将<font color='red'>**拷贝控制**</font>成员定义为`=default`来<font color='red'>**显式**</font>地要求编译器生成合成版本。
+可以通过将**拷贝控制**成员定义为`=default`来**显式**地要求编译器生成合成版本。
 
 ```c++
 class Sales_data
@@ -4895,15 +4895,15 @@ public:
 };
 ```
 
-在类内使用`=default`修饰成员声明时，合成的函数是<font color='red'>**隐式内联**</font>的。如果不希望合成的是内联函数，应该只对成员的类外定义使用`=default`。
+在类内使用`=default`修饰成员声明时，合成的函数是**隐式内联**的。如果不希望合成的是内联函数，应该只对成员的类外定义使用`=default`。
 
-只能对具有<font color='red'>**合成版本**</font>的成员函数使用`=default`。
+只能对具有**合成版本**的成员函数使用`=default`。
 
 ### 阻止拷贝（Preventing Copies）
 
 大多数类应该定义默认构造函数、拷贝构造函数和拷贝赋值运算符，无论是显式地还是隐式地。
 
-在C++11新标准中，将拷贝构造函数和拷贝赋值运算符定义为<font color='red'>**删除**</font>的函数（deleted function）可以<font color='red'>**阻止类对象的拷贝**</font>。删除的函数是一种<font color='red'>**虽然进行了声明**</font>，但是却<font color='red'>**不能以任何方式使用的函数**</font>。定义删除函数的方式是在函数的形参列表后面添加`=delete`。
+在C++11新标准中，将拷贝构造函数和拷贝赋值运算符定义为**删除**的函数（deleted function）可以**阻止类对象的拷贝**。删除的函数是一种**虽然进行了声明**，但是却**不能以任何方式使用的函数**。定义删除函数的方式是在函数的形参列表后面添加`=delete`。
 
 ```c++
 struct NoCopy
@@ -4918,14 +4918,14 @@ struct NoCopy
 
 `=delete`和`=default`有两点不同：
 
-- `=delete`<font color='red'>**可以对任何函数**</font>使用；`=default`只能对具有<font color='red'>**合成版本**</font>的函数使用。
-- `=delete`必须出现在<font color='red'>**函数第一次声明**</font>的地方；`=default`既能出现<font color='red'>**在类内**</font>，也能出现在类外。
+- `=delete`**可以对任何函数**使用；`=default`只能对具有**合成版本**的函数使用。
+- `=delete`必须出现在**函数第一次声明**的地方；`=default`既能出现**在类内**，也能出现在类外。
 
-<font color='red'>**析构函数不能是删除的函数**</font>。对于析构函数，不能定义该类型的变量或者<font color='red'>**释放**</font>指向该类型动态分配对象的<font color='red'>**指针**</font>。
+**析构函数不能是删除的函数**。对于析构函数，不能定义该类型的变量或者**释放**指向该类型动态分配对象的**指针**。
 
 如果一个类中有数据成员不能默认构造、拷贝或销毁，则对应的合成拷贝控制成员将被定义为删除的。
 
-在旧版本的C++标准中，类通过将拷贝构造函数和拷贝赋值运算符声明为`private`成员来阻止类对象的拷贝。在新标准中<font color='red'>**建议使用`=delete`**</font>而非`private`。
+在旧版本的C++标准中，类通过将拷贝构造函数和拷贝赋值运算符声明为`private`成员来阻止类对象的拷贝。在新标准中**建议使用`=delete`**而非`private`。
 
 ## 拷贝控制和资源管理（Copy Control and Resource Management）
 
@@ -4969,7 +4969,7 @@ private:
 
 - 赋值运算符通常结合了拷贝构造函数和析构函数的工作。
 
-  <font color='red'>**编写赋值运算符时**</font>，一个好的方法是先将右侧运算对象拷贝到一个<font color='red'>**局部临时**</font>对象中。拷贝完成后，就可以<font color='red'>**安全地销毁**</font>左侧运算对象的现有成员了。
+  **编写赋值运算符时**，一个好的方法是先将右侧运算对象拷贝到一个**局部临时**对象中。拷贝完成后，就可以**安全地销毁**左侧运算对象的现有成员了。
 
   ```c++
   HasPtr& HasPtr::operator=(const HasPtr &rhs)
@@ -5004,7 +5004,7 @@ private:
 };
 ```
 
-<font color='red'>**析构函数释放内存前**</font>应该判断是否还有其他对象指向这块内存。
+**析构函数释放内存前**应该判断是否还有其他对象指向这块内存。
 
 ```c++
 HasPtr::~HasPtr()
@@ -5068,9 +5068,9 @@ void swap(Foo &lhs, Foo &rhs)
 }
 ```
 
-与拷贝控制成员不同，`swap`函数并不是必要的。但是对于<font color='red'>**分配了资源的类**</font>，定义`swap`可能是一种重要的优化手段。
+与拷贝控制成员不同，`swap`函数并不是必要的。但是对于**分配了资源的类**，定义`swap`可能是一种重要的优化手段。
 
-由于`swap`函数的存在就是为了优化代码，所以一般将其声明为<font color='red'>**内联函数**</font>。
+由于`swap`函数的存在就是为了优化代码，所以一般将其声明为**内联函数**。
 
 定义了`swap`的类通常用`swap`来实现赋值运算符。在这种版本的赋值运算符中，右侧运算对象以值方式传递，然后将左侧运算对象与右侧运算对象的副本进行交换（拷贝并交换，copy and swap）。这种方式可以正确处理自赋值情况。
 
@@ -5087,23 +5087,23 @@ HasPtr& HasPtr::operator=(HasPtr rhs)
 
 ## 拷贝控制示例（A Copy-Control Example）
 
-<font color='red'>**拷贝赋值**</font>运算符通常结合了<font color='red'>**构造函数和析构函数**</font>的工作。在这种情况下，公共部分应该放在`private`的工具函数中完成。
+**拷贝赋值**运算符通常结合了**构造函数和析构函数**的工作。在这种情况下，公共部分应该放在`private`的工具函数中完成。
 
 ## 动态内存管理类（Classes That Manage Dynamic Memory）
 
-<font color='red'>**移动构造函数**</font>通常是将资源从给定对象“移动”而不是拷贝到正在创建的对象中。
+**移动构造函数**通常是将资源从给定对象“移动”而不是拷贝到正在创建的对象中。
 
 ## 对象移动（Moving Objects）
 
-某些情况下，一个对象拷贝后就立即被销毁了，此时<font color='red'>**移动而非拷贝**</font>对象会大幅度<font color='red'>**提高性能**</font>。
+某些情况下，一个对象拷贝后就立即被销毁了，此时**移动而非拷贝**对象会大幅度**提高性能**。
 
-在旧版本的标准库中，容器所能保存的类型必须是可拷贝的。但在新标准中，<font color='red'>**可以用容器保存不可拷贝，但可移动的类型**</font>。
+在旧版本的标准库中，容器所能保存的类型必须是可拷贝的。但在新标准中，**可以用容器保存不可拷贝，但可移动的类型**。
 
-标准库容器、`string`和`shared_ptr`类既支持<font color='red'>**移动也支持拷贝**</font>。IO类和`unique_ptr`类<font color='red'>**可以移动但不能拷贝**</font>。
+标准库容器、`string`和`shared_ptr`类既支持**移动也支持拷贝**。IO类和`unique_ptr`类**可以移动但不能拷贝**。
 
 ### 右值引用（Rvalue Reference）
 
-为了支持移动操作，C++11引入了右值引用类型。<font color='red'>**右值引用就是必须绑定到右值的引用**</font>。可以通过`&&`来获得右值引用。
+为了支持移动操作，C++11引入了右值引用类型。**右值引用就是必须绑定到右值的引用**。可以通过`&&`来获得右值引用。
 
 ```c++
 int i = 42;
@@ -5114,32 +5114,32 @@ const int &r3 = i * 42;    // ok: we can bind a reference to const to an rvalue
 int &&rr2 = i * 42;        // ok: bind rr2 to the result of the multiplication
 ```
 
-<font color='red'>**右值引用只能绑定到即将被销毁**</font>，并且<font color='red'>**没有其他用户**</font>的临时对象上。使用右值引用的代码可以自由地接管所引用对象的资源。
+**右值引用只能绑定到即将被销毁**，并且**没有其他用户**的临时对象上。使用右值引用的代码可以自由地接管所引用对象的资源。
 
-<font color='red'>**变量表达式都是左值**</font>，所以<font color='red'>**不能将一个右值引用直接绑定到一个变量上**</font>，即使这个变量的类型是右值引用也不行。
+**变量表达式都是左值**，所以**不能将一个右值引用直接绑定到一个变量上**，即使这个变量的类型是右值引用也不行。
 
 ```c++
 int &&rr1 = 42;     // ok: literals are rvalues
 int &&rr2 = rr1;    // error: the expression rr1 is an lvalue!
 ```
 
-调用`move`函数可以获得绑定在<font color='red'>**左值上的右值引用**</font>，此函数定义在头文件*utility*中。
+调用`move`函数可以获得绑定在**左值上的右值引用**，此函数定义在头文件*utility*中。
 
 ```c++
 int &&rr3 = std::move(rr1);
 ```
 
-调用`move`函数的代码<font color='red'>**应该使用`std::move`**</font>而非`move`，这样做可以避免潜在的名字冲突。
+调用`move`函数的代码**应该使用`std::move`**而非`move`，这样做可以避免潜在的名字冲突。
 
 ### 移动构造函数和移动赋值运算符（Move Constructor and Move Assignment）
 
-移动构造函数的第一个参数是该类类型的<font color='red'>**右值引用**</font>，其他<font color='red'>**任何额外参数都必须有默认值**</font>。
+移动构造函数的第一个参数是该类类型的**右值引用**，其他**任何额外参数都必须有默认值**。
 
-除了完成<font color='red'>**资源移动**</font>，移动构造函数还必须确保移后源对象是可以<font color='red'>**安全销毁的**</font>。
+除了完成**资源移动**，移动构造函数还必须确保移后源对象是可以**安全销毁的**。
 
-在函数的形参列表后面添加关键字`noexcept`可以指明该函数<font color='red'>**不会抛出任何异常**</font>。
+在函数的形参列表后面添加关键字`noexcept`可以指明该函数**不会抛出任何异常**。
 
-对于<font color='red'>**构造函数，`noexcept`位于形参列表和初始化列表开头的冒号之间**</font>。在类的头文件声明和定义中（如果定义在类外）<font color='red'>**都应该指定`noexcept`**</font>。
+对于**构造函数，`noexcept`位于形参列表和初始化列表开头的冒号之间**。在类的头文件声明和定义中（如果定义在类外）**都应该指定`noexcept`**。
 
 ```c++
 class StrVec
@@ -5155,7 +5155,7 @@ StrVec::StrVec(StrVec &&s) noexcept : /* member initializers */
 
 标准库容器能对异常发生时其自身的行为提供保障。虽然移动操作通常不抛出异常，但抛出异常也是允许的。为了安全起见，除非容器确定元素类型的移动操作不会抛出异常，否则在重新分配内存的过程中，它就必须使用拷贝而非移动操作。
 
-<font color='red'>**不抛出异常的移动构造函数和移动赋值运算符必须标记为`noexcept`**</font>。
+**不抛出异常的移动构造函数和移动赋值运算符必须标记为`noexcept`**。
 
 在移动操作之后，移后源对象必须保持有效的、可销毁的状态，但是用户不能使用它的值。
 
@@ -5195,7 +5195,7 @@ X x, x2 = std::move(x);         // uses the synthesized move constructor
 hasX hx, hx2 = std::move(hx);   // uses the synthesized move constructor
 ```
 
-与拷贝操作不同，<font color='red'>**移动操作永远不会被隐式定义为删除的函数**</font>。但如果显式地要求编译器生成`=default`的移动操作，且编译器<font color='red'>**不能移动全部成员**</font>，则<font color='red'>**移动操作会被定义为删除的函数**</font>。
+与拷贝操作不同，**移动操作永远不会被隐式定义为删除的函数**。但如果显式地要求编译器生成`=default`的移动操作，且编译器**不能移动全部成员**，则**移动操作会被定义为删除的函数**。
 
 定义了移动构造函数或移动赋值运算符的类必须也定义自己的拷贝操作，否则这些成员会被默认地定义为删除的函数。
 
@@ -5229,19 +5229,19 @@ hp = hp2;   // hp2 is an lvalue; copy constructor used to copy hp2
 hp = std::move(hp2);    // move constructor moves hp2
 ```
 
-<font color='red'>**建议将五个拷贝控制成员当成一个整体来对待。如果一个类需要任何一个拷贝操作，它就应该定义所有五个操作**</font>。
+**建议将五个拷贝控制成员当成一个整体来对待。如果一个类需要任何一个拷贝操作，它就应该定义所有五个操作**。
 
 移动赋值运算符可以直接检查自赋值情况。
 
-C++11标准库定义了移动迭代器（move iterator）适配器。一个<font color='red'>**移动迭代器**</font>通过改变给定迭代器的解引用运算符的行为来适配此迭代器。移动迭代器的解引用运算符返回一个右值引用。
+C++11标准库定义了移动迭代器（move iterator）适配器。一个**移动迭代器**通过改变给定迭代器的解引用运算符的行为来适配此迭代器。移动迭代器的解引用运算符返回一个右值引用。
 
 调用`make_move_iterator`函数能将一个普通迭代器转换成移动迭代器。原迭代器的所有其他操作在移动迭代器中都照常工作。
 
-最好<font color='red'>**不要**</font>在<font color='red'>**移动构造函数**</font>和<font color='red'>**移动赋值运算符**</font>这些类实现代码<font color='red'>**之外的地方随意使用`move`操作**</font>。
+最好**不要**在**移动构造函数**和**移动赋值运算符**这些类实现代码**之外的地方随意使用`move`操作**。
 
 ### 右值引用和成员函数（Rvalue References and Member Functions）
 
-<font color='red'>**区分移动和拷贝**</font>的重载函数通常有一个版本接受一个`const T&`参数，另一个版本接受一个`T&&`参数（*T*为类型）。
+**区分移动和拷贝**的重载函数通常有一个版本接受一个`const T&`参数，另一个版本接受一个`T&&`参数（*T*为类型）。
 
 ```c++
 void push_back(const X&);   // copy: binds to any kind of X
@@ -5255,9 +5255,9 @@ string s1, s2;
 s1 + s2 = "wow!";
 ```
 
-在旧标准中，没有办法阻止这种使用方式。为了维持向下兼容性，<font color='red'>**新标准库仍然允许向右值赋值**</font>。但是<font color='red'>**可以在自己的类中阻止这种行为**</font>，规定左侧运算对象（即`this`指向的对象）必须是一个左值。
+在旧标准中，没有办法阻止这种使用方式。为了维持向下兼容性，**新标准库仍然允许向右值赋值**。但是**可以在自己的类中阻止这种行为**，规定左侧运算对象（即`this`指向的对象）必须是一个左值。
 
-在非`static`成员函数的形参列表后面添加引用限定符（reference qualifier）可以指定`this`的左值/右值属性。<font color='red'>**引用限定符可以是`&`或者`&&`，分别表示`this`可以指向一个左值或右值对象**</font>。引用限定符必须<font color='red'>**同时出现**</font>在函数的<font color='red'>**声明和定义**</font>中。
+在非`static`成员函数的形参列表后面添加引用限定符（reference qualifier）可以指定`this`的左值/右值属性。**引用限定符可以是`&`或者`&&`，分别表示`this`可以指向一个左值或右值对象**。引用限定符必须**同时出现**在函数的**声明和定义**中。
 
 ```c++
 class Foo
@@ -5274,7 +5274,7 @@ Foo &Foo::operator=(const Foo &rhs) &
 }
 ```
 
-一个非`static`成员函数可以同时使用`const`和引用限定符，此时<font color='red'>**引用限定符跟在`const`限定符之后**</font>。
+一个非`static`成员函数可以同时使用`const`和引用限定符，此时**引用限定符跟在`const`限定符之后**。
 
 ```c++
 class Foo
@@ -5285,7 +5285,7 @@ public:
 };
 ```
 
-引用限定符也可以区分成员函数的<font color='red'>**重载版本**</font>。
+引用限定符也可以区分成员函数的**重载版本**。
 
 ```c++
 class Foo
@@ -5317,7 +5317,7 @@ public:
 
 ## 基本概念（Basic Concepts）
 
-<font color='red'>**重载的运算**</font>符是具有特殊名字的函数，它们的名字由关键字<font color='red'>**`operator`和**</font>其后要定义的<font color='red'>**运算符**</font>号组成。
+**重载的运算**符是具有特殊名字的函数，它们的名字由关键字**`operator`和**其后要定义的**运算符**号组成。
 
 重载运算符函数的参数数量和该运算符作用的运算对象数量一样多。对于二元运算符来说，左侧运算对象传递给第一个参数，右侧运算对象传递给第二个参数。除了重载的函数调用运算符`operator()`之外，其他重载运算符不能含有默认实参。
 
@@ -5341,11 +5341,11 @@ data1 += data2;             // expression-based ''call''
 data1.operator+=(data2);    // equivalent call to a member operator function
 ```
 
-通常情况下，<font color='red'>**不应该重载**</font>逗号`,`、取地址`&`、逻辑与`&&`和逻辑或`||`运算符。
+通常情况下，**不应该重载**逗号`,`、取地址`&`、逻辑与`&&`和逻辑或`||`运算符。
 
 建议只有当操作的含义对于用户来说清晰明了时才使用重载运算符，重载运算符的返回类型也应该与其内置版本的返回类型兼容。
 
-<font color='red'>**如果类中含有算术运算符或位运算符，则最好也提供对应的复合赋值运算符**</font>。
+**如果类中含有算术运算符或位运算符，则最好也提供对应的复合赋值运算符**。
 
 把运算符定义为成员函数时，它的左侧运算对象必须是运算符所属类型的对象。
 
@@ -5355,18 +5355,18 @@ string t = s + "!";     // ok: we can add a const char* to a string
 string u = "hi" + s;    // would be an error if + were a member of string
 ```
 
-如何选择将运算符定义为<font color='red'>**成员函数**</font>还是<font color='red'>**普通函数**</font>：
+如何选择将运算符定义为**成员函数**还是**普通函数**：
 
-- 赋值`=`、下标`[]`、调用`()`和成员访问箭头`->`运算符<font color='red'>**必须是成员函数**</font>。
+- 赋值`=`、下标`[]`、调用`()`和成员访问箭头`->`运算符**必须是成员函数**。
 - 复合赋值运算符一般是成员函数，但并非必须。
 - 改变对象状态或者与给定类型密切相关的运算符，如递增、递减、解引用运算符，通常是成员函数。
-- 具有对称性的运算符可能转换任意一端的<font color='red'>**运算对象**</font>，如算术、相等性、关系和位运算符，通常是<font color='red'>**普通函数**</font>。
+- 具有对称性的运算符可能转换任意一端的**运算对象**，如算术、相等性、关系和位运算符，通常是**普通函数**。
 
 ## 输入和输出运算符（Input and Output Operators）
 
 ### 重载输出运算符<<（Overloading the Output Operator <<）
 
-通常情况下，输出运算符的第一个形参是`ostream`类型的<font color='red'>**普通引用**</font>，第二个形参是要打印类型的<font color='red'>**常量引用**</font>，返回值是它的`ostream`形参。
+通常情况下，输出运算符的第一个形参是`ostream`类型的**普通引用**，第二个形参是要打印类型的**常量引用**，返回值是它的`ostream`形参。
 
 ```c++
 ostream &operator<<(ostream &os, const Sales_data &item)
@@ -5379,7 +5379,7 @@ ostream &operator<<(ostream &os, const Sales_data &item)
 
 输出运算符应该尽量减少格式化操作。
 
-<font color='red'>**输入输出运算符必须是非成员函数**</font>。而由于IO操作通常需要读写类的非公有数据，所以<font color='red'>**输入输出运算符一般被声明为友元**</font>。
+**输入输出运算符必须是非成员函数**。而由于IO操作通常需要读写类的非公有数据，所以**输入输出运算符一般被声明为友元**。
 
 ### 重载输入运算符>>（Overloading the Input Operator >>）
 
@@ -5398,23 +5398,23 @@ istream &operator>>(istream &is, Sales_data &item)
 }
 ```
 
-<font color='red'>**输入运算符必须处理输入失败**</font>的情况，而输出运算符不需要。
+**输入运算符必须处理输入失败**的情况，而输出运算符不需要。
 
 以下情况可能导致读取操作失败：
 
-- 读取了<font color='red'>**错误类型**</font>的数据。
-- 读取操作到达<font color='red'>**文件末尾**</font>。
-- 遇到输入流的<font color='red'>**其他错误**</font>。
+- 读取了**错误类型**的数据。
+- 读取操作到达**文件末尾**。
+- 遇到输入流的**其他错误**。
 
 当读取操作发生错误时，输入操作符应该负责从错误状态中恢复。
 
-如果输入的数据不符合规定的格式，即使从技术上看IO操作是成功的，输入运算符也应该设置流的条件状态以标示出失败信息。通常情况下，<font color='red'>**输入运算符只设置`failbit`状态**</font>。`eofbit`、`badbit`等错误最好由IO标准库自己标示。
+如果输入的数据不符合规定的格式，即使从技术上看IO操作是成功的，输入运算符也应该设置流的条件状态以标示出失败信息。通常情况下，**输入运算符只设置`failbit`状态**。`eofbit`、`badbit`等错误最好由IO标准库自己标示。
 
 ## 算术和关系运算符（Arithmetic and Relational Operators）
 
-通常情况下，算术和关系运算符应该定义为非成员函数，以便两侧的运算对象进行转换。其次，由于这些<font color='red'>**运算符一般不会改变运算对象的状态**</font>，所以形参都是常量引用。
+通常情况下，算术和关系运算符应该定义为非成员函数，以便两侧的运算对象进行转换。其次，由于这些**运算符一般不会改变运算对象的状态**，所以形参都是常量引用。
 
-算术运算符通常会计算它的两个运算对象并得到一个新值，这个值通常存储在一个局部变量内，操作完成后返回该<font color='red'>**局部变量的副本作为结果**</font>（返回类型建议设置为原对象的`const`类型）。
+算术运算符通常会计算它的两个运算对象并得到一个新值，这个值通常存储在一个局部变量内，操作完成后返回该**局部变量的副本作为结果**（返回类型建议设置为原对象的`const`类型）。
 
 ```c++
 // assumes that both objects refer to the same book
@@ -5426,7 +5426,7 @@ Sales_data operator+(const Sales_data &lhs, const Sales_data &rhs)
 }
 ```
 
-如果类定义了算术运算符，则通常也会定义对应的<font color='red'>**复合赋值运算符**</font>，此时最有效的方式是使用复合赋值来实现算术运算符。
+如果类定义了算术运算符，则通常也会定义对应的**复合赋值运算符**，此时最有效的方式是使用复合赋值来实现算术运算符。
 
 ### 相等运算符（Equality Operators）
 
@@ -5438,7 +5438,7 @@ Sales_data operator+(const Sales_data &lhs, const Sales_data &rhs)
 
 - 如果类定义了`operator==`，则也应该定义`operator!=`。
 
-- `operator==`和`operator!=`中的一个应该把<font color='red'>**具体工作委托给另一个**</font>。
+- `operator==`和`operator!=`中的一个应该把**具体工作委托给另一个**。
 
   ```c++
   bool operator==(const Sales_data &lhs, const Sales_data &rhs)
@@ -5456,7 +5456,7 @@ Sales_data operator+(const Sales_data &lhs, const Sales_data &rhs)
 
 ### 关系运算符（Relational Operators）
 
-定义了相等运算符的类通常也会定义关系运算符。因为关联容器和一些算法要用到小于运算符，<font color='red'>**所以定义`operator<`会比较实用**</font>。
+定义了相等运算符的类通常也会定义关系运算符。因为关联容器和一些算法要用到小于运算符，**所以定义`operator<`会比较实用**。
 
 关系运算符设计准则：
 
@@ -5466,7 +5466,7 @@ Sales_data operator+(const Sales_data &lhs, const Sales_data &rhs)
 
 ## 赋值运算符（Assignment Operators）
 
-<font color='red'>**赋值运算符必须定义为成员函数**</font>，复合赋值运算符通常也是如此。这两类运算符都应该返回其左侧运算对象的引用。
+**赋值运算符必须定义为成员函数**，复合赋值运算符通常也是如此。这两类运算符都应该返回其左侧运算对象的引用。
 
 ```c++
 StrVec &StrVec::operator=(initializer_list<string> il)
@@ -5494,7 +5494,7 @@ Sales_data& Sales_data::operator+=(const Sales_data &rhs)
 
 下标运算符必须定义为成员函数。
 
-类通常会定义两个版本的<font color='red'>**下标运算符**</font>：一个返回<font color='red'>**普通引用**</font>，另一个是类的常量成员并返回<font color='red'>**常量引用**</font>。
+类通常会定义两个版本的**下标运算符**：一个返回**普通引用**，另一个是类的常量成员并返回**常量引用**。
 
 ```c++
 class StrVec
@@ -5512,7 +5512,7 @@ private:
 
 ## 递增和递减运算符（Increment and Decrement Operators）
 
-定义递增和递减运算符的类应该<font color='red'>**同时定义前置和后置版本**</font>，这些运算符通常定义为成员函数。
+定义递增和递减运算符的类应该**同时定义前置和后置版本**，这些运算符通常定义为成员函数。
 
 为了与内置操作保持一致，前置递增或递减运算符应该返回运算后对象的引用。
 
@@ -5539,7 +5539,7 @@ public:
 };
 ```
 
-为了与内置操作保持一致，<font color='red'>**后置递增**</font>或递减运算符应该返回运算前对象的原值（返回类型建议设置为原对象的`const`类型）。
+为了与内置操作保持一致，**后置递增**或递减运算符应该返回运算前对象的原值（返回类型建议设置为原对象的`const`类型）。
 
 ```c++
 StrBlobPtr StrBlobPtr::operator++(int)
@@ -5560,9 +5560,9 @@ p.operator++();     // call prefix operator++
 
 ## 成员访问运算符（Member Access Operators）
 
-<font color='red'>**箭头运算符**</font>必须定义为成员函数，解引用运算符通常也是如此。
+**箭头运算符**必须定义为成员函数，解引用运算符通常也是如此。
 
-重载的箭头运算符必须返回类的<font color='red'>**指针**</font>或者自定义了箭头运算符的类的对象。
+重载的箭头运算符必须返回类的**指针**或者自定义了箭头运算符的类的对象。
 
 ```c++
 class StrBlobPtr
@@ -5586,7 +5586,7 @@ public:
 
 ## 函数调用运算符（Function-Call Operator）
 
-<font color='red'>**函数调用运算符必须定义为成员函数**</font>。一个类可以定义多个不同版本的调用运算符，相互之间必须在参数数量或类型上有所区别。
+**函数调用运算符必须定义为成员函数**。一个类可以定义多个不同版本的调用运算符，相互之间必须在参数数量或类型上有所区别。
 
 ```c++
 class PrintString
@@ -5616,7 +5616,7 @@ for_each(vs.begin(), vs.end(), PrintString(cerr, '\n'));
 
 ### lambda是函数对象（Lambdas Are Function Objects）
 
-编写一个`lambda`后，编译器会将该表达式转换成一个未命名类的<font color='red'>**未命名对象**</font>，类中含有一个重载的函数调用运算符。
+编写一个`lambda`后，编译器会将该表达式转换成一个未命名类的**未命名对象**，类中含有一个重载的函数调用运算符。
 
 ```c++
 // sort words by size, but maintain alphabetical order for words of the same size
@@ -5634,7 +5634,7 @@ public:
 };
 ```
 
-`lambda`默认不能改变它捕获的变量。因此在<font color='red'>**默认情况下**</font>，由`lambda`产生的类中的<font color='red'>**函数调用运算符是一个`const`成员函数**</font>。如果`lambda`被声明为可变的，则调用运算符就不再是`const`函数了。
+`lambda`默认不能改变它捕获的变量。因此在**默认情况下**，由`lambda`产生的类中的**函数调用运算符是一个`const`成员函数**。如果`lambda`被声明为可变的，则调用运算符就不再是`const`函数了。
 
 `lambda`通过引用捕获变量时，由程序负责确保`lambda`执行时该引用所绑定的对象确实存在。因此编译器可以直接使用该引用而无须在`lambda`产生的类中将其存储为数据成员。相反，通过值捕获的变量被拷贝到`lambda`中，此时`lambda`产生的类必须为每个值捕获的变量建立对应的数据成员，并创建构造函数，用捕获变量的值来初始化数据成员。
 
@@ -5659,11 +5659,11 @@ private:
 };
 ```
 
-<font color='red'>**`lambda`产生的类不包含默认构造函数、赋值运算符和默认析构函数**</font>，它是否包含默认拷贝/移动构造函数则通常要视捕获的变量类型而定。
+**`lambda`产生的类不包含默认构造函数、赋值运算符和默认析构函数**，它是否包含默认拷贝/移动构造函数则通常要视捕获的变量类型而定。
 
 ### 标准库定义的函数对象（Library-Defined Function Objects）
 
-标准库在头文件*functional*中定义了一组表示<font color='red'>**算术运算符、关系运算符和逻辑运算符的类**</font>，每个类分别定义了一个执行命名操作的调用运算符。这些类都被定义为模板的形式，可以为其指定具体的应用类型（即调用运算符的形参类型）。
+标准库在头文件*functional*中定义了一组表示**算术运算符、关系运算符和逻辑运算符的类**，每个类分别定义了一个执行命名操作的调用运算符。这些类都被定义为模板的形式，可以为其指定具体的应用类型（即调用运算符的形参类型）。
 
 ![14-2](CppPrimer.assets/14-2.png)
 
@@ -5709,7 +5709,7 @@ cout << f2(4,2) << endl;   // prints 2
 cout << f3(4,2) << endl;   // prints 8
 ```
 
-不能直接将重载函数的名字存入`function`类型的对象中，这样做会产生二义性错误。消除二义性的方法是使用`lambda`或者<font color='red'>**存储函数指针而非函数名字**</font>。
+不能直接将重载函数的名字存入`function`类型的对象中，这样做会产生二义性错误。消除二义性的方法是使用`lambda`或者**存储函数指针而非函数名字**。
 
 C++11新标准库中的`function`类与旧版本中的`unary_function`和`binary_function`没有关系，后两个类已经被`bind`函数代替。
 
@@ -5719,13 +5719,13 @@ C++11新标准库中的`function`类与旧版本中的`unary_function`和`binary
 
 ### 类型转换运算符（Conversion Operators）
 
-类型转换运算符是类的一种特殊成员函数，负责将一个类类型的值转换成其他类型。<font color='red'>**它不能声明返回类型，形参列表也必须为空**</font>，一般形式如下：
+类型转换运算符是类的一种特殊成员函数，负责将一个类类型的值转换成其他类型。**它不能声明返回类型，形参列表也必须为空**，一般形式如下：
 
 ```c++
 operator type() const;
 ```
 
-类型转换运算符可以面向<font color='red'>**除了`void`以外的任意类型**</font>（该类型要能作为函数的返回类型）进行定义。
+类型转换运算符可以面向**除了`void`以外的任意类型**（该类型要能作为函数的返回类型）进行定义。
 
 ```c++
 class SmallInt
@@ -5754,7 +5754,7 @@ si + 3.14;     // that int is converted to double using the built-in conversion
 
 应该避免过度使用类型转换函数。如果在类类型和转换类型之间不存在明显的映射关系，则这样的类型转换可能具有误导性。
 
-C++11引入了显示的类型转换运算符（explicit conversion operator）。和显式构造函数一样，<font color='red'>**编译器通常不会将显式类型转换运算符用于隐式类型转换**</font>。
+C++11引入了显示的类型转换运算符（explicit conversion operator）。和显式构造函数一样，**编译器通常不会将显式类型转换运算符用于隐式类型转换**。
 
 ```c++
 class SmallInt
@@ -5770,14 +5770,14 @@ si + 3;     // error: implicit is conversion required, but operator int is expli
 static_cast<int>(si) + 3;    // ok: explicitly request the conversion
 ```
 
-如果<font color='red'>**表达式被用作条件**</font>，则编译器会隐式地执行显式类型转换。
+如果**表达式被用作条件**，则编译器会隐式地执行显式类型转换。
 
 - `if`、`while`、`do-while`语句的条件部分。
 - `for`语句头的条件表达式。
 - 条件运算符`? :`的条件表达式。
 - 逻辑非运算符`!`、逻辑或运算符`||`、逻辑与运算符`&&`的运算对象。
 
-<font color='red'>**类类型向`bool`的类型转换通常用在条件部分**</font>，因此`operator bool`一般<font color='red'>**被定义为显式**</font>的。
+**类类型向`bool`的类型转换通常用在条件部分**，因此`operator bool`一般**被定义为显式**的。
 
 ### 避免有二义性的类型转换（Avoiding Ambiguous Conversions）
 
@@ -5888,11 +5888,11 @@ int i = s3 + 0;    // error: ambiguous
 
 ## OOP：概述（OOP：An Overview）
 
-面向对象程序设计（object-oriented programming）的核心思想是<font color='red'>**数据抽象（封装）、继承和动态绑定（多态）**</font>。
+面向对象程序设计（object-oriented programming）的核心思想是**数据抽象（封装）、继承和动态绑定（多态）**。
 
-通过继承（inheritance）联系在一起的类构成一种层次关系。通常在<font color='red'>**层次关系**</font>的根部有一个<font color='red'>**基类**</font>（base class），其他类则直接或间接地从基类继承而来，这些继承得到的类叫做派生类（derived class）。<font color='red'>**基类负责定义在层次关系中所有类共同拥有的成员，而每个派生类定义各自特有的成员**</font>。
+通过继承（inheritance）联系在一起的类构成一种层次关系。通常在**层次关系**的根部有一个**基类**（base class），其他类则直接或间接地从基类继承而来，这些继承得到的类叫做派生类（derived class）。**基类负责定义在层次关系中所有类共同拥有的成员，而每个派生类定义各自特有的成员**。
 
-对于某些函数，基类希望它的派生类各自定义适合自身的版本，此时基类应该将这些函数声明为<font color='red'>**虚函数**</font>（virtual function）。方法是在函数名称前添加`virtual`关键字。
+对于某些函数，基类希望它的派生类各自定义适合自身的版本，此时基类应该将这些函数声明为**虚函数**（virtual function）。方法是在函数名称前添加`virtual`关键字。
 
 ```C++
 class Quote
@@ -5903,7 +5903,7 @@ public:
 };
 ```
 
-派生类必须通过类派生列表（class derivation list）明确指出它是从哪个或哪些基类继承而来的。<font color='red'>**类派生列表**</font>的形式首先是一个<font color='red'>**冒号**</font>，后面紧跟以<font color='red'>**逗号分隔**</font>的基类列表，其中每个基类前面可以添加访问说明符。
+派生类必须通过类派生列表（class derivation list）明确指出它是从哪个或哪些基类继承而来的。**类派生列表**的形式首先是一个**冒号**，后面紧跟以**逗号分隔**的基类列表，其中每个基类前面可以添加访问说明符。
 
 ```c++
 class Bulk_quote : public Quote
@@ -5915,19 +5915,19 @@ public:
 
 派生类必须在其内部对所有重新定义的虚函数进行声明。
 
-<font color='red'>**使用基类的引用或指针调用一个虚函数时将发生动态绑定**</font>（dynamic binding），也叫运行时绑定（run-time binding）。函数的运行版本将由实参决定。
+**使用基类的引用或指针调用一个虚函数时将发生动态绑定**（dynamic binding），也叫运行时绑定（run-time binding）。函数的运行版本将由实参决定。
 
 ## 定义基类和派生类（Defining Base and Derived Classes）
 
 ### 定义基类（Defining a Base Class）
 
-<font color='red'>**基类**</font>通常都应该定义一个<font color='red'>**虚析构函数**</font>，即使该函数不执行任何实际操作也是如此。
+**基类**通常都应该定义一个**虚析构函数**，即使该函数不执行任何实际操作也是如此。
 
-除构造函数之外的任何<font color='red'>**非静态函数都能定义为虚函数**</font>。<font color='red'>**`virtual`关键字**</font>只能出现在<font color='red'>**类内部的声明**</font>语句之前而不能用于类外部的函数定义。如果基类把一个函数声明为虚函数，则该函数在派生类中隐式地也是虚函数。
+除构造函数之外的任何**非静态函数都能定义为虚函数**。**`virtual`关键字**只能出现在**类内部的声明**语句之前而不能用于类外部的函数定义。如果基类把一个函数声明为虚函数，则该函数在派生类中隐式地也是虚函数。
 
-成员函数如果没有被声明为虚函数，则其解析过程发生在<font color='red'>**编译阶段**</font>而非<font color='red'>**运行阶段**</font>。
+成员函数如果没有被声明为虚函数，则其解析过程发生在**编译阶段**而非**运行阶段**。
 
-<font color='red'>**派生类**</font>能访问基类的公有成员，<font color='red'>**不能访问私有成员**</font>。如果基类希望定义外部代码无法访问，但是派生类对象可以访问的成员，可以使用受保护的（protected）访问运算符进行说明。
+**派生类**能访问基类的公有成员，**不能访问私有成员**。如果基类希望定义外部代码无法访问，但是派生类对象可以访问的成员，可以使用受保护的（protected）访问运算符进行说明。
 
 ### 定义派生类（Defining a Derived Class）
 
@@ -5935,9 +5935,9 @@ public:
 
 如果派生类没有覆盖其基类的某个虚函数，则该虚函数的行为类似于其他的普通函数，派生类会直接继承其在基类中的版本。
 
-<font color='red'>**C++标准并没有明确规定派生类的对象在内存中如何分布**</font>，一个对象中继承自基类的部分和派生类自定义的部分不一定是连续存储的。
+**C++标准并没有明确规定派生类的对象在内存中如何分布**，一个对象中继承自基类的部分和派生类自定义的部分不一定是连续存储的。
 
-因为在派生类对象中含有与其基类对应的组成部分，所以能把派生类的对象当作基类对象来使用，也能将<font color='red'>**基类的指针或引用绑定到派生类对象中的基类部分上**</font>。这种转换通常称为派生类到基类的（derived-to-base）类型转换，编译器会隐式执行。
+因为在派生类对象中含有与其基类对应的组成部分，所以能把派生类的对象当作基类对象来使用，也能将**基类的指针或引用绑定到派生类对象中的基类部分上**。这种转换通常称为派生类到基类的（derived-to-base）类型转换，编译器会隐式执行。
 
 ```c++
 Quote item;         // object of base type
@@ -5947,7 +5947,7 @@ p = &bulk;          // p points to the Quote part of bulk
 Quote &r = bulk;    // r bound to the Quote part of bulk
 ```
 
-每个类控制它自己的成员初始化过程，派生类必须使用基类的构造函数来初始化它的基类部分。<font color='red'>**派生类的构造函数通过构造函数初始化列表来将实参传递给基类构造函数**</font>。
+每个类控制它自己的成员初始化过程，派生类必须使用基类的构造函数来初始化它的基类部分。**派生类的构造函数通过构造函数初始化列表来将实参传递给基类构造函数**。
 
 ```c++
 Bulk_quote(const std::string& book, double p, 
@@ -5955,13 +5955,13 @@ Bulk_quote(const std::string& book, double p,
     Quote(book, p), min_qty(qty), discount(disc) { }
 ```
 
-除非特别指出，否则<font color='red'>**派生类对象的基类部分**</font>会像数据成员一样执行<font color='red'>**默认初始化**</font>。
+除非特别指出，否则**派生类对象的基类部分**会像数据成员一样执行**默认初始化**。
 
-派生类<font color='red'>**初始化**</font>时首先初始化<font color='red'>**基类部分**</font>，然后按照<font color='red'>**声明的顺序**</font>依次初始化派生类成员。
+派生类**初始化**时首先初始化**基类部分**，然后按照**声明的顺序**依次初始化派生类成员。
 
-派生类可以访问基类的<font color='red'>**公有**</font>成员和<font color='red'>**受保护**</font>成员。
+派生类可以访问基类的**公有**成员和**受保护**成员。
 
-如果<font color='red'>**基类**</font>定义了一个<font color='red'>**静态成员**</font>，则在整个继承体系中只存在该成员的唯一定义。如果某静态成员是可访问的，则既<font color='red'>**能**</font>通过<font color='red'>**基类**</font>也能通过<font color='red'>**派生类**</font>使用它。
+如果**基类**定义了一个**静态成员**，则在整个继承体系中只存在该成员的唯一定义。如果某静态成员是可访问的，则既**能**通过**基类**也能通过**派生类**使用它。
 
 已经完整定义的类才能被用作基类。
 
@@ -5973,7 +5973,7 @@ class D2: public D1 { /* ... */ };
 
 *Base*是*D1*的直接基类（direct base），是*D2*的间接基类（indirect base）。最终的派生类将包含它直接基类的子对象以及每个间接基类的子对象。
 
-C++11中，在<font color='red'>**类名后面添加`final`关键字可以禁止其他类继承它**</font>。
+C++11中，在**类名后面添加`final`关键字可以禁止其他类继承它**。
 
 ```c++
 class NoDerived final { /* */ };    // NoDerived can't be a base class
@@ -5986,13 +5986,13 @@ class Bad2 : Last { /* */ };        // error: Last is final
 
 ### 类型转换与继承（Conversions and Inheritance）
 
-和内置指针一样，<font color='red'>**智能指针类也支持派生类到基类的类型转换**</font>，所以可以将一个<font color='red'>**派生类对象的指针存储在一个基类的智能指针内**</font>。
+和内置指针一样，**智能指针类也支持派生类到基类的类型转换**，所以可以将一个**派生类对象的指针存储在一个基类的智能指针内**。
 
-<font color='red'>**表达式的静态类型**</font>（static type）在编译时总是已知的，它是变量声明时的<font color='red'>**类型**</font>或<font color='red'>**表达式生成的类型**</font>；动态类型（dynamic type）则是变量或表达式表示的内存中对象的类型，只有运行时才可知。
+**表达式的静态类型**（static type）在编译时总是已知的，它是变量声明时的**类型**或**表达式生成的类型**；动态类型（dynamic type）则是变量或表达式表示的内存中对象的类型，只有运行时才可知。
 
-<font color='red'>**如果表达式既不是引用也不是指针，则它的动态类型永远与静态类型一致**</font>。
+**如果表达式既不是引用也不是指针，则它的动态类型永远与静态类型一致**。
 
-<font color='red'>**不存在从基类到派生类的隐式类型转换**</font>，即使一个基类指针或引用绑定在一个派生类对象上也不行，因为编译器只能通过检查指针或引用的静态类型来判断转换是否合法。
+**不存在从基类到派生类的隐式类型转换**，即使一个基类指针或引用绑定在一个派生类对象上也不行，因为编译器只能通过检查指针或引用的静态类型来判断转换是否合法。
 
 ```c++
 Quote base;
@@ -6000,13 +6000,13 @@ Bulk_quote* bulkP = &base;   // error: can't convert base to derived
 Bulk_quote& bulkRef = base;  // error: can't convert base to derived
 ```
 
-如果在基类中含有一个或多个虚函数，可以使用`dynamic_cast`运算符，用于<font color='red'>**将基类的指针或引用安全地转换成派生类的指针或引用**</font>，该转换的安全检查将在运行期间执行。
+如果在基类中含有一个或多个虚函数，可以使用`dynamic_cast`运算符，用于**将基类的指针或引用安全地转换成派生类的指针或引用**，该转换的安全检查将在运行期间执行。
 
-如果已知<font color='red'>**某个基类到派生类的转换是安全的，可以使用`static_cast`强制覆盖掉编译器的检查工作**</font>。
+如果已知**某个基类到派生类的转换是安全的，可以使用`static_cast`强制覆盖掉编译器的检查工作**。
 
-<font color='red'>**派生类到基类**</font>的自动类型转换<font color='red'>**只对指针或引用有效**</font>，在派生类类型和基类类型之间<font color='red'>**不存在这种转换**</font>。
+**派生类到基类**的自动类型转换**只对指针或引用有效**，在派生类类型和基类类型之间**不存在这种转换**。
 
-派生类到基类的转换允许我们<font color='red'>**给基类的拷贝/移动操作传递一个派生类的对象**</font>，这些操作是基类定义的，<font color='red'>**只会处理基类自己的成员，派生类的部分被切掉**</font>（sliced down）了。
+派生类到基类的转换允许我们**给基类的拷贝/移动操作传递一个派生类的对象**，这些操作是基类定义的，**只会处理基类自己的成员，派生类的部分被切掉**（sliced down）了。
 
 ```c++
 Bulk_quote bulk;    // object of derived type
@@ -6014,7 +6014,7 @@ Quote item(bulk);   // uses the Quote::Quote(const Quote&) constructor
 item = bulk;        // calls Quote::operator=(const Quote&)
 ```
 
-用一个派生类对象为一个基类对象初始化或赋值时，<font color='red'>**只有该对象中的基类部分**</font>会被拷贝、移动或赋值，它的<font color='red'>**派生类部分会被忽略掉**</font>。
+用一个派生类对象为一个基类对象初始化或赋值时，**只有该对象中的基类部分**会被拷贝、移动或赋值，它的**派生类部分会被忽略掉**。
 
 ## 虚函数（Virtual Functions）
 
@@ -6022,11 +6022,11 @@ item = bulk;        // calls Quote::operator=(const Quote&)
 
 在派生类中覆盖某个虚函数时，可以再次使用`virtual`关键字说明函数性质，但这并非强制要求。因为一旦某个函数被声明为虚函数，则在所有派生类中它都是虚函数。
 
-在<font color='red'>**派生类中覆盖某个虚函数时**</font>，该函数在基类中的形参必须与派生类中的<font color='red'>**形参严格匹配**</font>。
+在**派生类中覆盖某个虚函数时**，该函数在基类中的形参必须与派生类中的**形参严格匹配**。
 
-<font color='red'>**派生类可以定义一个与基类中的虚函数名字相同但形参列表不同的函数**</font>，但编译器会认为该函数与基类中原有的函数是<font color='red'>**相互独立的**</font>，此时派生类的函数并没有覆盖掉基类中的版本。
+**派生类可以定义一个与基类中的虚函数名字相同但形参列表不同的函数**，但编译器会认为该函数与基类中原有的函数是**相互独立的**，此时派生类的函数并没有覆盖掉基类中的版本。
 
-C++11允许派生类使用`override`关键字<font color='red'>**显式地注明虚函数**</font>。如果`override`标记了某个函数，<font color='red'>**但该函数并没有覆盖已存在的虚函数，编译器将报告错误**</font>。`override`位于函数参数列表之后。
+C++11允许派生类使用`override`关键字**显式地注明虚函数**。如果`override`标记了某个函数，**但该函数并没有覆盖已存在的虚函数，编译器将报告错误**。`override`位于函数参数列表之后。
 
 ```c++
 struct B
@@ -6045,7 +6045,7 @@ struct D1 : B
 }
 ```
 
-与禁止类继承类似，<font color='red'>**函数也可以通过添加`final`关键字来禁止覆盖操作**</font>。
+与禁止类继承类似，**函数也可以通过添加`final`关键字来禁止覆盖操作**。
 
 ```c++
 struct D2 : B
@@ -6059,18 +6059,18 @@ struct D2 : B
 
 虚函数也可以有默认实参，每次函数调用的默认实参值由本次调用的静态类型决定。如果通过基类的指针或引用调用函数，则使用基类中定义的默认实参，即使实际运行的是派生类中的函数版本也是如此。
 
-<font color='red'>**如果虚函数使用默认实参，则基类和派生类中定义的默认实参值最好一致**</font>。
+**如果虚函数使用默认实参，则基类和派生类中定义的默认实参值最好一致**。
 
-使用<font color='red'>**作用域运算符`::`可以强制执行虚函数的某个版本**</font>，不进行动态绑定。
+使用**作用域运算符`::`可以强制执行虚函数的某个版本**，不进行动态绑定。
 
 ```c++
 // calls the version from the base class regardless of the dynamic type of baseP
 double undiscounted = baseP->Quote::net_price(42);
 ```
 
-通常情况下，只有<font color='red'>**成员函数**</font>或<font color='red'>**友元中**</font>的代码才需要<font color='red'>**使用作用域运算符**</font>来<font color='red'>**回避**</font>虚函数的<font color='red'>**动态绑定**</font>机制。
+通常情况下，只有**成员函数**或**友元中**的代码才需要**使用作用域运算符**来**回避**虚函数的**动态绑定**机制。
 
-如果一个<font color='red'>**派生类虚函数**</font>需要<font color='red'>**调用它的基类版本**</font>，但<font color='red'>**没有**</font>使用<font color='red'>**作用域运算符**</font>，则在运行时该调用会被解析为对派生类版本自身的调用，从而<font color='red'>**导致无限递归**</font>。
+如果一个**派生类虚函数**需要**调用它的基类版本**，但**没有**使用**作用域运算符**，则在运行时该调用会被解析为对派生类版本自身的调用，从而**导致无限递归**。
 
 ## 抽象基类（Abstract Base Classes）
 
@@ -6080,11 +6080,11 @@ double undiscounted = baseP->Quote::net_price(42);
 double net_price(std::size_t) const = 0;
 ```
 
-<font color='red'>**可以为纯虚函数提供定义，但函数体必须定义在类的外部**</font>。
+**可以为纯虚函数提供定义，但函数体必须定义在类的外部**。
 
-含有（或未经覆盖直接继承）纯虚函数的类是抽象基类。<font color='red'>**抽象基类负责定义接口**</font>，而后续的其他类可以覆盖该接口。
+含有（或未经覆盖直接继承）纯虚函数的类是抽象基类。**抽象基类负责定义接口**，而后续的其他类可以覆盖该接口。
 
-<font color='red'>**不能创建抽象基类的对象**</font>。
+**不能创建抽象基类的对象**。
 
 派生类构造函数只初始化它的直接基类。
 
@@ -6092,9 +6092,9 @@ double net_price(std::size_t) const = 0;
 
 ## 访问控制与继承（Access Control and Inheritance）
 
-一个类可以使用`protected`关键字来声明外部代码无法访问，但是<font color='red'>**派生类对象**</font>可以访问的成员。
+一个类可以使用`protected`关键字来声明外部代码无法访问，但是**派生类对象**可以访问的成员。
 
-派生类的<font color='red'>**成员**</font>或<font color='red'>**友元**</font>只能<font color='red'>**通过派生类对象**</font>来访问<font color='red'>**基类**</font>的`protected`成员。派生类对于一个基类对象中的`protected`成员没有任何访问权限。
+派生类的**成员**或**友元**只能**通过派生类对象**来访问**基类**的`protected`成员。派生类对于一个基类对象中的`protected`成员没有任何访问权限。
 
 ```c++
 class Base
@@ -6123,18 +6123,18 @@ void clobber(Base &b) { b.prot_mem = 0; }
 派生访问说明符的作用是控制派生类（包括派生类的派生类）用户对于基类成员的访问权限。
 
 - 如果使用公有继承，则基类的公有成员和受保护成员在派生类中属性不发生改变。
-- 如果使用<font color='red'>**受保护继承**</font>，则基类的<font color='red'>**公有**</font>成员和<font color='red'>**受保护**</font>成员在派生类中变为受保护成员。
-- 如果使用私有继承，则基类的公有成员和受保护成员在派生类中变为<font color='red'>**私有成员**</font>。
+- 如果使用**受保护继承**，则基类的**公有**成员和**受保护**成员在派生类中变为受保护成员。
+- 如果使用私有继承，则基类的公有成员和受保护成员在派生类中变为**私有成员**。
 
 派生类到基类转换的可访问性（假定*D*继承自*B*）：
 
-- 只有当*D*公有地继承*B*时，<font color='red'>**用户代码**</font>才能使用派生类到基类的转换。
-- 不论*D*以什么方式继承*B*，*D*的<font color='red'>**成员函数和友元**</font>都能使用派生类到基类的转换。
-- 如果*D*继承*B*的方式是<font color='red'>**公有**</font>的或者<font color='red'>**受保护**</font>的，则*D*的<font color='red'>**派生类的成员函数和友元**</font><font color='red'>**可以使用*D*到*B*的类型转换**</font>；反之，如果*D*继承*B*的方式是私有的，则不能使用。
+- 只有当*D*公有地继承*B*时，**用户代码**才能使用派生类到基类的转换。
+- 不论*D*以什么方式继承*B*，*D*的**成员函数和友元**都能使用派生类到基类的转换。
+- 如果*D*继承*B*的方式是**公有**的或者**受保护**的，则*D*的**派生类的成员函数和友元****可以使用*D*到*B*的类型转换**；反之，如果*D*继承*B*的方式是私有的，则不能使用。
 
 对于代码中的某个给定节点来说，如果基类的公有成员是可访问的，则派生类到基类的类型转换也是可访问的。
 
-<font color='red'>**友元对基类的访问权限由基类自身控制**</font>，即使对于派生类中的基类部分也是如此。
+**友元对基类的访问权限由基类自身控制**，即使对于派生类中的基类部分也是如此。
 
 ```c++
 class Base
@@ -6153,7 +6153,7 @@ public:
 };
 ```
 
-<font color='red'>**友元关系不能继承，每个类负责控制各自成员的访问权限**</font>。
+**友元关系不能继承，每个类负责控制各自成员的访问权限**。
 
 使用`using`声明可以改变派生类继承的某个名字的访问级别。新的访问级别由该`using`声明之前的访问说明符决定。
 
@@ -6184,11 +6184,11 @@ protected:
 
 ## 继承中的类作用域（Class Scope under Inheritance）
 
-当存在<font color='red'>**继承**</font>关系时，<font color='red'>**派生类的作用域嵌套在其基类的作用域之内**</font>。
+当存在**继承**关系时，**派生类的作用域嵌套在其基类的作用域之内**。
 
-一个对象、引用或指针的<font color='red'>**静态类型决定**</font>了该对象的哪些成员是<font color='red'>**可见性**</font>。
+一个对象、引用或指针的**静态类型决定**了该对象的哪些成员是**可见性**。
 
-派生类定义的成员会<font color='red'>**隐藏同名的基类成员**</font>。
+派生类定义的成员会**隐藏同名的基类成员**。
 
 ```c++
 struct Base
@@ -6205,7 +6205,7 @@ protected:
 };
 ```
 
-可以通过作用域运算符`::`来<font color='red'>**使用**</font>被隐藏的<font color='red'>**基类成员**</font>。
+可以通过作用域运算符`::`来**使用**被隐藏的**基类成员**。
 
 ```c++
 struct Derived : Base
@@ -6215,13 +6215,13 @@ struct Derived : Base
 };
 ```
 
-除了<font color='red'>**覆盖继承而来的虚函数**</font>之外，派生类最好不要重用其他定义在基类中的名字。
+除了**覆盖继承而来的虚函数**之外，派生类最好不要重用其他定义在基类中的名字。
 
 和其他函数一样，成员函数无论是否是虚函数都能被重载。
 
-<font color='red'>**派生类可以覆盖重载函数的0个或多个实例**</font>。如果派生类希望所有的重载版本对它来说都是可见的，那么它就需要覆盖所有版本，或者一个也不覆盖。
+**派生类可以覆盖重载函数的0个或多个实例**。如果派生类希望所有的重载版本对它来说都是可见的，那么它就需要覆盖所有版本，或者一个也不覆盖。
 
-有时一个类仅需覆盖重载集合中的一些而非全部函数，此时如果我们不得不覆盖基类中的每一个版本的话，操作会极其繁琐。为了简化操作，可以为重载成员提供`using`声明。<font color='red'>**`using`声明指定了一个函数名字**</font>但不指定形参列表，所以一条基类成员函数的`using`声明语句就可以把该函数的<font color='red'>**所有重载实例**</font>添加到派生类作用域中。
+有时一个类仅需覆盖重载集合中的一些而非全部函数，此时如果我们不得不覆盖基类中的每一个版本的话，操作会极其繁琐。为了简化操作，可以为重载成员提供`using`声明。**`using`声明指定了一个函数名字**但不指定形参列表，所以一条基类成员函数的`using`声明语句就可以把该函数的**所有重载实例**添加到派生类作用域中。
 
 ```c++
 class Base
@@ -6260,7 +6260,7 @@ public:
 
 一般来说，如果一个类需要析构函数，那么它也需要拷贝和赋值操作。但基类的析构函数不遵循该规则。
 
-基类通常应该定义一个<font color='red'>**虚析构函数**</font>。
+基类通常应该定义一个**虚析构函数**。
 
 ```c++
 class Quote
@@ -6271,7 +6271,7 @@ public:
 };
 ```
 
-如果基类的析构函数不是虚函数，则`delete`一个<font color='red'>**指向派生类**</font>对象的<font color='red'>**基类指针**</font>会产生<font color='red'>**未定义的结果**</font>。
+如果基类的析构函数不是虚函数，则`delete`一个**指向派生类**对象的**基类指针**会产生**未定义的结果**。
 
 ```c++
 Quote *itemP = new Quote;   // same static and dynamic type
@@ -6284,24 +6284,24 @@ delete itemP;     // destructor for Bulk_quote called
 
 ### 合成拷贝控制与继承（Synthesized Copy Control and Inheritance）
 
-对于派生类的<font color='red'>**析构函数**</font>来说，它除了销毁派生类自己的成员外，还负责<font color='red'>**销毁**</font>派生类<font color='red'>**直接基类**</font>的成员。
+对于派生类的**析构函数**来说，它除了销毁派生类自己的成员外，还负责**销毁**派生类**直接基类**的成员。
 
 派生类中删除的拷贝控制与基类的关系：
 
-- 如果<font color='red'>**基类**</font>中的默认构造函数、拷贝构造函数、拷贝赋值运算符或析构函数是被删除的或者<font color='red'>**不可访问的函数**</font>，则<font color='red'>**派生类**</font>中对应的成员<font color='red'>**也会是被删除的**</font>。因为编译器不能使用基类成员来执行派生类对象中基类部分的构造、赋值或销毁操作。
+- 如果**基类**中的默认构造函数、拷贝构造函数、拷贝赋值运算符或析构函数是被删除的或者**不可访问的函数**，则**派生类**中对应的成员**也会是被删除的**。因为编译器不能使用基类成员来执行派生类对象中基类部分的构造、赋值或销毁操作。
 - 如果基类的析构函数是被删除的或者不可访问的，则派生类中合成的默认和拷贝构造函数也会是被删除的。因为编译器无法销毁派生类对象中的基类部分。
-- <font color='red'>**编译器不会合成一个被删除的移动操作**</font>。当我们使用`=default`请求一个移动操作时，如果基类中对应的操作是被删除的或者不可访问的，则派生类中的操作也会是被删除的。因为派生类对象中的基类部分不能移动。同样，如果基类的析构函数是被删除的或者不可访问的，则派生类的移动构造函数也会是被删除的。
+- **编译器不会合成一个被删除的移动操作**。当我们使用`=default`请求一个移动操作时，如果基类中对应的操作是被删除的或者不可访问的，则派生类中的操作也会是被删除的。因为派生类对象中的基类部分不能移动。同样，如果基类的析构函数是被删除的或者不可访问的，则派生类的移动构造函数也会是被删除的。
 
-<font color='red'>**在实际编程中，如果基类没有默认、拷贝或移动构造函数，则一般情况下<font color='red'>**派生类也不会定义**</font>相应的操作。
-**</font>
+**在实际编程中，如果基类没有默认、拷贝或移动构造函数，则一般情况下**派生类也不会定义**相应的操作。
+**
 
 因为基类缺少移动操作会阻止编译器为派生类合成自己的移动操作，所以当我们确实需要执行移动操作时，应该首先在基类中进行定义。
 
 ### 派生类的拷贝控制成员（Derived-Class Copy-Control Members）
 
-当<font color='red'>**派生类**</font>定义了<font color='red'>**拷贝或移动**</font>操作时，该操作负责<font color='red'>**拷贝或移动**</font>包括基类成员在内的<font color='red'>**整个对象**</font>。
+当**派生类**定义了**拷贝或移动**操作时，该操作负责**拷贝或移动**包括基类成员在内的**整个对象**。
 
-当为派生类定义<font color='red'>**拷贝或移动**</font>构造函数时，通常使用对应的<font color='red'>**基类构造函数**</font>初始化对象的基类部分。
+当为派生类定义**拷贝或移动**构造函数时，通常使用对应的**基类构造函数**初始化对象的基类部分。
 
 ```c++
 class Base { /* ... */ } ;
@@ -6323,9 +6323,9 @@ D(const D& d)   /* member initializers, but no base-class initializer */
 { /* ... */ }
 ```
 
-在默认情况下，基类默认构造函数初始化派生类对象的基类部分。如果想拷贝或移动基类部分，则必须在派生类的构造函数初始化列表中<font color='red'>**显式地使用基类**</font>的拷贝或移动构造函数。
+在默认情况下，基类默认构造函数初始化派生类对象的基类部分。如果想拷贝或移动基类部分，则必须在派生类的构造函数初始化列表中**显式地使用基类**的拷贝或移动构造函数。
 
-派生类的<font color='red'>**赋值运算符**</font>必须<font color='red'>**显式地为其基类部分赋值**</font>。
+派生类的**赋值运算符**必须**显式地为其基类部分赋值**。
 
 ```c++
 // Base::operator=(const Base&) is not invoked automatically
@@ -6338,7 +6338,7 @@ D &D::operator=(const D &rhs)
 }
 ```
 
-派生类的<font color='red'>**析构**</font>函数<font color='red'>**只负责销毁**</font>派生类<font color='red'>**自己分配**</font>的资源。
+派生类的**析构**函数**只负责销毁**派生类**自己分配**的资源。
 
 ```c++
 class D: public Base
@@ -6353,7 +6353,7 @@ public:
 
 ### 继承的构造函数（Inherited Constructors）
 
-C++11新标准允许<font color='red'>**派生类重用**</font>（非常规方式继承）其直接<font color='red'>**基类定义的构造函数**</font>。继承方式是提供一条注明了直接基类名的`using`声明语句。
+C++11新标准允许**派生类重用**（非常规方式继承）其直接**基类定义的构造函数**。继承方式是提供一条注明了直接基类名的`using`声明语句。
 
 ```c++
 class Bulk_quote : public Disc_quote
@@ -6364,23 +6364,23 @@ public:
 };
 ```
 
-通常情况下，`using`声明语句只是令某个名字在当前作用域内可见。而作用于构造函数时，`using`声明将令编译器产生代码。对于基类的每个构造函数，<font color='red'>**编译器都会生成一个与其形参列表完全相同的派生类构造函数**</font>。如果派生类含有自己的数据成员，则<font color='red'>**这些成员会被默认初始化**</font>。
+通常情况下，`using`声明语句只是令某个名字在当前作用域内可见。而作用于构造函数时，`using`声明将令编译器产生代码。对于基类的每个构造函数，**编译器都会生成一个与其形参列表完全相同的派生类构造函数**。如果派生类含有自己的数据成员，则**这些成员会被默认初始化**。
 
-构造函数的`using`声明<font color='red'>**不会改变**</font>该函数的<font color='red'>**访问级别**</font>，不能指定`explicit`或`constexpr`属性。
+构造函数的`using`声明**不会改变**该函数的**访问级别**，不能指定`explicit`或`constexpr`属性。
 
 定义在派生类中的构造函数会替换继承而来的具有相同形参列表的构造函数。
 
-<font color='red'>**派生类不能继承默认、拷贝和移动构造函数**</font>。如果派生类没有直接定义这些构造函数，则编译器会为其合成它们。
+**派生类不能继承默认、拷贝和移动构造函数**。如果派生类没有直接定义这些构造函数，则编译器会为其合成它们。
 
-当一个基类构造函数含有默认实参时，<font color='red'>**这些默认值不会被继承**</font>。相反，派生类会获得<font color='red'>**多个继承的构造函数**</font>，其中每个构造函数分别省略掉一个含有默认值的形参。
+当一个基类构造函数含有默认实参时，**这些默认值不会被继承**。相反，派生类会获得**多个继承的构造函数**，其中每个构造函数分别省略掉一个含有默认值的形参。
 
 ## 容器与继承（Containers and Inheritance）
 
-因为<font color='red'>**容器中不能保存不同类型**</font>的元素，所以不能把具有继承关系的多种类型的对象直接存储在容器中。
+因为**容器中不能保存不同类型**的元素，所以不能把具有继承关系的多种类型的对象直接存储在容器中。
 
 容器不能和存在继承关系的类型兼容。
 
-如果想在容器中<font color='red'>**存储具有继承关系**</font>的对象，则应该存放<font color='red'>**基类的指针**</font>。  
+如果想在容器中**存储具有继承关系**的对象，则应该存放**基类的指针**。  
 # 第16章 模板与泛型编程
 
 ## 定义模板（Defining a Template）
@@ -6389,7 +6389,7 @@ public:
 
 函数模板可以用来生成针对特定类型的函数版本。
 
-模板定义以关键字`template`开始，后跟一个<font color='red'>**模板参数列表**</font>（template parameter list）。模板参数列表以尖括号`<>`包围，内含用逗号分隔的一个或多个模板参数（template parameter）。
+模板定义以关键字`template`开始，后跟一个**模板参数列表**（template parameter list）。模板参数列表以尖括号`<>`包围，内含用逗号分隔的一个或多个模板参数（template parameter）。
 
 ```c++
 template <typename T>
@@ -6401,7 +6401,7 @@ int compare(const T &v1, const T &v2)
 }
 ```
 
-<font color='red'>**定义模板时，模板参数列表不能为空**</font>。
+**定义模板时，模板参数列表不能为空**。
 
 模板参数表示在类或函数定义中用到的类型或值。当使用模板时，需要显式或隐式地指定模板实参（template argument），并将其绑定到模板参数上。
 
@@ -6415,7 +6415,7 @@ vector<int> vec1{1, 2, 3}, vec2{4, 5, 6};
 cout << compare(vec1, vec2) << endl;    // T is vector<int>
 ```
 
-模板类型参数（type parameter）可以用来指定函数的返回类型或参数类型，以及在函数体内用于变量声明和类型转换。类型参数前必须使用<font color='red'>**关键字`class`或`typename`**</font>。
+模板类型参数（type parameter）可以用来指定函数的返回类型或参数类型，以及在函数体内用于变量声明和类型转换。类型参数前必须使用**关键字`class`或`typename`**。
 
 ```c++
 // ok: same type used for the return type and parameter
@@ -6433,9 +6433,9 @@ template <typename T, U> T calc(const T&, const U&);
 template <typename T, class U> calc (const T&, const U&);
 ```
 
-<font color='red'>**建议使用`typename`**</font>而不是`class`来指定模板类型参数，这样更加直观。
+**建议使用`typename`**而不是`class`来指定模板类型参数，这样更加直观。
 
-模板<font color='red'>**非类型参数**</font>（nontype parameter）需要用特定的类型名来指定，表示一个值而非一个类型。<font color='red'>**非类型参数**</font>可以是<font color='red'>**整型**</font>、指向对象或函数类型的<font color='red'>**指针或左值引用**</font>。
+模板**非类型参数**（nontype parameter）需要用特定的类型名来指定，表示一个值而非一个类型。**非类型参数**可以是**整型**、指向对象或函数类型的**指针或左值引用**。
 
 ```c++
 template<unsigned N, unsigned M>
@@ -6447,9 +6447,9 @@ int compare(const char (&p1)[N], const char (&p2)[M])
 int compare(const char (&p1)[3], const char (&p2)[4]);
 ```
 
-绑定到<font color='red'>**整型非类型参数**</font>的实参必须是一个<font color='red'>**常量表达式**</font>。绑定到<font color='red'>**指针或引用**</font>非类型参数的实参必须具有<font color='red'>**静态的生存期**</font>，不能用普通局部变量或动态对象作为指针或引用非类型参数的实参。
+绑定到**整型非类型参数**的实参必须是一个**常量表达式**。绑定到**指针或引用**非类型参数的实参必须具有**静态的生存期**，不能用普通局部变量或动态对象作为指针或引用非类型参数的实参。
 
-函数模板也可以声明为`inline`或`constexpr`的，说明符放在模板<font color='red'>**参数列表之后**</font>，返回类型之前。
+函数模板也可以声明为`inline`或`constexpr`的，说明符放在模板**参数列表之后**，返回类型之前。
 
 ```c++
 // ok: inline specifier follows the template parameter list
@@ -6476,9 +6476,9 @@ int compare(const T &v1, const T &v2)
 }
 ```
 
-只有当模板的一个特定版本被实例化时，编译器才会生成代码。此时编译器需要掌握生成代码所需的信息，<font color='red'>**因此函数模板和类模板成员函数的定义通常放在头文件中**</font>。
+只有当模板的一个特定版本被实例化时，编译器才会生成代码。此时编译器需要掌握生成代码所需的信息，**因此函数模板和类模板成员函数的定义通常放在头文件中**。
 
-使用模板时，所有<font color='red'>**不依赖于**</font>模板参数的名字都必须是<font color='red'>**可见的**</font>，这是由模板的设计者来保证的。模板设计者应该<font color='red'>**提供一个头文件**</font>，包含模板定义以及在类模板或成员定义中用到的<font color='red'>**所有名字的声明**</font>。
+使用模板时，所有**不依赖于**模板参数的名字都必须是**可见的**，这是由模板的设计者来保证的。模板设计者应该**提供一个头文件**，包含模板定义以及在类模板或成员定义中用到的**所有名字的声明**。
 
 调用者负责保证传递给模板的实参能正确支持模板所要求的操作。
 
@@ -6521,7 +6521,7 @@ ret-type Blob<T>::member-name(parm-list)
 
 默认情况下，一个类模板的成员函数只有当程序用到它时才进行实例化。
 
-在类模板自己的作用域内，可以<font color='red'>**直接使用模板名而不用提供模板实参**</font>。
+在类模板自己的作用域内，可以**直接使用模板名而不用提供模板实参**。
 
 ```c++
 template <typename T>
@@ -7355,13 +7355,13 @@ fi.Bar();    // uses our specialization of Foo<int>::Bar()
 
 ## tuple类型（The tuple Type）
 
-`tuple`是类似`pair`的模板，定义在头文件*tuple*中。与`pair`不同，`tuple`可以有任意数量的成员。如果希望将一些数据组合成单一对象，但又不想定义新数据结构时，可以<font color='red'>**使用`tuple`（“快速而随意”的数据结构**</font>）。
+`tuple`是类似`pair`的模板，定义在头文件*tuple*中。与`pair`不同，`tuple`可以有任意数量的成员。如果希望将一些数据组合成单一对象，但又不想定义新数据结构时，可以**使用`tuple`（“快速而随意”的数据结构**）。
 
 ![17-1](CppPrimer.assets/17-1.png)
 
 ### 定义和初始化tuple（Defining and Initializing tuples）
 
-定义`tuple`时需要指定每个成员的类型。创建`tuple`对象时，可以使用`tuple`的默认构造函数，它会对每个成员进行值初始化。或者给每个成员提供初始值。包含<font color='red'>**初始值的构造函数是`explicit`**</font>的，因此必须使用直接初始化语法。
+定义`tuple`时需要指定每个成员的类型。创建`tuple`对象时，可以使用`tuple`的默认构造函数，它会对每个成员进行值初始化。或者给每个成员提供初始值。包含**初始值的构造函数是`explicit`**的，因此必须使用直接初始化语法。
 
 ```c++
 tuple<size_t, size_t, size_t> threeD = { 1, 2, 3 };   // error
@@ -7375,7 +7375,7 @@ tuple<size_t, size_t, size_t> threeD{ 1, 2, 3 };      // ok
 auto item = make_tuple("0-999-78345-X", 3, 20.00);
 ```
 
-可以使用`get`访问`tuple`的成员。`get`是一个函数模板，使用时必须指定一个<font color='red'>**显式模板实参**</font>，表示要访问的成员索引。传递给`get`一个`tuple`实参后，会返回其指定成员的引用。
+可以使用`get`访问`tuple`的成员。`get`是一个函数模板，使用时必须指定一个**显式模板实参**，表示要访问的成员索引。传递给`get`一个`tuple`实参后，会返回其指定成员的引用。
 
 ```c++
 auto book = get<0>(item);    // returns the first member of item
@@ -7384,9 +7384,9 @@ auto price = get<2>(item)/cnt;    // returns the last member of item
 get<2>(item) *= 0.8;    // apply 20% discount
 ```
 
-可以使用`tuple_size`和`tuple_element`这两个辅助类模板<font color='red'>**查询`tuple`成员的数量和类型**</font>。
+可以使用`tuple_size`和`tuple_element`这两个辅助类模板**查询`tuple`成员的数量和类型**。
 
-- `tuple_size`通过一个<font color='red'>**`tuple`类型**</font>来初始化，它有一个名为`value`的静态公有数据成员，类型为`size_t`，表示给定`tuple`中成员的数量。
+- `tuple_size`通过一个**`tuple`类型**来初始化，它有一个名为`value`的静态公有数据成员，类型为`size_t`，表示给定`tuple`中成员的数量。
 - `tuple_element`通过一个索引值（整型常量）和一个`tuple`类型来初始化，它有一个名为`type`的公有数据成员，表示给定`tuple`中指定成员的类型。
 
 使用`decltype`可以确定一个对象的类型。
@@ -7409,15 +7409,15 @@ tuple_element<1, trans>::type cnt = get<1>(item);    // cnt is an int
 
 ## bitset类型（The bitset Type）
 
-标准库在头文件*bitset*中定义了`bitset`类，用于处理二进制位。`bitset`可以处理超过最长整型类型大小的<font color='red'>**位集合**</font>。
+标准库在头文件*bitset*中定义了`bitset`类，用于处理二进制位。`bitset`可以处理超过最长整型类型大小的**位集合**。
 
 ### 定义和初始化bitset（Defining and Initializing bitsets）
 
-`bitset`类是一个模板，类似`array`，具<font color='red'>**有固定的大小**</font>。定义一个`bitset`时需要指明它包含的二进制位数。
+`bitset`类是一个模板，类似`array`，具**有固定的大小**。定义一个`bitset`时需要指明它包含的二进制位数。
 
 ![17-2](CppPrimer.assets/17-2.png)
 
-使用一个整型值初始化`bitset`时，此值会被转换为`unsigned long long`类型并被当作位模式处理。`bitset`中的二进制位就是此模式的副本。如果`bitset`的大小大于`unsigned long long`中的二进制位数，<font color='red'>**剩余的高位会被置为0**</font>。如果`bitset`的大小<font color='red'>**小于**</font>`unsigned long long`中的二进制位数，则只使用给定值的<font color='red'>**低位部分**</font>。
+使用一个整型值初始化`bitset`时，此值会被转换为`unsigned long long`类型并被当作位模式处理。`bitset`中的二进制位就是此模式的副本。如果`bitset`的大小大于`unsigned long long`中的二进制位数，**剩余的高位会被置为0**。如果`bitset`的大小**小于**`unsigned long long`中的二进制位数，则只使用给定值的**低位部分**。
 
 ```c++
 // bitvec1 is smaller than the initializer; high-order bits from the initializer are discarded
@@ -7456,10 +7456,10 @@ cout << "ulong = " << ulong << endl;
 
 `bitset`的输入运算符从输入流读取字符，保存到临时的`string`对象中。遇到下列情况时停止读取：
 
-- 读取的<font color='red'>**字符数达到**</font>对应`bitset`的大小。
-- 遇到<font color='red'>**不是**</font>1和0的字符。
-- 遇到<font color='red'>**文件结尾**</font>。
-- 输入<font color='red'>**出现错误**</font>。
+- 读取的**字符数达到**对应`bitset`的大小。
+- 遇到**不是**1和0的字符。
+- 遇到**文件结尾**。
+- 输入**出现错误**。
 
 读取结束后用临时`string`对象初始化`bitset`。如果读取的字符数小于`bitset`的大小，则`bitset`的高位被置为0。
 
