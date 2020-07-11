@@ -646,10 +646,10 @@ shared_ptr<int> p3 = make_shared<int>(42); //安全
       p3.reset(p2.release())//p2内存交给p3
      ```
 
-14. `weak_ptr`：一种`shared_ptr`，但**不增加计数**，当`shared_ptr`释放掉，`weak_ptr`也释放掉。因为这种特性，在使用`weak_ptr`的时候要先用`lock`判断对象是否还存在：
+14. `weak_ptr`局外人：一种`shared_ptr`，**不增加计数**。在使用`weak_ptr`时要**先用`lock`判断对象是否存在**：
 
      ```cpp
-      if(shared_ptr<np> np = wp.lock()){} 
+      if(shared_ptr<np> np = wp.lock()){} //是否存在
      ```
 
 15. 对动态数组的初始化：
@@ -659,23 +659,27 @@ shared_ptr<int> p3 = make_shared<int>(42); //安全
      int *p = new int[0]; //p是一个类似于尾后指针(end())的非空指针。
      ```
 
-16. 智能指针可以支持动态数组，但是只有`unique_ptr`支持直接下标访问，`shared_ptr`想要访问的话必须提供自己的删除器，并且通过`get`来修改数组。
+16. 智能指针支持动态数组，但是**只有`unique_ptr`支持直接下标访问**，`shared_ptr`想要访问的话必须提供自己的删除器，并且通过`get`来修改数组。
 
-17. `new`和`delete`将对象构造/析构和内存申请/释放结合在了一起（某道面试题），因此`allocator`可以将两个分开来。：
+17. `new`和`delete`将**对象构造/析构**和**内存申请/释放**结合在了一起（某道面试题），因此`allocator`可以将两个分开来。：
 
      ```cpp
      allocator<string> alloc;//可以分配string的allocator对象
      auto const p = alloc.allocate(n);//可以分配n个未初始化的string
+    
      alloc.construct(p++);//p为空字符串
      alloc.destroy(--p);//销毁，这里其实应该有一个while的
+    
      auto q = uninitialized_copy(vi.begin(), vi.end(), p);//拷贝数据
      alloc.deallocate(p,n)//释放内存
      ```
 
 ## 十三、（对象）拷贝控制
 
-1. 对于拷贝构造函数是explicit的构造函数来说，使用拷贝初始化还是直接初始化是有很大不同的：
+1. 对于拷贝构造函数**是`explicit`的构造函数**来说，使用**拷贝初始化**还是**直接初始化**是**有很大不同**的：
 
+    因为vector的接受单一大小参数的构造函数是`explicit`的，所以会出现错误，**必须显式进行调用**
+    
     ```cpp
     vector<int> v1(10); //正确，直接初始化
     vector<int> v2 = 10;//错误，接受大小参数的构造函数是explicit的
@@ -684,24 +688,23 @@ shared_ptr<int> p3 = make_shared<int>(42); //安全
     f(vector<int>(10)); //正确：从一个int直接构造一个临时vector
     ```
 
-因为vector的接受单一大小参数的构造函数是explicit的，所以会出现错误，必须显式进行调用
-2. 析构函数：先执行函数体，再按照成员初始化的逆序销毁。如果需要一个析构函数，一般情况下也需要一个自定义拷贝赋值运算符和拷贝构造函数，这三个几乎是同时存在的，其中一个必需时，另外两个一般也必需
-3. 阻止拷贝：虽然声明了他们，但是不能用任何方式使用他们：
+2. **析构函数**：先执行**函数体**，再**按成员初始化的逆序销毁**。若需要**析构函数**，一般也需要一个自定义**拷贝赋值运算符**和**拷贝构造函数**。
+3. **阻止拷贝**：虽然声明了他们，但是不能用任何方式使用他们：
 
     ```cpp
     noCopy() = default;//使用合成的默认构造函数
     noCopy(const noCopy&) = delete //阻止拷贝
     noCopy &operator=(const noCopy&) = delete; // 阻止赋值
     ~noCopy() = default;// 使用合成的析构函数
-    析构函数不能是delete的，因为如果析构是delete的，那对象无法销毁了
+    //析构函数不能是delete的，因为如果析构是delete的，那对象无法销毁了
     ```
 
-4. 对于成员变量有const的，或者有引用成员的，编译器无法对类进行默认构造函数。
-5. 关于std::swap 和 using namespace std; swap()的区别：
-如果使用前者的话，则每次调用一定会使用std版本的swap，而如果使用后面这种写法，就可以在类内定义swap，然后调用的时候会先检查类内部是否有swap，如果没有的话才调用std版本的swap，这个小技巧还是要知道的，使用std::move可以避免潜在的名字冲突
-6. move标准库函数：调用移动构造函数，相当于一个static_cast，但是同时可以将原来的str移走，需要使用str::string t(str::move(r));如果单纯使用string&&r = std::move(r)的话，并不能移走
-move可以获得绑定到左值上的右值引用
-7. 右值引用：必须绑定到右值的引用， 即只能绑定到一个即将销毁的对象
+4. 对于**成员变量有`const`的，或者有引用`&`成员的**，**编译器无法对类进行默认构造函数**。
+5. 关于`std::swap` 和 using namespace std; `swap()`的区别：
+如果使用前者的话，则每次调用一定会使用std版本的swap，而如果使用后面这种写法，就可以在类内定义swap，然后调用的时候会先检查类内部是否有swap，如果没有的话才调用std版本的swap，这个小技巧还是要知道的，**使用`std::move`可以避免潜在的名字冲突**。
+6. `move`标准库函数：**调用移动构造函数**，相当于一个`static_cast`，但是同时可以将原来的`str`移走，需要使用`str::string t(str::move(r));`如果单纯使用`string&&r = std::move(r)`的话，并不能移走
+**move可以获得绑定到左值上的右值引用**
+7. **右值引用**：必须绑定到右值的引用， 即只能**绑定到一个即将销毁的对象**
 
     ```cpp
     int i = 42;//正确
@@ -710,20 +713,20 @@ move可以获得绑定到左值上的右值引用
     int &r2 = i*42;//错误 i*42是一个右值
     const int &r3 = i * 42;// 正确，我们可以将一个const的引用绑定到一个右值上面
     int &&rr2 = i*42;// 正确，将rr2绑定到乘法结果上。因为i*42是一个右值
-    本质其实是因为i*42 是一个右值，i是左值
+    
+    //本质其实是因为i*42 是一个右值，i是左值
     int &&rr1 = 42;//正确，字面常量是右值
     int &&rr2 = rr1//错误，表达式rr1是左值
     ```
 
-8. noexcept关键字：告诉我们的函数将不会抛出任何异常：
+8. `noexcept`关键字：告诉我们的函数将不会抛出任何异常：
 
     ```cpp
     StrVec::StrVec(StrVec &&s) noexcept:element(s.element){}
-    不抛出异常的移动构造函数和移动赋值运算符必须标记为noexcept
+    //不抛出异常的移动构造函数和移动赋值运算符必须标记为noexcept
     ```
 
-9. 定义了一个移动构造函数或者移动赋值运算符的类必须也定义自己的拷贝操作，不然有些成员会被默认的定义成delete的。而如果定义了拷贝构造函数没定义移动构造函数的时候，使用了move方法， 会仍然执行拷贝构造
-        Foo z(std::move(x))执行拷贝构造
+9. 定义了一个**移动构造函数**或者**移动赋值运算符**的类必须**也定义自己的拷贝操作**，不然有些成员会被默认的定义成`delete`的。而如果定义了拷贝构造函数**未定义移动构造函数**的时候，使用了`move`方法， **仍执行拷贝构造**`Foo z(std::move(x))`执行拷贝构造
 10. 对于同时存在拷贝构造函数和移动构造函数的时候，编译器对两者的选择是看是否是右值或者是左值的，右值是移动，左值是拷贝，例如
 
     ```cpp
@@ -733,21 +736,21 @@ move可以获得绑定到左值上的右值引用
     v2 = getVec(cin)//是一个右值，选择移动赋值
     ```
 
-11. 调用make_move_iterator可以讲一个普通的迭代器转换成一个移动迭代器，这个迭代器可以返回右值：
+11. 调用`make_move_iterator`可以讲一个普通的迭代器转换成一个**移动迭代器**，这个**迭代器可以返回右值**：
 
      ```cpp
      auto first = alloc.allocate(newcapacity);
      auto last = uninitialized_copy(make_move_iterator(begin()), make_move_iterator(end()), first);
      ```
 
-12. 引用限定符&（reference qualifier）放在函数的参数列表后面，表示this可以指向一个右值还是左值
+12. **引用限定符&**（reference qualifier）放在**函数的参数列表后面**，**表示this可以指向一个右值还是左值**。
 
     ```cpp
     Foo &operator=(const Foo&)& //只能向可修改的左值赋值
     Foo &operator=(const Foo&)&&//只能向右值赋值
-    如果和const一起使用的话，const必须在前：
+    //如果和const一起使用的话，const必须在前：
     Foo someMem()const &;
-    同时如果重载的话，必须所有的版本都必须加上引用限定符或者不加
+    //同时如果重载的话，必须所有的版本都必须加上引用限定符或者不加
     Foo sorted() &&
     Foo sorted() const//错误，因为上面有引用限定符，所以这里必须也有
     ```
