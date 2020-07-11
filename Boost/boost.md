@@ -716,11 +716,11 @@ int main()
 
 ## 智能指针 
 
-智能指针（smart pointer）是C++群体中热门的议题，围绕它，有很多有价值的讨论和结论。它实践了推荐书目[1]中的代理模式，`代理`了原始“裸”指针的行为，为它添加了更多更有用的特性。
+智能指针（smart pointer）是C++群体中热门的议题，围绕它，有很多有价值的讨论和结论。它实践了推荐书目[1]中的**代理模式**，`代理`了原始“裸”指针的行为，为它添加了更多更有用的特性。
 
-boost.smart_ptr库提供了六种智能指针，除了shared_ptr和weak_ptr以外还包括scoped_ ptr、scoped_array、shared_array和intrusive_ptr。它们都是很轻量级的对象，速度与原始指针相差无几，都是异常安全的（exception safe），而且对于所指的类型T也仅有一个很小且很合理的要求：类型T的析构函数不能抛出异常。
+boost.smart_ptr库提供了六种智能指针，除了`shared_ptr`和`weak_ptr`以外还包括`scoped_ ptr`、`scoped_array`、`shared_array`和`intrusive_ptr`。它们都是很轻量级的对象，速度与原始指针相差无几，都是异常安全的（exception safe），而且对于所指的类型T也仅有一个很小且很合理的要求：**类型T的析构函数不能抛出异常**。
 
-这些智能指针都位于名字空间boost，为了使用smart_ptr组件，需要包含头文件`<boost/ smart_ptr.hpp>`，即：
+这些智能指针都位于名字空间boost，为了使用`smart_ptr`组件，需要包含头文件`<boost/ smart_ptr.hpp>`，即：
 
 ```cpp
 #include <boost/smart_ptr.hpp>
@@ -729,25 +729,25 @@ using namespace boost;
 
 ## scoped_ptr 
 
-scoped_ptr是一个很类似auto_ptr的智能指针，它包装了new操作符在堆上分配的动态对象，能够保证动态创建的对象在任何时候都可以被正确地删除。但scoped_ptr的所有权更加严格，不能转让，一旦scoped_ptr获取了对象的管理权，你就无法再从它那里取回来。
+scoped_ptr是一个很类似auto_ptr的智能指针，它包装了new操作符在堆上分配的动态对象，能够保证动态创建的对象在任何时候都可以被正确地删除。但scoped_ptr的所有权更加严格，**不能转让**，一旦scoped_ptr获取了对象的管理权，你就无法再从它那里取回来。
 
-scoped_ptr拥有一个很好的名字，它向代码的阅读者传递了明确的信息：这个智能指针只能在本作用域里使用，不希望被转让。
+scoped_ptr拥有一个很好的名字，它向代码的阅读者传递了明确的信息：这个智能指针**只能在本作用域里使用，不希望被转让。**
 
 ### 操作函数 
 
 scoped_ptr的构造函数接受一个类型为T＊的指针p，创建出一个scoped_ptr对象，并在内部保存指针参数p。p必须是一个new表达式动态分配的结果，或者是个空指针（nullptr）。当scoped_ptr对象的生命期结束时，析构函数～scoped_ptr()会使用delete操作符自动销毁所保存的指针对象，从而正确地回收资源 [4] 。
 
-scoped_ptr同时把拷贝构造函数和赋值操作符都声明为私有的，禁止对智能指针的复制操作（原理可参考4.1节noncopyable），保证了被它管理的指针不能被转让所有权。
+**`scoped_ptr`同时把拷贝构造函数和赋值操作符都声明为私有的，禁止对智能指针的复制操作**（原理可参考4.1节noncopyable），保证了被它管理的指针不能被转让所有权。
 
-成员函数`reset()`的功能是重置scoped_ptr：它删除原来保存的指针，再保存新的指针值p。如果p是空指针，那么scoped_ptr将不持有任何指针。一般情况下reset()不应该被调用，因为它违背了scoped_ptr的本意——资源应该一直由scoped_ptr自己自动管理。
+**成员函数`reset()`的功能**是重置`scoped_ptr`：**它删除原来保存的指针，再保存新的指针值p**。如果p是空指针，那么scoped_ptr将不持有任何指针。一般情况下reset()不应该被调用，因为它违背了scoped_ptr的本意——资源应该一直由scoped_ptr自己自动管理。
 
 scoped_ptr用`operator＊()`和`operator->()`重载了解引用操作符＊和箭头操作符->，以模仿被代理的原始指针的行为，因此可以把scoped_ptr对象如同指针一样使用。如果scoped_ptr保存的是空指针，那么这两个操作的行为未定义。
 
-scoped_ptr不支持比较操作，不能在两个scoped_ptr之间，或者在scoped_ptr和原始指针或空指针之间进行相等或者不相等测试，我们也无法为它编写额外的比较函数，因为它已经将operator==和operator! =两个操作符重载都声明为私有的。但scoped_ptr提供了一个可以在bool语境（context）中自动转换成bool值（如if的条件表达式）的功能，用来测试scoped_ptr是否持有一个有效的指针（非空）。它可以代替与空指针的比较操作，而且写法更简单。
+scoped_ptr不支持比较操作，不能在两个scoped_ptr之间，或者在scoped_ptr和原始指针或空指针之间进行相等或者不相等测试，我们也无法为它编写额外的比较函数，**因为它已经将operator==和operator! =两个操作符重载都声明为私有的**。但scoped_ptr提供了一个可以在bool语境（context）中自动转换成bool值（如if的条件表达式）的功能，用来测试`scoped_ptr`是否持有一个有效的指针（非空）。它可以代替与空指针的比较操作，而且写法更简单。
 
-成员函数`swap()`可以交换两个scoped_ptr保存的原始指针。它是高效的操作，被用于实现reset()函数，也可以被boost::swap所利用。
+**成员函数`swap()`可以交换两个scoped_ptr保存的原始指针。它是高效的操作**，被用于实现reset()函数，也可以被boost::swap所利用。
 
-最后是成员函数`get()`，它返回scoped_ptr内部保存的原始指针，可以用在某些要求必须是原始指针的场景（如底层的C接口）。但使用时必须小心，这将使原始指针脱离scoped_ptr的控制！不能对这个指针做delete操作，否则scoped_ptr析构时会对已经删除的指针再进行删除操作，发生未定义行为（通常是程序崩溃，这可能是最好的结果，因为它说明你的程序存在Bug）。
+**最后是成员函数`get()`，**它返回scoped_ptr内部保存的原始指针，可以用在某些要求必须是原始指针的场景（如底层的C接口）。但使用时必须小心，这将使原始指针脱离scoped_ptr的控制！**不能对这个指针做delete操作**，否则scoped_ptr析构时会对已经删除的指针再进行删除操作，发生未定义行为。
 
 ### 用法 
 
@@ -760,7 +760,7 @@ cout << ＊sp << endl;                         //取字符串的内容
 cout <<  sp->size() << endl;                  //取字符串的长度
 ```
 
-但记住：不再需要delete操作，scoped_ptr会自动地帮助我们释放资源。如果我们对scoped_ptr执行delete会得到一个编译错误：因为scoped_ptr是一个行为类似指针的对象，而不是指针，对一个对象应用delete是不允许的。
+但记住：不再需要delete操作，scoped_ptr会自动地帮助我们释放资源。如果我们对scoped_ptr执行delete会得到一个编译错误：因为scoped_ptr是一个行为类似指针的对象，而不是指针，**对一个对象应用delete是不允许的**。
 
 使用scoped_ptr会带来两个好处：一是使代码变得清晰简单，而简单意味着更少的错误；二是它并没有增加多余的操作，安全的同时保证了效率，可以获得与原始指针同样的速度。
 
@@ -814,27 +814,27 @@ close file
 
 ### 与unique_ptr的区别 
 
-std::unique_ptr是在C++11标准中定义的新的智能指针，用来取代C++98中的std::auto_ptr。根据C++11标准，unique_ptr不仅能够代理new创建的单个对象，也能够代理new[]创建的数组对象，也就是说它结合了scoped_ptr和scoped_array两者的能力。
+`std::unique_ptr`是在C++11标准中定义的新的智能指针，用来取代C++98中的`std::auto_ptr`。根据C++11标准，`unique_ptr`不仅能够代理new创建的单个对象，也能够代理`new[]`创建的数组对象，也就是说它结合了`scoped_ptr`和`scoped_array`两者的能力。
 
-但unique_ptr要比scoped_ptr有更多的功能：可以像原始指针一样进行比较，可以像shared_ptr一样定制删除器，也可以安全地放入标准容器。因此，如果读者使用的编译器支持C++11标准，那么可以毫不犹豫地使用unique_ptr来代替scoped_ptr。
+但unique_ptr要比scoped_ptr有更多的功能：可以像原始指针一样进行比较，可以像shared_ptr一样定制删除器，也可以安全地放入标准容器。因此，如果读者使用的**编译器支持C++11标准，那么可以毫不犹豫地使用`unique_ptr`来代替`scoped_ptr`。**
 
 当然，scoped_ptr也有它的优点，“少就是多”永远是一句至理名言，它只专注于做好作用域内的指针管理工作，含义明确，而且不允许转让指针所有权。
 
 ### scoped_array 
 
-scoped_array没有给程序增加额外的负担，用起来很方便轻巧。它的速度与原始数组同样快，很适合那些习惯于用new操作符在堆上分配内存的程序员。但scoped_array的功能很有限，不能动态增长，也没有迭代器支持，不能搭配STL算法，仅有一个纯粹的“裸”数组接口。而且，我们应当尽量避免使用new[]操作符，它比new更可怕，是许多错误的来源。
+`scoped_array`没有给程序增加额外的负担，用起来很方便轻巧。它的速度与原始数组同样快，很适合那些习惯于用new操作符在堆上分配内存的程序员。但`scoped_array`的功能很有限，不能动态增长，也没有迭代器支持，不能搭配STL算法，仅有一个纯粹的“裸”数组接口。而且，我们应当尽量避免使用new[]操作符，它比new更可怕，是许多错误的来源。
 
-除非对性能有非常苛刻的要求，或者编译器不支持标准库（比如某些嵌入式操作系统），否则本书不推荐使用scoped_array，它只是为了与老式C风格代码兼容而使用的类，它的出现往往意味着你的代码中存在着隐患。
+**除非对性能有非常苛刻的要求，或者编译器不支持标准库（比如某些嵌入式操作系统）**，否则本书不推荐使用`scoped_array`，它只是为了与老式C风格代码兼容而使用的类，它的出现往往意味着你的代码中存在着隐患。
 
 ## shared_ptr 
 
-shared_ptr是一个最像指针的“智能指针”，是boost.smart_ptr库中最有价值、最重要的组成部分，也是最有用的，Boost库的许多组件——甚至还包括其他一些领域的智能指针都使用了shared_ptr，所以它被毫无悬念地收入了C++11标准。
+`shared_ptr`是一个最像指针的“智能指针”，是`boost.smart_ptr`库中最有价值、最重要的组成部分，也是最有用的，Boost库的许多组件——甚至还包括其他一些领域的智能指针都使用了shared_ptr，所以它被毫无悬念地收入了C++11标准。
 
-shared_ptr与scoped_ptr一样包装了new操作符在堆上分配的动态对象，但它实现的是引用计数型的智能指针，可以被自由地拷贝和赋值，在任意的地方共享它，当没有代码使用（引用计数为0）它时才删除被包装的动态分配的对象。shared_ptr也可以安全地放到标准容器中，是在STL容器中存储指针的最标准解法。
+`shared_ptr`与`scoped_ptr`一样包装了new操作符在堆上分配的动态对象，但它实现的**是引用计数型的智能指针，可以被自由地拷贝和赋值**，在任意的地方共享它，当**引用计数为0时才删除**被包装的动态分配的对象。`shared_ptr`也可以安全地放到标准容器中，是在STL容器中存储指针的最标准解法。
 
 ### 操作函数 
 
-shared_ptr与scoped_ptr同样是用于管理new动态分配对象的智能指针，因此功能上有很多相似之处：它们都重载了＊和->操作符以模仿原始指针的行为，提供隐式bool类型转换以判断指针的有效性，`get()`可以得到原始指针，并且没有提供指针算术操作。
+`shared_ptr`与`scoped_ptr`同样是用于管理new动态分配对象的智能指针，因此功能上有很多相似之处：它们都重载了＊和->操作符以模仿原始指针的行为，提供隐式bool类型转换以判断指针的有效性，`get()`可以得到原始指针，并且没有提供指针算术操作。
 
 ```cpp
 shared_ptr<int> spi(new int);                      //一个int的shared_ptr
@@ -845,24 +845,24 @@ shared_ptr<string>  sps(new string("smart"));      //一个string的shared_ptr
 assert(sps->size() == 5);                          //使用箭头操作符->
 ```
 
-但shared_ptr的名字表明了它与scoped_ptr的主要不同：它是可以被安全共享的——shared_ptr是一个“全功能”的类，有着正常的拷贝、赋值语义，也可以进行shared_ptr间的比较，是“最智能”的智能指针。
+但shared_ptr的名字表明了它与scoped_ptr的主要不同：**它是可以被安全共享的——shared_ptr是一个“全功能”的类，有着正常的拷贝、赋值语义，也可以进行shared_ptr间的比较，是“最智能”的智能指针。**
 
 shared_ptr有多种形式的`构造函数`，应用于各种可能的情形：
 
-- 无参的shared_ptr()创建一个持有空指针的shared_ptr；
-- shared_ptr(Y ＊ p)获得指向类型T的指针p的管理权，同时引用计数置为1。这个构造函数要求Y类型必须能够转换为T类型；
-- shared_ptr(shared_ptr const & r)从另外一个shared_ptr获得指针的管理权，同时引用计数加1，结果是两个shared_ptr共享一个指针的管理权；
-- shared_ptr(std::auto_ptr & r)从一个auto_ptr获得指针的管理权，引用计数置为1，同时auto_ptr自动失去管理权；
-- operator=赋值操作符可以从另外一个shared_ptr或auto_ptr获得指针的管理权，其行为同构造函数；
-- shared_ptr(Y ＊ p, D d)行为类似shared_ptr(Y ＊ p)，但使用参数d指定了析构时的定制删除器，而不是简单的delete。这部分将在3.4.8节详述。
+- 无参的`shared_ptr()`创建一个持有空指针的shared_ptr；
+- shared_ptr(Y ＊ p)**获得指向类型T的指针p的管理权**，同时引用计数置为1。这个构造函数要求Y类型必须能够转换为T类型；
+- shared_ptr(shared_ptr const & r)从另外一个shared_ptr获得指针的管理权，同时引用计数加1，**结果是两个shared_ptr共享一个指针的管理权**；
+- shared_ptr(std::auto_ptr & r)从一个`auto_ptr`获得指针的管理权，引用计数置为1，同时`auto_ptr`自动失去管理权；
+- **operator=赋值操作符**可以从另外一个shared_ptr或auto_ptr获得指针的管理权，其行为同构造函数；
+- shared_ptr(Y ＊ p, D d)行为类似shared_ptr(Y ＊ p)，但使用参数d指定了析构时的**定制删除器**，而不是简单的delete。这部分将在3.4.8节详述。
 
-shared_ptr的`reset()`函数的行为与scoped_ptr也不尽相同，它的作用是将引用计数减1，停止对指针的共享，除非引用计数为0，否则不会发生删除操作。带参数的reset()则类似相同形式的构造函数，原指针引用计数减1的同时改为管理另一个指针。
+**shared_ptr的`reset()`函数的行为与scoped_ptr也不尽相同，它的作用是将引用计数减1**，停止对指针的共享，除非引用计数为0，否则不会发生删除操作。带参数的reset()则类似相同形式的构造函数，原指针引用计数减1的同时改为管理另一个指针。
 
-`unique()`在shared_ptr是指针的唯一所有者时返回true。
+`unique()`在`shared_ptr`是指针的唯一所有者时返回true。
 
-shared_ptr可以被用于`标准关联容器`（set和map）。
+**shared_ptr可以被用于`标准关联容器`（set和map）**。
 
-shared_ptr提供了类似的转型函数static_pointer_cast()、const_pointer_cast()和dynamic_pointer_cast()，它们与标准的转型操作符static_cast、const_cast 和dynamic_cast类似，但返回的是转型后的shared_ptr。
+`shared_ptr`提供了类似的转型函数`static_pointer_cast()`、`const_pointer_cast()`和`dynamic_pointer_cast()`，它们与标准的转型操作符`static_cast`、`const_cast` 和`dynamic_cast`类似，但返回的是转型后的`shared_ptr`。
 
 ```cpp
 shared_ptr<std::exception> sp1(new bad_exception("error"));
@@ -871,13 +871,13 @@ shared_ptr<std::exception> sp3 = static_pointer_cast<std::exception>(sp2);
 assert(sp3 == sp1);
 ```
 
-此外，shared_ptr还支持流输出操作符`operator<<`，输出内部的指针值，方便调试。
+此外，`shared_ptr`还支持流输出操作符`operator<<`，输出内部的指针值，方便调试。
 
 ### 用法 
 
-shared_ptr的智能使其行为最接近原始指针，因此它比auto_ptr和scoped_ptr的应用范围更广。几乎是100%可以在任何new出现的地方接受new的动态分配结果，然后被任意使用，从而完全消灭delete的使用和内存泄漏，而它的用法与auto_ptr和scoped_ptr一样的简单。
+`shared_ptr`的智能使其行为最接近原始指针，因此它比`auto_ptr`和`scoped_ptr`的应用范围更广。几乎是100%可以在任何`new`出现的地方接受`new`的动态分配结果，然后被任意使用，从而完全消灭`delete`的使用和内存泄漏，而它的用法与`auto_ptr`和`scoped_ptr`一样的简单。
 
-shared_ptr也提供基本的线程安全保证，一个shared_ptr可以被多个线程安全读取，但其他的访问形式结果是未定义的。
+`shared_ptr`也提供基本的线程安全保证，一个`shared_ptr`可以被多个线程安全读取，但其他的访问形式结果是未定义的。
 **例1：**
 
 ```cpp
@@ -944,13 +944,13 @@ count:3v =20
 
 ### 工厂函数 
 
-shared_ptr很好地消除了显式的delete调用，如果读者掌握了它的用法，可以肯定delete将会在你的编程字典中彻底消失。
+`shared_ptr`很好地消除了显式的`delete`调用，如果读者掌握了它的用法，可以肯定delete将会在你的编程字典中彻底消失。
 
 但这还不够，因为shared_ptr的构造还需要new调用，这导致了代码中的某种不对称性。虽然shared_ptr很好地包装了new表达式，但过多的显式new操作符也是个问题，显式delete调用应该使用工厂模式来解决。
 
 因此，shared_ptr提供了一个自由工厂函数（位于boost名字空间）make_shared()，来消除显式的new调用，它的名字模仿了标准库的make_pair().
 
-make_shared()函数可以接受若干个参数，然后把它们传递给类型T的构造函数，创建一个shared_ptr的对象并返回。通常make_shared()函数要比直接创建shared_ptr对象的方式快且高效，因为它内部仅分配一次内存，消除了shared_ptr构造时的开销。
+**make_shared()函数可以接受若干个参数，然后把它们传递给类型T的构造函数，创建一个shared_ptr的对象并返回。**通常make_shared()函数要比直接创建shared_ptr对象的方式快且高效，因为它内部**仅分配一次内存，消除了shared_ptr构造时的开销。**
 
 ```cpp
 int main()
@@ -963,11 +963,11 @@ int main()
 
 ### 应用于标准容器 
 
-有两种方式可以将shared_ptr应用于标准容器（或者容器适配器等其他容器）。
+**有两种方式可以将`shared_ptr`应用于标准容器（或者容器适配器等其他容器）**。
 
-一种用法是将容器作为shared_ptr管理的对象，如`shared_ptr<list<T> >`，使容器可以被安全地共享，用法与普通shared_ptr没有区别，我们不再讨论。
+一种用法是将容器作为`shared_ptr`管理的对象，如`shared_ptr<list<T> >`，使容器可以被安全地共享，用法与普通shared_ptr没有区别，我们不再讨论。
 
-另一种用法是将shared_ptr作为容器的元素，如`vector<shared_ptr<T> >`，因为shared_ptr支持拷贝语义和比较操作，符合标准容器对元素的要求，所以可以在容器中安全地容纳元素的指针而不是拷贝。
+另一种用法是将`shared_ptr`作为容器的元素，如`vector<shared_ptr<T> >`，因为shared_ptr支持拷贝语义和比较操作，符合标准容器对元素的要求，所以可以在容器中安全地容纳元素的指针而不是拷贝。
 
 标准容器不能容纳auto_ptr，这是C++标准特别规定的。标准容器也不能容纳scoped_ptr，因为scoped_ptr不能拷贝和赋值。标准容器可以容纳原始指针，但这就丧失了容器的许多好处，因为标准容器无法自动管理类型为指针的元素，必须编写额外的大量代码来保证指针最终被正确删除，这通常很麻烦很难实现。
 
@@ -977,7 +977,7 @@ int main()
 
 shared_ptr(Y ＊ p, D d)的第一个参数是要被管理的指针，它的含义与其他构造函数的参数相同。而第二个删除器参数d则告诉shared_ptr在析构时不是使用delete来操作指针p，而要用d来操作，即把delete p换成d(p)。
 
-在这里删除器d可以是一个函数对象，也可以是一个函数指针，只要它能够像函数那样被调用，使得d(p)成立即可。对删除器的要求是它必须可拷贝，行为必须也像delete那样，不能抛出异常。
+在这里删除器d可以是一个函数对象，也可以是一个函数指针，只要它能够像函数那样被调用，使得d(p)成立即可。**对删除器的要求是它必须可拷贝，行为必须也像delete那样，不能抛出异常**。
 
 ```cpp
 void any_func(void＊ p)                        //一个可执行任意功能的函数
@@ -991,29 +991,29 @@ int main()
 
 ### 与std::shared_ptr的区别 
 
-C++11标准中定义了std::shared_ptr，功能与boost::shared_ptr基本相同，但多了>、<=等操作符的重载，实际的差别很小，基本可以等价互换。
+C++11标准中定义了`std::shared_ptr`，功能与`boost::shared_ptr`基本相同，但多了>、<=等操作符的重载，实际的差别很小，基本可以等价互换。
 
 ### shared_ptr 
 
 shared_ptr能够存储void＊型的指针，而void＊型指针可以指向任意类型，因此shared_ptr就像是一个泛型的指针容器，拥有容纳任意类型的能力。
 
-但将指针存储为void＊同时也丧失了原来的类型信息，为了在需要的时候正确使用，可以用static_pointer_cast等转型函数重新转为原来的指针。但这涉及运行时动态类型转换，它会使代码不够安全，建议最好不要这样使用。
+但将指针存储为void＊同时也丧失了原来的类型信息，为了在需要的时候正确使用，可以用static_pointer_cast等转型函数重新转为原来的指针。但这涉及运行时**动态类型转换，它会使代码不够安全**，建议最好不要这样使用。
 
 批注：`(*void)`的行为是只包含数据的起始地址，没有大小！只有转换回原来的指针类型，才能被正确获取数据大小！
 
 ## shared_array 
 
-shared_array能力有限，多数情况下它可以用shared_ptr[std::vector](std::vector)或者std::vector<shared_ptr>来代替，这两个方案具有更好的安全性和更多的灵活性，而所付出的代价几乎可以忽略不计。
+`shared_array`能力有限，多数情况下它可以用shared_ptr、[std::vector](std::vector)或者`std::vector<shared_ptr>`来代替，这两个方案具有更好的安全性和更多的灵活性，而所付出的代价几乎可以忽略不计。
 
 ## weak_ptr 
 
-weak_ptr是为配合shared_ptr而引入的一种智能指针，它更像是shared_ptr的一个助手而不是智能指针，因为它不具有普通指针的行为，没有重载operator＊和->。它的最大作用在于协助shared_ptr工作，像旁观者那样观测资源的使用情况。
+`weak_ptr`是为配合`shared_ptr`而引入的一种智能指针，**它更像是`shared_ptr`的一个助手而不是智能指针**，因为它不具有普通指针的行为，没有重载operator＊和->。它的最大作用在于协助`shared_ptr`工作，像旁观者那样观测资源的使用情况。
 
 ### 用法 
 
-weak_ptr被设计为与shared_ptr共同工作，可以从一个shared_ptr或者另一个weak_ ptr对象构造，获得资源的观测权。但weak_ptr没有共享资源，它的构造不会引起指针引用计数的增加。同样，在weak_ptr析构时也不会导致引用计数减少，它只是一个静静的观察者。
+weak_ptr被设计为与`shared_ptr`共同工作，**可以从一个`shared_ptr`或者另一个`weak_ ptr`对象构造，获得资源的观测权**。但weak_ptr没有共享资源，它的构造不会引起指针引用计数的增加。同样，在`weak_ptr`析构时也不会导致引用计数减少，它只是一个静静的观察者。
 
-使用weak_ptr的成员函数use_count()可以观测资源的引用计数，另一个成员函数expired()的功能等价于use_count()==0，但更快，表示被观测的资源（也就是shared_ptr管理的资源）已经不复存在。
+使用`weak_ptr`的成员函数`use_count()`可以观测资源的引用计数，**另一个成员函数`expired()`的功能等价于`use_count()==0`，**但更快，表示被观测的资源（也就是`shared_ptr`管理的资源）已经不复存在。
 
 ```cpp
 shared_ptr<int> sp(new int(10));           //一个shared_ptr
