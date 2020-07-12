@@ -16,22 +16,22 @@ cbegin|返回指向数组容器中第一个元素的常量迭代器（const_iter
 cend|返回指向数组容器中最后一个元素之后的理论元素的常量迭代器（const_iterator）
 crbegin|返回指向数组容器中最后一个元素的常量反向迭代器（const_reverse_iterator）
 crend|返回指向数组中第一个元素之前的理论元素的常量反向迭代器（const_reverse_iterator）
-size|返回数组容器中元素的数量
+`size`|返回数组容器中**元素的数量**
 max_size|返回数组容器可容纳的最大元素数
-empty|返回一个布尔值，指示数组容器是否为空
-operator[]|返回容器中第 n（参数）个位置的元素的引用
+`empty`|返回一个布尔值，指示数组容器是否为空
+operator[]|返回容器中第 n（参数）个位置的元素的**引用**
 at|返回容器中第 n（参数）个位置的元素的引用
 front|返回对容器中第一个元素的引用
 back|返回对容器中最后一个元素的引用
-data|返回指向容器中第一个元素的指针
+`data`|返回指向容器中第一个元素的**指针**
 fill|用 val（参数）填充数组所有元素
-swap|通过 x（参数）的内容交换数组的内容
+`swap`|通过 x（参数）的内容**交换数组的内容**
 get（array）|形如 `std::get<0>(myarray)`；传入一个数组容器，返回指定位置元素的引用
-relational operators (array)|形如 `arrayA > arrayB`；依此比较数组每个元素的大小关系
+relational operators (array)|形如 `arrayA > arrayB`；**依次比较数组各元素的大小关系**
 
 ## vector
 
-vector 是表示可以改变大小的数组的序列容器。
+vector 是表示可以**改变大小的数组**的序列容器。
 
 方法|含义
 ---|---
@@ -48,27 +48,27 @@ crbegin|返回指向容器中最后一个元素的常量反向迭代器（const_
 crend|返回指向容器中第一个元素之前的理论元素的常量反向迭代器（const_reverse_iterator）
 size|返回容器中元素的数量
 max_size|返回容器可容纳的最大元素数
-resize|调整容器的大小，使其包含 n（参数）个元素
-capacity|返回当前为 vector 分配的存储空间（容量）的大小
+`resize`|**调整容器的大小**，使其包含 n（参数）个元素
+`capacity`|返回**当前为 vector 分配的存储空间**（容量）的大小
 empty|返回 vector 是否为空
-reserve|请求 vector 容量至少足以包含 n（参数）个元素
-shrink_to_fit|要求容器减小其 capacity（容量）以适应其 size（元素数量）
-operator[]|返回容器中第 n（参数）个位置的元素的引用
+`reserve`|请求 vector 容量**至少足以包含 n（参数）个元素**
+`shrink_to_fit`|要求容器减小其 capacity（容量）以适应其 size（元素数量）
+operator[]|返回容器中第 n（参数）个位置的元素的**引用**
 at|返回容器中第 n（参数）个位置的元素的引用
 front|返回对容器中第一个元素的引用
 back|返回对容器中最后一个元素的引用
-data|返回指向容器中第一个元素的指针
-assign|将新内容分配给 vector，替换其当前内容，并相应地修改其 size
-push_back|在容器的最后一个元素之后添加一个新元素
-pop_back|删除容器中的最后一个元素，有效地将容器 size 减少一个
-insert|通过在指定位置的元素之前插入新元素来扩展该容器，通过插入元素的数量有效地增加容器大小
-erase|从 vector 中删除单个元素（`position`）或一系列元素（`[first，last)`），这有效地减少了被去除的元素的数量，从而破坏了容器的大小
+data|返回指向容器中第一个元素的**指针**
+`assign`|将新内容分配给 `vector`，**替换其当前内容**，并相应地修改其 `size`
+`push_back`|在容器的最后一个**元素之后添加一个新元素**
+`pop_back`|**删除容器**中的最后一个元素，有效地将容器 size 减少一个
+`insert`|通过在**指定**位置的元素**之前插入新元素**来扩展该容器，通过插入元素的数量有效地增加容器大小
+`erase`|从 vector 中**删除**单个元素（`position`）或**一系列**元素（`[first，last)`），这有效地减少了被去除的元素的数量，从而破坏了容器的大小
 swap|通过 x（参数）的内容交换容器的内容，x 是另一个类型相同、size 可能不同的 vector 对象
-clear|从 vector 中删除所有的元素（被销毁），留下 size 为 0 的容器
-emplace|通过在 position（参数）位置处插入新元素 args（参数）来扩展容器
-emplace_back|在 vector 的末尾插入一个新的元素，紧跟在当前的最后一个元素之后
-get_allocator|返回与vector关联的构造器对象的副本
-swap(vector)|容器 x（参数）的内容与容器 y（参数）的内容交换。两个容器对象都必须是相同的类型（相同的模板参数），尽管大小可能不同
+clear|从 vector 中删除所有的元素（被销毁），**留下 size 为 0 的容器**
+`emplace`|通过在 `position`（参数）位置处**插入新元素** `args`（参数）来**扩展容器**
+`emplace_back`|在 `vector` 的**末尾插入一个新的元素**，紧跟在当前的最后一个元素之后
+`get_allocator`|返回与vector关联的构造器对象的副本
+swap(vector)|容器 x（参数）的内容与容器 y（参数）的**内容交换**。两个容器对象都必须是**相同的类型**（相同的模板参数），尽管大小可能不同
 relational operators (vector)|形如 `vectorA > vectorB`；依此比较每个元素的大小关系
 
 ## deque
@@ -78,21 +78,37 @@ deque（['dek]）（双端队列）是double-ended queue 的一个不规则缩�
 方法|含义
 ---|---
 deque|构造函数
-push_back|在当前的最后一个元素之后 ，在 deque 容器的末尾添加一个新元素
+`push_back`|在当前的最后一个元素之后 ，在 deque 容器的末尾添加一个新元素
 push_front|在 deque 容器的开始位置插入一个新的元素，位于当前的第一个元素之前
 pop_back|删除 deque 容器中的最后一个元素，有效地将容器大小减少一个
 pop_front|删除 deque 容器中的第一个元素，有效地减小其大小
-emplace_front|在 deque 的开头插入一个新的元素，就在其当前的第一个元素之前
+`emplace_front`|在 deque 的开头插入一个新的元素，就在其当前的第一个元素之前
 emplace_back|在 deque 的末尾插入一个新的元素，紧跟在当前的最后一个元素之后
 
 ## forward\_list
 
 forward_list（单向链表）是序列容器，允许在序列中的任何地方进行恒定的时间插入和擦除操作。
 
-方法|含义
----|---
-forward\_list|返回指向容器中第一个元素之前的位置的迭代器
-cbefore\_begin|返回指向容器中第一个元素之前的位置的 const_iterator
+|方法|含义|
+|---|:--|
+| before_begin()  | 返回指向容器中**第一个元素之前**的位置的迭代器  |
+| cbefore_begin() | 返回指向容器中第一个元素之前的位置的 `const_iterator`  |
+| insert_after()  |   |
+| emplace_after() | 插入一个新的元素使用构造函数 |
+| erase_after()   | 将指定位置的**一个或一组数据删除** |
+| splice_after()  | 将一个forward_list容器中指定位置的一个或一组元素转移到另外一个forward_list容器的指定位置并将其从当前容器中移除。 |
+| operator= | 为容器分配新的内容，代替其当前内容。 |
+| empty() | 测试forward_list容器是否为空 |
+| front() | 返回forward_list容器**第一个元素的引用**，返回值类型为reference/const_reference。 |
+| assign() | 为forward_list容器分配新的内容，以代替其原来的内容，并且随之修改容器的大小。 |
+| emplace_front() | 在forward_list容器**第一个元素前插入**一个元素，这个元素被它自身的构造函数构造。 |
+| push_front() | 在forward_list容器第一个元素前插入一个元素。 |
+| clear() | 删除容器forward_list中的所有元素。 |
+| remove() | 删除容器中所有等于指定值的元素。 |
+| unique() | 删除容器中所有相同或满足给定条件的元素，只保留第一个。调用函数前，容器有序。 |
+| merge() | 将两个forward_list容器合并，调用函数前，容器有序。 |
+| reverse() | 反转容器中元素的存储位置 |
+| sort() | 排序 |
 
 ## list
 
