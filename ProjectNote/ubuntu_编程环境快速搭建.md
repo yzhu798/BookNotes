@@ -47,6 +47,11 @@ sudo apt install libgtk2.0-dev libavcodec-dev libavformat-dev libjpeg-dev libsws
 
 ```bash
 sudo apt-get install libboost-all-dev 
+
+#mingW64 Qt
+cd /D d:\boost_1_73_0
+bootstrap gcc
+b2 -j8 install --prefix=c:\boost_1_73_0\mingW64  --build-dir=.\tmp --build-type=complete threading=multi link=shared address-model=64 toolset=gcc stage
 ```
 
 ## 安装Visual Studio Code
@@ -63,6 +68,19 @@ umake ide visual-studio-code
 ```bash
 sudo apt-get install  qt5-default qtcreator
 ```
+
+## opencv for MingW64
+
+```powershell
+cd opencv-4.3.0
+mkdir release && cd release
+
+cmake.exe -G "MinGW Makefiles" -D CMAKE_BUILD_TYPE=Release  -D CMAKE_INSTALL_PREFIX= C:\\opencv4.3\\mingw81_64  -D CMAKE_PREFIX_PATH= D:\\Qt\\5.15.0\\mingw81_64\\lib\\cmake\\Qt5  -D WITH_TBB=ON  -D WITH_V4L=ON  -D WITH_QT=ON  -D WITH_GTK=ON  -D WITH_OPENGL=ON  -D WITH_VTK=ON  -D OPENCV_GENERATE_PKGCONFIG=YES ..
+
+mingw32-make -j 8
+```
+
+
 
 ## opencv for ubuntu
 
@@ -84,7 +102,7 @@ sudo cmake -D CMAKE_BUILD_TYPE=Release \
 make -j 8
 ```
 
-## opencv  for Arm
+## opencv  for Panel
 
 ```bash
 source /opt/pancake-core-sdk/environment-setup-armv7ahf-neon-poky-linux-gnueabi 
@@ -126,4 +144,21 @@ Host 192.168.56.101
 
 ## 配置git server（公钥）
 
+
 add sshkey
+
+
+
+
+```
+1. 重启 ubuntu ,等待 grub 菜单的出现。
+2.选择 recovery mode, 按 e 进入编辑界面。
+3.将 ro recovery nomodeset 改为 rw single init=/bin/bash
+4.按 ctrl+x或者F10 进入单用户模式，当前用户即为root。这时候可以修改文件。
+5.修改好文件后，输入 reboot 进行重启即可。
+```
+
+
+
+
+
