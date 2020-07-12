@@ -1044,12 +1044,12 @@ TODO.
 
 ## noncopyable 
 
-noncopyable允许程序轻松地实现一个禁止复制的类。
+`noncopyable`允许程序轻松地实现一个禁止复制的类。
 
-noncopyable位于名字空间boost，为了使用noncopyable组件，需要包含头文件：
+noncopyable位于名字空间boost，为了使用`noncopyable`组件，需要包含头文件：
 
 ```cpp
-#include <boost/noncopyable.hpp>                        //或者
+#include <boost/noncopyable.hpp> //或者
 #include <boost/utility.hpp>
 ```
 
@@ -1057,7 +1057,7 @@ noncopyable位于名字空间boost，为了使用noncopyable组件，需要包�
 
 ## 用法 
 
-noncopyable为实现不可复制的类提供了简单清晰的解决方案：从boost::noncopyable派生即可。
+noncopyable为实现不可复制的类提供了简单清晰的解决方案：从`boost::noncopyable`派生即可。
 
 ```cpp
 #include <boost/utility.hpp>
@@ -1066,7 +1066,7 @@ class do_not_copy: boost:: noncopyable
 {...};
 ```
 
-注意，这里使用默认的私有继承是允许的。我们也可以显式写出private或者public修饰词，但效果是相同的。因此直接这样写少输入了一些代码，也更清晰，并且表明了HAS-A关系（而不是IS-A）。
+**注意，这里使用默认的私有继承是允许的**。我们也可以显式写出private或者public修饰词，但效果是相同的。因此直接这样写少输入了一些代码，也更清晰，并且表明了HAS-A关系（而不是IS-A）。
 
 如果有其他人误写了代码（很可能是没有仔细阅读接口文档），企图复制构造或者赋值do_not_copy，那么将不能通过编译器的审查：
 
@@ -1087,19 +1087,17 @@ main.cpp:9:7: note: function has been explicitly marked deleted here
 class do_not_copy: boost:: noncopyable
 ```
 
-这条错误信息明确地告诉我们：类使用boost:: noncopyable禁用（delete）了复制构造，无法调用复制构造函数。
+这条错误信息明确地告诉我们：类使用**boost:: noncopyable禁用（delete）了复制构造，无法调用复制构造函数**。
 
 ## typeof 
 
-C++11标准中重新定义了“古老的新特性”auto，并新增了decltype关键字，可以自动推导表达式的类型，能够极大地减轻书写烦琐的变量类型声明的工作并简化代码。typeof库使用宏模拟了这两个关键字，使C++98也可以使用这一方便的特性。
-
-略。
+C++11标准中重新定义了“古老的新特性”`auto`，并新增了`decltype`关键字，可以自动推导表达式的类型，能够极大地减轻书写烦琐的变量类型声明的工作并简化代码。**typeof库使用宏模拟了这两个关键字**，使C++98也可以使用这一方便的特性。
 
 ## optional 
 
-optional库使用“容器”语义，包装了“可能产生无效值”的对象，实现了“未初始化”的概念。
+`optional`库使用“容器”语义，**包装了“可能产生无效值”的对象，实现了“未初始化”的概念**，optional经常**用于函数返回值**。
 
-optional位于名字空间boost，为了使用optional，需要包含头文件<boost/optional.hpp>，即：
+`optional`位于名字空间`boost`，为了使用`optional`，需要包含头文件<boost/optional.hpp>，即：
 
 ```cpp
 #include <boost/optional.hpp>
@@ -1108,32 +1106,32 @@ using namespace boost;
 
 ### “无意义”的值 
 
-函数并不是总能返回有效值，很多时候函数可能返回“无意义”的值，这不意味着函数执行失败，而是表明函数正确执行了，但结果却不是有用的值。如果用数学语言来解释，就是返回值位于函数解空间之外(值域之外)。
+函数并不是总能返回有效值，**很多时候函数可能返回“无意义”的值，这不意味着函数执行失败，而是表明函数正确执行了，但结果却不是有用的值**。如果用数学语言来解释，就是返回值位于函数解空间之外(值域之外)。
 
-例如，求一个数的倒数，在实数域内开平方，在字符串中查找子串，它们都可能返回无效的值。有些无效返回的情况可以用抛出异常的方式来通知用户，但有的情况下这样代价很高，或者不允许异常，这时必须要以某种合理的高效的方式通知用户。
+表示返回值无意义最常用的做法是增加一个“哨兵”的角色，它位于解空间之外，如`NULL`、`-1`、`EOF`、`string::npos`、`vector::end()`等。但这些做法不够通用，而且很多时候不存在解空间之外的“哨兵”。
 
-表示返回值无意义最常用的做法是增加一个“哨兵”的角色，它位于解空间之外，如NULL、-1、EOF、string::npos、vector::end()等。但这些做法不够通用，而且很多时候不存在解空间之外的“哨兵”。
-
-optional使用“容器”语义，为这种“无效值”的情形提供了一个较好的解决方案。
+**optional使用“容器”语义，为这种“无效值”的情形提供了一个较好的解决方案。**
 
 ### 操作函数 
 
-optional的模板类型参数T可以是任何类型，就如同一个标准容器对元素的要求，并不需要T具有默认构造函数，但必须是可复制构造的。
+optional的模板类型参数T可以是任何类型，就如同一个标准容器对元素的要求，**并不需要T具有默认构造函数，但必须是可复制构造的**。
 
 可以有很多方式创建optional对象，例如：
 
-- 无参的optional()或者optional(boost::none)构造一个未初始化optional对象。参数boost::none是一个类似空指针的none_t类型常量，表示未初始化；
+- **无参**的optional()或者`optional(boost::none)`构造一个**未初始化optional对象**。boost::none是类似空指针的`none_t`类型常量，表示未初始化；
 - optional(v)构造一个已初始化的optional对象，为复制v的值。如果模板类型为T&，那么optional内部持有对引用的包装；
 - optional(condition, v)根据条件condition来构造optional对象，如果条件成立（true）则初始化为v，否则为未初始化；
 - 此外optional还支持复制构造和赋值操作，可以从另一个optional对象构造。当想让一个optional对象重新恢复到未初始化状态时，可以向对象赋none值。
 
-optional采用了指针语义来访问内部保存的元素，这使得optional未初始化时的行为就像一个空指针。它重载了operator＊和operator->以实现与指针相同的操作，get()和get_ptr()可以以函数的操作形式获得元素的引用和指针。
+optional采用了指针语义来访问内部保存的元素，**这使得`optional`未初始化时的行为就像一个空指针**。
 
-成员函数get_value_or(default)是一个特别的访问函数，可以保证返回一个有效的值，如果optional已初始化，那么返回内部的元素，否则返回default。
+​	它重载了operator＊和operator->以实现与指针相同的操作，get()和get_ptr()可以以函数的操作形式获得元素的引用和指针。
 
-optional也可以用隐式类型转换进行bool测试（用于条件判断），就像一个对指针的判断。
+​	成员函数get_value_or(default)是一个特别的访问函数，可以保证返回一个有效的值，如果optional已初始化，那么返回内部的元素，否则返回default。
 
-optional还全面支持比较运算，包括==、! =、<、<、>、>=。与普通指针比较的“浅比较”（仅比较指针值）不同，optional的比较是“深比较”，同时加入了对未初始化情况的判断。
+optional也可以用隐式类型转换进行`bool`测试（用于条件判断），就像一个对指针的判断。
+
+**optional还全面支持比较运算**，包括==、! =、<、<、>、>=。与普通指针比较的“浅比较”（仅比较指针值）不同，**optional的比较是“深比较”**，同时加入了对未初始化情况的判断。
 
 ### 用法 
 
@@ -1211,9 +1209,9 @@ no result
 
 ### 工厂函数 
 
-optional提供一个类似make_pair()、make_shared()的工厂函数make_optional()，可以根据参数类型自动推导optional的类型，用来辅助创建optional对象。
+`optional`提供一个类似`make_pair()`、`make_shared()`的工厂函数`make_optional()`，可以根据参数类型自动推导`optional`的类型，用来辅助创建`optional`对象。
 
-但make_optional()无法推导出T引用类型的optional对象，因此如果需要一个optional<T&>的对象，就不能使用make_optional()函数。
+**但`make_optional()`无法推导出T引用类型的`optional`对象，若需要一个`optional<T&>`的对象，就不能使用`make_optional()`函数。**
 
 ```cpp
 #include <boost/optional.hpp>
@@ -1231,11 +1229,11 @@ int main()
 
 ## assign 
 
-许多情况下我们都需要为容器初始化或者赋值，填入大量的数据，比如初始错误代码和错误信息，或者是一些测试用的数据。标准容器仅提供了容纳这些数据的方法，但填充的步骤却是相当地麻烦，必须重复调用insert()或者push_back()等成员函数，这正是boost.assign出现的理由。
+许多情况下我们都**需要为容器初始化或者赋值，填入大量的数据**，比如初始错误代码和错误信息，或者是一些测试用的数据。标准容器仅提供了容纳这些数据的方法，但填充的步骤却是相当地麻烦，**必须重复调用`insert()`或者`push_back()`等成员函数**，这正是`boost.assign`出现的理由。
 
-assign库重载了赋值操作符operator+=、逗号操作符operator，和括号操作符operator()，可以用难以想象的简洁语法非常方便地对标准容器赋值或者初始化。在需要填入大量初值的地方很有用，本书8.1节介绍的foreach库和其他很多地方都大量使用了assign，可以做进一步的参考。
+assign库重载了赋值操作符`operator+=`、逗号操作符`operator`，和括号操作符`operator()`，可以用难以想象的简洁语法非常方便地对标准容器赋值或者初始化。在需要填入大量初值的地方很有用，本书8.1节介绍的`foreach`库和其他很多地方都大量使用了`assign`，可以做进一步的参考。
 
-assign库位于名字空间boost::assign，为了使用assign库，需要包含头文件<boost/assign.hpp>，它包含了大部分assign库的工具，即
+assign库位于名字空间`boost::assign`，为了使用assign库，需要包含头文件<boost/assign.hpp>，它包含了大部分assign库的工具，即
 
 ```cpp
 #include <boost/assign.hpp>
@@ -1244,7 +1242,7 @@ using namespace boost::assign;
 
 ### 使用操作符+=向容器增加元素 
 
-boost.assign的用法非常简单，由于重载了操作符+=和逗号，可以用简洁到令人震惊的语法完成原来用许多代码才能完成的工作，如果不熟悉C++操作符重载的原理你甚至都不会意识到在简洁语法下的复杂工作。
+`boost.assign`的用法非常简单，**由于重载了操作符+=和逗号**，可以用简洁到令人震惊的语法完成原来用许多代码才能完成的工作，如果不熟悉C++操作符重载的原理你甚至都不会意识到在简洁语法下的复杂工作。
 
 ```cpp
 #include <iostream>
@@ -1270,7 +1268,7 @@ int main()
 }
 ```
 
-operator+=很好用，但有一点遗憾，它仅限应用于STL中定义的标准容器（vector、list、set等），对于其他类型的容器（如Boost新容器）则无能为力。
+operator+=很好用，但有一点遗憾，它**仅限应用于STL中定义的标准容器（`vector`、`list`、`set`等）**，对于其他类型的容器（如Boost新容器）则无能为力。
 
 # 字符串与文本处理 
 
@@ -1280,7 +1278,7 @@ C++标准库提供了强大的、富有弹性的输入/输出流处理，使用�
 
 但C++输入/输出流也不是完美无瑕的，精确输出的格式控制要写大量的操控函数，而且还会改变流的状态，用完后还需要及时恢复，有时候会显得十分烦琐（2.3.3节就是一个很好的例子）。因此，还是有很多程序员怀念C语言中经典的printf()，虽然它缺乏类型安全检查，还有其他的一些缺点，但它语法简单高效，并且被广泛地接受和使用，影响深远。许多其他的编程语言也都受printf()的影响提供类似的格式化输出机制，比如Python、C#。
 
-boost.format库“扬弃”了printf，实现了类似于printf()的格式化对象，可以把参数格式化到一个字符串，而且是完全类型安全的。
+`boost.format`库“扬弃”了printf，实现了类似于printf()的格式化对象，可以把参数格式化到一个字符串，而且是完全类型安全的。
 
 format组件位于名字空间boost，为了使用format组件，需要包含头文件<boost/format.hpp>，即：
 
@@ -1317,7 +1315,7 @@ C/C++程序员都应该对这段代码有似曾相识的感觉，format的设计
 
 程序的第一条语句演示了format的最简单用法，使用format(...)构造了一个format临时（匿名）对象。构造函数的参数是格式化字符串，其语法是我们非常熟悉的标准printf()语法，使用%x来指定参数的格式。
 
-因为要被格式化的参数个数是不确定的，printf()使用了C语言里的可变参数（即参数声明中的省略号），但它是不安全的。format模仿了流操作符<<，重载了二元操作符operator%作为参数输入符，它同样可以串联任意数量的参数，因此，
+因为要被格式化的参数个数是不确定的，printf()使用了C语言里的可变参数（即参数声明中的省略号），但它是不安全的。**format模仿了流操作符<<，重载了二元操作符operator%作为参数输入符，它同样可以串联任意数量的参数**，因此，
 
 ```cpp
 format(...) % a % b %c
@@ -1375,9 +1373,9 @@ cout << fmt %62 % 2.236 % "123456789" % 48;
 
 ### format的性能 
 
-printf()不进行类型检查，直接向stdout输出，因此它的速度非常快，而format较printf()做了很多安全检查的工作，因此性能略差，速度上要慢很多。
+printf()不进行类型检查，直接向stdout输出，因此它的速度非常快，**而format较printf()做了很多安全检查的工作，因此性能略差，速度上要慢很多**。
 
-如果很在意format的性能，那么可以先建立const format对象，然后复制这个对象进行格式化操作，这样比直接使用format对象能够提高速度，像这样：
+如果**很在意format的性能，那么可以先建立const format对象，然后复制这个对象进行格式化操作，这样比直接使用format对象能够提高速度，**像这样：
 
 ```cpp
 const format fmt("%10d %020.8f %010X %10.5e\n");   //常量对象
@@ -1388,7 +1386,7 @@ cout << format(fmt) %62 % 2.236 % 255 % 0.618;     //复制使用
 
 ## variant 
 
-variant与any有些类似，是一种可变类型，是对C/C++中union概念的增强和扩展。普通的union只能持有POD（普通数据类型），而不能持有如string、vector等复杂类型，variant则没有这个限制。
+variant与any有些类似，是一种可变类型，**是对C/C++中union概念的增强和扩展**。普通的union只能持有POD（普通数据类型），而不能持有如string、vector等复杂类型，`variant`则没有这个限制。
 
 variant位于名字空间boost，为了使用variant组件，需要包含头文件<boost/variant.hpp>，即：
 
@@ -1399,14 +1397,14 @@ using namespace boost;
 
 ### 访问元素 
 
-variant的操作要比any方便，能够直接访问元素的值，例如：
+`variant`的操作要比`any`方便，**能够直接访问元素的值**，例如：
 
 ```cpp
 variant<int, float, string> v;                //可容纳int, float和string
 v = "123";                                    //v持有一个string对象 
 ```
 
-但为了实现泛型编程，variant也提供一个外界自由函数来访问内部元素。variant没有提供variant_cast的函数，而是使用boost库中的一个泛型函数get()。这是因为variant的设计出发点与any不同，它的目的是存储多个数据的联合，而不是任意类型的容器。
+但为了实现泛型编程，variant也提供一个外界自由函数来访问内部元素。variant没有提供variant_cast的函数，而是使用boost库中的一个泛型函数**get()**。这是因为variant的设计出发点与any不同，**它的目的是存储多个数据的联合，而不是任意类型的容器**。
 
 用于访问variant元素的get()函数声明如下：
 
@@ -1417,9 +1415,9 @@ template<typename U, ...>   U & get(variant & operand);
 template<typename U, ...>   const U & get(const variant & operand);
 ```
 
-它的声明与any_cast()类似，用法也基本相同。
+它的声明与`any_cast()`类似，用法也基本相同。
 
-如果variant当前的值不是get()想取的类型，那么会抛出boost::bad_get异常，它是std:: exception的子类，但没有使用boost.exception库（参见4.9节）进行包装。如果是返回指针的get()形式，那么会返回一个空指针。
+**如果variant当前的值不是get()想取的类型，那么会抛出boost::bad_get异常**，它是std:: exception的子类，但没有使用boost.exception库（参见4.9节）进行包装。如果是返回指针的get()形式，那么会返回一个空指针。
 
 ### 用法 
 
@@ -1434,7 +1432,7 @@ var_t v2("string type");                      //v2->string
 v2 = v;                                       //v2->double
 ```
 
-我们也可以使用自由函数get()来获取variant的值,但get()函数通常不是最方便最有效的访问方法，它与any_cast同样存在着类型不安全的隐患，操作时必须查询variant当前值的类型。
+我们也可以使用自由函数get()来获取variant的值,**但get()函数通常不是最方便最有效的访问方法，它与any_cast同样存在着类型不安全的隐患**，操作时必须查询variant当前值的类型。
 
 ```cpp
 #include <iostream>
@@ -1471,7 +1469,7 @@ bad_get
 
 variant基于访问者模式提供了模板类static_visitor，它解耦了variant的数据存储和访问操作，把访问操作集中在访问器类，易于增加新的访问操作，使这两者可以彼此独立地变化。
 
-使用static_visitor首先要从static_visitor继承，然后重载operator()，用来访问variant的内部值。访问器必须能够处理variant所可能拥有的所有类型，不能仅处理其中的一部分，否则会引发编译错误：
+使用static_visitor首先要**从`static_visitor`继承，然后重载`operator()`**，用来访问variant的内部值。**访问器必须能够处理variant所可能拥有的所有类型**，不能仅处理其中的一部分，否则会引发编译错误：
 
 ```cpp
 class var_print : public static_visitor<void>   //返回值类型为void
@@ -1485,7 +1483,7 @@ class var_print : public static_visitor<void>   //返回值类型为void
 };
 ```
 
-函数对象var_print的operator()是一个模板函数，可以对普通类型执行加倍操作，然后再输出。
+函数对象`var_print`的`operator()`是一个模板函数，可以对普通类型执行加倍操作，然后再输出。
 
 假设我们把variant增加一个vector的类型：
 
@@ -1493,7 +1491,7 @@ class var_print : public static_visitor<void>   //返回值类型为void
 typedef variant<int, double, vector<int> > var_t;
 ```
 
-那么访问器的operator()需要增加一个针对vector类型的重载，而原有的处理代码不必做任何变动：
+那么访问器的operator()需要**增加一个针对vector类型的重载**，而原有的处理代码不必做任何变动：
 
 ```cpp
 template<>
@@ -1508,9 +1506,9 @@ void operator()<vector<int> >(vector<int> &v) const
 }
 ```
 
-请读者注意针对vector类型的operator()的特化形式，特化的模板参数在第一个括号之后，因为模板参数必须在函数名称之后，而括号操作符函数的全名是operator()。
+请读者注意**针对vector类型的operator()的特化形式**，特化的模板参数在第一个括号之后，因为模板参数必须在函数名称之后，而括号操作符函数的全名是operator()。
 
-将访问器对象应用于variant，需要使用函数apply_visitor()。apply_visitor()有多种重载形式，但最常用的形式是接受一个访问器对象和一个variant对象，对variant内的值调用访问器对象的operator()。例如：
+将访问器对象应用于variant，需要使用函数`apply_visitor()`。apply_visitor()有多种重载形式，但最常用的形式是接受一个访问器对象和一个variant对象，对variant内的值调用访问器对象的operator()。例如：
 
 ```cpp
 var_t v(1);                                   //一个variant对象
@@ -1539,7 +1537,7 @@ TODO.
 
 ## result_of 
 
-result_of是一个很小但很有用的组件，可以帮助程序员确定一个调用表达式的返回类型，主要用于泛型编程和其他Boost库组件，它已被收入C++11标准。
+`result_of`是一个很小但很有用的组件，可以帮助程序员**确定一个调用表达式的返回类型**，主要用于**泛型编程**和其他`Boost`库组件，它已被收入C++11标准。
 
 result_of位于名字空间boost，为了使用result_of组件，需要包含头文件<boost/utility/result_of.hpp>，即：
 
@@ -1560,7 +1558,7 @@ template<typename T, typename T1>
 
 无论如何，auto都派不上用场，这里不存在任何赋值表达式，只有函数调用式。
 
-这正是result_of发挥威力的机会，它可以正确推导出返回类型，像这样：
+这正是result_of发挥威力的机会，**它可以正确推导出返回类型**，像这样：
 
 ```cpp
 template<typename T, typename T1>
@@ -1568,9 +1566,9 @@ typename result_of<T(T1)>::type call_func(T t, T1 t1)
 { return t(t1); }
 ```
 
-这里必须在result_of<>::type前加上关键字typename，否则编译器会认为type是result_of的成员变量，从而产生找不到声明的编译错误。
+这里必须在`result_of<>::type`前加上关键字`typename`，否则编译器会认为type是`result_of`的成员变量，从而产生找不到声明的编译错误。
 
-仍然使用刚才定义的函数指针，使用result_of的完整程序如下：
+仍然使用刚才定义的函数指针，使用`result_of`的完整程序如下：
 
 ```cpp
 #include <boost/utility/result_of.hpp>
@@ -1597,7 +1595,7 @@ TODO.
 
 ## bind 
 
-bind是对C++标准库中函数适配器bind1st/bind2nd的泛化和增强，可以适配任意的可调用对象，包括函数指针、函数引用、成员函数指针和函数对象。bind远远地超越了STL中的函数绑定器（bind1st/bind2nd），可以绑定最多9个函数参数，而且对被绑定对象的要求很低，可以在没有result_type内部类型定义的情况下完成对函数对象的绑定。bind库很好地增强了标准库的功能，已经被收入C++11标准。
+`bind`是对**C++标准库中函数适配器`bind1st`/`bind2nd`的泛化和增强**，可以适配任意的**可调用对象**，包括**函数指针**、**函数引用**、**成员函数指针**和**函数对象**。bind远远地超越了STL中的函数绑定器（bind1st/bind2nd），可以绑定最多9个函数参数，而且对被绑定对象的要求很低，可以在没有`result_type`内部类型定义的情况下完成对函数对象的绑定。bind库很好地增强了标准库的功能，已经被收入C++11标准。
 
 bind位于名字空间boost，为了使用bind组件，需要包含头文件<boost/bind.hpp>，即：
 
@@ -1608,7 +1606,7 @@ using namespace boost;
 
 ### 绑定普通函数 
 
-bind可以绑定普通函数，包括函数、函数指针，假设我们有如下的函数定义：
+`bind`可以绑定普通函数，包括函数、函数指针，假设我们有如下的函数定义：
 
 ```cpp
 int f(int a, int b)                          //二元函数
@@ -1625,6 +1623,7 @@ bind(f, _1,  9)(x) ;                          //f(x, 9)，相当于bind2nd(f,9)
 bind(f, _1, _2)(x, y) ;                       //f(x, y)
 bind(f, _2, _1)(x, y) ;                       //f(y, x)
 bind(f, _1, _1)(x, y) ;                       //f(x, x), y参数被忽略
+
 bind(g, _1, 8, _2)(x, y) ;                    //g(x, 8, y)
 bind(g, _3, _2, _2)(x, y, z) ;                //g(z, y, y), x参数被忽略
 
@@ -1638,9 +1637,9 @@ cout << bind(pg, _3, _2, _2)(x, y, z) << endl; //(＊pg)(z, y, y)
 
 ### 绑定成员函数 
 
-bind也可以绑定类的成员函数。
+`bind`也可以绑定类的成员函数。
 
-类的成员函数不同于普通函数，因为成员函数指针不能直接调用operator()，它必须被绑定到一个对象或者指针，然后才能得到this指针进而调用成员函数。因此bind需要“牺牲”一个占位符的位置，要求用户提供一个类的实例、引用或者指针，通过对象作为第一个参数来调用成员函数，即：
+类的成员函数不同于普通函数，因为成员函数指针不能直接调用operator()，它必须被绑定到一个对象或者指针，然后才能得到this指针进而调用成员函数。因此bind需要“牺牲”一个占位符的位置**，要求用户提供一个类的实例、引用或者指针，通过对象作为第一个参数来调用成员函数，**即：
 
 ```cpp
 bind( &X::func, x, _1, _2, ...)
@@ -1648,8 +1647,8 @@ bind( &X::func, x, _1, _2, ...)
 
 这意味着使用成员函数时只能最多绑定8个参数,其中x是对象，func是成员函数。
 
-bind能够绑定成员函数，这是个非常有用的功能，它可以替代标准库中令人迷惑的mem_fun和mem_fun_ref绑定器，用来配合标准算法操作容器中的对象。
-下面的代码使用bind搭配标准算法for_each用来调用容器中所有对象的print()函数：
+bind能够绑定成员函数，这是个非常有用的功能，它可以替代标准库中令人迷惑的`mem_fun`和`mem_fun_ref`绑定器，用来配合标准算法操作容器中的对象。
+下面的代码使用`bind`搭配标准算法`for_each`用来调用容器中所有对象的print()函数：
 
 ```cpp
 #include <boost/bind.hpp>
@@ -1670,24 +1669,24 @@ int main()
 }
 ```
 
-bind同样支持绑定虚拟成员函数，用法与非虚函数相同，虚函数的行为将由实际调用发生时的实例来决定。
+**`bind`同样支持绑定虚拟成员函数**，**用法与非虚函数相同**，虚函数的行为将由实际调用发生时的实例来决定。
 
 ### 绑定成员变量 
 
-bind的另一个对类的操作是它可以绑定public成员变量，就像是一个选择器，用法与绑定成员函数类似，只需要把成员变量名像一个成员函数一样去使用。
-仍然以point类为例子，假设我们已经在vector中存储了大量的point对象，而我们想要得到它们的x坐标值，那么bind可以这样使用：
+bind的另一个对类的操作是它可以绑定`public`成员变量，就像是一个选择器，用法与绑定成员函数类似，**只需要把成员变量名像一个成员函数一样去使用**。
+仍然以point类为例子，假设我们已经在vector中存储了大量的point对象，而**我们想要得到它们的x坐标值**，那么bind可以这样使用：
 
 ```cpp
-vector<point> v(10);
-vector<int> v2(10);
+vector<point> v(10);//point x.y
+vector<int> v2(10);//x
 
 transform(v.begin(), v.end(), v2.begin(), bind(&point::x, _1));
 
-BOOST_FOREACH(int x, v2)                     //foreach循环输出值
+BOOST_FOREACH(int x, v2)    //foreach循环输出值
   cout << x << ", ";
 ```
 
-代码中的bind(&point::x, _1)取出point对象的成员变量x, transform算法调用bind表达式操作容器v，逐个把成员变量填入到v2中。
+代码中的`bind(&point::x, _1)`取出point对象的成员变量x, `transform`算法调用`bind`表达式操作容器`v`，**逐个把成员变量填入到`v2`中**。
 
 ### 绑定函数对象 
 
@@ -1703,19 +1702,19 @@ int x = 100;
 bind<int>(f, _1, _1)(x);        // f(x, x)
 ```
 
-可能某些编译器不支持上述的bind语法，可以用下列方式代替：
+可能某些编译器不支持上述的`bind`语法，可以用下列方式代替：
 
 ```cpp
 boost::bind(boost::type<int>(), f, _1, _1)(x);
 ```
 
-默认情况下，bind拥有的是函数对象的副本，但是也可以使用boost::ref和boost::cref来传入函数对象的引用，尤其是当该function object是non-copyable或者expensive to copy。
+默认情况下，`bind`拥有的是函数对象的副本，但是也可以使用`boost::ref`和`boost::cref`**来传入函数对象的引用**，尤其是当该function object是`non-copyable`或者`expensive to copy`。
 
 ### 使用ref库 
 
-bind采用拷贝的方式存储绑定对象和参数，这意味着绑定表达式中的每个变量都会有一份拷贝，如果函数对象或值参数很大、拷贝代价很高，或者无法拷贝，那么bind的使用就会受到限制。
+**bind采用拷贝**的方式存储绑定对象和参数，这意味着绑定表达式中的每个变量都会有一份拷贝，如果函数对象或值参数很大、拷贝代价很高，或者无法拷贝，那么bind的使用就会受到限制。
 
-因此bind库可以搭配ref库使用，ref库包装了对象的引用，可以让bind存储对象引用的拷贝，从而降低了拷贝的代价。但这也带来了一个隐患，因为有时候bind的调用可能会延后很久，程序员必须保证bind被调用时引用是有效的。如果调用时引用的变量或者函数对象被销毁了，那么会发生未定义行为。
+因此bind库可以搭配ref库使用，ref库包装了对象的引用，可以让bind存储**对象引用的拷贝**，从而降低了拷贝的代价。但这也带来了一个隐患，**因为有时候bind的调用可能会延后很久**，**程序员必须保证bind被调用时引用是有效的**。如果调用时引用的变量或者函数对象被销毁了，那么会发生未定义行为。
 
 ```cpp
 int x = 10;
@@ -1727,11 +1726,11 @@ cout << bind<int>(ref(af), _1, _2)(10, 20) << endl;
 
 ## function 
 
-function是一个函数对象的“容器”，概念上像是C/C++中函数指针类型的泛化，是一种“智能函数指针”。它以对象的形式封装了原始的函数指针或函数对象，能够容纳任意符合函数签名的可调用对象。因此，它可以被用于回调机制，暂时保管函数或函数对象，在之后需要的时机再调用，使回调机制拥有更多的弹性。它已经被收入C++11标准。
+`function`是一个函数对象的“容器”，概念上像**是C/C++中函数指针类型的泛化**，是一种“智能函数指针”。它以对象的形式封装了原始的函数指针或函数对象，能够容纳任意符合函数签名的可调用对象。因此，**它可以被用于回调机制，暂时保管函数或函数对象，在之后需要的时机再调用，使回调机制拥有更多的弹性**。它已经被收入C++11标准。
 
-function可以配合bind使用，存储bind表达式的结果，使bind可以被多次调用。
+`function`可以配合`bind`使用，存储`bind`表达式的结果，使`bind`可以被多次调用。
 
-function位于名字空间boost，为了使用function组件，需要包含头文件<boost/function.hpp>，即：
+`function`位于名字空间`boost`，为了使用`function`组件，需要包含头文件<boost/function.hpp>，即：
 
 ```cpp
 #include <boost/function.hpp>
@@ -1748,18 +1747,18 @@ function< int(int,int,int) > func2;
 
 function的构造函数可以接受任意符合模板中声明的函数类型的可调用对象，如函数指针和函数对象，也可以是另一个function对象的引用，之后在内部存储一份它的拷贝。
 
-无参的构造函数或者传入空指针构造将创建一个空的function对象，不持有任何可调用物，调用空的function对象将抛出bad_function_call异常，因此在使用function前最好检测一下它的有效性。可以用empty()测试function是否为空，或者用重载操作符operator！来测试。function对象也可以在一个bool语境中直接测试它是否为空，它是类型安全的。
+无参的构造函数或者传入空指针构造将创建一个**空的function对象**，不持有任何可调用物，调用空的function对象将抛出`bad_function_call`异常，因此在使用function前最好检测一下它的有效性。**可以用`empty()`测试function是否为空**，或者用重载操作符`operator！`来测试。function对象也可以在一个`bool`语境中直接测试它是否为空，它是类型安全的。
 
 function的其余成员函数功能如下：
 
-- lear()可以直接将function对象置空，它与使用operator=赋值0具有同样的效果；
-- 模板成员函数target()可以返回function对象内部持有的可调用物Functor的指针，如果function为空则返回空指针nullptr；
-- contains()可以检测function是否持有一个Functor对象；
+- `lear()`可以直接将`function`对象**置空**，它与**使用operator=赋值0具有同样的效果**；
+- 模板成员函数`target()`可以返回`function`对象内部持有的可调用物`Functor`的指针，如果function为空则返回空指针`nullptr`；
+- `contains()`可以检测function**是否持有一个Functor对象**；
 - 最后，function提供了operator()，它把传入的参数转交给内部保存的可调用物，完成真正的函数调用。
 
 ### 比较操作 
 
-function重载了比较操作符operator==和operator! =，可以与被包装的函数或函数对象进行比较。如果function存储的是函数指针，那么比较相当于
+function重载了比较操作符`operator==`和`operator! =`，可以与被包装的函数或函数对象进行比较。如果**function存储的是函数指针**，那么比较相当于
 
 ```cpp
 function.target<Functor>() == func_pointer
@@ -1772,17 +1771,15 @@ function<int(int, int)> func(f);
 assert( func == f );
 ```
 
-如果function存储的是函数对象，那么要求函数对象必须重载了operator==，是可比较的。
-
-两个function对象不能使用和！=直接比较，这是特意的。因为function存在bool的隐式转换，function定义了两个function对象的operator但没有实现，企图比较两个function对象会导致编译错误。
+如果function存储的是函数对象，那么**要求函数对象必须重载了`operator==`，是可比较的。两个function对象不能使用和！=直接比较，这是特意的**。**因为function存在bool的隐式转换**，function定义了两个function对象的operator但没有实现，企图比较两个function对象会导致编译错误。
 
 ### 用法 
 
-function就像是一个函数的容器，也可以把function想象成一个泛化的函数指针，只要符合它声明中的函数类型，任何普通函数、成员函数、函数对象都可以存储在function对象中，然后在任何需要的时候被调用。
+**function就像是一个函数的容器，也可以把function想象成一个泛化的函数指针**，只要符合它声明中的函数类型，任何普通函数、成员函数、函数对象都可以存储在function对象中，然后在任何需要的时候被调用。
 
-function这种能够容纳任意可调用对象的能力是非常重要的，在编写泛型代码的时候尤其有用，它使我们可以接受任意的函数或函数对象，增加程序的灵活性。
+function这种能够容纳任意可调用对象的能力是非常重要的，在**编写泛型代码的时候尤其有用，它使我们可以接受任意的函数或函数对象，增加程序的灵活性。**
 
-与原始的函数指针相比，function对象的体积要稍微大一点（3个指针的大小），速度要稍微慢一点（10%左右的性能差距），但这与它带给程序的巨大好处相比是无足轻重的。
+**与原始的函数指针相比，function对象的体积要稍微大一点（3个指针的大小），速度要稍微慢一点（10%左右的性能差距），但这与它带给程序的巨大好处相比是无足轻重的。**
 
 ```cpp
 #include<iostream>
@@ -1813,7 +1810,7 @@ int main()
 30
 ```
 
-只要函数签名式一致，function也可以存储成员函数和函数对象，或者是bind表达式的结果。假设我们有如下的一个类demo_class，它既有普通成员函数，又重载了operator()：
+只要函数签名式一致，**function也可以存储成员函数和函数对象，或者是bind表达式的结果。**假设我们有如下的一个类demo_class，它既有普通成员函数，又重载了operator()：
 
 ```cpp
 struct demo_class
@@ -1825,10 +1822,10 @@ struct demo_class
 };
 ```
 
-存储成员函数时可以直接在function声明的函数签名式中指定类的类型，然后用bind绑定成员函数：
+存储成员函数时可以直接在function声明的函数**签名式中指定类的类型**，然后用bind绑定成员函数：
 
 ```cpp
-function<int(demo_class&, int,int)>func1;
+function<int(demo_class&, int,int)>func1; //指定类的类型
 
 func1 = bind(&demo_class::add, _1, _2, _3);
 
@@ -1836,7 +1833,7 @@ demo_class sc;
 cout << func1(sc, 10, 20);
 ```
 
-也可以在函数类型中仅写出成员函数的签名，在bind时直接绑定类的实例：
+也可以在函数类型中仅写出成员函数的签名，在`bind`时**直接绑定类的实例**：
 
 ```cpp
 function<int(int,int)>func2;
@@ -1847,7 +1844,7 @@ cout << func2(10, 20);
 
 ### 用于回调 
 
-function可以容纳任意符合函数签名式的可调用物，因此它非常适合代替函数指针，存储用于回调的函数，而且它的强大功能会使代码更灵活、富有弹性。
+function可以容纳任意**符合函数签名式的可调用物**，因此它非常适合**代替函数指针**，存储用于回调的函数，而且它的强大功能会使代码更灵活、富有弹性。
 
 作为示范，我们定义一个demo_class类，它使用function代替函数指针作为内部类型保存回调函数，存储形式为void(int)的可调用物：
 
@@ -1887,7 +1884,7 @@ int main()
 }
 ```
 
-使用普通的C函数进行回调并不能体现function的好处，我们来编写一个带状态的函数对象，并使用ref库传递引用：
+使用普通的C函数进行回调并不能体现function的好处，我们来编写一个**带状态的函数对象**，并使用`ref`库传递引用：
 
 ```cpp
 class call_back_obj
@@ -1913,7 +1910,7 @@ int main()
 }
 ```
 
-function还可以搭配bind库，把bind表达式作为回调函数，可以接受类成员函数，或者把不符合函数签名式的函数bind为可接受的形式。下面我们定义一个回调函数工厂类，它有两个回调函数：
+function还可以搭配bind库，**把bind表达式作为回调函数**，可以接受类成员函数，或者**把不符合函数签名式的函数bind为可接受的形式**。下面我们定义一个回调函数工厂类，它有两个回调函数：
 
 ```cpp
 class call_back_factory
@@ -1945,61 +1942,59 @@ int main()
 }
 ```
 
-通过以上的示例代码，我们可以看到function用于回调的好处，它无需改变回调的接口就可以解耦客户代码，使客户代码不必绑死在一种回调形式上，进而可以持续演化，而function始终能够保证与客户代码正确沟通。
+通过以上的示例代码，我们可以看到function用于回调的好处，**它无需改变回调的接口就可以解耦客户代码**，使客户代码不必绑死在一种回调形式上，进而可以持续演化，而function始终能够保证与客户代码正确沟通。
 
 ## signals2 
 
-signals2基于Boost的另一个库signals，实现了线程安全的观察者模式。在signals2库中，观察者模式被称为信号/插槽（signals and slots），它是一种函数回调机制，一个信号关联了多个插槽，当信号发出时，所有关联它的插槽都会被调用。
+signals2基于Boost的另一个库signals，**实现了线程安全的观察者模式**。在signals2库中，观察者模式被称为信号/插槽（`signals and slots`），它是**一种函数回调机制**，**一个信号关联了多个插槽，当信号发出时，所有关联它的插槽都会被调用**。
 
 许多成熟的软件系统都用到了这种信号/插槽机制（另一个常用的名称是事件处理机制：event/event handler），它可以很好地解耦一组互相协作的类，有的语言甚至直接内建了对它的支持（如C#）, signals2以库的形式为C++增加了这个重要的功能。
 
-signals2库位于名字空间boost::sianals2，为了使用signals2组件，需要包含头文件<boost/signals2.hpp>，即：
+signals2库位于名字空间`boost::sianals2`，为了使用signals2组件，需要包含头文件<boost/signals2.hpp>，即：
 
 ```cpp
 #include <boost/signals2.hpp>
 using namespace boost::signals2;
 ```
 
-signal的模板参数列表相当长，总共有7个参数，这里仅列出了最重要的前4个，而且除了第一个是必须的外，其他的都可以使用默认值：
+signal的模板参数列表相当长，总共有7个参数，这里仅列出了最重要的前4个，而且**除了第一个是必须的外，其他的都可以使用默认值**：
 
-- 第一个模板参数Signature的含义与function的一模一样，也是一个函数类型签名，表示可被signal调用的函数（插槽、事件处理handler）。例如：
+- 第一个模板参数Signature的含义与function的一模一样，也是一个**函数类型签名**，表示**可被signal调用的函数（插槽、事件处理handler）**。例如：
   `signal<void(int, double)>`
 - 第二个模板参数Combiner是一个函数对象，它被称为“合并器”，用来组合所有插槽的调用结果，默认是optional_last_value，它使用optional库（4.3节）返回最后一个被调用的插槽的返回值；
 - 第三个模板参数Group是插槽编组的类型，缺省使用int来标记组号，也可以改为std::string等类型，但通常没有必要；
 - 第四个模板参数GroupCompare与Group配合使用，用来确定编组的排序准则，默认是升序（std::less），因此要求Group必须定义了operator<。
   signal继承自signal_base，而signal_base又继承自noncopyable（4.1节），因此signal是不可拷贝的，如果把signal作为自定义类的成员变量，那么自定义类也将是不可拷贝的，除非使用shared_ptr来包装它。
 
-signal继承自signal_base，而signal_base又继承自noncopyable，因此signal是不可拷贝的，如果把signal作为自定义类的成员变量，那么自定义类也将是不可拷贝的，除非使用shared_ptr来包装它。
+signal继承自signal_base，而signal_base又继承自noncopyable，**因此signal是不可拷贝的**，如果把signal作为自定义类的成员变量，那么自定义类也将是不可拷贝的，**除非使用shared_ptr来包装它**。
 
 ### 操作函数 
 
-signal最重要的操作函数是插槽管理connect()函数，它把插槽连接到信号上，相当于为信号（事件）增加了一个处理的handler。
+signal最重要的操作函数是插槽管理`connect()`函数，它把插槽连接到信号上，**相当于为信号（事件）增加了一个处理的handler**。
 
 signal最重要的操作函数是插槽管理connect()插槽可以是任意的可调用对象，包括函数指针、函数对象，以及它们的bind表达式和function对象，signal内部使用function作为容器来保存这些可调用对象。连接时可以指定组号也可以不指定组号，当信号发生时将依据组号的排序准则依次调用插槽函数。
 
-如果连接成功，connect()将返回一个connection对象，表示了信号与插槽之间的连接关系，它是一个轻量级的对象，可以处理两者间的连接，如断开、重连接或者测试连接状态。
+如果连接成功，`connect()`将返回一个`connection`对象，表示了信号与插槽之间的连接关系，它是一个**轻量级的对象**，可以处理两者间的连接，如断开、重连接或者测试连接状态。
 
-成员函数disconnect()可以断开插槽与信号的连接，它有两种形式：传递组号将断开该组的所有插槽，传递一个插槽对象将仅断开该插槽。函数disconnect_all_slots()可以一次性断开信号的所有插槽连接。
+成员函数`disconnect()`可以**断开插槽与信号的连接**，它有两种形式：传递组号将断开该组的所有插槽，传递一个插槽对象将仅断开该插槽。函数`disconnect_all_slots()`可以一次性**断开信号的所有插槽连接**。
 
-当前信号所连接的插槽数量可以用num_slots()获得，成员函数empty()相当于num_slots()==0，但它的执行效率比num_slots()高。disconnect_all_slots()的后果就是令empty()返回true。
+当前信号所连接的插槽数量可以用`num_slots()`获得，**成员函数`empty()`相当于`num_slots()==0`，但它的执行效率比`num_slots()`高。**disconnect_all_slots()的后果就是令empty()返回true。
 
-signal提供operator()，可以接受最多9个参数。当operator()被外界调用时意味着产生一个信号（事件），从而导致信号所关联的所有插槽被调用。插槽调用的结果使用合并器处理后返回，默认情况下是一个optional对象。
+signal提供operator()，可以接受最多9个参数。**当operator()被外界调用时意味着产生一个信号（事件）**，从而导致信号所关联的所有插槽被调用。插槽调用的结果使用合并器处理后返回，默认情况下是一个optional对象。
 
-成员函数combiner()和set_combiner()分别用于获取和设置合并器对象，通过signal的构造函数也可以在创建的时候就传入一个合并器的实例。但通常我们可以直接使用缺省构造函数创建模板参数列表中指定的合并器对象，除非你想改用其他的合并方式。
+成员函数`combiner()`和`set_combiner()`分别用于获取和设置合并器对象，通过signal的构造函数也可以在创建的时候就传入一个合并器的实例。但通常我们可以直接使用缺省构造函数创建模板参数列表中指定的合并器对象，除非你想改用其他的合并方式。
 
-当signal析构时，将自动断开所有插槽连接，相当于调用disconnect_all_slots()。
+当`signal`析构时，将自动断开所有插槽连接，相当于调用`disconnect_all_slots()`。
 
 ### 插槽的连接与调用 
 
-signal就像是一个增强的function对象，它可以容纳（使用connect()连接）多个符合模板参数中函数签名类型的函数（插槽），形成一个插槽链表，然后在信号发生时一起调用。
+**`signal`就像是一个增强的`function`对象**，它可以容纳（使用connect()连接）多个符合模板参数中函数签名类型的函数（插槽），形成一个**插槽链表**，然后在信号发生时一起调用。
 
 例如，我们有如下两个无参的函数，它们可以被用做插槽：
 
 ```cpp
-void slots1()
-    { cout << "slot1 called" << endl; }
-    void slots2()
-    { cout << "slot2 called" << endl; }
+void slots1(){ cout << "slot1 called" << endl; }
+void slots2(){ cout << "slot2 called" << endl; }
 ```
 
 除了类名字不同，signal的声明语法与function几乎一模一样：
@@ -2008,7 +2003,7 @@ void slots1()
 signal<void()>sig;              //指定插槽类型void()，其他模板参数使用缺省值
 ```
 
-然后我们就可以使用connect()来连接插槽，最后用operator()来产生信号：
+然后我们就可以使用**connect()来连接插槽**，最后用`operator()`来产生信号：
 
 ```cpp
 int main()
@@ -2028,24 +2023,24 @@ slot1 called
 slot2 called
 ```
 
-如果在连接slots2的时候不使用缺省参数，而是明确地传入at_front位置标志，即：
+如果在连接slots2的时候**不使用缺省参数**，而是**明确地传入`at_front`位置标志**，即：
 
 ```cpp
 sig.connect(&slots2, at_front);
 ```
 
-那么slots2将在slots1之前被调用。
+那么**slots2将在slots1之前被调用**。
 
 **使用组号**
 
-connect()函数的另一个重载形式可以在连接时指定插槽所在的组号，缺省情况下组号是int类型。组号不一定要从0开始连续编号，它可以是任意的数值，离散的、负值都允许。
+`connect()`函数的另一个重载形式可以在连接时指定插槽**所在的组号**，缺省情况下组号是int类型。组号不一定要从0开始连续编号，它**可以是任意的数值**，离散的、负值都允许。
 
-如果在连接的时候指定组号，那么每个编组的插槽将是又一个插槽链表，形成一个略微有些复杂的二维链表，它们的顺序规则如下：
+如果在连接的时候指定组号，那么每个编组的插槽将是又一个插槽链表，**形成一个略微有些复杂的二维链表**，它们的顺序规则如下：
 
-- 各编组的调用顺序由组号从小到大决定（也可以在signal的第四个模板参数改变排序函数对象）；
-- 每个编组的插槽链表内部的插入顺序用at_back和at_front指定；
-- 未被编组的插槽如果位置标志是at_front，将在所有的编组之前调用；
-- 未被编组的插槽如果位置标志是at_back，将在所有的编组之后调用。
+- 各编组的调用顺序**由组号从小到大决定**（也可以在signal的第四个模板参数改变排序函数对象）；
+- 每个编组的插槽链表内部的**插入顺序用`at_back`和`at_front`指定**；
+- **未被编组**的插槽如果位置标志是`at_front`，将在**所有的编组之前调用**；
+- **未被编组**的插槽如果位置标志是`at_back`，将在**所有的编组之后调用**。
 
 我们使用一个新的函数对象slots来演示一下signal的编组，它是一个模板类：
 
@@ -2087,9 +2082,9 @@ slot1   called
 
 ### 信号的返回值 
 
-signal如function一样，不仅可以把输入参数转发给所有插槽，也可以传回插槽的返回值。默认情况下signal使用合并器optional_last_value，它将使用optional对象返回最后被调用的插槽的返回值。
+`signal`如`function`一样，不仅可以把输入参数转发给所有插槽，也**可以传回插槽的返回值**。默认情况下signal使用合并器`optional_last_value`，它将使用`optional`对象**返回最后被调用的插槽的返回值**。
 
-我们修改一下之前定义的slots模板类，为它的operator()增加参数和返回值：
+我们修改一下之前定义的`slots`模板类，为它的`operator()`增加参数和返回值：
 
 ```cpp
 template<int N>
@@ -2117,7 +2112,7 @@ sig.connect(slots<20>());
 sig.connect(slots<50>());
 ```
 
-signal的operator()调用这时需要传入一个整数参数，这个参数会被signal存储一个拷贝，然后转发给各个插槽。最后signal将返回插槽链表末尾slots<50>()的计算结果，它是一个optional对象，必须用解引用操作符＊来获得值，即：
+`signal`的`operator()`调用这时需要传入一个整数参数，**这个参数会被signal存储一个拷贝，然后转发给各个插槽。**最后signal将返回插槽链表末尾`slots<50>()`的计算结果，它是一个optional对象，必须用解引用操作符＊来获得值，即：
 
 ```cpp
 cout << *sig(2);                          //输出100
@@ -2125,9 +2120,9 @@ cout << *sig(2);                          //输出100
 
 ### 合并器 
 
-缺省的合并器optional_last_value并没有太多的意义，它通常用在我们不关心插槽返回值或者返回值是void的时候。但大多数时候，插槽的返回值都是有意义的，需要以某种方式处理多个插槽的返回值。
+缺省的合并器`optional_last_value`并没有太多的意义，它通常用在我们不关心插槽返回值或者返回值是`void`的时候。但大多数时候，插槽的返回值都是有意义的，需要以某种方式处理多个插槽的返回值。
 
-signal允许用户自定义合并器来处理插槽的返回值，把多个插槽的返回值合并为一个结果返回给用户。合并器应该是一个函数对象（不是函数或者函数指针），具有类似如下的形式：
+**`signal`允许用户自定义合并器来处理插槽的返回值**，把多个插槽的返回值合并为一个结果返回给用户。合并器应该是一个函数对象（不是函数或者函数指针），具有类似如下的形式：
 
 ```cpp
 template<typename T>
@@ -2140,9 +2135,9 @@ public:
 };
 ```
 
-combiner类的调用操作符operator()的返回值类型可以是任意类型，完全由用户指定，不一定必须是optional或者是插槽的返回值类型。operator()的模板参数InputIterator是插槽链表的返回值迭代器，可以使用它来遍历所有插槽的返回值，进行所需的处理。
+`combiner`类的调用操作符`operator()`的**返回值类型可以是任意类型，完全由用户指定**，不一定必须是`optional`或者是插槽的返回值类型。`operator()`的模板参数`InputIterator`是插槽链表的返回值迭代器，可以使用它来遍历所有插槽的返回值，进行所需的处理。
 
-作为示范，我们编写一个自定义的合并器，它使用pair返回所有插槽的返回值之和以及其中的最大值：
+作为示范，我们编写一个自定义的合并器，它使用`pair`返回所有插槽的返回值之和以及其中的最大值：
 
 ```cpp
 template<typename T>
@@ -2168,13 +2163,13 @@ class combiner
 };
 ```
 
-使用自定义合并器的时候我们需要改写signal的声明，在模板参数列表中增加第二个模板参数——合并器类型：
+使用**自定义合并器**的时候我们需要改写`signal`的声明，在模板参数列表中增加第二个模板参数——合并器类型：
 
 ```cpp
 signal<int(int), combiner<int> > sig;
 ```
 
-在这里我们没有向构造函数传递合并器的实例，因为signal的构造函数会缺省构造出一个实例，相当于：
+在这里我们没有向构造函数传递合并器的实例，**因为`signal`的构造函数**会缺省构造出一个实例，相当于：
 
 ```cpp
 signal<int(int), combiner<int> > sig(combiner<int>());
@@ -2191,7 +2186,7 @@ auto x = sig(2);                              //用auto获得信号的返回值
 cout << x.first << ", " << x.second;          //输出120,60
 ```
 
-当信号被调用时，signal会自动把解引用操作转换为插槽调用，将调用给定的合并器的operator()逐个处理插槽的返回值，并最终返回合并器operator()的结果，因此，上面的代码将输出“120,60”。
+当信号被调用时，**`signal`会自动把解引用操作转换为插槽调用**，将调用给定的合并器的operator()逐个处理插槽的返回值，并最终返回合并器operator()的结果，因此，上面的代码将输出“120,60”。
 
 如果我们不使用signal的缺省构造函数，而是在构造signal时传入一个合并器的实例，那么signal将使用这个合并器（的拷贝）处理返回值。例如，下面的代码使用了一个有初值的合并器对象，累加值从100开始：
 
@@ -2203,11 +2198,11 @@ cout << x.first << ", " << x.second;         //输出220,60
 
 ### 应用于观察者模式 
 
-本节我们将使用signals2开发一个完整的观察者模式示例程序，用来演示信号/插槽的用法。这个程序将
+本节我们将使用signals2开发一个完整的**观察者模式示例程序**，用来演示信号/插槽的用法。这个程序将
 
 模拟一个日常生活情景：客人按门铃，门铃响，护士开门，婴儿哭闹。
 
-首先我们要实现门铃类ring，它是本程序中的核心类，拥有一个signal对象，当按门铃时就会发出信号。
+首先我们要实现门铃类`ring`，它是本程序中的核心类，**拥有一个`signal`对象，当按门铃时就会发出信号**。
 
 ```cpp
 class ring
@@ -2228,14 +2223,14 @@ private:
 };
 ```
 
-我们决定采用随机数来让护士和婴儿的行为具有不确定性，这样程序会更有趣些。随机数的产生使用random库，为了方便使用我们把随机数发生器定义为全局变量：
+我们决定采用**随机数来让护士和婴儿的行为具有不确定性**，这样程序会更有趣些。随机数的产生使用random库，为了方便使用我们把随机数发生器定义为全局变量：
 
 ```cpp
 typedef variate_generator<rand48, uniform_smallint<> > bool_rand;
 bool_rand g_rand(rand48(time(0)), uniform_smallint<>(0,100));
 ```
 
-然后我们实现护士类nurse，它有一个action()函数，根据随机数决定是惊醒开门还是继续睡觉。注意：它的模板参数，使用了char const＊作为护士的名字，因此实例化时字符串必须被声明成extern:
+然后我们实现护士类nurse，它有一个`action()`函数，根据随机数决定是**惊醒开门还是继续睡觉**。注意：它的模板参数，使用了`char const＊`作为护士的名字，因此实例化时字符串必须被声明成`extern`:
 
 ```cpp
 extern char const  nurse1[] = "Mary";
@@ -2286,7 +2281,7 @@ public:
 };
 ```
 
-最后我们还需要一个客人类，它的唯一动作就是按门铃触发press事件：
+最后我们还需要一个客人类，它的**唯一动作就是按门铃触发`press`事件**：
 
 ```cpp
 class guest
@@ -2343,45 +2338,3 @@ Baby Jerry is sleeping sweetly...
 出处：https://www.cnblogs.com/chendeqiang/p/12941541.html
 
 版权：本文采用「[署名-非商业性使用-相同方式共享 4.0 国际](https://creativecommons.org/licenses/by-nc-sa/4.0/)」知识共享许可协议进行许可。
-
-
-
-分类: [C&C++](https://www.cnblogs.com/chendeqiang/category/1761487.html), [字典](https://www.cnblogs.com/chendeqiang/category/1762083.html)
-
-
-
-Sponsor
-
-- PayPal
-- AliPay
-- WeChat
-
-1
-
-0
-
-支持成功
-
-[« ](https://www.cnblogs.com/chendeqiang/p/12920146.html)上一篇： [开发经验总结](https://www.cnblogs.com/chendeqiang/p/12920146.html)
-[» ](https://www.cnblogs.com/chendeqiang/p/12941964.html)下一篇： [Windows下 gcc/g++的安装与配置](https://www.cnblogs.com/chendeqiang/p/12941964.html)
-
-posted @ 2020-05-23 11:08 [多弗朗强哥](https://www.cnblogs.com/chendeqiang/) 阅读(13) 评论(0) [编辑](https://i.cnblogs.com/EditPosts.aspx?postid=12941541) [收藏](javascript:void(0))
-
-
-
-
-
-发表评论
-
-
-
-编辑预览
-
-
-
- [退出](javascript:void(0);) [订阅评论](javascript:void(0);)
-
-[Ctrl+Enter快捷键提交]
-
-right © 2020 多弗朗强哥
-Powered by .NET Core on Kubernetes & Theme [Silence v2.0.2](https://github.com/esofar/cnblogs-theme-silence)
