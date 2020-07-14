@@ -1,3 +1,5 @@
+## ubuntu c++编程环境搭建
+
 ```bash
 sudo apt install net-tools
 sudo apt-get install openssh-server
@@ -9,7 +11,7 @@ sudo apt-get update
 sudo apt-get -f install #修复受损软件包
 ```
 
-## 修改国内源`sources.list`
+### 修改国内源`sources.list`
 
 ```bash
 vi /etc/apt/sources.list
@@ -147,9 +149,7 @@ Host 192.168.56.101
 
 add sshkey
 
-
-
-
+忘记ubuntu密码
 ```
 1. 重启 ubuntu ,等待 grub 菜单的出现。
 2.选择 recovery mode, 按 e 进入编辑界面。
@@ -158,7 +158,53 @@ add sshkey
 5.修改好文件后，输入 reboot 进行重启即可。
 ```
 
+### arm-poky-linux-gdb（ubuntu x86）
 
+```shell
+source /opt/pancake-core-sdk/environment-setup-armv7ahf-neon-poky-linux-gnueabi
+#arm-poky-linux-gdb
+/opt/pancake-core-sdk/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux/
+```
+
+### gdb（panel arm)
+
+```bash
+#cd /usr/src/linux-headers-5.3.0-62/include/linux 
+#ln -s autoconf.h config.h
+source /opt/pancake-core-sdk/environment-setup-armv7ahf-neon-poky-linux-gnueabi
+cd gdb-9.2/
+mkdir build
+cd build
+.././configure CFLAGS="-O3" CXXFLAGS="-O3" --target=arm-poky-linux-gnueabi --host=arm-linux --prefix=$SDKTARGETSYSROOT
+sudo make -j 8
+sudo make install
+sudo cp gdb/gdb $SDKTARGETSYSROOT/bin
+#copy file gdbserver & gdbreplay to panel's path (/usr/local/bin)
+arm-poky-linux-gnueabi-strip gdb
+```
+
+### gdbserver（panel arm)
+
+```bash
+source /opt/pancake-core-sdk/environment-setup-armv7ahf-neon-poky-linux-gnueabi
+cd gdb-9.2/gdb/gdbserver
+
+./configure CFLAGS="-O3" CXXFLAGS="-O3"   --host=arm-linux --prefix=$SDKTARGETSYSROOT
+sudo make -j 8
+
+arm-poky-linux-gnueabi-strip gdbserver
+arm-poky-linux-gnueabi-strip gdbreplay
+sudo make install
+
+#copy file gdbserver & gdbreplay to panel's path (/usr/local/bin)
+cd /usr/local/bin
+chmod +x gdbreplay
+chmod +x gdbserver
+```
+
+### debug(vscode)
+
+https://www.jianshu.com/p/acd6831c4b85
 
 
 
