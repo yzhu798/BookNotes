@@ -36,12 +36,12 @@ STL(标准模板库)，是目前C++内置支持的library。它的底层利用�
 
 - `string`是一个类，`char *`是指向字符的指针
 - `string`封装了`char *`,管理这个字符串，是一个`char *`类型的容器
-- `string`不用考虑内存释放和数组越界（RAII）
+- `string`不用考虑内存释放和数组越界（**RAII**）
 - `string`提供了一些列的字符串操作函数
 
 #### string的构造函数
 
-既然string是一个类，那么也就有构造函数，我们研究下string的构造函数。
+既然string是一个类，那么也就有构造函数，我们研究下`string`的构造函数。
 
 ```cpp
 #include <iostream>
@@ -97,16 +97,16 @@ int main(int argc, const char * argv[]) {
 }
 ```
 
-数组方式和at方法方式，有一个明显的不同
+数组方式和`at`方法方式，有一个明显的不同
 
-- 数组方式，如果出现越界或者其他错误，不会抛出异常，程序直接终端。
+- 数组方式，如果出现**越界或者其他错误，不会抛出异常，程序终止**。
 - **at()方法遍历，出现越界或其他错误，会抛出异常，程序可以处理异常。**
 
 迭代器其实可以看作是一个字符的指针，上个例子中`string::iterator it = str.begin()`就是定义一个string类型的迭代器，指向`str`的第一次位置。`*it`就表示当前的字符。注意`str.end()`表示字符串最后一个字符的后面一个位置。如果`it == str.end()`就表示已经遍历到终点了。
 
 #### string与char *的转换
 
-string提供了成员函数`c_str`来将string对象转化成`const char *`。string提供了`copy(buf,size,begin)`成员函数来讲string从`begin`位置开始的`size`个字符拷贝到`buf`中。需要注意的是:
+string提供了成员函数`c_str`来将string对象转化成`const char *`。**string提供了`copy(buf,size,begin)`成员函数**来讲string从`begin`位置开始的`size`个字符拷贝到`buf`中。需要注意的是:
 
 - **如果buf容纳不下，会越界**
 - 拷贝过去后，不会转变成C风格的字符串，也就是**不会在buf后面添加'\0'**
@@ -135,7 +135,7 @@ int main(int argc, const char * argv[]) {
 
 #### string的拼接
 
-string为我们提供了两种字符串拼接方式，一种是重写了 `+` 操作符，我们可以直接将连个字符串相加，类似于java的语法。另一种是string提供了成员函数`append()`供我们拼接连个字符串.
+string为我们提供了两种字符串拼接方式，一种是**重写了 `+` 操作符**，我们可以直接将连个字符串相加，类似于java的语法。另一种是string提供了**成员函数`append()`供我们拼接**连个字符串.
 
 ```cpp
 int main(int argc, const char * argv[]) {
@@ -212,14 +212,14 @@ int main(int argc, const char * argv[]) {
 
 #### string区间删除和插入
 
-string提供了`insert`和`erase`分别实现插入和删除操作。
+**`string`提供了`insert`和`erase`分别实现插入和删除操作**。
 
-插入：pos位置插入字符串s，返回新的string。
+插入：pos位置插入字符串s，返回新的`string`。
 
 - `string &insert(int pos, const char *s)`
 - `string &insert(int pos, const string &s)`
 
-插入：pos位置插入n个字符c，返回string。
+插入：pos位置插入n个字符c，返回`string`。
 
 - `string &insert(int pos, int n, char c)`
 
@@ -227,11 +227,11 @@ string提供了`insert`和`erase`分别实现插入和删除操作。
 
 - `string &erase(int pos, int n)`
 
-删除：删除指定迭代器的位置，返回当前迭代器位置
+删除：删除指定迭代器的位置，**返回当前迭代器位置**
 
 - `string::iterator erase(string::iterator it)`
 
-删除：删除迭代器之间的字符，左闭右开区间
+删除：删除迭代器之间的字符，**左闭右开**区间
 
 - `string::iterator erase(string::iterator beginIt, string::iterator endIt)`
 
@@ -263,9 +263,7 @@ int main(int argc, const char * argv[]) {
 
 #### string算法相关
 
-目前常见的string的算法是大小写转换。一般使用函数`transform`来进行转换。
-
-
+目前常见的`string`的算法是大小写转换。一般使用函数`transform`来进行转换。
 
 ```cpp
 int main(int argc, const char * argv[]) {
@@ -289,7 +287,7 @@ int main(int argc, const char * argv[]) {
 
 `vector`是将元素放到动态数组中加以管理的容器。`vector`容器可以随机存取元素，也就是说支持`[]`运算符和`at`方式存取。
 
-- `vector`在尾部添加或者移除元素非常快，在中间操作非常耗时，因为它需要移动元素
+- `vector`在尾部添加或者移除元素非常快，在**中间操作非常耗时，因为它需要移动元素**
 
 #### vector的基本用法
 
@@ -299,10 +297,8 @@ int main(int argc, const char * argv[]) {
 
 - `front()`返回头部元素的引用，可以当左值
 - `back()`返回尾部元素的引用，可以当左值
-- `push_back()`添加元素，只能尾部添加
-- `pop_back()`移除元素，只能在尾部移除
-
-
+- `push_back()`添加元素，只能**尾部添加**
+- `pop_back()`移除元素，只能在**尾部删除**
 
 ```cpp
 int main(int argc, const char * argv[]) {
@@ -348,9 +344,7 @@ int main(int argc, const char * argv[]) {
 
 #### vector的初始化
 
-vector有4种方式初始化，有直接初始化，也要通过拷贝构造函数初始化。
-
-
+**vector有4种方式初始化**，有直接初始化，也要通过拷贝构造函数初始化。
 
 ```cpp
 int main(int argc, const char * argv[]) {
@@ -383,10 +377,8 @@ vector的遍历有多种方式，可以根据`[]`或者迭代器遍历。
 需要主要的是：
 
 - `[]`方式，如果越界或出现其他错误，不会抛出异常，可能会崩溃，可能数据随机出现
-- `at`方式，如果越界或出现其他错误，会抛出异常，需要捕获异常并处理
-- 迭代器提供了逆向遍历，可以通过迭代器来实现逆向遍历，当然上面两种方式也可以
-
-
+- **`at`方式**，如果越界或出现其他错误，**会抛出异常，需要捕获异常并处理**。
+- **迭代器**提供了逆向遍历，可以通过迭代器来实现逆向遍历，当然上面两种方式也可以
 
 ```cpp
 int main(int argc, const char * argv[]) {
@@ -433,9 +425,7 @@ int main(int argc, const char * argv[]) {
 
 #### vector的push_back强化
 
-push_back是在当前vector的内存末尾拷贝元素进入容器。注意这个地方可能产生浅拷贝，所以容器中的对象要支持拷贝操作。另外，如果vector初始化了个数，而不初始化具体的值，push_back也只会在最后面追加。
-
-
+`push_back`是在当前`vector`的内存**末尾拷贝元素进入容器**。注意这个地方可能产生浅拷贝，所以容器中的对象要支持拷贝操作。另外，如果`vector`初始化了个数，而不初始化具体的值**，`push_back`也只在最后面追加**。
 
 ```cpp
 int main(int argc, const char * argv[]) {
@@ -464,11 +454,9 @@ int main(int argc, const char * argv[]) {
 
 #### vector的元素删除
 
-vector的删除，是根据位置进行删除，如果想要删除某个元素，需要找到当前元素的迭代器位置，再进行删除。
+**`vector`的删除，是根据位置进行删除**，如果想要删除某个元素，需要找到当前元素的**迭代器位置**，再进行删除。
 
-> `erase(iterator)`函数，删除后会返回当前迭代器的下一个位置。
-
-
+> `erase(iterator)`函数，**删除后会返回当前迭代器的下一个位置**。
 
 ```cpp
 int main(int argc, const char * argv[]) {
@@ -510,11 +498,7 @@ int main(int argc, const char * argv[]) {
 
 #### vector的插入元素
 
-vector提供了`insert`函数，结合迭代器位置插入指定的元素。
-
-如果迭代器位置越界，会抛出异常。
-
-
+**`vector`提供了`insert`函数**，结合迭代器位置插入指定的元素。**如果迭代器位置越界，会抛出异常**。
 
 ```cpp
 int main(int argc, const char * argv[]) {
@@ -540,20 +524,19 @@ int main(int argc, const char * argv[]) {
 
 ## STL中的deque容器
 
-deque是一个双端数组容器:可以在头部和尾部操作元素。
+**`deque`是一个双端数组容器**:可以在头部和尾部操作元素。
 
 - `push_back` 从尾部插入元素
 - `push_front` 从头部插入元素
 - `pop_back` 从尾部删除元素
 - `pop_front` 从头部删除元素
+- `front()` 引用
 
 > 知识点：
 >
-> `distance`函数可以求出当前的迭代器指针it距离头部的位置，也就是容器的指针
+> **`distance`函数**可以求出当前的**迭代器指针`it`距离头部的位置**，也就是容器的指针
 >
 > 用法: `distance(v1.begin(), it)`
-
-
 
 ```cpp
 int main(int argc, const char * argv[]) {
@@ -603,13 +586,11 @@ int main(int argc, const char * argv[]) {
 
 ## STL中的stack栈容器
 
-在数据结构中，栈是一种先入后出的容器，增加元素叫压栈或者入栈。移除元素通常叫做出栈。
+在数据结构中，**栈是一种先入后出的容器**，增加元素叫压栈或者入栈。移除元素通常叫做出栈。
 
-STL提供的stack容器，也是这种基本类型。这里我们演示一下基本元素类型和复杂元素类型。
+STL提供的`stack`容器，也是这种基本类型。这里我们演示一下基本元素类型和复杂元素类型。
 
-▽ 基础数据类型的stack
-
-
+ **基础数据类型的`stack`**
 
 ```cpp
 int main(int argc, const char * argv[]) {
@@ -639,9 +620,7 @@ int main(int argc, const char * argv[]) {
 }
 ```
 
-▽ 复杂数据类型的stack
-
-
+**复杂数据类型的`stack`**
 
 ```cpp
 //定义类
@@ -690,9 +669,8 @@ int main(int argc, const char * argv[]) {
 
 ## STL中的queue队列容器
 
-队列是一种数据结构，具备队头和队尾。常见的有FIFO（先入先出）队列等。
-
-
+> 队列是一种数据结构，具备队头和队尾。常见的有`FIFO`（先入先出）队列等。
+>
 
 ```cpp
 #include <queue>
@@ -707,15 +685,12 @@ void main()
     cout << "对头元素" << q.front() <<endl;
     cout << "队列的大小 " << q.size() <<endl;
     
-    while (!q.empty())�{
-    
+    while (!q.empty()){
         int tmp = q.front();
         cout << tmp << " ";
         q.pop();
     }
 }
-
-
 
 class Teacher
 {
@@ -723,8 +698,7 @@ public：
     int age;
     char name[32];
     
-    void printT()
-    {
+    void printT(){
         cout << "age ：" << age <<endl;
     }
 }
@@ -741,13 +715,11 @@ void main()
     q.push(t2);
     q.push(t3);
     
-    while (!q.empty())�{
-    
+    while (!q.empty()){
         Teacher tmp = q.front();
         tmp.printT();
         q.pop();
     }
-    
 }
 ```
 
@@ -755,12 +727,10 @@ void main()
 
 list容器具有如下特性：
 
-- 可以在头部和尾部插入和删除元素
-- 不能随机访问元素，也就是迭代器只能只能++,不能一次性跳转
+- **`list`可以在头部和尾部插入和删除元素**
+- 不能随机访问元素，也就是**迭代器只能`++`**,不能一次性跳转
 
 #### list的基本操作
-
-
 
 ```cpp
 int main(int argc, const char * argv[]) {
@@ -797,12 +767,10 @@ int main(int argc, const char * argv[]) {
 
 #### list的删除
 
-list提供了两个函数用来删除元素,分别是`erase`和`remove`。
+**`list`提供了两个函数用来删除元素,分别是`erase`和`remove`。**
 
-- `erase`是通过位置或者区间来删除,主要结合迭代器指针来操作
-- `remove`是通过值来删除
-
-
+- **`erase`是通过位置或者区间来删除**,主要结合迭代器指针来操作
+- **`remove`是通过值来删除**
 
 ```cpp
 int main(int argc, const char * argv[]) {
@@ -840,7 +808,7 @@ int main(int argc, const char * argv[]) {
 }
 ```
 
-## STL中的priority_queue优先级队列容器
+## STL中的`priority_queue`优先级队列容器
 
 优先级队列分为：最小值优先队列和最大值优先队列。
 
@@ -853,8 +821,6 @@ int main(int argc, const char * argv[]) {
 - `priority_queue<int, vector<int>, greater<int>>`定义int型的最小值队列
 
 上面的定义中，`less`和`greater`相当于谓词，是预定义好的排序函数，我们称之为“仿函数”。后面会介绍它的用法。
-
-
 
 ```cpp
 void main()
@@ -908,8 +874,6 @@ set提供了`insert`和`erase`函数，用来对元素进行插入和删除操�
 - pair类型类似于swift语言中的元组的概念，通过其判断是否插入成功
 - 复杂类型数据，需要通过仿函数来确定元素的顺序，进入判断是否是重复元素。在“自定义对象的排序”里面讲解。
 
-
-
 ```cpp
 void main()
 {
@@ -960,8 +924,6 @@ set容器是有序的集合，默认的顺序是从小到大的。
 
 上面的less和greater就是仿函数，集合会根据这个仿函数的返回值是否为真类进行排序。
 
-
-
 ```cpp
 //仿函数的原型，下面是C++提供的默认的greater的仿函数(删除了宏定义后的)
 struct greater
@@ -975,8 +937,6 @@ struct greater
 ```
 
 我们可以测试下，添加进set集合的元素确实是有顺的。
-
-
 
 ```cpp
 void main()
@@ -1009,8 +969,6 @@ void main()
 
 仿函数，之所以叫仿函数，是因为它跟函数很像，但并不是一个函数。它的结果如下，只要我们实现了这个仿函数，我们也可以对自定义对象进行排序。
 
-
-
 ```swift
 //定义仿函数的结构体
 struct FunctionName
@@ -1031,8 +989,6 @@ struct FunctionName
 下面，我们自定义一个Student对象，根据年龄进行排序，将对象加入到set集合中，并进行打印。
 
 > 如果仿函数实现了根据年龄进行排序，因为set是元素唯一的，所以在插入对象的时候，如果年龄是重复的，则插入不进去了。
-
-
 
 ```cpp
 //定义student对象
@@ -1097,8 +1053,6 @@ pair类型，就类似于Swift语言中的“元组”的概念，这个类型�
 
 我们来看一下pair类型的定义它实际上是一个结构体。它包含了两个属性，`first`和`second`。
 
-
-
 ```cpp
 template <class _T1, class _T2>
 struct pair
@@ -1113,15 +1067,11 @@ struct pair
 
 上面的例子中，我们知道set集合中的元素是唯一的，重复的元素插入会失败。如果判断是否插入成功，我们可以通过`insert`函数的返回值来判断，它的返回值是一个`pair`类型。我们来看一下`insert`函数的原型:
 
-
-
 ```cpp
 pair<iterator,bool> insert(const value_type& __v)
 ```
 
 返回的是`pair<iterator, bool>`类型，pair的第一个属性表示当前插入的迭代器的位置，第二个属性表示插入是否成功的bool值。所以，我们可以通过第二个属性来判断元素是否插入成功。
-
-
 
 ```cpp
 //pair的使用判断set的insert函数的返回值
@@ -1154,8 +1104,6 @@ set容器提供了多个函数用来查找元素
 - `iterator lower_bound(const key_type& __k)` lower_bound函数查找小于等于元素k的迭代器位置
 - `iterator upper_bound(const key_type& __k)` upper_bound函数查找大于元素k的迭代器位置
 - `pair<iterator,iterator> equal_range(const key_type& __k)` equal_range函数返回一个pair类型，第一个属性表示大于等于k的迭代器位置，第二个是大于k的迭代器位置
-
-
 
 ```cpp
 void test4()
@@ -1195,8 +1143,6 @@ void test4()
 #### multiset容器
 
 multiset容器，与set容器相似，但是multiset容器中的元素可以重复。另外，他也是自动排序的，容器内部的值不能随便修改，因为有顺序的。
-
-
 
 ```cpp
 void test5()
@@ -1249,8 +1195,6 @@ map的insert函数返回的是pair类型，pair的第二个参数表示是否插
 
 map元素的删除，跟上面其他的容器一样，都是直接调用erase函数.
 
-
-
 ```cpp
 int main()
 {
@@ -1300,8 +1244,6 @@ int main()
 
 map提供了两个函数进行key的查找：find和equal_range。
 
-
-
 ```cpp
 int main()
 {
@@ -1343,8 +1285,6 @@ int main()
 multimap容器，与map容器的唯一区别是：multimap支持多个键值。
 
 由于支持多个键值，multimap提供了cout函数来计算同一个key的元素个数。
-
-
 
 ```cpp
 class Person {
@@ -1445,8 +1385,6 @@ int main(int argc, const char * argv[]) {
 
 下面，我们演示一下，如果容器元素如果没有实现拷贝构造函数，出现浅拷贝后的崩溃问题。
 
-
-
 ```cpp
 #include <iostream>
 #include <string>
@@ -1499,8 +1437,6 @@ int main()
 
 上面的代码段，运行后的结果如下：
 
-
-
 ```undefined
 构造函数
 0x100302a00 指向的空间 调用析构函数
@@ -1510,8 +1446,6 @@ int main()
 运行后，打印出结果后并报错。报错原因是同一个内存空间被释放了2次，导致的崩溃。其根本原因是,v1将s1拷贝到容器，由于Student没有重写拷贝构造函数，从而出现了浅拷贝，只拷贝了地址。释放的时候毫无疑问出现错误。
 
 如果我们给Student重写了拷贝构造函数和重载了等号操作符，则上面的错误就不会出现。
-
-
 
 ```cpp
 //重写拷贝构造函数
@@ -1553,8 +1487,6 @@ STL提供了很多容器，每种容器有其自身的特点，我们该如何�
 | 随机存取 |    是    |       是 |       否 |     否 |       否 | 对key而言是 |          否 |
 | 查找速度 |    慢    |       慢 |   非常慢 |     快 |       快 | 对key而言快 | 对key而言快 |
 | 插入删除 |   尾端   | 头尾两端 | 任何位置 |      - |        - |           - |          $1 |
-
-
 
 作者：一月二十三
 链接：https://www.jianshu.com/p/497843e403b4
