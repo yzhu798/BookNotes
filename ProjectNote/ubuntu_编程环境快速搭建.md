@@ -33,19 +33,19 @@ deb http://security.ubuntu.com/ubuntu xenial-security main
 # deb-src http://security.ubuntu.com/ubuntu xenial-security main
 ```
 
-## 编译环境
+### 编译环境
 
 ```bash
 sudo apt install cmake git cmake-gui build-essential 
 ```
 
-## opencv
+### opencv
 
 ```bash
 sudo apt install libgtk2.0-dev libavcodec-dev libavformat-dev libjpeg-dev libswscale-dev libtiff5-dev pkg-config
 ```
 
-## boost
+### boost
 
 ```bash
 sudo apt-get install libboost-all-dev 
@@ -56,7 +56,7 @@ bootstrap gcc
 b2 -j8 install --prefix=c:\boost_1_73_0\mingW64  --build-dir=.\tmp --build-type=complete threading=multi link=shared address-model=64 toolset=gcc stage
 ```
 
-## 安装Visual Studio Code
+### 安装Visual Studio Code
 
 ```bash
 sudo add-apt-repository ppa:ubuntu-desktop/ubuntu-make
@@ -65,13 +65,13 @@ sudo apt-get install ubuntu-make
 umake ide visual-studio-code
 ```
 
-## Qt5
+### Qt5
 
 ```bash
 sudo apt-get install  qt5-default qtcreator
 ```
 
-## opencv for MingW64
+### opencv for MingW64
 
 ```powershell
 cd opencv-4.3.0
@@ -82,9 +82,7 @@ cmake.exe -G "MinGW Makefiles" -D CMAKE_BUILD_TYPE=Release  -D CMAKE_INSTALL_PRE
 mingw32-make -j 8
 ```
 
-
-
-## opencv for ubuntu
+### opencv for ubuntu
 
 ```bash
 cd opencv-4.3.0
@@ -104,7 +102,7 @@ sudo cmake -D CMAKE_BUILD_TYPE=Release \
 make -j 8
 ```
 
-## opencv  for Panel
+### opencv  for Panel
 
 ```bash
 source /opt/pancake-core-sdk/environment-setup-armv7ahf-neon-poky-linux-gnueabi 
@@ -115,7 +113,7 @@ cmake -D CMAKE_BUILD_TYPE=Release -D CMAKE_INSTALL_PREFIX=$SDKTARGETSYSROOT -DCM
 make -j 8
 ```
 
-## googleTest
+### googleTest
 
 ```bash
 sudo apt-get install libssl-dev uuid-dev libmosquitto-dev libgtest-dev
@@ -123,7 +121,7 @@ sudo apt-get install mosquitto
 sudo apt-get install lcov
 ```
 
-## Vscode Remote-ssh
+### Vscode Remote-ssh
 
 ```bash
 cd ~
@@ -142,14 +140,59 @@ Host 192.168.56.101
   IdentityFile  .\id_rsa-remote-ssh
 ```
 
-## Git Graph
+### Git Graph
 
-## 配置git server（公钥）
+### 配置git server（公钥）
 
+### 添加用户
 
-add sshkey
+```bash
+sudo adduser test
+```
 
-忘记ubuntu密码
+### 共享盘 `/home/disk_500G`
+
+```bash
+sudo chown 用户名:用户名 -R /home/disk_500G/XXX
+sudo chmod -R o=- /home/disk_500G/XXX # 仅自己可访问XXX目录
+```
+
+### bitbucket配置ssh
+
+```bash
+cd ~
+ssh-keygen -t rsa -C "yzhu798@XX.com" -f id_rsa_bitbucket
+mv id_rsa_bitbucket* .ssh
+cd .ssh
+cat id_rsa_bitbucket.pub #拷贝并添加至bitbucket
+rm id_rsa_bitbucket.pub  #删除公钥
+sudo chmod -R o=- ~ # 仅自己可访问自己目录
+```
+
+### 配置windows的ssh登陆
+
+```bash
+cd ~
+ssh-keygen  -f id_rsa_remote_ssh
+mv id_rsa_remote_ssh* .ssh
+cd .ssh
+cat id_rsa_remote_ssh.pub >> authorized_keys
+cat id_rsa_remote_ssh #拷贝至 windows 下.ssh内.\id_rsa_remote_ssh
+```
+
+### Vscode安装remote-ssh配置
+
+**config**
+
+```bash
+Host 1.1.1.1
+  HostName 1.1.1.1
+  User hu ##修改为你的用户名
+  IdentityFile  .\id_rsa_remote_ssh
+```
+
+### 忘记ubuntu密码
+
 ```
 1. 重启 ubuntu ,等待 grub 菜单的出现。
 2.选择 recovery mode, 按 e 进入编辑界面。
@@ -158,7 +201,9 @@ add sshkey
 5.修改好文件后，输入 reboot 进行重启即可。
 ```
 
-### arm-poky-linux-gdb（ubuntu x86）
+## GDB
+
+## arm-poky-linux-gdb（ubuntu x86）
 
 ```shell
 source /opt/pancake-core-sdk/environment-setup-armv7ahf-neon-poky-linux-gnueabi
@@ -166,7 +211,7 @@ source /opt/pancake-core-sdk/environment-setup-armv7ahf-neon-poky-linux-gnueabi
 /opt/pancake-core-sdk/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux/
 ```
 
-### gdb（panel arm)
+## gdb（panel arm)
 
 ```bash
 #cd /usr/src/linux-headers-5.3.0-62/include/linux 
@@ -183,7 +228,7 @@ sudo cp gdb/gdb $SDKTARGETSYSROOT/bin
 arm-poky-linux-gnueabi-strip gdb
 ```
 
-### gdbserver（panel arm)
+## gdbserver（panel arm)
 
 ```bash
 source /opt/pancake-core-sdk/environment-setup-armv7ahf-neon-poky-linux-gnueabi
@@ -201,10 +246,5 @@ cd /usr/local/bin
 chmod +x gdbreplay
 chmod +x gdbserver
 ```
-
-### debug(vscode)
-
-https://www.jianshu.com/p/acd6831c4b85
-
 
 
