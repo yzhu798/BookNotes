@@ -203,7 +203,7 @@ Host 1.1.1.1
 
 ## GDB
 
-## arm-poky-linux-gdb（ubuntu x86）
+### arm-poky-linux-gdb（ubuntu x86）
 
 ```shell
 source /opt/pancake-core-sdk/environment-setup-armv7ahf-neon-poky-linux-gnueabi
@@ -211,7 +211,7 @@ source /opt/pancake-core-sdk/environment-setup-armv7ahf-neon-poky-linux-gnueabi
 /opt/pancake-core-sdk/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux/
 ```
 
-## gdb（panel arm)
+### gdb（panel arm)
 
 ```bash
 #cd /usr/src/linux-headers-5.3.0-62/include/linux 
@@ -228,7 +228,7 @@ sudo cp gdb/gdb $SDKTARGETSYSROOT/bin
 arm-poky-linux-gnueabi-strip gdb
 ```
 
-## gdbserver（panel arm)
+### gdbserver（panel arm)
 
 ```bash
 source /opt/pancake-core-sdk/environment-setup-armv7ahf-neon-poky-linux-gnueabi
