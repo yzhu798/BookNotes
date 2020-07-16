@@ -82,8 +82,6 @@ cmake.exe -G "MinGW Makefiles" -D CMAKE_BUILD_TYPE=Release  -D CMAKE_INSTALL_PRE
 mingw32-make -j 8
 ```
 
-
-
 ## opencv for ubuntu
 
 ```bash
@@ -202,9 +200,59 @@ chmod +x gdbreplay
 chmod +x gdbserver
 ```
 
-### debug(vscode)
+### 服务器ip 
 
-https://www.jianshu.com/p/acd6831c4b85
+### test用户
 
+```bash
+test   #用户名
+!QAZ2wsx #密码
+```
 
+### 添加用户
+
+```bash
+sudo adduser test
+```
+
+### 共享盘 `/home/disk_500G`
+
+```bash
+sudo chown 用户名:用户名 -R /home/disk_500G/XXX
+sudo chmod -R o=- /home/disk_500G/XXX # 仅自己可访问XXX目录
+```
+
+### bitbucket配置ssh
+
+```bash
+cd ~
+ssh-keygen -t rsa -C "yzhu798@XX.com" -f id_rsa_bitbucket
+mv id_rsa_bitbucket* .ssh
+cd .ssh
+cat id_rsa_bitbucket.pub #拷贝并添加至bitbucket
+rm id_rsa_bitbucket.pub  #删除公钥
+sudo chmod -R o=- ~ # 仅自己可访问自己目录
+```
+
+### 配置windows的ssh登陆
+
+```bash
+cd ~
+ssh-keygen  -f id_rsa_remote_ssh
+mv id_rsa_remote_ssh* .ssh
+cd .ssh
+cat id_rsa_remote_ssh.pub >> authorized_keys
+cat id_rsa_remote_ssh #拷贝至 windows 下.ssh内.\id_rsa_remote_ssh
+```
+
+### Vscode安装remote-ssh配置
+
+**config**
+
+```bash
+Host 1.1.1.1
+  HostName 1.1.1.1
+  User hu ##修改为你的用户名
+  IdentityFile  .\id_rsa_remote_ssh
+```
 
