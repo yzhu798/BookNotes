@@ -101,12 +101,12 @@ forward_list（单向链表）是序列容器，允许在序列中的任何地�
 | empty() | 测试forward_list容器是否为空 |
 | front() | 返回forward_list容器**第一个元素的引用**，返回值类型为reference/const_reference。 |
 | assign() | 为forward_list容器分配新的内容，以代替其原来的内容，并且随之修改容器的大小。 |
-| emplace_front() | 在forward_list容器**第一个元素前插入**一个元素，这个元素被它自身的构造函数构造。 |
+| `emplace_front()` | 在forward_list容器**第一个元素前插入**一个元素，这个元素被它自身的构造函数构造。 |
 | push_front() | 在forward_list容器第一个元素前插入一个元素。 |
 | clear() | 删除容器forward_list中的所有元素。 |
 | remove() | 删除容器中所有等于指定值的元素。 |
-| unique() | 删除容器中所有相同或满足给定条件的元素，只保留第一个。调用函数前，容器有序。 |
-| merge() | 将两个forward_list容器合并，调用函数前，容器有序。 |
+| `unique()` | 删除容器中所有相同或满足给定条件的元素，只保留第一个。调用函数前，容器有序。 |
+| `merge()` | 将两个forward_list容器合并，调用函数前，容器有序。 |
 | reverse() | 反转容器中元素的存储位置 |
 | sort() | 排序 |
 
