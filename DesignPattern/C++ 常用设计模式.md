@@ -871,188 +871,78 @@ int main(){
 }
 ```
 
-## 9、建造者模式(Builder)
+## ~~9、建造者模式(Builder)~~
 
-建造者模式：将复杂对象的构建和其表示分离，使得相同的构建过程可以产生不同的表示。
+**建造者模式：将复杂对象的构建和其表示分离，使得相同的构建过程可以产生不同的表示**。
 
 以下情形可以考虑使用建造者模式：
 
 - 对象的创建复杂，但是其各个部分的子对象创建算法一定。
-- 需求变化大，构造复杂对象的子对象经常变化，但将其组合在一起的算法相对稳定。
+- 需求变化大，**构造复杂对象的子对象经常变化，但将其组合在一起的算法相对稳定**。
 
 建造者模式的优点：
 
-- 将对象的创建和表示分离，客户端不需要了解具体的构建细节。
+- **将对象的创建和表示分离，客户端不需要了解具体的构建细节**。
 - 增加新的产品对象时，只需要增加其具体的建造类即可，不需要修改原来的代码，扩展方便。
 
 产品之间差异性大，内部变化较大、较复杂时不建议使用建造者模式。
 
 ```cpp
-/*
-*关键代码：建造者类：创建和提供实例； Director类：管理建造出来的实例的依赖关系。
-*/
+class House{
+    //....
+};
+class StoneHouse: public House{};
 
-#include <iostream>
-#include <string>
-
-using namespace std;
-
-//具体的产品类
-class Order
-{
+class HouseBuilder {
 public:
-    void setFood(const string& food)
-    {
-        m_strFood = food;
-    }
-
-    const string& food()
-    {
-        cout << m_strFood.data() << endl;
-        return m_strFood;
-    }
-    
-    void setDrink(const string& drink)
-    {
-        m_strDrink = drink;
-    }
-
-    const string& drink()
-    {
-        cout << m_strDrink << endl;
-        return m_strDrink;
-    }
-
-private:
-    string m_strFood;
-    string m_strDrink;
+    House* GetResult(){ return pHouse;  }
+    virtual ~HouseBuilder(){}
+protected:
+    House* pHouse;
+    virtual void BuildPart1()=0;
+    virtual void BuildPart2()=0;
+    virtual void BuildPart3()=0;
+};
+//建造者类：创建和提供实例；
+class StoneHouseBuilder: public HouseBuilder{
+protected:
+    virtual void BuildPart1(){/* pHouse->Part1 = ...;*/}
+    virtual void BuildPart2(){}
+    virtual void BuildPart3(){}
 };
 
-//抽象建造类，提供建造接口。
-class OrderBuilder
-{
+// Director类：管理建造出来的实例的依赖关系。
+
+class HouseDirector{
 public:
-    virtual ~OrderBuilder()
-    {
-        cout << "~OrderBuilder()" << endl;
+    HouseBuilder* pHouseBuilder;
+
+    HouseDirector(HouseBuilder* pHouseBuilder){
+        this->pHouseBuilder=pHouseBuilder;
     }
-    virtual void setOrderFood() = 0;
-    virtual void setOrderDrink() = 0;
-    virtual Order* getOrder() = 0;
+
+    House* Construct(){
+        pHouseBuilder->BuildPart1();
+        for (int i = 0; i < 4; i++){
+            pHouseBuilder->BuildPart2();
+        }
+        bool flag=pHouseBuilder->BuildPart3();
+        if(flag){
+            pHouseBuilder->BuildPart4();
+        }
+        pHouseBuilder->BuildPart5();
+        return pHouseBuilder->GetResult();
+    }
 };
-
-//具体的建造类
-class VegetarianOrderBuilder : public OrderBuilder 
-{
-public:
-    VegetarianOrderBuilder()
-    {
-        m_pOrder = new Order;
-    }
-
-    ~VegetarianOrderBuilder()
-    {
-        cout << "~VegetarianOrderBuilder()" << endl;
-        delete m_pOrder;
-        m_pOrder = nullptr;
-    }
-
-    void setOrderFood() override
-    {
-        m_pOrder->setFood("vegetable salad");
-    }
-
-    void setOrderDrink() override
-    {
-        m_pOrder->setDrink("water");
-    }
-
-    Order* getOrder() override
-    {
-        return m_pOrder;
-    }
-
-private:
-    Order* m_pOrder;
-};
-
-//具体的建造类
-class MeatOrderBuilder : public OrderBuilder
-{
-public:
-    MeatOrderBuilder()
-    {
-        m_pOrder = new Order;
-    }
-    ~MeatOrderBuilder()
-    {
-        cout << "~MeatOrderBuilder()" << endl;
-        delete m_pOrder;
-        m_pOrder = nullptr;
-    }
-
-    void setOrderFood() override
-    {
-        m_pOrder->setFood("beef");
-    }
-
-    void setOrderDrink() override
-    {
-        m_pOrder->setDrink("beer");
-    }
-
-    Order* getOrder() override
-    {
-        return m_pOrder;
-    }
-
-private:
-    Order* m_pOrder;
-};
-
-//Director类，负责管理实例创建的依赖关系，指挥构建者类创建实例
-class Director
-{
-public:
-    Director(OrderBuilder* builder) : m_pOrderBuilder(builder)
-    {
-    }
-    void construct()
-    {
-        m_pOrderBuilder->setOrderFood();
-        m_pOrderBuilder->setOrderDrink();
-    }
-
-private:
-    OrderBuilder* m_pOrderBuilder;
-};
-
-
-int main()
-{
-//  MeatOrderBuilder* mBuilder = new MeatOrderBuilder;
-    OrderBuilder* mBuilder = new MeatOrderBuilder;  //注意抽象构建类必须有虚析构函数，解析时才会                                                      调用子类的析构函数
-    Director* director = new Director(mBuilder);
-    director->construct();
-Order* order = mBuilder->getOrder();
-order->food();
-order->drink();
-
-delete director;
-director = nullptr;
-
-delete mBuilder;
-mBuilder = nullptr;
-
-return 0;
-}
 ```
 
 ## 10、适配器模式(Adapter)
 
-适配器模式可以将一个类的接口转换成客户端希望的另一个接口，使得原来由于接口不兼容而不能在一起工作的那些类可以在一起工作。通俗的讲就是当我们已经有了一些类，而这些类不能满足新的需求，此时就可以考虑是否能将现有的类适配成可以满足新需求的类。适配器类需要继承或依赖已有的类，实现想要的目标接口。
+适配器模式可以将一个类的接口转换成客户端希望的另一个接口，**使得原来由于接口不兼容而不能在一起工作的那些类可以在一起工作**。通俗的讲就是当我们已经有了一些类，而这些类不能满足新的需求，此时就可以考虑是否能将现有的类适配成可以满足新需求的类。适配器类需要继承或依赖已有的类，实现想要的目标接口。
 
-缺点：过多地使用适配器，会让系统非常零乱，不易整体进行把握。比如，明明看到调用的是 A 接口，其实内部被适配成了 B 接口的实现，一个系统如果太多出现这种情况，无异于一场灾难。因此如果不是很有必要，可以不使用适配器，而是直接对系统进行重构。
+**缺点：过多地使用适配器，会让系统非常零乱，不易整体进行把握**。比如，明明看到调用的是 A 接口，其实内部被适配成了 B 接口的实现，一个系统如果太多出现这种情况，无异于一场灾难。
+
+**因此如果不是很有必要，可以不使用适配器，而是直接对系统进行重构**。
 
 ### 9.1、使用复合实现适配器模式
 
@@ -1194,7 +1084,7 @@ public:
 
 ## 11、桥接模式(Bridge)
 
-桥接模式：将抽象部分与实现部分分离，使它们都可以独立变换。
+**桥接模式：将抽象部分与实现部分分离，使它们都可以独立变换。**
 
 以下情形考虑使用桥接模式：
 
@@ -1218,16 +1108,14 @@ public:
 using namespace std;
 
 //抽象App类，提供接口
-class App
-{
+class App{
 public:
     virtual ~App(){ cout << "~App()" << endl; }
     virtual void run() = 0;
 };
 
 //具体的App实现类
-class GameApp:public App
-{
+class GameApp:public App{
 public:
     void run()
     {
@@ -1236,47 +1124,39 @@ public:
 };
 
 //具体的App实现类
-class TranslateApp:public App
-{
+class TranslateApp:public App{
 public:
-    void run()
-    {
+    void run(){
         cout << "TranslateApp Running" << endl;
     }
 };
 
 //抽象手机类，提供接口
-class MobilePhone
-{
+class MobilePhone{
 public:
     virtual ~MobilePhone(){ cout << "~MobilePhone()" << endl;}
     virtual void appRun(App* app) = 0;  //实现App与手机的桥接
 };
 
 //具体的手机实现类
-class XiaoMi:public MobilePhone
-{
+class XiaoMi:public MobilePhone{
 public:
-    void appRun(App* app)
-    {
+    void appRun(App* app){
         cout << "XiaoMi: ";
         app->run();
     }
 };
 
 //具体的手机实现类
-class HuaWei:public MobilePhone
-{
+class HuaWei:public MobilePhone{
 public:
-    void appRun(App* app)
-    {
+    void appRun(App* app){
         cout << "HuaWei: ";
         app->run();
     }
 };
 
-int main()
-{
+int main(){
     App* gameApp = new GameApp;
     App* translateApp = new TranslateApp;
     MobilePhone* mi = new XiaoMi;
@@ -1288,12 +1168,7 @@ int main()
 
     delete hua;
     hua = nullptr;
-    delete mi;
-    mi = nullptr;
-    delete gameApp;
-    gameApp = nullptr;
-    delete translateApp;
-    translateApp = nullptr;
+    ...
 
     return 0;
 }
@@ -1301,7 +1176,7 @@ int main()
 
 ## 12、装饰模式(Decorator)
 
-装饰模式：动态地给一个对象添加一些额外的功能，它是通过创建一个包装对象，也就是装饰来包裹真实的对象。新增加功能来说，装饰器模式比生产子类更加灵活。
+装饰模式：**动态地给一个对象添加一些额外的功能，它是通过创建一个包装对象，也就是装饰来包裹真实的对象**。新增加功能来说，装饰器模式比生产子类更加灵活。
 
 以下情形考虑使用装饰模式：
 
@@ -1311,131 +1186,16 @@ int main()
 - 当不能采用生成子类的方法进行扩充时。一种情况是，可能有大量独立的扩展，为支持每一种组合将产生大量的子类，使得子类数目呈爆炸性增长。另一种情况可能是因为类定义被隐藏，或类定义不能用于生成子类。
 
 ```cpp
-/*
-* 关键代码：1、Component 类充当抽象角色，不应该具体实现。 2、修饰类引用和继承 Component 类，具体扩展类重写父类方法。
-*/
-#include <iostream>
-
-using namespace std;
-
-//抽象构件（Component）角色：给出一个抽象接口，以规范准备接收附加责任的对象。
-class Component
-{
-public:
-    virtual ~Component(){}
-
-    virtual void configuration() = 0;
-};
-
-//具体构件（Concrete Component）角色：定义一个将要接收附加责任的类。
-class Car : public Component
-{
-public:
-    void configuration() override
-    {
-        cout << "A Car" << endl;
-    }
-};
-
-//装饰（Decorator）角色：持有一个构件（Component）对象的实例，并实现一个与抽象构件接口一致的接口。
-class DecorateCar : public Component
-{
-public:
-    DecorateCar(Component* car) : m_pCar(car){}
-
-    void configuration() override
-    {
-        m_pCar->configuration();
-    }
-
-private:
-    Component* m_pCar;
-};
-
-//具体装饰（Concrete Decorator）角色：负责给构件对象添加上附加的责任。
-class DecorateLED : public DecorateCar
-{
-public:
-    DecorateLED(Component* car) : DecorateCar(car){}
-
-    void configuration() override
-    {
-        DecorateCar::configuration();
-        addLED();
-    }
-
-private:
-    void addLED()
-    {
-        cout << "Install LED" << endl;
-    }
-
-};
-
-//具体装饰（Concrete Decorator）角色：负责给构件对象添加上附加的责任。
-class DecoratePC : public DecorateCar
-{
-public:
-    DecoratePC(Component* car) : DecorateCar(car){}
-
-    void configuration() override
-    {
-        DecorateCar::configuration();
-        addPC();
-    }
-
-private:
-    void addPC()
-    {
-        cout << "Install PC" << endl;
-    }
-};
-
-//具体装饰（Concrete Decorator）角色：负责给构件对象添加上附加的责任。
-class DecorateEPB : public DecorateCar
-{
-public:
-    DecorateEPB(Component* car) : DecorateCar(car){}
-
-    void configuration() override
-    {
-        DecorateCar::configuration();
-        addEPB();
-    }
-
-private:
-    void addEPB()
-    {
-        cout << "Install Electrical Park Brake" << endl;
-    }
-};
-
-int main()
-{
-    Car* car = new Car;
-    DecorateLED* ledCar = new DecorateLED(car);
-    DecoratePC* pcCar = new DecoratePC(ledCar);
-    DecorateEPB* epbCar = new DecorateEPB(pcCar);
-
-    epbCar->configuration();
-
-    delete epbCar;
-    epbCar = nullptr;
-
-    delete pcCar;
-    pcCar = nullptr;
-
-    delete ledCar;
-    ledCar = nullptr;
-
-    delete car;
-    car = nullptr;
-
-    return 0;
+void Process(){
+    //运行时装配
+    FileStream* s1 =new FileStream();
+    CryptoStream* s2 = new CryptoStream(s1);
+    BufferedStream* s3 = new BufferedStream(s1);
+    BufferedStream* s4 = new BufferedStream(s2);
 }
 ```
 
-## 13、中介者模式(Mediator)
+## ~~13、中介者模式(Mediator)~~
 
 中介者模式：用一个中介对象来封装一系列的对象交互，中介者使各对象不需要显示地相互引用，从而使其耦合松散，而且可以独立地改变它们之前的交互。
 
@@ -1575,7 +1335,7 @@ int main()
 }
 ```
 
-## 14、备忘录模式(Memento)
+## ~~14、备忘录模式(Memento)~~
 
 备忘录模式：在不破坏封装性的前提下，捕获一个对象的内部状态，并在该对象之外保存这个状态。这样以后就可以将该对象恢复到原来保存的状态。
 
