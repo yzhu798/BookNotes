@@ -467,6 +467,7 @@ private:
     
     //前序遍历序列{3,9,20,15,7}
     //中序遍历序列{9,3,15,20,7}
+    //后序遍历序列{9,15,7,20,3}
     //        3
     //       / \
     //     9    20
@@ -529,6 +530,57 @@ void PostorderTraverse(TreeNode *pRoot) //后序遍历
     std::cout << pRoot->val << " ";
 }
 ```
+
+```cpp
+//        3
+//       / \
+//     9    20
+//    / \   / \
+//   N   N 15  7
+//前序遍历序列{3,9,20,15,7}
+//中序遍历序列{9,3,15,20,7}
+//后续遍历序列{9,15,7,20,3}
+//更简单的非递归前序遍历       根，左，右 用栈（反序）
+void preorderTraversalNew(TreeNode *root, std::vector<int> &path)
+{
+    std::stack<std::pair<TreeNode *, bool> > tmpStack;
+    bool isVisited = false;
+    tmpStack.push(make_pair(root, isVisited));
+
+    while(!tmpStack.empty())
+    {
+        root = tmpStack.top().first;
+        isVisited = tmpStack.top().second;
+        tmpStack.pop();
+        if(root == nullptr)
+            continue;
+        if(isVisited)
+        {
+            path.push_back(root->val);
+        }
+        else//用栈（反序）
+        {
+//            //前序
+//            tmpStack.push(make_pair(root->right, false));      //右
+//            tmpStack.push(make_pair(root->left, false));       //左
+//            tmpStack.push(make_pair(root, true));              //根
+
+//            //中序
+//            tmpStack.push(make_pair(root->right, false));      //右
+//            tmpStack.push(make_pair(root, true));              //根
+//            tmpStack.push(make_pair(root->left, false));       //左
+
+            //后序
+            tmpStack.push(make_pair(root, true));              //根
+            tmpStack.push(make_pair(root->right, false));      //右
+            tmpStack.push(make_pair(root->left, false));       //左
+        }
+    }
+}
+
+```
+
+
 
 # [二叉树的下一个结点](https://www.nowcoder.com/practice/9023a0c988684a53960365b889ceaf5e?tpId=13&tqId=11210&tPage=3&rp=3&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
@@ -1590,6 +1642,41 @@ public:
     
 };
 ```
+
+```cpp
+struct TreeNode{
+    int val;
+    TreeNode *left;
+    TreeNode *right;
+    TreeNode(int value):val(value),left(nullptr),right(nullptr){}
+};
+void LevelOrder(TreeNode *T)
+{
+    std::queue<TreeNode*> tmpQueue;          
+
+    if (T == nullptr){
+        return;
+    }
+    tmpQueue.push(T);
+
+
+    TreeNode *tmpNode = new TreeNode(-1);    
+    while (!tmpQueue.empty())
+    {
+        tmpNode = tmpQueue.front();
+        cout << tmpNode->val<<" ";
+        tmpQueue.pop();
+        if (tmpNode->left){
+            tmpQueue.push(tmpNode->left);
+        }
+        if (tmpNode->right){
+            tmpQueue.push(tmpNode->right);
+        }
+    }
+}
+```
+
+
 
 # [二叉搜索树的后序遍历序列](https://www.nowcoder.com/practice/a861533d45854474ac791d90e447bafd?tpId=13&tqId=11176&tPage=2&rp=2&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
