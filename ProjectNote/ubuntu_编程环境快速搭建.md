@@ -96,6 +96,9 @@ mkdir release && cd release
 
 cmake.exe -G "MinGW Makefiles" -D CMAKE_BUILD_TYPE=Release  -D CMAKE_INSTALL_PREFIX= C:\\opencv4.3\\mingw81_64  -D CMAKE_PREFIX_PATH= D:\\Qt\\5.15.0\\mingw81_64\\lib\\cmake\\Qt5  -D WITH_TBB=ON  -D WITH_V4L=ON  -D WITH_QT=ON  -D WITH_GTK=ON  -D WITH_OPENGL=ON  -D WITH_VTK=ON  -D OPENCV_GENERATE_PKGCONFIG=YES ..
 
+
+cmake.exe -G "MinGW Makefiles" -DOPENCV_EXTRA_MODULES_PATH= D:\\opencv_contrib-4.3.0\\modules D:\\opencv-4.3.0 -D CMAKE_BUILD_TYPE=Release  -D CMAKE_INSTALL_PREFIX= C:\\opencv4.3\\mingw81_64  -D CMAKE_PREFIX_PATH= D:\\Qt\\5.15.0\\mingw81_64\\lib\\cmake\\Qt5  -D WITH_TBB=ON  -D WITH_V4L=ON  -D WITH_QT=ON  -D WITH_GTK=ON  -D WITH_OPENGL=ON  -D WITH_VTK=ON  -D OPENCV_GENERATE_PKGCONFIG=YES ..
+
 mingw32-make -j 8
 ```
 
@@ -105,7 +108,7 @@ mingw32-make -j 8
 cd opencv-4.3.0
 mkdir release && cd release
 
-sudo cmake -D CMAKE_BUILD_TYPE=Release \
+sudo cmake -DOPENCV_EXTRA_MODULES_PATH=~/opencv_contrib-4.3.0/modules ~/opencv-4.3.0 -D CMAKE_BUILD_TYPE=Release \
 -D CMAKE_INSTALL_PREFIX=/usr/local \
 -D CMAKE_PREFIX_PATH=/usr/lib/x86_64-linux-gnu/cmake/Qt5 \
 -D WITH_TBB=ON \
@@ -126,8 +129,14 @@ source /opt/pancake-core-sdk/environment-setup-armv7ahf-neon-poky-linux-gnueabi
 cd ~/opencv-4.3.0/platforms/linux
 mkdir -p build_arm
 cd build_arm
-cmake -D CMAKE_BUILD_TYPE=Release -D CMAKE_INSTALL_PREFIX=$SDKTARGETSYSROOT -DCMAKE_TOOLCHAIN_FILE=../arm-gnueabi.toolchain.cmake ../../..
+
+cmake -DOPENCV_EXTRA_MODULES_PATH=~/opencv_contrib-4.3.0/modules ~/opencv-4.3.0 -D CMAKE_BUILD_TYPE=Release -D CMAKE_INSTALL_PREFIX=$SDKTARGETSYSROOT -DCMAKE_TOOLCHAIN_FILE=../arm-gnueabi.toolchain.cmake ../../..
+
+
 make -j 8
+
+
+
 ```
 
 ### googleTest
