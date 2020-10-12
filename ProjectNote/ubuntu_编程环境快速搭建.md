@@ -100,6 +100,9 @@ cmake.exe -G "MinGW Makefiles" -D CMAKE_BUILD_TYPE=Release  -D CMAKE_INSTALL_PRE
 cmake.exe -G "MinGW Makefiles" -DOPENCV_EXTRA_MODULES_PATH= D:\\opencv_contrib-4.3.0\\modules D:\\opencv-4.3.0 -D CMAKE_BUILD_TYPE=Release  -D CMAKE_INSTALL_PREFIX= C:\\opencv4.3\\mingw81_64  -D CMAKE_PREFIX_PATH= D:\\Qt\\5.15.0\\mingw81_64\\lib\\cmake\\Qt5  -D WITH_TBB=ON  -D WITH_V4L=ON  -D WITH_QT=ON  -D WITH_GTK=ON  -D WITH_OPENGL=ON  -D WITH_VTK=ON  -D OPENCV_GENERATE_PKGCONFIG=YES ..
 
 mingw32-make -j 8
+
+
+cmake.exe -G "MinGW Makefiles" -DCMAKE_BUILD_TYPE = Debug ..
 ```
 
 ### opencv for ubuntu
@@ -142,7 +145,7 @@ make -j 8
 ### googleTest
 
 ```bash
-sudo apt-get install libssl-dev uuid-dev libmosquitto-dev libgtest-dev
+sudo apt-get install libssl-dev uuid-dev libmosquitto-dev libgtest-dev libgmock-dev
 sudo apt-get install mosquitto
 sudo apt-get install lcov
 ```
