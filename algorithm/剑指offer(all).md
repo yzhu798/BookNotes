@@ -436,7 +436,7 @@ public:
 
 # [重建二叉树](https://www.nowcoder.com/practice/8a19cbe657394eeaac2f6ea9b0f6fcf6?tpId=13&tqId=11157&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
-## key: 
+## key:  【中序左子树长度（前序（根）），】
 > 题目描述
 >
 > 输入某二叉树的前序遍历和中序遍历的结果，请重建出该二叉树。假设输入的前序遍历和中序遍历的结果中都不含重复的数字。例如输入前序遍历序列{1,2,4,7,3,5,6,8}和中序遍历序列{4,7,2,1,5,3,8,6}，则重建二叉树并返回。
@@ -448,9 +448,28 @@ public:
 > （1）在前序中拿出根（第一个元素），用于在中序中分出左右子树
 > （2）根据中序得出的左右子树元素个数，在前序中分出左右子树
 > （3）在（1）（2）中得到左右子树的前序和中序遍历，是原问题的子集
->     即：左右子树的根就是（1）中根的左右子结点
+>  即：左右子树的根就是（1）中根的左右子结点
 > （4）递归构建左右子树，直到叶子结点为止
 > 特例：（1）前中序大小不同或大小为0（2）无法构成二叉树（3）部分无左子树或右子树
+>
+> 前序加中序序列，分解过程图示如下（王道数据结构P120）
+>
+> ![图片说明](2020-10-12%20%E5%89%91%E6%8C%87offer(all).assets/807319133_1566201171550_B40B59C37DAF61726E7EDC919A086425)
+> ![图片说明](2020-10-12%20%E5%89%91%E6%8C%87offer(all).assets/807319133_1566201156302_8051F21823FC87CE1C97D7AE4FAD5B08)
+> 思路：
+>
+> 1. 由先序序列第一个**`pre[0]`**在中序序列中找到根节点位置**`gen`**
+> 2. 以`gen`为中心遍历
+>    - `0~gen`左子树
+>      - 子中序序列：**`0~gen-1`**，放入**`vin_left[]`**
+>      - 子先序序列：**`1~gen`**放入**`pre_left[]`**，**`+1`**可以看图，因为头部有根节点
+>    - `gen+1~vinlen`为右子树
+>      - 子中序序列：**`gen+1 ~ vinlen-1`**放入**`vin_right[]`**
+>      - 子先序序列：**`gen+1 ~ vinlen-1`**放入**`pre_right[]`**
+> 3. 由先序序列**`pre[0]`**创建根节点
+> 4. 连接左子树，按照左子树子序列递归（**`pre_left[]`**和**`vin_left[]`**）
+> 5. 连接右子树，按照右子树子序列递归（**`pre_right[]`**和**`vin_right[]`**）
+> 6. 返回根节点
 
 ```cpp
 /**
@@ -491,22 +510,23 @@ private:
                             size_t nVinLeft, size_t nVinRight)
     {
         //前序 根左右  pre[pl]
-        //中序 左根右
         if(nPreLeft > nPreRight) return nullptr;
-        //找根节点
-        TreeNode* root = new TreeNode(pre[nPreLeft]);       //pre[pl]根
-        //左子树的长度k
-        int leftLen = pos[pre[nPreLeft]] - nVinLeft;
-        //vl + k 根节点
+        TreeNode* root = new TreeNode(pre[nPreLeft]);  //pre[pl]根
+ 
+        int leftLen = pos[pre[nPreLeft]] - nVinLeft;  
+        //gen = vl + leftLen 
 
-        //左子树 前序[(pl+1),(pl+len)]
-        //左子树 中序[(vl),(vl+len-1)] //减去根元素
+        //左子树 前序[(pl+1),(pl+len)]；  【1~gen】
+        //左子树 中序[(vl),(vl+len-1)]；  【0~gen-1】
         root -> left = dfs(pre, vin, nPreLeft + 1, nPreLeft + leftLen,
-                           nVinLeft, nVinLeft + leftLen - 1);           //中序起点，为左子树最右边界
+                           nVinLeft, nVinLeft + leftLen - 1);           
+                           //中序起点，为左子树最右边界
 
-        //右子树 前序[(pl+len)+1,pr]
-        //右子树 中序[(vl+len-1),vr] //减去根元素
-        root -> right = dfs(pre, vin,nPreLeft + leftLen + 1, nPreRight, //前序终点，为右子树最左边界
+        //右子树：【gen+1~vinlen】
+        //前序[(pl+len)+1,pr]
+        //中序[(vl+len-1),vr]
+        root -> right = dfs(pre, vin,nPreLeft + leftLen + 1, nPreRight, 
+                            //前序终点，为右子树最左边界
                             nVinLeft + leftLen + 1, nVinRight);
         return root;
     }
@@ -557,7 +577,7 @@ void preorderTraversalNew(TreeNode *root, std::vector<int> &path)
 {
     std::stack<std::pair<TreeNode *, bool> > tmpStack;
     bool isVisited = false;
-    tmpStack.push(make_pair(root, isVisited));
+    tmpStack.push(make_pair(root, isVisited));//false
 
     while(!tmpStack.empty())
     {
@@ -596,11 +616,33 @@ void preorderTraversalNew(TreeNode *root, std::vector<int> &path)
 
 # [二叉树的下一个结点](https://www.nowcoder.com/practice/9023a0c988684a53960365b889ceaf5e?tpId=13&tqId=11210&tPage=3&rp=3&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
-## key: 
+## key: [ 有右子树，右子树最左边的结点；无右子树，它的父节点向上回溯]
 > 题目描述
 >
 > 给定一个二叉树和其中的一个结点，请找出**中序遍历顺序的下一个结点并且返回**。注意，树中的结点不仅包含左右子结点，同时包含指向父结点的指针。
 >
+> 但是，如果在面试中，方法一肯定上不了台面。但是最优解法该怎么去想呢？想不出来就画图分析，举个中序遍历的图：如下：
+>
+> ![图片说明](%E5%89%91%E6%8C%87offer(all).assets/284295_1590477193692_99D648423BB3F2113395149399A1462A)
+> 红色数字是中序遍历的顺序。接下来，我们就假设，如果当前结点分别是1,2 ... 7，下一结点看有什么规律没？
+>
+> [复制代码](https://www.nowcoder.com/practice/9023a0c988684a53960365b889ceaf5e?tpId=13&tqId=11210&tPage=3&rp=3&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking#)
+>
+> ```cpp
+> 1 => 2 // 显然下一结点是 1 的父亲结点
+> 2 => 3 // 下一节点是当前结点右孩子的左孩子结点，其实你也应该想到了，应该是一直到左孩子为空的那个结点
+> 3 => 4 // 跟 2 的情况相似，当前结点右孩子结点的左孩子为空的那个结点
+> 4 => 5 // 5 是父亲结点 3 的父亲结点，发现和1有点像，因为 1，3,同样是父亲结点的左孩子
+> 5 => 6 // 跟 4=>5 一样的道理
+> 6 => 7 // 跟 3=>4 一样的道理
+> 7 => null // 因为属于最尾结点
+> ```
+>
+> 此时，可以总结一下：
+> [1] 是一类：特点：当前结点是父亲结点的左孩子
+> [2 3 6] 是一类，特点：当前结点右孩子结点，那么下一节点就是：右孩子结点的最左孩子结点,如果右孩子结点没有左孩子就是自己
+> [4 5]是一类，特点：当前结点为父亲结点的右孩子结点，本质还是[1]那一类
+> [7]是一类，特点：最尾结点
 
 ```cpp
 /*
@@ -608,7 +650,7 @@ struct TreeLinkNode {
     int val;
     struct TreeLinkNode *left;
     struct TreeLinkNode *right;
-    struct TreeLinkNode *next;
+    struct TreeLinkNode *next;//父结点的指针
     TreeLinkNode(int x) :val(x), left(NULL), right(NULL), next(NULL) {
         
     }
@@ -616,29 +658,31 @@ struct TreeLinkNode {
 */
 class Solution {
 public:
-    /** 
-     * 两种情况（具体分为三种）
-     * 一、该结点有右子树，返回右子树中最左子节点
-     * 二、该结点无右子树，返回它的父节点
-     *    否则，继续向上回溯（父节点向上回溯）
-     */
-    TreeLinkNode* GetNext(TreeLinkNode* p)
+    TreeLinkNode* GetNext(TreeLinkNode* pNode)
     {
-        //右子树存在 右子树最左边的结点
-        if(p -> right){
-            p = p -> right;
-            while(p -> left) 
-                p = p -> left;
-            return p;
+        if (!pNode) {
+            return pNode;
         }
-        
-        //右子树不存在 只有左子树
-        while(p -> next){
-            //p不是根节点
-            if(p == p -> next -> left)
-                return p -> next;//父节点
-            p = p -> next; //父节点向上回溯
+ 
+        // 属于[2 3 6]类
+        if (pNode->right) {
+            pNode = pNode->right;
+            while (pNode->left) {
+                pNode = pNode->left;
+            }
+            return pNode;
         }
+ 
+        // 属于 [1] 和 [4 5]
+        while (pNode->next) {
+            TreeLinkNode *root = pNode->next;
+            if (root->left == pNode) {
+                return root;
+            }
+            pNode = pNode->next;
+        }
+ 
+        // 属于[7]
         return nullptr;
     }
 };
@@ -646,7 +690,7 @@ public:
 
 # [用两个栈实现队列](https://www.nowcoder.com/practice/54275ddae22f475981afa2244dd448c6?tpId=13&tqId=11158&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
-## key: 
+## key: 【push1; cp1->2，2pop，cp2->1】
 > 题目描述
 >
 > 用两个栈来实现一个队列，完成队列的Push和Pop操作。 队列中的元素为int类型。
@@ -681,7 +725,7 @@ private:
 
 # [斐波那契数列](https://www.nowcoder.com/practice/c6c7742f5ba7442aada113136ddea0c3?tpId=13&tqId=11160&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
-## key: 
+## key: [res = first + second;移动窗口]
 > 题目描述
 >
 > 大家都知道斐波那契数列，现在要求输入一个整数n，请你输出斐波那契数列的第n项（从0开始，第0项为0）。n<=39
@@ -708,7 +752,7 @@ public:
 
 # [变态跳台阶](https://www.nowcoder.com/practice/22243d016f6b47f2a6928b4313c85387?tpId=13&tqId=11162&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
-## key: 
+## key:【台阶顶必存在，其他台阶可存在或不存在,故2^(n-1)】 
 > 题目描述
 >
 > 一只青蛙一次可以跳上1级台阶，也可以跳上2级……它也可以跳上n级。求该青蛙跳上一个n级的台阶总共有多少种跳法。
@@ -717,22 +761,20 @@ public:
 >
 
 ```cpp
-class Solution {
-public:
      //f(1) = 1   
      //f(2) = f(1) + 1 = 2   
      //f(3) = f(1) + f(2) + 1 (加1相当于从直接跳上n级)
-    int jumpFloorII(int number){
-        if (number < 1)
-            throw std::runtime_error("invaild input");
-        return pow(2.0, number - 1);
+class Solution {
+public:
+    int jumpFloorII(int number) {
+        return 1<<(number-1);
     }
 };
 ```
 
 # [矩形覆盖](https://www.nowcoder.com/practice/72a5a919508a4251859fb2cfb987a0e6?tpId=13&tqId=11163&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
-## key: 
+## key: 【斐波那契数列的变形res = m + n;】
 > 题目描述
 >
 > 我们可以用2\*1的小矩形横着或者竖着去覆盖更大的矩形。请问用n个2\*1的小矩形无重叠地覆盖一个2*n的大矩形，总共有多少种方法？
@@ -762,26 +804,31 @@ class Solution {
 
 # [旋转数组的最小数字](https://www.nowcoder.com/practice/9f3231a991af4f55b95579b44b7a01ba?tpId=13&tqId=11159&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
-## key: 
+## key: 【去右等值，判断有序，再二分】
 > 题目描述
 >
-> 把一个数组最开始的若干个元素搬到数组的末尾，我们称之为数组的旋转。输入一个非递减排序的数组的一个旋转，输出旋转数组的最小元素。
-> 例如数组{3,4,5,1,2}为{1,2,3,4,5}的一个旋转，该数组的最小值为1。
+> 把一个数组最开始的若干个元素搬到数组的末尾，我们称之为数组的旋转。输入一个**非递减排序**的数组的一个旋转，输出旋转数组的最小元素。
+> 例如数组{2,3,4,5,1,2}为{1,2,2,3,4,5}的一个旋转，该数组的最小值为1。
 > NOTE：给出的所有元素都大于0，若数组大小为0，请返回0。
+>
+> 用中间值和高低位比较，看递增/递减，再缩小范围。
 
 ```cpp
 class Solution {
 public:
     int minNumberInRotateArray(vector<int> &nums) {
-
         if (nums.empty()) //空数组
             return 0;
-        size_t left = 0, right = nums.size() - 1;
+
+        // 2,4,1,2,2,2
+        // 4,1,2,2,2,2
+        size_t left = 0, right = nums.size() - 1;//二分
         while(nums[right] == nums[0] && right > 0)//移除右边相等元素
             right --;
 
         if(nums[left] <= nums[right])
             return nums[left];
+        //else ... return nums[rigth]
 
         while(left < rigth){
             int mid = left + rigth >> 1; //[left, mid] [mid+1, rigth]
@@ -797,7 +844,7 @@ public:
 
 # [矩阵中的路径](https://www.nowcoder.com/practice/c61c6999eecb4b8f88a98f66b273a3cc?tpId=13&tqId=11218&tPage=4&rp=4&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
-## key: 
+## key: [参数错误，路过标记，逐个比较，4个方向，恢复未途径]
 > 题目描述
 >
 > 请设计一个函数，用来判断在一个矩阵中是否存在一条包含某字符串所有字符的路径。路径可以从矩阵中的任意一个格子开始，每一步可以在矩阵中向左，向右，向上，向下移动一个格子。如果一条路径经过了矩阵中的某一个格子，则该路径不能再进入该格子。 例如 a b c e s f c s a d e e 矩阵中包含一条字符串"bccced"的路径，但是矩阵中不包含"abcb"路径，因为字符串的第一个字符b占据了矩阵中的第一行第二个格子之后，路径不能再次进入该格子。
@@ -811,13 +858,14 @@ public:
     /* 回溯法的典型例题 */
     bool hasPath(char* matrix, int rows, int cols, char* str){
         if(matrix == nullptr || rows <= 0 || cols <= 0 || str == nullptr)
-            return false;
+            return false;  //参数错误
 
         bool *flag = new bool[rows * cols];
-        memset(flag, false, rows * cols);
+        memset(flag, false, rows * cols); //标记是否走过~
 
         for(int i = 0; i < rows; ++i){
             for(int j = 0; j < cols; ++j){
+                //0是str起点
                 if(hasPath(matrix, rows, cols, i, j, 0, str, flag))
                     return true;
             }
@@ -826,21 +874,24 @@ public:
         return false;
     }
 
-    bool hasPath(char* matrix, int rows, int cols, int i, int j, int k, char* str, bool *flag)
-    {
+bool 
+hasPath(char* matrix,int rows,int cols,int i,int j,int k, char* str, bool *flag){
         int index = i * cols + j;
-        if(i < 0 || i >= rows || j < 0 || j >= cols || matrix[index] != str[k] || flag[index])
+    
+        if(i < 0 || i >= rows || j < 0 || j >= cols 
+                 || matrix[index] != str[k] || flag[index])
             return false;
 
         if(str[k + 1] == '\0')
             return true;
-
+    
+    
         flag[index] = true;
-        if(hasPath(matrix, rows, cols, i + 1, j, k + 1, str, flag)
+    
+        if(        hasPath(matrix, rows, cols, i + 1, j, k + 1, str, flag)
                 || hasPath(matrix, rows, cols, i - 1, j, k + 1, str, flag)
                 || hasPath(matrix, rows, cols, i, j + 1, k + 1, str, flag)
-                || hasPath(matrix, rows, cols, i, j - 1 , k + 1, str, flag))
-        {
+                || hasPath(matrix, rows, cols, i, j - 1, k + 1, str, flag)){
             return true;
         }
 
@@ -852,7 +903,7 @@ public:
 
 # [机器人的运动范围](https://www.nowcoder.com/practice/6e5207314b5241fb83f2329e89fdecc8?tpId=13&tqId=11219&tPage=4&rp=4&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
-## key: 
+## key: 【key: [参数错误，路过标记，逐个比较，4个方向】
 > 题目描述
 >
 > 地上有一个m行和n列的方格。一个机器人从坐标0,0的格子开始移动，每一次只能向左，右，上，下四个方向移动一格，但是不能进入行坐标和列坐标的数位之和大于k的格子。 例如，当k为18时，机器人能够进入方格（35,37），因为3+5+3+7 = 18。但是，它不能进入方格（35,38），因为3+5+3+8 = 19。请问该机器人能够达到多少个格子？
@@ -875,6 +926,7 @@ public:
         if(i < 0 || i >= rows || j < 0 || j > cols || flag[index] ||
           GetSum(i) + GetSum(j) > dthreshold)
             return 0;
+        
         flag[index] = true;
         /* 所有情况求和 */
         return 1 + (CalCount(dthreshold, rows, cols, flag, i + 1, j)
@@ -897,7 +949,7 @@ public:
 
 # [二进制中1的个数](https://www.nowcoder.com/practice/8ee967e43c2c4ec193b040ea7fbb10b8?tpId=13&tqId=11164&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
-## key: 
+## key: 【n & (n - 1)，最后一位1变成0，并更新n】
 > 题目描述
 >
 > 输入一个整数，输出该数二进制表示中1的个数。其中负数用补码表示。
@@ -921,7 +973,7 @@ public:
 
 # [数值的整数次方](https://www.nowcoder.com/practice/1a834e5e3e1a4b7ba251417554e07c00?tpId=13&tqId=11165&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
-## key: 
+## key: 【A^B ; (B<0, 1/B)】
 > 题目描述
 >
 > 给定一个double类型的浮点数base和int类型的整数exponent。求base的exponent次方。
@@ -936,20 +988,20 @@ class Solution {
 public:
     double Power(double base, int e) {
         double res = 1;
-        for(int i = 0; i < abs(e); i ++) 
+        for(int i = 0; i < abs(e); i ++){
             res *= base;
-        if(e < 0) 
+        }
+        if(e < 0){
             res = 1 / res;
+        }
         return res;
     }
 };
 ```
 
-
-
 # [删除链表中重复的结点](https://www.nowcoder.com/practice/fc533c45b73a41b0b44ccba763f866ef?tpId=13&tqId=11209&tPage=3&rp=3&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
-## key: 
+## key: [虚拟头，相邻相等去除，不等则preNode后移，curNode始终后移]
 > 题目描述
 >
 > 在一个排序的链表中，存在重复的结点，请删除该链表中重复的结点，重复的结点不保留，返回链表头指针。 
@@ -969,27 +1021,25 @@ public:
         if(pHead == nullptr)
             return nullptr;
         
-        ListNode *dummyHead = new ListNode(0);
-
-        auto preNode = dummyHead;
-        preNode->next = pHead;//保存头结点
+        ListNode *dummyHead = new ListNode(0);//创建虚拟头节点，可能会删除头节点
+        dummyHead->next = pHead;//保存头结点
         
-        auto curNode = pHead;
+        
+        auto preNode = dummyHead;//preNode:虚拟头，无数据
+        auto curNode = dummyHead->next;
         while(curNode)
         {
             if(curNode->next && curNode->val == curNode->next->val)
             {
-                while(curNode->next && curNode->val == curNode->next->val)
+                while(curNode->next && curNode->val == curNode->next->val){
                     curNode = curNode->next;//跳过重复
-                
-                preNode->next = curNode->next;
-                curNode = curNode->next;
+                }
+                preNode->next = curNode->next; //curNode被删除了
             }
-            else
-            {
+            else{
                 preNode = curNode;
-                curNode = curNode->next;
             }
+            curNode = curNode->next;
         }
         
         return dummyHead->next;
@@ -997,9 +1047,10 @@ public:
 };
 ```
 
-# [正则表达式匹配](https://www.nowcoder.com/practice/45327ae22b7b413ea21df13ee7d6429c?tpId=13&tqId=11205&tPage=3&rp=3&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+# [19.正则表达式匹配](https://www.nowcoder.com/practice/45327ae22b7b413ea21df13ee7d6429c?tpId=13&tqId=11205&tPage=3&rp=3&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
-## key: 
+## key: 【下一位*，匹配或（.）==》str+1或pattern+2，否则pattern+2  ；下一位非\*，匹配或（.）==》str+1且pattern+1，否则false】
+
 > 题目描述
 >
 > 请实现一个函数用来匹配包括'.'和'\*'的正则表达式。模式中的字符'.'表示任意一个字符，而'\*'表示它前面的字符可以出现任意次（包含0次）。 
@@ -1007,15 +1058,15 @@ public:
 
 > 思路：
 >
-> 若模式的下一个字符为`'*'`，：
+> 若**模式**的下一个**字符为`'*'`，**：
 >
-> > 如果当前字符匹配，则**字符串向后移动一位**（`'*'`前面出现多次）或者模式向后移动2位（`'*'`前面出现1次）；
+> > 如果当前字符匹配，则**字符串向后移动一位**（`'*'`前面出现多次）或者**模式向后移动2位**（`'*'`前面出现1次）；
 > >
-> > 反之，如果当前字符不匹配，则模式向后移动2位（`'*'`前面出现０次）。
+> > 反之，如果当前**字符不匹配**，则**模式向后移动2位**（`'*'`前面出现０次）。
 >
-> 若模式的下一个字符不是`'*'`，
+> 若**模式**的下一个字符**不是`'*'`**，
 >
-> > 如果当前字符匹配或者模式为`'.'`，则继续匹配下一个字符，否则返回false。
+> > 如果当前**字符匹配**或者**模式为`'.'`，**则继续**匹配下一个字符**，**否则返回false**。
 
 ```cpp
 class Solution {
@@ -1028,18 +1079,17 @@ public:
         if(*str != '\0' && *pattern == '\0')//str不空 patten空
             return false;
         
-        if(*(pattern + 1) != '*')//匹配当前字符.此时下一位
-        {
+        if(*(pattern + 1) != '*'){
+            //匹配.下一位
             if(*str == *pattern || (*str != '\0' && *pattern == '.'))
                 return match(str + 1, pattern + 1);
             else
                 return false;
         }
-        else 
-        {  //模式的下一个字符为`'*'`
+        else {  //下一个字符为'*'
             if(*str == *pattern || (*str != '\0' && *pattern == '.'))
                 return match(str, pattern + 2) //  .*代表0次时
-                || match(str + 1, pattern);// 跳过和匹配多个的情况
+                    || match(str + 1, pattern);// 跳过和匹配多个的情况
             else
                 return match(str, pattern + 2);//字符不匹配，则模式向后移动2位
         }
@@ -1047,7 +1097,7 @@ public:
 };
 ```
 
-# [表示数值的字符串](https://www.nowcoder.com/practice/6f8c901d091949a5837e24bb82a731f2?tpId=13&tqId=11206&tPage=3&rp=3&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+# [20.表示数值的字符串](https://www.nowcoder.com/practice/6f8c901d091949a5837e24bb82a731f2?tpId=13&tqId=11206&tPage=3&rp=3&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
 ## key: 
 > 题目描述
@@ -1100,7 +1150,7 @@ public:
 };
 ```
 
-# [调整数组顺序使奇数位于偶数前面](https://www.nowcoder.com/practice/beb5aa231adc45b2a5dcc5b62c93f593?tpId=13&tqId=11166&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+# [21.调整数组顺序使奇数位于偶数前面](https://www.nowcoder.com/practice/beb5aa231adc45b2a5dcc5b62c93f593?tpId=13&tqId=11166&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
 ## key: 
 > 题目描述
@@ -1130,7 +1180,7 @@ public:
 };
 ```
 
-# [链表中倒数第k个结点](https://www.nowcoder.com/practice/529d3ae5a407492994ad2a246518148a?tpId=13&tqId=11167&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+# [22.链表中倒数第k个结点](https://www.nowcoder.com/practice/529d3ae5a407492994ad2a246518148a?tpId=13&tqId=11167&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
 ## key: 
 > 题目描述
@@ -1170,7 +1220,7 @@ public:
 };
 ```
 
-# [链表中环的入口结点](https://www.nowcoder.com/practice/253d2c59ec3e4bc68da16833f79a38e4?tpId=13&tqId=11208&tPage=3&rp=3&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+# [23.链表中环的入口结点](https://www.nowcoder.com/practice/253d2c59ec3e4bc68da16833f79a38e4?tpId=13&tqId=11208&tPage=3&rp=3&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
 题目描述
 
@@ -1238,7 +1288,7 @@ public:
 };
 ```
 
-# [反转链表](https://www.nowcoder.com/practice/75e878df47f24fdc9dc3e400ec6058ca?tpId=13&tqId=11168&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+# [24.反转链表](https://www.nowcoder.com/practice/75e878df47f24fdc9dc3e400ec6058ca?tpId=13&tqId=11168&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
 ## key: 
 > 题目描述
@@ -1276,7 +1326,7 @@ public:
 };
 ```
 
-# [合并两个排序的链表](https://www.nowcoder.com/practice/d8b6b4358f774294a89de2a6ac4d9337?tpId=13&tqId=11169&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+# [25.合并两个排序的链表](https://www.nowcoder.com/practice/d8b6b4358f774294a89de2a6ac4d9337?tpId=13&tqId=11169&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
 ## key: 
 > 题目描述
@@ -1315,7 +1365,7 @@ public:
 };
 ```
 
-# [树的子结构](https://www.nowcoder.com/practice/6e196c44c7004d15b1610b9afca8bd88?tpId=13&tqId=11170&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+# [26.树的子结构](https://www.nowcoder.com/practice/6e196c44c7004d15b1610b9afca8bd88?tpId=13&tqId=11170&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
 ## key: 
 > 题目描述
