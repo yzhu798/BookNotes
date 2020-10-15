@@ -1099,48 +1099,44 @@ public:
 
 # [20.表示数值的字符串](https://www.nowcoder.com/practice/6f8c901d091949a5837e24bb82a731f2?tpId=13&tqId=11206&tPage=3&rp=3&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
-## key: 
+## key: 【排除反例，顺序E ;  +  ;   .   】 
 > 题目描述
 >
 > 请实现一个函数用来判断字符串是否表示数值（包括整数和小数）。例如，字符串"+100","5e2","-123","3.1416"和"-1E-16"都表示数值。 但是"12e","1a3.14","1.2.3","+-5"和"12e+4.3"都不是。
 >
-> 思路：排出掉所有错误情况
+> 思路：排除掉所有错误情况
 
 ```cpp
 class Solution {
 public:
     bool isNumeric(char* str)
     {
-        /* 标志正负号、Ee、小数点是否之前出现过 */
-        bool hasM = false;
-        bool hasE = false;
-        bool hasF = false;
+        bool hasM = false; //2次，e后+-或str[0]
+        bool hasE = false; //E，1次，非末
+        bool hasF = false; //小数点，1次，E后无.
         
         int size = strlen(str);
-        for(int i = 0; i < size; ++i)
-        {
-            if(str[i] == 'e' || str[i] == 'E')
-            {
-                /* E和e不能是最后一个字符、不能在数值中出现两次 */
-                if(i == size - 1 || hasE) return false;
+        for(int i = 0; i < size; ++i){
+            if(str[i] == 'e' || str[i] == 'E'){
+                if(i == size - 1 || hasE) 
+                    return false;
                 hasE = true;
             }
-            else if(str[i] == '+' || str[i] == '-')
-            {
-                /* 如果正负号不是第一次出现，那么它必须跟到E或e之后 */
-                if(hasM && str[i - 1] != 'e' && str[i - 1] != 'E') return false;
-                /* 如果正负号是第一次出现，但不是首字符，那么它也必须跟到E或e之后 */
-                if(!hasM && i != 0 && str[i - 1] != 'e' && str[i - 1] != 'E') return false;
+            else if(str[i] == '+' || str[i] == '-'){
+                // E或e之后正负号
+                if(hasM && str[i - 1] != 'e' && str[i - 1] != 'E') 
+                    return false;
+              // 首次，非首字符，E或e之后正负号 
+                if(!hasM && i != 0 && str[i - 1] != 'e' && str[i - 1] != 'E') 
+                    return false;
                 hasM = true;
             }
-            else if(str[i] == '.')
-            {
-                /* E或e之后不能有小数、一个数值中不能出现两个小数点 */
-                if(hasE || hasF) return false;
+            else if(str[i] == '.'){
+                if(hasE || hasF) //E后无.
+                    return false;
                  hasF = true;
             }
-            else if(str[i] < '0' || str[i] > '9')
-            {
+            else if(str[i] < '0' || str[i] > '9'){
                 return false;
             }
         }
@@ -1152,7 +1148,7 @@ public:
 
 # [21.调整数组顺序使奇数位于偶数前面](https://www.nowcoder.com/practice/beb5aa231adc45b2a5dcc5b62c93f593?tpId=13&tqId=11166&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
-## key: 
+## key: [冒泡修改法，或空间换时间]
 > 题目描述
 >
 > 输入一个整数数组，实现一个函数来调整该数组中数字的顺序，使得所有的奇数位于数组的前半部分，所有的偶数位于数组的后半部分，并保证奇数和奇数，偶数和偶数之间的相对位置不变。
@@ -1164,25 +1160,39 @@ public:
 ```cpp
 class Solution {
 public:
+    //冒泡修改法
     void reOrderArray(vector<int> &array) {
-        //4 3 7  8 5 9 7 1   3 7 5 9 7 1 4 8
         int size = array.size();
-        for(int i = 0; i < size; ++i)
-        {
-            for(int j = size - 1; j > i; --j)
-            {
-                if(array[j] % 2 != 0 && array[j - 1] % 2 == 0)
+        bool changed = true;
+        for(int i = 0; i < size && changed;  ++i){
+            changed  = false;
+            for(int j = size - 1; j > i; --j){
+     		  if((array[j-1]&1)==0 && (array[j]&1)){
                     swap(array[j], array[j - 1]);
+                    changed = true;
+                }
             }
         }
-        
+    }
+    //以空间换时间
+   void reOrderArray(vector<int> &array) {
+        vector<int> OddArray,EvenArray;
+        for(auto c:array){
+            if(c&1)
+                OddArray.push_back(c);
+            else
+                EvenArray.push_back(c);
+        }
+        array.erase(array.begin(),array.end());
+        array.insert(array.end(),OddArray.begin(),OddArray.end());
+        array.insert(array.end(),EvenArray.begin(),EvenArray.end());
     }
 };
 ```
 
 # [22.链表中倒数第k个结点](https://www.nowcoder.com/practice/529d3ae5a407492994ad2a246518148a?tpId=13&tqId=11167&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
-## key: 
+## key: 【快慢指针，移动窗口法，快先N，慢再走，快到尾】
 > 题目描述
 >
 > 输入一个链表，输出该链表中倒数第k个结点。
