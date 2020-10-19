@@ -10,7 +10,7 @@ https://github.com/IdiotXue/OfferCoding
 
 
 
-# 赋值运算符函数
+# 1. 赋值运算符函数
 ## key: 【返引用、传常引用、判同、局部变量换指针（RAII）】
 ```cpp
 CMyString& operator=(const CMyString &str)
@@ -113,7 +113,7 @@ class CMyString
 ostream &operator<<(ostream &out, const CMyString &str);
 ```
 
-# 实现Singleton模式
+# 2. 实现Singleton模式
 
 ## key: 【返引用，局部静态变量 ，编译器保证】
 > 题目描述
@@ -219,7 +219,7 @@ std::mutex Singleton::sm_mutex;
 ```
 
 
-# [数组中重复的数字](https://www.nowcoder.com/practice/623a5ac0ea5b4e5f95552655361ae0a8?tpId=13&tqId=11203&tPage=3&rp=3&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+# [3. 数组中重复的数字](https://www.nowcoder.com/practice/623a5ac0ea5b4e5f95552655361ae0a8?tpId=13&tqId=11203&tPage=3&rp=3&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
 ## key: 【判nullptr与越界、从0至len,if(A[i] != i){ if(A[i] == A[A[i]])   dup ; swap }】
 > 题目描述
@@ -293,7 +293,7 @@ while(L < R){
 }
 ```
 
-# [二维数组中的查找](https://www.nowcoder.com/practice/abc3fe2ce8e146608e868a70efebf62e?tpId=13&tqId=11154&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+# [4. 二维数组中的查找](https://www.nowcoder.com/practice/abc3fe2ce8e146608e868a70efebf62e?tpId=13&tqId=11154&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
 ## key: 【左上>右上>右下有序, target< 往左，>target往下】
 > 题目描述
@@ -333,7 +333,7 @@ public:
 };
 ```
 
-# [替换空格](https://www.nowcoder.com/practice/4060ac7e3e404ad1a894ef3e17650423?tpId=13&tqId=11155&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+# [5. 替换空格](https://www.nowcoder.com/practice/4060ac7e3e404ad1a894ef3e17650423?tpId=13&tqId=11155&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
 ## key: 【算str长度（一个空格+2），newLen != oldLen且不越界，逆序复制，遇空格则反向填充3字符】
 > 题目描述
@@ -374,7 +374,7 @@ public:
 };
 ```
 
-# [从尾到头打印链表](https://www.nowcoder.com/practice/d0267f7f55b3412ba93bd35cfa8e8035?tpId=13&tqId=11156&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+# [6. 从尾到头打印链表](https://www.nowcoder.com/practice/d0267f7f55b3412ba93bd35cfa8e8035?tpId=13&tqId=11156&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
 ## key: 【vector+reverse、stack<ListNode *>+vectorListNode *node = head】
 > 题目描述
@@ -434,7 +434,7 @@ public:
 };
 ```
 
-# [重建二叉树](https://www.nowcoder.com/practice/8a19cbe657394eeaac2f6ea9b0f6fcf6?tpId=13&tqId=11157&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+# [7. 重建二叉树](https://www.nowcoder.com/practice/8a19cbe657394eeaac2f6ea9b0f6fcf6?tpId=13&tqId=11157&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
 ## key:  【中序左子树长度（前序（根）），】
 > 题目描述
@@ -614,7 +614,7 @@ void preorderTraversalNew(TreeNode *root, std::vector<int> &path)
 
 
 
-# [二叉树的下一个结点](https://www.nowcoder.com/practice/9023a0c988684a53960365b889ceaf5e?tpId=13&tqId=11210&tPage=3&rp=3&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+# [8. 二叉树的下一个结点](https://www.nowcoder.com/practice/9023a0c988684a53960365b889ceaf5e?tpId=13&tqId=11210&tPage=3&rp=3&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
 ## key: [ 有右子树，右子树最左边的结点；无右子树，它的父节点向上回溯]
 > 题目描述
@@ -688,7 +688,7 @@ public:
 };
 ```
 
-# [用两个栈实现队列](https://www.nowcoder.com/practice/54275ddae22f475981afa2244dd448c6?tpId=13&tqId=11158&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+# [9. 用两个栈实现队列](https://www.nowcoder.com/practice/54275ddae22f475981afa2244dd448c6?tpId=13&tqId=11158&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
 ## key: 【push1; cp1->2，2pop，cp2->1】
 > 题目描述
@@ -723,7 +723,7 @@ private:
 };
 ```
 
-# [斐波那契数列](https://www.nowcoder.com/practice/c6c7742f5ba7442aada113136ddea0c3?tpId=13&tqId=11160&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+# [10. 斐波那契数列](https://www.nowcoder.com/practice/c6c7742f5ba7442aada113136ddea0c3?tpId=13&tqId=11160&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
 ## key: [res = first + second;移动窗口]
 > 题目描述
@@ -750,7 +750,7 @@ public:
 };
 ```
 
-# [变态跳台阶](https://www.nowcoder.com/practice/22243d016f6b47f2a6928b4313c85387?tpId=13&tqId=11162&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+# [11. 变态跳台阶](https://www.nowcoder.com/practice/22243d016f6b47f2a6928b4313c85387?tpId=13&tqId=11162&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
 ## key:【台阶顶必存在，其他台阶可存在或不存在,故2^(n-1)】 
 > 题目描述
@@ -772,7 +772,7 @@ public:
 };
 ```
 
-# [矩形覆盖](https://www.nowcoder.com/practice/72a5a919508a4251859fb2cfb987a0e6?tpId=13&tqId=11163&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+# [12. 矩形覆盖](https://www.nowcoder.com/practice/72a5a919508a4251859fb2cfb987a0e6?tpId=13&tqId=11163&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
 ## key: 【斐波那契数列的变形res = m + n;】
 > 题目描述
@@ -802,7 +802,7 @@ class Solution {
 };
 ```
 
-# [旋转数组的最小数字](https://www.nowcoder.com/practice/9f3231a991af4f55b95579b44b7a01ba?tpId=13&tqId=11159&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+# [13.  旋转数组的最小数字](https://www.nowcoder.com/practice/9f3231a991af4f55b95579b44b7a01ba?tpId=13&tqId=11159&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
 ## key: 【去右等值，判断有序，再二分】
 > 题目描述
@@ -842,7 +842,7 @@ public:
 };
 ```
 
-# [矩阵中的路径](https://www.nowcoder.com/practice/c61c6999eecb4b8f88a98f66b273a3cc?tpId=13&tqId=11218&tPage=4&rp=4&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+# [14. 矩阵中的路径](https://www.nowcoder.com/practice/c61c6999eecb4b8f88a98f66b273a3cc?tpId=13&tqId=11218&tPage=4&rp=4&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
 ## key: [参数错误，路过标记，逐个比较，4个方向，恢复未途径]
 > 题目描述
@@ -901,7 +901,7 @@ hasPath(char* matrix,int rows,int cols,int i,int j,int k, char* str, bool *flag)
 };
 ```
 
-# [机器人的运动范围](https://www.nowcoder.com/practice/6e5207314b5241fb83f2329e89fdecc8?tpId=13&tqId=11219&tPage=4&rp=4&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+# [15. 机器人的运动范围](https://www.nowcoder.com/practice/6e5207314b5241fb83f2329e89fdecc8?tpId=13&tqId=11219&tPage=4&rp=4&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
 ## key: 【key: [参数错误，路过标记，逐个比较，4个方向】
 > 题目描述
@@ -947,7 +947,7 @@ public:
 };
 ```
 
-# [二进制中1的个数](https://www.nowcoder.com/practice/8ee967e43c2c4ec193b040ea7fbb10b8?tpId=13&tqId=11164&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+# [16. 二进制中1的个数](https://www.nowcoder.com/practice/8ee967e43c2c4ec193b040ea7fbb10b8?tpId=13&tqId=11164&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
 ## key: 【n & (n - 1)，最后一位1变成0，并更新n】
 > 题目描述
@@ -971,7 +971,7 @@ public:
 };
 ```
 
-# [数值的整数次方](https://www.nowcoder.com/practice/1a834e5e3e1a4b7ba251417554e07c00?tpId=13&tqId=11165&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+# [17.数值的整数次方](https://www.nowcoder.com/practice/1a834e5e3e1a4b7ba251417554e07c00?tpId=13&tqId=11165&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
 ## key: 【A^B ; (B<0, 1/B)】
 > 题目描述
@@ -999,7 +999,7 @@ public:
 };
 ```
 
-# [删除链表中重复的结点](https://www.nowcoder.com/practice/fc533c45b73a41b0b44ccba763f866ef?tpId=13&tqId=11209&tPage=3&rp=3&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+# [18. 删除链表中重复的结点](https://www.nowcoder.com/practice/fc533c45b73a41b0b44ccba763f866ef?tpId=13&tqId=11209&tPage=3&rp=3&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
 ## key: [虚拟头，相邻相等去除，不等则preNode后移，curNode始终后移]
 > 题目描述
@@ -1232,6 +1232,7 @@ public:
 
 # [23.链表中环的入口结点](https://www.nowcoder.com/practice/253d2c59ec3e4bc68da16833f79a38e4?tpId=13&tqId=11208&tPage=3&rp=3&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
+## key: 【快慢指针:1.相遇有环，2.遇后++求环长len; 3.快先跑一圈N，慢再走，快慢同速，快到尾{a+b = (n-1)*len}】
 题目描述
 
 给一个链表，若其中包含环，请找出该链表的环的入口结点，否则，输出null。
@@ -1249,7 +1250,7 @@ public:
 我们还是用两个指针来解决这个问题。先定义两个指针P1（快指针）和P2（慢指针）指向链表的头节点。如果链表中的环有n个节点，则指针P1先在链表上向前移动n步，然后两个指针以相同的速度向前移动。当第一个指针指向环的入口节点时，第一个指针已经围绕着环走了一圈，又回到了入口节点。
 
 
-![img](%E5%89%91%E6%8C%87offer_Cpp.assets/20190612103512655.jpg)
+![img](%E5%89%91%E6%8C%87offer_Cpp(all).assets/20190612103512655.jpg)
 
 ```cpp
 class Solution {
@@ -1267,13 +1268,13 @@ public:
         
         while(pFast && pFast->next)
         {
-            pFast = pFast->next->next;
-            pSlow = pSlow->next;
-            if(pFast == pSlow)
+            pFast = pFast->next->next; 
+            pSlow = pSlow->next; 
+            if(pFast == pSlow)  //有环，pFast多跑n环
             {
-                pSlow = pHead;
-                while(pSlow != pFast)
-                {
+                pSlow = pHead;  //慢回头
+                while(pSlow != pFast)//依据：2(a+b) =a+b+(n-1)*(c+b) (len=c+b)
+                {                    // (a+b) =(n-1)*(c+b)= n*len
                     pFast = pFast->next;
                     pSlow = pSlow->next;
                 }
@@ -1300,7 +1301,7 @@ public:
 
 # [24.反转链表](https://www.nowcoder.com/practice/75e878df47f24fdc9dc3e400ec6058ca?tpId=13&tqId=11168&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
-## key: 
+## key: 【tmp=old->next，old-next=newHead，new=old，old=tmp】
 > 题目描述
 >
 > 输入一个链表，反转链表后，输出新链表的表头。
@@ -1311,78 +1312,64 @@ public:
 > 输出: 5->4->3->2->1->nullptr
 
 ```cpp
-
 class Solution {
 public:
     ListNode* ReverseList(ListNode* pHead) {
-        if(pHead == nullptr)
-            return nullptr;
-        
-        ListNode* preNode = nullptr;
-        auto curNode = pHead;//头结点不存数据
-   // pre -> cur -> tmp :old
-   // tmp -> cur -> pre :new
-        
-        while(curNode)//不断地交换头节点下一个结点与标记结点后面的结点的位置，直到链表末尾，交换完成
+        ListNode* newHead = nullptr;
+        while(pHead)
         {
-            auto tempNode = curNode->next;
-            //交换
-            curNode->next = preNode;
-            preNode = curNode;
-            curNode = tempNode;
+            auto tempNode = pHead->next;
+            pHead->next = newHead;
+            
+            newHead = pHead;
+            pHead = tempNode;
         }
-        return preNode;
+        return newHead;
     }
 };
 ```
 
 # [25.合并两个排序的链表](https://www.nowcoder.com/practice/d8b6b4358f774294a89de2a6ac4d9337?tpId=13&tqId=11169&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
-## key: 
+## key: 【逐个比，遇nullptr,接other】
 > 题目描述
 >
 > 输入两个单调递增的链表，输出两个链表合成后的链表，当然我们需要**合成后的链表满足单调不减规则**。
 >
+> 一般创建单链表，都会设一个**虚拟头结点**，也叫哨兵，因为这样每一个结点都有一个前驱结点。
 
 ```cpp
 class Solution {
 public:
     ListNode* Merge(ListNode* pHead1, ListNode* pHead2)
     {
-        //没必要判断  if(pHead1 == nullptr)  if(pHead2 == nullptr)
-        ListNode *newList = new ListNode(0); 
-        auto tmp = newList;
-        while(pHead1 && pHead2)
-        {
-            if(pHead1->val < pHead2->val){
-                tmp->next = pHead1;
+        ListNode *vhead = new ListNode(-1);
+        ListNode *cur = vhead;
+        while (pHead1 && pHead2) {
+            if (pHead1->val <= pHead2->val) {
+                cur->next = pHead1;
                 pHead1 = pHead1->next;
-            }else{
-                tmp->next = pHead2;
+            }
+            else {
+                cur->next = pHead2;
                 pHead2 = pHead2->next;
             }
-            tmp = tmp->next;
+            cur = cur->next;
         }
-        
-        if(pHead1){
-            tmp->next = pHead1;
-        }
-        if(pHead2){
-            tmp->next = pHead2;    
-        }
-        return newList->next;
+        cur->next = pHead1 ? pHead1 : pHead2;
+        return vhead->next;
     }
 };
 ```
 
 # [26.树的子结构](https://www.nowcoder.com/practice/6e196c44c7004d15b1610b9afca8bd88?tpId=13&tqId=11170&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
-## key: 
+## key: 【1.判RootB在TreeA中；2.若在则递归左右子节点，B到达nullptr返回true,A为nullptr而B非nullptr则false】
 > 题目描述
 >
 > - 树的子结构：判断树B是树A的子结构
 >
-> 思路:
+> 思路: 
 >
 > 树操作一般用递归方便，树A和树B都需要递归
 >
@@ -1406,13 +1393,13 @@ public:
         bool result = false;
         if(pRoot1  && pSubRoot2 )
         {
-            if(pRoot1->val == pSubRoot2->val)
-                result = isSubtree(pRoot1, pSubRoot2);
-                
-            if(!result)
+            if(pRoot1->val == pSubRoot2->val) //根一致，递归子树
+                result = isSubtree(pRoot1, pSubRoot2); 
+
+            if(!result) //根不同，递归左子树
                 result = HasSubtree(pRoot1->left, pSubRoot2);
             
-            if(!result)
+            if(!result) //左子树不同，递归右子树
                 result =HasSubtree(pRoot1->right, pSubRoot2);
         }
         return result;
@@ -1420,7 +1407,7 @@ public:
     
     bool isSubtree(TreeNode* pRoot1, TreeNode* pSubRoot2)
     {
-        if(pSubRoot2 == nullptr)
+        if(pSubRoot2 == nullptr) //若匹配到的子树nullptr
             return true;
         
         if(pRoot1 == nullptr)
@@ -1435,7 +1422,9 @@ public:
 };
 ```
 
-# [二叉树的镜像](https://www.nowcoder.com/practice/564f4c26aa584921bc75623e48ca3011?tpId=13&tqId=11171&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+# [27.二叉树的镜像](https://www.nowcoder.com/practice/564f4c26aa584921bc75623e48ca3011?tpId=13&tqId=11171&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+
+## key【root非nullptrr则交换左右】
 
 题目描述
 
@@ -1457,9 +1446,9 @@ public:
 };
 ```
 
-# [对称的二叉树](https://www.nowcoder.com/practice/ff05d44dfdb04e1d83bdbdab320efbcb?tpId=13&tqId=11211&tPage=3&rp=3&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+# [28.对称的二叉树](https://www.nowcoder.com/practice/ff05d44dfdb04e1d83bdbdab320efbcb?tpId=13&tqId=11211&tPage=3&rp=3&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
-## key: 
+## key: 【根同nullptr => true;单nullptr=>false；不同value=>false;再递归左右】
 > 题目描述
 >
 > 请实现一个函数，用来判断一颗二叉树是不是对称的。注意，如果一个二叉树同此二叉树的镜像是同样的，定义其为对称的。
@@ -1491,9 +1480,9 @@ public:
 };
 ```
 
-# [顺时针打印矩阵](https://www.nowcoder.com/practice/9b4c81a02cd34f76be2659fa0d54342a?tpId=13&tqId=11172&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+# [29.顺时针打印矩阵](https://www.nowcoder.com/practice/9b4c81a02cd34f76be2659fa0d54342a?tpId=13&tqId=11172&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
-## key: 
+## key: 【while(up<=down && left<=right) {   左=》右，上=》下（up+1）；（判断是否最后一行/列    右=》左(right+1)；下到上(down - 1,> up)）}】
 > 题目描述
 >
 > 输入一个矩阵，按照从外向里以顺时针的顺序依次打印出每一个数字，例如，如果输入如下4 X 4矩阵： 1 2 3 4 ，5 6 7 8 9 10 11 12 13 14 15 16 则依次打印出数字1,2,3,4,8,12,16,15,14,13,9,5,6,7,11,10.
@@ -1518,13 +1507,13 @@ class Solution
         {
             for (int i = left; i <= right; ++i)//左到右
                 output.push_back(matrix[up][i]);
-            for (int i = up + 1; i <= down; ++i)//上到下，被上一次吃了一个
+            for (int i = up + 1; i <= down; ++i)//上到下，去除一个上
                 output.push_back(matrix[i][right]);
             if (up != down) //考虑最后一圈是一行
-                for (int i = right - 1; i >= left; --i)//右到左，被上一次吃了一个
+                for (int i = right - 1; i >= left; --i)//右到左，去除一个右
                     output.push_back(matrix[down][i]);
             if (left != right) //考虑最后一圈是一列
-                for (int i = down - 1; i > up; --i)//下到上，被上一次吃了一个
+                for (int i = down - 1; i > up; --i)//下到上，去除上和下
                     output.push_back(matrix[i][left]);
             ++ up;
             -- down;
@@ -1536,9 +1525,9 @@ class Solution
 };
 ```
 
-# [包含min函数的栈](https://www.nowcoder.com/practice/4c776177d2c04c2494f2555c9fcc1e49?tpId=13&tqId=11173&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+# [30.包含min函数的栈](https://www.nowcoder.com/practice/4c776177d2c04c2494f2555c9fcc1e49?tpId=13&tqId=11173&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
-## key: 
+## key: 【每次将value都push进stackVal；同时将Min.top与value比较push进stackMin  。同时pop出 stackVal和stackMin】
 > 题目描述
 >
 > 定义栈的数据结构，得到栈中所含最小元素的`min`函数（时间复杂度应为`O（1）`）。
@@ -1548,16 +1537,12 @@ class Solution
 class Solution {
 public:
     void push(int value) {
-        stackVal.push(value);
-        if(stackMin.empty()){
-           stackMin.push(value);
+        stackVal.push(value);    //每次stackVal都push value
+        int minValue = value;
+        if(!stackMin.empty()){
+			value = std::min(stackMin.top(),value);//存真实更小
         }
-        else if(stackMin.top() > value){
-            stackMin.push(value);
-        }
-        else{
-            stackMin.push(stackMin.top());
-        }
+        stackMin.push(minValue);
     }
     void pop() {
         if(!stackVal.empty()){
@@ -1577,9 +1562,9 @@ private:
 };
 ```
 
-# [栈的压入、弹出序列](https://www.nowcoder.com/practice/d77d11405cc7470d82554cb392585106?tpId=13&tqId=11174&tPage=2&rp=2&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+# [31.栈的压入、弹出序列](https://www.nowcoder.com/practice/d77d11405cc7470d82554cb392585106?tpId=13&tqId=11174&tPage=2&rp=2&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
-## key: 
+## key: 【】
 > 题目描述
 >
 > - 输入两个整数序列，第一个序列表示栈的压入顺序，请判断第二个序列是否可能为该栈的弹出顺序。假设压入栈的所有数字均不相等。例如序列1,2,3,4,5是某栈的压入顺序，序列4,5,3,2,1是该压栈序列对应的一个弹出序列，但4,3,5,1,2就不可能是该压栈序列的弹出序列。（注意：这两个序列的长度是相等的）
@@ -1595,7 +1580,8 @@ public:
         stack<int> stack;
         
         while(i < size){
-            stack.push(pushV[i++]);//每次压栈，比较top元素和当前popV
+            stack.push(pushV[i++]);//每次压栈
+            //出栈时 比较top元素和当前popV
             while(!stack.empty() && popV[index] == stack.top() && index++ < popV.size()){
                 stack.pop();
             }
@@ -1605,9 +1591,9 @@ public:
 };
 ```
 
-# [从上往下打印二叉树](https://www.nowcoder.com/practice/7fe2212963db4790b57431d9ed259701?tpId=13&tqId=11175&tPage=2&rp=2&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+# [32.从上往下打印二叉树](https://www.nowcoder.com/practice/7fe2212963db4790b57431d9ed259701?tpId=13&tqId=11175&tPage=2&rp=2&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
-## key: 
+## key: 【队列，取头，push队头进结果，push左右分支至队列】
 > 题目描述
 >
 > - 从上往下打印出二叉树的每个节点，同层节点从左至右打印
@@ -1645,9 +1631,9 @@ public:
 };
 ```
 
-# [把二叉树打印成多行](https://www.nowcoder.com/practice/445c44d982d04483b04a54f298796288?tpId=13&tqId=11213&tPage=3&rp=3&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+# [33.把二叉树打印成多行](https://www.nowcoder.com/practice/445c44d982d04483b04a54f298796288?tpId=13&tqId=11213&tPage=3&rp=3&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
-## key: 
+## key: 【】
 > 题目描述
 >
 > - 从上到下按层打印二叉树，同一层结点从左至右输出。每一层输出一行。
@@ -1692,7 +1678,7 @@ public:
 };
 ```
 
-# [按之字形顺序打印二叉树](https://www.nowcoder.com/practice/91b69814117f4e8097390d107d2efbe0?tpId=13&tqId=11212&tPage=3&rp=3&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+# [34.按之字形顺序打印二叉树](https://www.nowcoder.com/practice/91b69814117f4e8097390d107d2efbe0?tpId=13&tqId=11212&tPage=3&rp=3&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
 ## key: 
 > 题目描述
@@ -1775,7 +1761,7 @@ void LevelOrder(TreeNode *T)
 
 
 
-# [二叉搜索树的后序遍历序列](https://www.nowcoder.com/practice/a861533d45854474ac791d90e447bafd?tpId=13&tqId=11176&tPage=2&rp=2&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+# [35.二叉搜索树的后序遍历序列](https://www.nowcoder.com/practice/a861533d45854474ac791d90e447bafd?tpId=13&tqId=11176&tPage=2&rp=2&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
 ## key: 
 > 题目描述
@@ -1818,7 +1804,7 @@ public:
 };
 ```
 
-# [二叉树中和为某一值的路径](https://www.nowcoder.com/practice/b736e784e3e34731af99065031301bca?tpId=13&tqId=11177&tPage=2&rp=2&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+# [36.二叉树中和为某一值的路径](https://www.nowcoder.com/practice/b736e784e3e34731af99065031301bca?tpId=13&tqId=11177&tPage=2&rp=2&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
 ## key: 
 > 题目描述
@@ -1861,7 +1847,7 @@ public:
 };
 ```
 
-# [复杂链表的复制](https://www.nowcoder.com/practice/f836b2c43afc4b35ad6adc41ec941dba?tpId=13&tqId=11178&tPage=2&rp=2&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+# [37.复杂链表的复制](https://www.nowcoder.com/practice/f836b2c43afc4b35ad6adc41ec941dba?tpId=13&tqId=11178&tPage=2&rp=2&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
 ## key: 
 > 题目描述
@@ -1913,7 +1899,7 @@ public:
 
 ```
 
-# [二叉搜索树与双向链表](https://www.nowcoder.com/practice/947f6eb80d944a84850b0538bf0ec3a5?tpId=13&tqId=11179&tPage=2&rp=2&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+# [38.二叉搜索树与双向链表](https://www.nowcoder.com/practice/947f6eb80d944a84850b0538bf0ec3a5?tpId=13&tqId=11179&tPage=2&rp=2&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
 ## key: 
 > 题目描述
@@ -1954,7 +1940,7 @@ public:
 };
 ```
 
-# [序列化二叉树](https://www.nowcoder.com/practice/cf7e25aa97c04cc1a68c8f040e71fb84?tpId=13&tqId=11214&tPage=4&rp=4&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+# [39.序列化二叉树](https://www.nowcoder.com/practice/cf7e25aa97c04cc1a68c8f040e71fb84?tpId=13&tqId=11214&tPage=4&rp=4&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 ## key: 
 > 题目描述
 >
@@ -2017,7 +2003,7 @@ public:
 };
 ```
 
-# [字符串的排列](https://www.nowcoder.com/practice/fe6b651b66ae47d7acce78ffdd9a96c7?tpId=13&tqId=11180&tPage=2&rp=2&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+# [40.字符串的排列](https://www.nowcoder.com/practice/fe6b651b66ae47d7acce78ffdd9a96c7?tpId=13&tqId=11180&tPage=2&rp=2&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
 ## key: 
 > 题目描述
@@ -2063,7 +2049,7 @@ public:
 };
 ```
 
-# [数组中出现次数超过一半的数字](https://www.nowcoder.com/practice/e8a1b01a2df14cb2b228b30ee6a92163?tpId=13&tqId=11181&tPage=2&rp=2&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+# [41.数组中出现次数超过一半的数字](https://www.nowcoder.com/practice/e8a1b01a2df14cb2b228b30ee6a92163?tpId=13&tqId=11181&tPage=2&rp=2&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
 ## key: 
 > 题目描述
@@ -2102,7 +2088,7 @@ public:
 };
 ```
 
-# [最小的K个数](https://www.nowcoder.com/practice/6a296eb82cf844ca8539b57c23e6e9bf?tpId=13&tqId=11182&tPage=2&rp=2&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+# [42.最小的K个数](https://www.nowcoder.com/practice/6a296eb82cf844ca8539b57c23e6e9bf?tpId=13&tqId=11182&tPage=2&rp=2&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
 ## key: 
 > 题目描述
@@ -2153,7 +2139,7 @@ public:
 };
 ```
 
-# [数据流中的中位数](https://www.nowcoder.com/practice/9be0172896bd43948f8a32fb954e1be1?tpId=13&tqId=11216&tPage=4&rp=4&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+# [43.数据流中的中位数](https://www.nowcoder.com/practice/9be0172896bd43948f8a32fb954e1be1?tpId=13&tqId=11216&tPage=4&rp=4&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
 ## key: 
 > 题目描述
@@ -2183,7 +2169,7 @@ public:
 };
 ```
 
-# [连续子数组的最大和](https://www.nowcoder.com/practice/459bd355da1549fa8a49e350bf3df484?tpId=13&tqId=11183&tPage=2&rp=2&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+# [44. 连续子数组的最大和](https://www.nowcoder.com/practice/459bd355da1549fa8a49e350bf3df484?tpId=13&tqId=11183&tPage=2&rp=2&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
 ## key: 
 > 题目描述
@@ -2209,7 +2195,7 @@ public:
 };
 ```
 
-# [1~n整数中1出现的次数](https://www.nowcoder.com/practice/bd7f978302044eee894445e244c7eee6?tpId=13&tqId=11184&tPage=2&rp=2&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+# [45.1~n整数中1出现的次数](https://www.nowcoder.com/practice/bd7f978302044eee894445e244c7eee6?tpId=13&tqId=11184&tPage=2&rp=2&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
 ## key: 
 > 题目描述
@@ -2236,7 +2222,7 @@ public:
 };
 ```
 
-# [把数组排成最小的数](https://www.nowcoder.com/practice/8fecd3f8ba334add803bf2a06af1b993?tpId=13&tqId=11185&tPage=2&rp=2&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+# [46.把数组排成最小的数](https://www.nowcoder.com/practice/8fecd3f8ba334add803bf2a06af1b993?tpId=13&tqId=11185&tPage=2&rp=2&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
 ## key: 
 > 题目描述
@@ -2265,7 +2251,7 @@ public:
 };
 ```
 
-# [丑数](https://www.nowcoder.com/practice/6aa9e04fc3794f68acf8778237ba065b?tpId=13&tqId=11186&tPage=2&rp=2&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+# [47.丑数](https://www.nowcoder.com/practice/6aa9e04fc3794f68acf8778237ba065b?tpId=13&tqId=11186&tPage=2&rp=2&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
 ## key: 
 > 题目描述
@@ -2307,7 +2293,7 @@ public:
 };
 ```
 
-# [第一个只出现一次的字符位置](https://www.nowcoder.com/practice/1c82e8cf713b4bbeb2a5b31cf5b0417c?tpId=13&tqId=11187&tPage=2&rp=2&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+# [48.第一个只出现一次的字符位置](https://www.nowcoder.com/practice/1c82e8cf713b4bbeb2a5b31cf5b0417c?tpId=13&tqId=11187&tPage=2&rp=2&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
 ## key: 
 > 题目描述
@@ -2340,7 +2326,7 @@ public:
 };
 ```
 
-# [字符流中第一个不重复的字符](https://www.nowcoder.com/practice/00de97733b8e4f97a3fb5c680ee10720?tpId=13&tqId=11207&tPage=3&rp=3&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+# [49.字符流中第一个不重复的字符](https://www.nowcoder.com/practice/00de97733b8e4f97a3fb5c680ee10720?tpId=13&tqId=11207&tPage=3&rp=3&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
 ## key: 
 > 题目描述
@@ -2373,7 +2359,7 @@ public:
 };
 ```
 
-# [数组中的逆序对](https://www.nowcoder.com/practice/96bd6684e04a44eb80e6a68efc0ec6c5?tpId=13&tqId=11188&tPage=2&rp=2&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+# [50.数组中的逆序对](https://www.nowcoder.com/practice/96bd6684e04a44eb80e6a68efc0ec6c5?tpId=13&tqId=11188&tPage=2&rp=2&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
 ## key: 
 > 题目描述
@@ -2461,7 +2447,7 @@ public:
 };
 ```
 
-# [两个链表的第一个公共结点](https://www.nowcoder.com/practice/6ab1d9a29e88450685099d45c9e31e46?tpId=13&tqId=11189&tPage=2&rp=2&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+# [51.两个链表的第一个公共结点](https://www.nowcoder.com/practice/6ab1d9a29e88450685099d45c9e31e46?tpId=13&tqId=11189&tPage=2&rp=2&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
 ## key: 
 > 题目描述
@@ -2490,7 +2476,7 @@ public:
 };
 ```
 
-# [数字在排序数组中出现的次数](https://www.nowcoder.com/practice/70610bf967994b22bb1c26f9ae901fa2?tpId=13&tqId=11190&tPage=2&rp=2&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+# [52.数字在排序数组中出现的次数](https://www.nowcoder.com/practice/70610bf967994b22bb1c26f9ae901fa2?tpId=13&tqId=11190&tPage=2&rp=2&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
 ## key: 
 > 题目描述
@@ -2533,7 +2519,7 @@ public:
 };
 ```
 
-# [二叉搜索树的第k个结点](https://www.nowcoder.com/practice/ef068f602dde4d28aab2b210e859150a?tpId=13&tqId=11215&tPage=4&rp=4&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+# [53.二叉搜索树的第k个结点](https://www.nowcoder.com/practice/ef068f602dde4d28aab2b210e859150a?tpId=13&tqId=11215&tPage=4&rp=4&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
 ## key: 
 > 题目描述
@@ -2565,7 +2551,7 @@ public:
 };
 ```
 
-# [二叉树的深度](https://www.nowcoder.com/practice/435fb86331474282a3499955f0a41e8b?tpId=13&tqId=11191&tPage=2&rp=2&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+# [54.二叉树的深度](https://www.nowcoder.com/practice/435fb86331474282a3499955f0a41e8b?tpId=13&tqId=11191&tPage=2&rp=2&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
 ## key: 
 > 题目描述
@@ -2586,7 +2572,7 @@ int TreeDepth(TreeNode* root)
 }
 ```
 
-# [平衡二叉树](https://www.nowcoder.com/practice/8b3b95850edb4115918ecebdf1b4d222?tpId=13&tqId=11192&tPage=2&rp=2&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+# [55.平衡二叉树](https://www.nowcoder.com/practice/8b3b95850edb4115918ecebdf1b4d222?tpId=13&tqId=11192&tPage=2&rp=2&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
 ## key: 
 > 题目描述
@@ -2620,7 +2606,7 @@ public:
 };
 ```
 
-# [数组中只出现一次的数字](https://www.nowcoder.com/practice/e02fdb54d7524710a7d664d082bb7811?tpId=13&tqId=11193&tPage=2&rp=2&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+# [56.数组中只出现一次的数字](https://www.nowcoder.com/practice/e02fdb54d7524710a7d664d082bb7811?tpId=13&tqId=11193&tPage=2&rp=2&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
 ## key: 
 > 题目描述
@@ -2652,7 +2638,7 @@ public:
 };
 ```
 
-# [和为S的两个数字](https://www.nowcoder.com/practice/390da4f7a00f44bea7c2f3d19491311b?tpId=13&tqId=11195&tPage=3&rp=3&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+# [57.和为S的两个数字](https://www.nowcoder.com/practice/390da4f7a00f44bea7c2f3d19491311b?tpId=13&tqId=11195&tPage=3&rp=3&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
 ## key: 
 > 题目描述
@@ -2686,7 +2672,7 @@ public:
 };
 ```
 
-# [和为S的连续正数序列](https://www.nowcoder.com/practice/c451a3fd84b64cb19485dad758a55ebe?tpId=13&tqId=11194&tPage=3&rp=3&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+# [58.和为S的连续正数序列](https://www.nowcoder.com/practice/c451a3fd84b64cb19485dad758a55ebe?tpId=13&tqId=11194&tPage=3&rp=3&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
 ## key: 
 > 题目描述
@@ -2725,7 +2711,7 @@ public:
 };
 ```
 
-# [翻转单词顺序列](https://www.nowcoder.com/practice/3194a4f4cf814f63919d0790578d51f3?tpId=13&tqId=11197&tPage=3&rp=3&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+# [59.翻转单词顺序列](https://www.nowcoder.com/practice/3194a4f4cf814f63919d0790578d51f3?tpId=13&tqId=11197&tPage=3&rp=3&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
 ## key: 
 > 题目描述
@@ -2755,7 +2741,7 @@ public:
 };
 ```
 
-# [左旋转字符串](https://www.nowcoder.com/practice/12d959b108cb42b1ab72cef4d36af5ec?tpId=13&tqId=11196&tPage=3&rp=3&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+# [60.左旋转字符串](https://www.nowcoder.com/practice/12d959b108cb42b1ab72cef4d36af5ec?tpId=13&tqId=11196&tPage=3&rp=3&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
 ## key: 
 > 题目描述
@@ -2791,7 +2777,7 @@ public:
 };
 ```
 
-# [滑动窗口的最大值](https://www.nowcoder.com/practice/1624bc35a45c42c0bc17d17fa0cba788?tpId=13&tqId=11217&tPage=4&rp=4&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+# [61.滑动窗口的最大值](https://www.nowcoder.com/practice/1624bc35a45c42c0bc17d17fa0cba788?tpId=13&tqId=11217&tPage=4&rp=4&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
 ## key: 
 > 题目描述
@@ -2856,7 +2842,7 @@ public:
 };
 ```
 
-# [扑克牌顺子](https://www.nowcoder.com/practice/762836f4d43d43ca9deb273b3de8e1f4?tpId=13&tqId=11198&tPage=3&rp=3&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+# [62.扑克牌顺子](https://www.nowcoder.com/practice/762836f4d43d43ca9deb273b3de8e1f4?tpId=13&tqId=11198&tPage=3&rp=3&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
 ## key: 
 > 题目描述
@@ -2902,7 +2888,7 @@ public:
 };
 ```
 
-# [圆圈中最后剩下的数](https://www.nowcoder.com/practice/f78a359491e64a50bce2d89cff857eb6?tpId=13&tqId=11199&tPage=3&rp=3&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+# [63.圆圈中最后剩下的数](https://www.nowcoder.com/practice/f78a359491e64a50bce2d89cff857eb6?tpId=13&tqId=11199&tPage=3&rp=3&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
 > 思路：本题就是有名的约瑟夫环问题。我们可以环形列表来模拟，每次从这个列表中删除第m个元素，一直到列表最后剩下一个元素为止。
 >
@@ -2956,7 +2942,7 @@ public:
 > };
 > ```
 
-# [求1+2+3+...+n](https://www.nowcoder.com/practice/7a0da8fc483247ff8800059e12d7caf1?tpId=13&tqId=11200&tPage=3&rp=3&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+# [64.求1+2+3+...+n](https://www.nowcoder.com/practice/7a0da8fc483247ff8800059e12d7caf1?tpId=13&tqId=11200&tPage=3&rp=3&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
 ## key: 
 > 题目描述
@@ -2977,7 +2963,7 @@ public:
 
 
 
-# [不用加减乘除做加法](https://www.nowcoder.com/practice/59ac416b4b944300b617d4f7f111b215?tpId=13&tqId=11201&tPage=3&rp=3&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+# [65.不用加减乘除做加法](https://www.nowcoder.com/practice/59ac416b4b944300b617d4f7f111b215?tpId=13&tqId=11201&tPage=3&rp=3&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
 ## key: 
 > 题目描述
@@ -3000,7 +2986,7 @@ public:
 };
 ```
 
-# [构建乘积数组](https://www.nowcoder.com/practice/94a4d381a68b47b7a8bed86f2975db46?tpId=13&tqId=11204&tPage=3&rp=3&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+# [66.构建乘积数组](https://www.nowcoder.com/practice/94a4d381a68b47b7a8bed86f2975db46?tpId=13&tqId=11204&tPage=3&rp=3&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
 ## key: 
 > 题目描述
@@ -3035,7 +3021,7 @@ public:
 };
 ```
 
-# [把字符串转换成整数](https://www.nowcoder.com/practice/1277c681251b4372bdef344468e4f26e?tpId=13&tqId=11202&tPage=3&rp=3&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+# [67.把字符串转换成整数](https://www.nowcoder.com/practice/1277c681251b4372bdef344468e4f26e?tpId=13&tqId=11202&tPage=3&rp=3&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
 ## key: 
 > 题目描述
