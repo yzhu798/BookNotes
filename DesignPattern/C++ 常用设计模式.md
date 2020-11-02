@@ -1,5 +1,9 @@
 # [C++ 常用设计模式](https://www.cnblogs.com/schips/p/12306851.html)
 
+[TOC]
+
+
+
 ## 背景
 
 设计模式是来源于工业实践的重要开发经验,它实际上是面向对象的数据结构,掌握设计模式是掌握面向对象设计的根本要求。
@@ -17,52 +21,22 @@
 缺点：**工厂类集中了所有产品类的创建逻辑**，如果**产品量较大，会使得工厂类变的非常臃肿**。
 
 ```cpp
-/*
-关键代码：创建过程在工厂类中完成。
-*/
-//定义产品类型信息
-typedef enum{
-    Tank_Type_56,
-    Tank_Type_96,
-    Tank_Type_Num
-}Tank_Type;
 
-//抽象产品类
 class Tank{}
-//具体的产品类
 class Tank56 : public Tank{};
-//具体的产品类
-class Tank96 : public Tank{};
 
-//工厂类
 class TankFactory{
 public:
-    //根据产品信息创建具体的产品类实例，返回一个抽象产品类
     Tank* createTank(Tank_Type type){
         switch(type){
         case Tank_Type_56:
             return new Tank56();
-        case Tank_Type_96:
-            return new Tank96();
         default:
             return nullptr;
         }
     }
 };
 
-
-int main()
-{
-    TankFactory* factory = new TankFactory();
-    Tank* tank56 = factory->createTank(Tank_Type::Tank_Type_56);
-
-    delete tank56;
-    tank56 = nullptr;
-    delete factory;
-    factory = nullptr;
-
-    return 0;
-}
 ```
 
 ### 1.2、工厂方法模式
@@ -72,46 +46,23 @@ int main()
 缺点：产品类数据较多时，**需要实现大量的工厂类**，这无疑增加了代码量。
 
 ```cpp
-/*关键代码：创建过程在其子类执行。*/
 
-//产品抽象类
 class Tank{};
-//抽象工厂类，提供一个创建接口
+class Tank56 : public Tank{};
+
 class TankFactory{
 public:
-    //提供创建产品实例的接口，返回抽象产品类
     virtual Tank* createTank() = 0;
 };
-//具体的产品类
-class Tank56 : public Tank{};
-class Tank96 : public Tank{};
 
-//具体的创建工厂类，使用抽象工厂类提供的接口，去创建具体的产品实例
 class Tank56Factory : public TankFactory{
 public:
     Tank* createTank() override{
         return new Tank56();
     }
 };
-class Tank96Factory : public TankFactory{
-public:
-    Tank* createTank() override{
-        return new Tank96();
-    }
-};
 
-int main()
-{
-    TankFactory* factory56 = new Tank56Factory();
-    Tank* tank56 = factory56->createTank();
-    
-    delete tank56;
-    tank56 = nullptr;
-    delete factory56;
-    factory56 = nullptr;
 
-    return 0;
-}
 ```
 
 ### 1.3、抽象工厂模式
@@ -123,43 +74,29 @@ int main()
 缺点：当增加一个新系列的产品时，不仅需要现实具体的产品类，还需要增加一个新的创建接口，**扩展相对困难**。
 
 ```cpp
-/*
-* 关键代码：在一个工厂里聚合多个同类产品。
-* 以下代码以白色衣服和黑色衣服为例，白色衣服为一个产品系列，黑色衣服为一个产品系列。白色上衣搭配白色裤子，   黑色上衣搭配黑色裤字。每个系列的衣服由一个对应的工厂创建，这样一个工厂创建的衣服能保证衣服为同一个系列。
-*/
 
-//抽象上衣类
 class Coat{
 public:
     virtual const string& color() = 0;
 };
 
-//黑色上衣类
+//上衣类
 class BlackCoat : public Coat{};
-
-//白色上衣类
 class WhiteCoat : public Coat{}; 
 
 //抽象裤子类
-class Pants
-{
+class Pants{
 public:
     virtual const string& color() = 0;
 };
 
-//黑色裤子类
 class BlackPants : public Pants{}; 
-
-//白色裤子类
 class WhitePants : public Pants{}; 
 
 //抽象工厂类，提供衣服创建接口
-class Factory
-{
+class Factory{
 public:
-    //上衣创建接口，返回抽象上衣类
     virtual Coat* createCoat() = 0;
-    //裤子创建接口，返回抽象裤子类
     virtual Pants* createPants() = 0;
 };
 
@@ -169,11 +106,6 @@ class WhiteFactory : public Factory{
         // return new WhitePants();
 };
 
-//创建黑色衣服的工厂类，具体实现创建黑色上衣和白色裤子的接口
-class BlackFactory : public Factory{
-        // return new BlackCoat();
-        // return new BlackPants();
-};
 ```
 
 ## 2、单例模式(Singleton)
@@ -195,7 +127,6 @@ class BlackFactory : public Factory{
 ```cpp
 //懒汉式，线程非安全版本，需要delete，用智能指针
 class Singleton{
-private:
     Singleton(){}                                    //构造函数私有
     Singleton(const Singleton&) = delete;            //明确拒绝
     Singleton& operator=(const Singleton&) = delete; //明确拒绝
@@ -205,8 +136,8 @@ public:
 
     static Singleton* m_instance;// 静态(static)成员
 };
-Singleton* Singleton::m_instance=nullptr;
 
+Singleton* Singleton::m_instance=nullptr; //用时创建，线程不安全
 Singleton* Singleton::getInstance() {
     if (m_instance == nullptr) {
         m_instance = new Singleton();
@@ -256,15 +187,6 @@ Singleton* Singleton::getInstance() {
 **C++11**，若当变量在初始化时，并发同时进入声明语句，并发线程将会阻塞等待初始化结束。**所以具有线程安全性。**
 
 ```cpp
-class Singleton
-{
-public:
-    static Singleton& getInstance();
-private:
-    Singleton(){}
-    Singleton(const Singleton&) = delete;  //明确拒绝
-    Singleton& operator=(const Singleton&) = delete; //明确拒绝
-};
 
 //C++11，若当变量在初始化时，并发同时进入声明语句，并发线程将会阻塞等待初始化结束。所以具有线程安全性。
 Singleton& Singleton::getInstance()
@@ -321,8 +243,7 @@ private:
 
 Singleton* Singleton::m_pSingleton = new Singleton();
 
-Singleton* Singleton::getInstance()
-{
+Singleton* Singleton::getInstance(){
     return m_pSingleton;
 }
 ```
@@ -344,28 +265,21 @@ Singleton* Singleton::getInstance()
 - 更好的划分了设计层次，对于后期维护更加的容易。
 
 ```cpp
-/*
-* 关键代码：客户与系统之间加一个外观层，外观层处理系统的调用关系、依赖关系等。
-*以下实例以电脑的启动过程为例，客户端只关心电脑开机的、关机的过程，并不需要了解电脑内部子系统的启动过程。
-*/
+
 #include <iostream>
 using namespace std;
 
-//抽象控件类，提供接口
 class Control{
 public:
     virtual void start() = 0;
     virtual void shutdown() = 0;
 };
 
-//子控件， 主机
+
 class Host : public Control{};
-
-//子控件， 显示屏
 class LCDDisplay : public Control{};
-
-//子控件， 外部设备
 class Peripheral : public Control{};
+
 class Computer{
 public:
     void start()
@@ -375,26 +289,13 @@ public:
         m_peripheral.start();
         cout << "Computer start" << endl;
     }
-    void shutdown()
-    {
-        m_host.shutdown();
-        m_display.shutdown();
-        m_peripheral.shutdown();
-        cout << "Computer shutdown" << endl;
-    }
 private:
     Host   m_host;
     LCDDisplay m_display;
     Peripheral   m_peripheral;
 };
 
-int main(){
-    Computer computer;
-    computer.start();
-    //do something
-    computer.shutdown();
-    return 0;
-}
+
 ```
 
 ## 4、模板模式(Template)
@@ -425,8 +326,6 @@ public:
 protected:
     virtual void installCpu() = 0;
     void installRam(){cout << "Computer install 16G Ram" << endl;}
-    virtual void installGraphicsCard() = 0;
-
 };
 
 class ComputerA : public Computer{
@@ -434,19 +333,12 @@ protected:
     void installCpu() override{
         cout << "ComputerA install Inter Core i5" << endl;
     }
-
-    void installGraphicsCard() override{
-        cout << "ComputerA install Gtx940 GraphicsCard" << endl;
-    }
 };
 
 class ComputerB : public Computer{
 protected:
     void installCpu() override{
         cout << "ComputerB install Inter Core i7" << endl;
-    }
-    void installGraphicsCard() override{
-        cout << "ComputerB install Gtx960 GraphicsCard" << endl;
     }
 };
 
@@ -552,13 +444,11 @@ int main()
 - 扩展性好。
 
 ```cpp
-/*
-* 关键代码：一个是真正的你要访问的对象(目标类)，一个是代理对象,真正对象与代理对象实现同一个接口,先访问代理*         类再访问真正要访问的对象。
-*/
+
 class ISubject{
 public:
     virtual void process();
-};//抽象类
+};
 
 class RealSubject: public ISubject{
 public:
@@ -621,8 +511,6 @@ class View{
 public:
     virtual ~View(){ cout << "~View()" << endl; }
     virtual void update() = 0;
-    virtual void setViewName(const string& name) = 0;
-    virtual const string& name() = 0;
 };
 
 //具体的被观察类， 整数模型
@@ -657,7 +545,7 @@ public:
     virtual void notify() override{
         auto iter = m_pViewList.begin();
         for(; iter != m_pViewList.end(); iter++){
-            (*iter).get()->update();
+            (*iter).get()->update(); //重点~~
         }
     }
 
@@ -671,15 +559,6 @@ public:
     TableView() : m_name("unknow"){}
     TableView(const string& name) : m_name(name){}
     ~TableView(){ cout << "~TableView(): " << m_name.data() << endl; }
-
-    void setViewName(const string& name){
-        m_name = name;
-    }
-
-    const string& name(){
-        return m_name;
-    }
-
     void update() override{
         cout << m_name.data() << " update" << endl;
     }
@@ -733,28 +612,23 @@ int main()
 ### 8.1、传统的策略模式实现
 
 ```cpp
-/*
-* 关键代码：实现同一个接口。
-* 以下代码实例中，以游戏角色不同的攻击方式为不同的策略，游戏角色即为执行不同策略的环境角色。
-*/
 
 #include <iostream>
-
 using namespace std;
 
-//抽象策略类，提供一个接口
+//抽象策略类
 class Hurt{
 public:
     virtual void blood() = 0;
 };
 
-//具体的策略实现类，Adc持续普通攻击
+//Adc持续普通攻击
 class AdcHurt : public Hurt{
 public:
     void blood() override{cout << "Adc hurt, Blood loss" << endl;}
 };
 
-//具体的策略实现类， Apc技能攻击
+//Apc技能攻击
 class ApcHurt : public Hurt{
 public:
     void blood() override{cout << "Apc Hurt, Blood loss" << endl;}
@@ -788,9 +662,6 @@ public:
         case Hurt_Type_Adc:
             m_pHurt = new AdcHurt();
             break;
-        case Hurt_Type_Apc:
-            m_pHurt = new ApcHurt();
-            break;
         default:
             break;
         }
@@ -806,7 +677,7 @@ private:
     Hurt* m_pHurt;
 };
 
-//环境角色类， 游戏角色弓箭手，实现模板传递策略。
+// 游戏角色弓箭手，实现模板传递策略。
 template<typename T>
 class Archer{
 public:
@@ -1090,7 +961,7 @@ public:
 
 - 当一个对象有多个变化因素的时候，考虑依赖于抽象的实现，而不是具体的实现。
 - 当多个变化因素在多个对象间共享时，考虑将这部分变化的部分抽象出来再聚合/合成进来。
-- 当一个对象的多个变化因素可以动态变化的时候。
+- 当一个对象的**多个变化因素可以动态变化的时候。**
 
 优点：
 
