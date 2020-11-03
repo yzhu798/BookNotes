@@ -24,7 +24,7 @@ Derived::~Derived(...){ ...  ~Component(), ~Base() };
 
 > 当类中存在虚函数的时候（不管有几个虚函数），对象的内存占用都会**多出4bytes**，这个空间存放了一个**指向虚表（Virtual table：vtbl）的指针（Virtual Pointer：vptr）**。虚表里放的都是**函数指针**。
 
-![image-20200420151900705](C++%E5%AF%B9%E8%B1%A1%E6%A8%A1%E5%9E%8B.assets/image-20200420151900705.png)
+![image-20200420151900705](https://gitee.com/yzhu798/bolgImage/raw/master/C++对象模型.assets/image-20200420151900705.png)
 
 **多态的条件**
 
@@ -38,7 +38,7 @@ Derived::~Derived(...){ ...  ~Component(), ~Base() };
 
 （1）通过一个**对象来调用一个函数**，那么对象的地址就是this pointer。传给函数的隐藏的第一个参数。
 
-![image-20200420153452293](C++%E5%AF%B9%E8%B1%A1%E6%A8%A1%E5%9E%8B.assets/image-20200420153452293.png)
+![image-20200420153452293](https://gitee.com/yzhu798/bolgImage/raw/master/C++对象模型.assets/image-20200420153452293.png)
 
 ## 十九、关于Dynamic Binding
 
