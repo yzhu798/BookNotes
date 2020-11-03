@@ -454,8 +454,8 @@ public:
 >
 > 前序加中序序列，分解过程图示如下（王道数据结构P120）
 >
-> ![图片说明](2020-10-12%20%E5%89%91%E6%8C%87offer(all).assets/807319133_1566201171550_B40B59C37DAF61726E7EDC919A086425)
-> ![图片说明](2020-10-12%20%E5%89%91%E6%8C%87offer(all).assets/807319133_1566201156302_8051F21823FC87CE1C97D7AE4FAD5B08)
+> ![图片说明](https://gitee.com/yzhu798/bolgImage/raw/master/2020-10-12%20%E5%89%91%E6%8C%87offer(all).assets/807319133_1566201171550_B40B59C37DAF61726E7EDC919A086425)
+> ![图片说明](https://gitee.com/yzhu798/bolgImage/raw/master/2020-10-12%20%E5%89%91%E6%8C%87offer(all).assets/807319133_1566201156302_8051F21823FC87CE1C97D7AE4FAD5B08)
 > 思路：
 >
 > 1. 由先序序列第一个**`pre[0]`**在中序序列中找到根节点位置**`gen`**
@@ -623,7 +623,7 @@ void preorderTraversalNew(TreeNode *root, std::vector<int> &path)
 >
 > 但是，如果在面试中，方法一肯定上不了台面。但是最优解法该怎么去想呢？想不出来就画图分析，举个中序遍历的图：如下：
 >
-> ![图片说明](%E5%89%91%E6%8C%87offer(all).assets/284295_1590477193692_99D648423BB3F2113395149399A1462A)
+> ![图片说明](https://gitee.com/yzhu798/bolgImage/raw/master/%E5%89%91%E6%8C%87offer(all).assets/284295_1590477193692_99D648423BB3F2113395149399A1462A)
 > 红色数字是中序遍历的顺序。接下来，我们就假设，如果当前结点分别是1,2 ... 7，下一结点看有什么规律没？
 >
 > [复制代码](https://www.nowcoder.com/practice/9023a0c988684a53960365b889ceaf5e?tpId=13&tqId=11210&tPage=3&rp=3&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking#)
@@ -1250,7 +1250,7 @@ public:
 我们还是用两个指针来解决这个问题。先定义两个指针P1（快指针）和P2（慢指针）指向链表的头节点。如果链表中的环有n个节点，则指针P1先在链表上向前移动n步，然后两个指针以相同的速度向前移动。当第一个指针指向环的入口节点时，第一个指针已经围绕着环走了一圈，又回到了入口节点。
 
 
-![img](%E5%89%91%E6%8C%87offer_Cpp(all).assets/20190612103512655.jpg)
+![img](https://gitee.com/yzhu798/bolgImage/raw/master/%E5%89%91%E6%8C%87offer_Cpp(all).assets/20190612103512655.jpg)
 
 ```cpp
 class Solution {

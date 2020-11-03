@@ -517,19 +517,19 @@ if (s.size() < s.capacity()) {
   * 依赖引用计数的string实现包含了这个值的引用计数
 * 实现A中，每个string对象包含一个配置器的拷贝，字符串的大小，容量，和一个指向包含引用计数和字符串值的动态分配的缓冲区的指针。这里一个使用默认配置器的字符串对象是指针大小的四倍，对于一个自定义的配置器，string对象会随配置器对象的增大而变大
 
-![](Effective-STL.assets/2-1.png)
+![](https://gitee.com/yzhu798/bolgImage/raw/master/Effective-STL.assets/2-1.png)
 
 * 实现B的string对象和指针一样大，因为在结构体中只包含一个指针。这里仍然假设使用默认配置器。正如实现A，如果使用自定义配置器，这个string对象的大小会增加大约配置器对象的大小。实现B中，使用默认配置器不占用空间，这归功于这里用了一个在实现A中没有的使用优化。B的string指向的对象包含字符串的大小、容量和引用计数，以及容纳字符串值的动态分配缓冲区的指针，也包含在多线程系统中与并发控制有关的一些附加数据，用于并发控制的数据是一个指针大小的6倍
 
-![](Effective-STL.assets/2-2.png)
+![](https://gitee.com/yzhu798/bolgImage/raw/master/Effective-STL.assets/2-2.png)
 
 * 实现C的string对象总是等于指针的大小，但是这个指针指向一个包含所有与string相关的东西的动态分配缓冲器：它的大小、容量、引用计数和值。没有per-object allocator的支持。缓冲区也容纳一些关于值可共享性的数据，我们在这里不考虑这个主题，标记为“X”
 
-![](Effective-STL.assets/2-3.png)
+![](https://gitee.com/yzhu798/bolgImage/raw/master/Effective-STL.assets/2-3.png)
 
 * 实现D的string对象是一个指针大小的七倍（仍然假设使用了默认配置器）。这个实现没有使用引用计数，但每个string包含了一个足以表现最多15个字符的字符串值的内部缓冲区，因此小的字符串可以被整个保存在string对象中，这是一种优化策略，当一个string的容量超过15时，缓冲器的第一部分被用作指向动态分配内存的一个指针，而字符串的值存放在那块内存中。在VS中空string的size就是15，sizeof(string)是28
 
-![](Effective-STL.assets/2-4.png)
+![](https://gitee.com/yzhu798/bolgImage/raw/master/Effective-STL.assets/2-4.png)
 
 * 实现D没有动态分配，实现A和C下一次，实现B下两次（一次是string对象指向的对象，一次是那个对象指向的字符缓冲区），因此新字符串值的建立可能需要0、1或2次动态分配。如果关心动态分配和回收内存的次数，或伴随这样分配的内存开销，避开实现B
 
@@ -956,7 +956,7 @@ efficientAddOrUpdate(m, 10, 1.5);
 
 ## 25 熟悉非标准散列容器
 * 兼容STL的散列关联容器可以从多个来源获得，而且它们的名字通常是：hash_set、hash_multiset、hash_map和hash_multimap。但因为没有遵循一个标准实现，为了避开这些名字，在C++标准委员会的议案中，散列容器的名字是unordered_set、unordered_multiset、unordered_map和unordered_multimap，C++11中引入了这些容器
-![](Effective-STL.assets/4-1.png)
+![](https://gitee.com/yzhu798/bolgImage/raw/master/Effective-STL.assets/4-1.png)
 
 * 输入迭代器：只能用来读取指向的值。当该迭代器自加时，之前指向的值就不可访问。也就是说，不能使用这个迭代器在一个范围内遍历多次。std::istream_iterator就是这样的迭代器
 * 前向迭代器：类似于输入迭代器，不过其可以在指示范围内迭代多次。`std::forward_list`就是这样的迭代器。就像一个单向链表一样，只能向前遍历，不能向后遍历，但可以反复迭代
@@ -1027,12 +1027,12 @@ vector<int>::reverse_iterator ri = find(v.rbegin(), v.rend(), 3);
 vector<int>::iterator i(ri.base()); // 使i和ri的base一样
 ```
 
-![](Effective-STL.assets/4-2.png)
+![](https://gitee.com/yzhu798/bolgImage/raw/master/Effective-STL.assets/4-2.png)
 
 * 有些容器的成员函数只接受iterator类型参数，比如要在ri所指的位置插入元素时，vector的insert函数会拒绝reverse_iterator，删除同理，因此必须先通过base函数将reverse_iterator转换成iterator
 * 比如要在ri的位置插入99，因为是从右往左遍历，即倒数第三个位置，插入后内容如下
 
-![](Effective-STL.assets/4-3.png)
+![](https://gitee.com/yzhu798/bolgImage/raw/master/Effective-STL.assets/4-3.png)
 
 * ri指向3时，ri.base()指向4，因此直接插入到ri.base()即可
 * 如果要删除ri，则删除的是ri.base()的往左一个元素
@@ -1199,13 +1199,13 @@ cout << v.size(); // 仍然是10
 * remove并不真的删除东西，remove不知道它要从哪个容器删除东西，而没有容器就没有办法调用成员函数
 * remove移动区间中的元素直到所有“不删除的”元素在区间的开头，返回指向最后一个“不删除的”元素的下一个位置的迭代器，即区间的“新逻辑终点”
 
-![调用remove前](Effective-STL.assets/5-1.png)
+![调用remove前](https://gitee.com/yzhu798/bolgImage/raw/master/Effective-STL.assets/5-1.png)
 
-![调用后返回newEnd](Effective-STL.assets/5-2.png)
+![调用后返回newEnd](https://gitee.com/yzhu798/bolgImage/raw/master/Effective-STL.assets/5-2.png)
 
 * remove并没有改变区间中元素的顺序，不会把“删除的”元素放在结尾
 
-![新逻辑终点后的元素保持原值](Effective-STL.assets/5-3.png)
+![新逻辑终点后的元素保持原值](https://gitee.com/yzhu798/bolgImage/raw/master/Effective-STL.assets/5-3.png)
 
 * 实际上可以remove完成了一种压缩，对于上述vector，remove过程如下
   * 检查v[0]，发现它的值不是要被删除的，继续后移
@@ -1214,7 +1214,7 @@ cout << v.size(); // 仍然是10
   * 发现v[5]应该被删除，忽略它并移动到v[6]，仍然记得v[4]是一个等待填充的洞
   * 发现v[6]不用删除，所以把v[6]赋给v[4]，记得v[5]现在是下一个要被填充的洞，后续同理
 
-![移动过程](Effective-STL.assets/5-4.png)
+![移动过程](https://gitee.com/yzhu798/bolgImage/raw/master/Effective-STL.assets/5-4.png)
 
 * erase的目标很容易看出来，就是新逻辑终点到原来的区间终点之间的部分
 ```cpp
@@ -1248,11 +1248,11 @@ v.erase(remove_if(v.begin(), v.end(), not1(mem_fun(&Widget::isCertified))),
 ```
 * 这样会产生内存泄漏，下列过程实际上没有释放BC
 
-![调用remove_if前](Effective-STL.assets/5-5.png)
+![调用remove_if前](https://gitee.com/yzhu798/bolgImage/raw/master/Effective-STL.assets/5-5.png)
 
-![调用remove_if后](Effective-STL.assets/5-6.png)
+![调用remove_if后](https://gitee.com/yzhu798/bolgImage/raw/master/Effective-STL.assets/5-6.png)
 
-![erase后明显的内存泄漏](Effective-STL.assets/5-7.png)
+![erase后明显的内存泄漏](https://gitee.com/yzhu798/bolgImage/raw/master/Effective-STL.assets/5-7.png)
 
 * 如果无法避免在指针的容器上使用remove，一种方法是在应用erase-remove惯用法之前先删除指针并设为空，然后除去容器中的所有空指针
 ```cpp

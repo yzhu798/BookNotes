@@ -1161,7 +1161,7 @@ study(p);   //错误
 
 <div align="center"> <img src="Effective_cpp.assets/cppeffective-6-3.png"/> </div>
 
-如果只想引入基类被遮掩函数中某个版本（注意，这种需求一般只在private继承中出现，因为如果只继承基类的部分操作，违背了[条款32](#条款32确定你的public继承塑模出is-a关系)），可以直接定义一个同名同参的函数，然后在这个函数内调用基类的版本，做一个转调用。这实际上称为一种实现技术(而不是引入)更为恰当：
+如果只想引入基类被遮掩函数中某个版本（注意，这种需求一般只在private继承中出现，因为如果只继承基类的部分操作，违背了[条款32](https://gitee.com/yzhu798/bolgImage/raw/master/#条款32确定你的public继承塑模出is-a关系)），可以直接定义一个同名同参的函数，然后在这个函数内调用基类的版本，做一个转调用。这实际上称为一种实现技术(而不是引入)更为恰当：
 
 <div align="center"> <img src="Effective_cpp.assets/cppeffective-6-4.png"/> </div>
 

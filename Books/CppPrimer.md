@@ -1,10 +1,10 @@
 # 《C++ Primer中文版（第5版）》笔记
 <!-- GFM-TOC -->
-![Cover](CppPrimer.assets/Cover.png)
+![Cover](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/Cover.png)
 
 ## 目录
 
-[第1章 开始](#1)
+[第1章 开始](https://gitee.com/yzhu798/bolgImage/raw/master/#1)
 
 ### 第I部分 C++基础
 
@@ -198,7 +198,7 @@ std::cout << '\115' << '\n';    // prints M followed by a newline
 
 **添加特定的前缀和后缀**，可以改变整型、浮点型和字符型字面值的默认类型。 
 
-![2-2](CppPrimer.assets/2-2.png)
+![2-2](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/2-2.png)
 
 使用一个长整型字面值时，最好使用**大写字母**`L`进行标记，小写字母`l`和数字`1`容易混淆。
 
@@ -249,7 +249,7 @@ int j;      // declares and defines j
 
 C++的标识符由字母、数字和下划线组成，其中必须以字母或下划线开头。标识符的长度没有限制，但是对大小写字母敏感。C++为标准库保留了一些名字。用户自定义的标识符**不能连续出现两个下划线**，**也不能以下划线紧连大写字母开头**。此外，定义在函数体外的标识符不能以下划线开头。
 
-![2-3](CppPrimer.assets/2-3.png)
+![2-3](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/2-3.png)
 
 ### 名字的作用域（Scope of a Name）
 
@@ -373,7 +373,7 @@ int *pi = &ival;    // pi points to an int
 int **ppi = &pi;    // ppi points to a pointer to an int
 ```
 
-![2-4](CppPrimer.assets/2-4.png)
+![2-4](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/2-4.png)
 
 **指向指针的引用**（References to Pointers）：
 
@@ -671,7 +671,7 @@ using std::cout;
 
 初始化`string`的方式：
 
-![3-1](CppPrimer.assets/3-1.png)
+![3-1](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/3-1.png)
 
 **如果使用等号初始化一个变量，实际上执行的是拷贝初始化**（copy initialization），编译器把等号右侧的初始值拷贝到新创建的对象中去。**如果不使用等号，则执行的是直接初始化**（direct initializati****on）。 
 
@@ -679,7 +679,7 @@ using std::cout;
 
 `string`的操作：
 
-![3-2](CppPrimer.assets/3-2.png)
+![3-2](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/3-2.png)
 
 在执行读取操作时，`string`对象会自动忽略开头的空白（空格符、换行符、制表符等）并从第一个真正的字符开始读取，直到遇见下一处空白为止。
 
@@ -703,7 +703,7 @@ string s6 = s1 + ", " + "world";    // ok: each + has a string operand
 
 头文件*cctype*中的字符操作函数：
 
-![3-3](CppPrimer.assets/3-3.png)
+![3-3](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/3-3.png)
 
 **建议使用C++版本的C标准库头文件。**C语言中名称为*name.h*的头文件，在C++中则被命名为*cname*。
 
@@ -745,7 +745,7 @@ C++标准并不要求标准库检测下标是否合法。编程时可以把**下
 
 初始化`vector`对象的方法：
 
-![3-4](CppPrimer.assets/3-4.png)
+![3-4](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/3-4.png)
 
 **初始化`vector`对象时如果使用圆括号，可以说提供的值是用来构造（construct）`vector`对象的；如果使用的是花括号，则是在列表初始化（list initialize）该`vector`对象。**
 
@@ -768,7 +768,7 @@ for (int i = 0; i != 100; ++i)
 
 `vector`支持的操作：
 
-![3-5](CppPrimer.assets/3-5.png)
+![3-5](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/3-5.png)
 
 `size`函数返回`vector`对象中元素的个数，返回值是由`vector`定义的`size_type`类型。**`vector`对象的类型包含其中元素的类型。** 
 
@@ -805,7 +805,7 @@ auto b = ivec.begin(), e = ivec.end();    // b and e have the same type
 
 标准容器迭代器的运算符：
 
-![3-6](CppPrimer.assets/3-6.png)
+![3-6](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/3-6.png)
 
 **因为`end`返回的迭代器**并不实际指向某个元素，**所以不能对其进行递增或者解引用的操作**。
 
@@ -830,7 +830,7 @@ auto it2 = cv.begin();  // it2 has type vector<int>::const_iterator
 
 `vector`和`string`迭代器支持的操作：
 
-![3-7](CppPrimer.assets/3-7.png)
+![3-7](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/3-7.png)
 
 `difference_type`类型用来表示**两个迭代器间的距离，这是一种带符号整数类型。** 
 
@@ -897,7 +897,7 @@ string *p2 = nums;      // equivalent to p2 = &nums[0]
 
 一维数组寻址公式：
 
-![3-8](CppPrimer.assets/3-8.png)
+![3-8](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/3-8.png)
 
 **当使用数组作为一个`auto`变量的初始值时，推断得到的类型是指针而非数组。但`decltype`关键字不会发生这种转换，直接返回数组类型。 **
 
@@ -932,7 +932,7 @@ C++标准支持C风格字符串，但是最好不要在C++程序中使用它们�
 
 C风格字符串的函数：
 
-![3-9](CppPrimer.assets/3-9.png)
+![3-9](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/3-9.png)
 
 C风格字符串函数不负责验证其参数的正确性，**传入此类函数的指针必须指向以空字符作为结尾的数组。**
 
@@ -995,7 +995,7 @@ int (&row)[4] = ia[1];  // binds row to the second four-element array in ia
 
 多维数组寻址公式：
 
-![3-10](CppPrimer.assets/3-10.png)
+![3-10](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/3-10.png)
 
 **使用范围`for`语句处理多维数组时，为了避免数组被自动转换成指针，语句中的外层循环控制变量必须声明成引用类型。 **
 
@@ -1091,7 +1091,7 @@ cout << i << " " << ++i << endl;    // undefined
 
 算术运算符（左结合律）：
 
-![4-1](CppPrimer.assets/4-1.png)
+![4-1](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/4-1.png)
 
 **在除法运算中，C++语言的早期版本允许结果为负数的商向上或向下取整，C++11新标准则规定商一律向0取整（即直接去除小数部分）**。
 
@@ -1099,7 +1099,7 @@ cout << i << " " << ++i << endl;    // undefined
 
 关系运算符作用于算术类型和指针类型，逻辑运算符作用于任意能转换成布尔值的类型。逻辑运算符和关系运算符的返回值都是布尔类型。
 
-![4-2](CppPrimer.assets/4-2.png)
+![4-2](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/4-2.png)
 
 逻辑与（logical AND）运算符`&&`和逻辑或（logical OR）运算符`||`都是先计算左侧运算对象的值再计算右侧运算对象的值，当且仅当左侧运算对象无法确定表达式的结果时才会去计算右侧运算对象的值。**这种策略称为短路求值**（short-circuit evaluation）。
 
@@ -1186,7 +1186,7 @@ cond ? expr1 : expr2;
 
 位运算符（左结合律）：
 
-![4-3](CppPrimer.assets/4-3.png)
+![4-3](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/4-3.png)
 
 在位运算中符号位如何处理并没有明确的规定，**所以建议仅将位运算符用于无符号类型的处理。**
 
@@ -1330,7 +1330,7 @@ else
 
 `switch`语句的形式：
 
-![5-1](CppPrimer.assets/5-1.png)
+![5-1](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/5-1.png)
 
 `switch`语句先对括号里的表达式求值，值转换成整数类型后再与每个`case`标签（case label）的值进行比较。如果表达式的值和某个`case`标签匹配，程序从该标签之后的第一条语句开始执行，**直到到达`switch`的结尾或者遇到`break`语句为止。**`case`标签必须是整型常量表达式。
 
@@ -1517,14 +1517,14 @@ catch (exception-declaration)
 
 - 头文件*stdexcept*定义了几种常用的异常类。
 
-  ![5-2](CppPrimer.assets/5-2.png)
+  ![5-2](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/5-2.png)
 
 - 头文件*new*定义了`bad_alloc`异常类。
 - 头文件*type_info*定义了`bad_cast`异常类。
 
 标准库异常类的继承体系： 
 
-![5-3](CppPrimer.assets/5-3.png)
+![5-3](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/5-3.png)
 
 只能以默认初始化的方式初始化`exception`、`bad_alloc`和`bad_cast`对象，不允许为这些对象提供初始值。其他异常类的对象在初始化时必须提供一个`string`或一个C风格字符串，通常表示异常信息。`what`成员函数可以返回该字符串的`string`副本。  
 # 第6章 函数
@@ -1702,7 +1702,7 @@ int main(int argc, char **argv) { /*...*/ }
 
 在*Visual Studio*中可以设置`main`函数调试参数：
 
-![6-1](CppPrimer.assets/6-1.png)
+![6-1](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/6-1.png)
 
 ### 含有可变形参的函数（Functions with Varying Parameters）
 
@@ -1727,7 +1727,7 @@ C++还可以使用**省略符形参传递可变数量的实参，但这种功能
 
 `initializer_list`提供的操作：
 
-![6-2](CppPrimer.assets/6-2.png)
+![6-2](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/6-2.png)
 
 拷贝或赋值一个`initializer_list`对象不会拷贝列表中的元素。**拷贝后，原始列表和副本共享元素。**
 
@@ -2898,7 +2898,7 @@ private:
 
 **头文件*iostream*定义了用于读写流的基本类型，*fstream*定义了读写命名文件的类型，*sstream*定义了读写内存中`string`对象的类型。**
 
-![8-1](CppPrimer.assets/8-1.png)
+![8-1](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/8-1.png)
 
 宽字符版本的IO类型和函数的名字以`w`开始，如`wcin`、`wcout`和`wcerr`分别对应`cin`、`cout`和`cerr`。它们与其对应的普通`char`版本都定义在同一个头文件中，如头文件*fstream*定义了`ifstream`和`wifstream`类型。
 
@@ -2921,7 +2921,7 @@ out2 = print(out2);     // error: cannot copy stream objects
 
 IO库条件状态：
 
-![8-2](CppPrimer.assets/8-2.png)
+![8-2](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/8-2.png)
 
 **`badbit`表示系统级错误**，如不可恢复的读写错误。通常情况下，一旦`badbit`被置位，流就无法继续使用了。**在发生可恢复错误后，`failbit`会被置位**，如期望读取数值却读出一个字符。**如果到达文件结束位置，`eofbit`和`failbit`都会被置位。**如果流未发生错误，则`goodbit`的值为0。如果**`badbit`、`failbit`和`eofbit`任何一个被置位，检测流状态的条件都会失败。**
 
@@ -2995,7 +2995,7 @@ cin.tie(old_tie);   // reestablish normal tie between cin and cout
 
 头文件*fstream*定义了三个类型来支持文件IO：`ifstream`从给定文件读取数据，`ofstream`向指定文件写入数据，`fstream`可以同时读写指定文件。
 
-![8-3](CppPrimer.assets/8-3.png)
+![8-3](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/8-3.png)
 
 ### 使用文件流对象（Using File Stream Objects）
 
@@ -3022,7 +3022,7 @@ ofstream out;   // output file stream that is not associated with any file
 
 每个流都有一个关联的文件模式，用来指出如何使用文件。
 
-![8-4](CppPrimer.assets/8-4.png)
+![8-4](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/8-4.png)
 
 - 只能对`ofstream`或`fstream`对象设定`out`模式。
 - 只能对`ifstream`或`fstream`对象设定`in`模式。
@@ -3048,7 +3048,7 @@ out.close();
 
 
 
-![8-5](CppPrimer.assets/8-5.png)
+![8-5](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/8-5.png)
 
 ### 使用istringstream（Using an istringstream）
 
@@ -3105,7 +3105,7 @@ for (const auto &entry : people)
 
 顺序容器类型：
 
-![9-1](CppPrimer.assets/9-1.png)
+![9-1](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/9-1.png)
 
 |      类型      |                             特性                             |
 | :------------: | :----------------------------------------------------------: |
@@ -3133,7 +3133,7 @@ for (const auto &entry : people)
 
 每个容器都定义在一个头文件中，文件名与类型名相同。**容器均为模板类型。**
 
-![9-2](CppPrimer.assets/9-2.png)
+![9-2](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/9-2.png)
 
 ### 迭代器（Iterators）
 
@@ -3181,7 +3181,7 @@ auto it4 = a.crbegin();  // list<string>::const_reverse_iterator
 
 容器定义和初始化方式：
 
-![9-3](CppPrimer.assets/9-3.png)
+![9-3](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/9-3.png)
 
 **将一个容器初始化为另一个容器的拷贝时，两个容器的容器类型和元素类型都必须相同。**
 
@@ -3223,7 +3223,7 @@ array<int>::size_type j;       // error: array<int> is not a type
 
 容器赋值操作：
 
-![9-4](CppPrimer.assets/9-4.png)
+![9-4](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/9-4.png)
 
 赋值运算符两侧的运算对象必须类型相同。**`assign`允许用不同但相容的类型赋值，或者用容器的子序列赋值。**
 
@@ -3321,7 +3321,7 @@ v1 == v2    // false; v2 has fewer elements than v1
 
 **除`array`外，所有标准库容器都提供灵活的内存管理，在运行时可以动态添加或删除元素。**
 
-![9-5](CppPrimer.assets/9-5.png)
+![9-5](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/9-5.png)
 
 `push_back`将一个元素追加到容器尾部，`push_front`将元素插入容器头部。
 
@@ -3379,7 +3379,7 @@ c.push_back(Sales_data("978-0590353403", 25, 15.99));
 
 顺序容器的元素访问操作：
 
-![9-6](CppPrimer.assets/9-6.png)
+![9-6](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/9-6.png)
 
 在容器中访问元素的成员函数都返回引用类型。如果容器是`const`对象，则返回`const`引用，否则返回普通引用。
 
@@ -3395,7 +3395,7 @@ cout << svec.at(0);   // throws an out_of_range exception
 
 顺序容器的元素删除操作：
 
-![9-7](CppPrimer.assets/9-7.png)
+![9-7](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/9-7.png)
 
 **删除`deque`中除首尾位置之外**的任何元素都会使所有迭代器、引用和指针失效。删除`vector`或`string`的元素后，指向**删除点之后位置**的迭代器、引用和指针也都会失效。
 
@@ -3417,17 +3417,17 @@ elem1 = slist.erase(elem1, elem2);  // after the call elem1 == elem2
 
 在`forward_list`中添加或删除元素的操作是通过改变给定元素之后的元素来完成的。
 
-![9-8](CppPrimer.assets/9-8.png)
+![9-8](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/9-8.png)
 
 `forward_list`的插入和删除操作：
 
-![9-9](CppPrimer.assets/9-9.png)
+![9-9](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/9-9.png)
 
 ### 改变容器大小（Resizing a Container）
 
 顺序容器的大小操作：
 
-![9-10](CppPrimer.assets/9-10.png)
+![9-10](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/9-10.png)
 
 `resize`函数接受一个可选的元素值参数，用来初始化添加到容器中的元素，否则新元素进行值初始化。如果容器保存的是类类型元素，且`resize`向容器添加新元素，则必须提供初始值，或元素类型提供默认构造函数。
 
@@ -3465,11 +3465,11 @@ while (begin != v.end())
 
 容器大小管理操作：
 
-![9-11](CppPrimer.assets/9-11.png)
+![9-11](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/9-11.png)
 
 `capacity`函数返回容器在**不扩充**内存空间的情况下**最多可以容纳的元素数量**。`reserve`函数告知容器应该**准备保存多少元素**，它并不改变容器中元素的数量，仅影响容器预先分配的内存空间大小。
 
-![9-12](CppPrimer.assets/9-12.png)
+![9-12](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/9-12.png)
 
 只有当需要的内存空间**超过当前容量**时，`reserve`才会真正改变容器容量，分配不小于需求大小的内存空间。当需求容量小于当前容量时，`reserve`并不会退回内存空间。因此在调用`reserve`之后，`capacity`会大于或等于传递给`reserve`的参数。
 
@@ -3481,13 +3481,13 @@ while (begin != v.end())
 
 构造`string`的其他方法：
 
-![9-13](CppPrimer.assets/9-13.png)
+![9-13](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/9-13.png)
 
 从另一个`string`对象拷贝字符构造`string`时，如果提供的拷贝开始位置（可选）大于给定`string`的大小，则构造函数会抛出`out_of_range`异常。
 
 子字符串操作：
 
-![9-14](CppPrimer.assets/9-14.png)
+![9-14](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/9-14.png)
 
 如果传递给`substr`函数的**开始位置超过`string`的大小**，则函数会抛出`out_of_range`异常。
 
@@ -3495,7 +3495,7 @@ while (begin != v.end())
 
 修改`string`的操作：
 
-![9-15](CppPrimer.assets/9-15.png)
+![9-15](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/9-15.png)
 
 `append`函数是在`string`末尾进行插入操作的简写形式。
 
@@ -3523,7 +3523,7 @@ s2.replace(11, 3, "5th");   // equivalent: s == s2
 
 `string`搜索操作：
 
-![9-16](CppPrimer.assets/9-16.png)
+![9-16](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/9-16.png)
 
 ### compare函数（The compare Functions）
 
@@ -3531,13 +3531,13 @@ s2.replace(11, 3, "5th");   // equivalent: s == s2
 
 `compare`函数的几种参数形式：
 
-![9-17](CppPrimer.assets/9-17.png)
+![9-17](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/9-17.png)
 
 ### 数值转换（Numeric Conversions）
 
 C++11增加了`string`和数值之间的转换函数：
 
-![9-18](CppPrimer.assets/9-18.png)
+![9-18](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/9-18.png)
 
 进行数值转换时，`string`参数的第一个非空白字符必须是符号（`+`或`-`）或数字。它可以以`0x`或`0X`开头来表示十六进制数。对于转换目标是浮点值的函数，`string`参数也可以以小数点开头，并可以包含`e`或`E`来表示指数部分。 
 
@@ -3549,7 +3549,7 @@ C++11增加了`string`和数值之间的转换函数：
 
 所有容器适配器都支持的操作和类型：
 
-![9-19](CppPrimer.assets/9-19.png)
+![9-19](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/9-19.png)
 
 **默认情况下，`stack`和`queue`是基于`deque`实现的，`priority_queue`是基于`vector`实现的。**可以在创建适配器时将一个命名的**顺序容器作为第二个类型参数，来重载默认容器类型**。
 
@@ -3564,11 +3564,11 @@ stack<string, vector<string>> str_stk2(svec);
 
 栈适配器`stack`定义在头文件*stack*中，其支持的操作如下：
 
-![9-20](CppPrimer.assets/9-20.png)
+![9-20](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/9-20.png)
 
 **队列适配器`queue`和`priority_queue`定义在头文件*queue*中**，其支持的操作如下：
 
-![9-21](CppPrimer.assets/9-21.png)
+![9-21](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/9-21.png)
 
 `queue`使用先进先出（first-in，first-out，FIFO）的存储和访问策略。**进入队列**的对象被放置到**队尾**，而**离开**队列的对象则从**队首**删除。  
 # 第10章 泛型算法
@@ -3691,7 +3691,7 @@ void elimDups(vector<string> &words)
 
 **`unique`函数重排输入序列，消除相邻的重复项，返回指向不重复值范围末尾的迭代器。**
 
-![10-1](CppPrimer.assets/10-1.png)
+![10-1](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/10-1.png)
 
 ## 定制操作（Customizing Operations）
 
@@ -3788,7 +3788,7 @@ for_each(words.begin(), words.end(),
 
 `lambda`捕获列表形式：
 
-![10-2](CppPrimer.assets/10-2.png)
+![10-2](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/10-2.png)
 
 默认情况下，对于值方式捕获的变量，`lambda`不能修改其值。**如果希望修改，就必须在参数列表后添加关键字`mutable`。**
 
@@ -3866,7 +3866,7 @@ for_each(words.begin(), words.end(), bind(print, ref(os), _1, ' '));
 
 插入迭代器操作：
 
-![10-3](CppPrimer.assets/10-3.png)
+![10-3](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/10-3.png)
 
 插入器有三种类型，区别在于元素插入的位置：
 
@@ -3916,7 +3916,7 @@ vector<int> vec(in_iter, eof);      // construct vec from an iterator range
 
 `istream_iterator`操作：
 
-![10-4](CppPrimer.assets/10-4.png)
+![10-4](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/10-4.png)
 
 将`istream_iterator`绑定到一个流时，标准库并不保证迭代器立即从流读取数据。**但可以保证在第一次解引用迭代器之前，从流中读取数据的操作已经完成了。**
 
@@ -3924,7 +3924,7 @@ vector<int> vec(in_iter, eof);      // construct vec from an iterator range
 
 `ostream_iterator`操作：
 
-![10-5](CppPrimer.assets/10-5.png)
+![10-5](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/10-5.png)
 
 `*`和`++`运算符实际上不会对`ostream_iterator`对象做任何操作。但是建议代码写法与其他迭代器保持一致。
 
@@ -3947,7 +3947,7 @@ sort(vec.begin(), vec.end());   // sorts vec in "normal" order
 sort(vec.rbegin(), vec.rend());
 ```
 
-![10-6](CppPrimer.assets/10-6.png)
+![10-6](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/10-6.png)
 
 不能从`forward_list`或流迭代器创建反向迭代器。
 
@@ -3962,7 +3962,7 @@ cout << string(line.crbegin(), rcomma) << endl;
 cout << string(rcomma.base(), line.cend()) << endl;
 ```
 
-![10-7](CppPrimer.assets/10-7.png)
+![10-7](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/10-7.png)
 
 反向迭代器的目的是表示元素范围，而这些范围是不对称的。用普通迭代器初始化反向迭代器，或者给反向迭代器赋值时，结果迭代器与原迭代器指向的并不是相同元素。
 
@@ -3970,7 +3970,7 @@ cout << string(rcomma.base(), line.cend()) << endl;
 
 算法要求的迭代器操作可以分为5个迭代器类别（iterator category）：
 
-![10-8](CppPrimer.assets/10-8.png)
+![10-8](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/10-8.png)
 
 ### 5类迭代器（The Five Iterator Categories）
 
@@ -4041,11 +4041,11 @@ reverse_copy(beg, end, dest);   // copy elements in reverse order into dest
 
 `list`和`forward_list`成员函数版本的算法：
 
-![10-9](CppPrimer.assets/10-9.png)
+![10-9](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/10-9.png)
 
 `list`和`forward_list`的`splice`**函数可以进行容器合并，其参数如下：**
 
-![10-10](CppPrimer.assets/10-10.png)
+![10-10](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/10-10.png)
 
 链表特有版本的算法操作会改变底层容器。  
 # 第11章 关联容器
@@ -4063,7 +4063,7 @@ reverse_copy(beg, end, dest);   // copy elements in reverse order into dest
 
 **允许重复**保存关键字的容器名字都包含单词`multi`；无序保存元素的容器名字都以**单词`unordered`开头**。
 
-![11-1](CppPrimer.assets/11-1.png)
+![11-1](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/11-1.png)
 
 `map`和`multimap`类型定义在头文件*map*中；`set`和`multiset`类型定义在头文件*set*中；无序容器定义在头文件*unordered_map*和*unordered_set*中。
 
@@ -4141,7 +4141,7 @@ pair<string, vector<int>> line;   // holds string and vector<int>
 
 `pair`支持的操作：
 
-![11-2](CppPrimer.assets/11-2.png)
+![11-2](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/11-2.png)
 
 在C++11中，如果函数需要返回`pair`，可以对返回值进行列表初始化。早期C++版本中必须**显式构造返回值**。
 
@@ -4162,7 +4162,7 @@ pair<string, int> process(vector<string> &v)
 
 关联容器定义了类型别名来表示容器关键字和值的类型：
 
-![11-3](CppPrimer.assets/11-3.png)
+![11-3](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/11-3.png)
 
 对于`set`类型，`key_type`和`value_type`是一样的。`set`中保存的值就是关键字。对于`map`类型，元素是关键字-值对。即每个元素是一个`pair`对象，包含一个关键字和一个关联的值。由于元素关键字不能改变，因此**`pair`的关键字部分是`const`的**。另外，只有`map`类型（`unordered_map`、`unordered_multimap`、`multimap`、`map`）**才定义了`mapped_type`**。
 
@@ -4220,7 +4220,7 @@ word_count.insert(map<string, size_t>::value_type(word, 1));
 
 关联容器的`insert`操作：
 
-![11-4](CppPrimer.assets/11-4.png)
+![11-4](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/11-4.png)
 
 `insert`或`emplace`的返回值依赖于容器类型和参数：
 
@@ -4231,7 +4231,7 @@ word_count.insert(map<string, size_t>::value_type(word, 1));
 
 关联容器的删除操作：
 
-![11-5](CppPrimer.assets/11-5.png)
+![11-5](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/11-5.png)
 
 与顺序容器不同，关联容器提供了一个额外的`erase`操作。它接受一个`key_type`参数，删除所有匹配给定关键字的元素（如果存在），**返回实际删除的元素数量。对于不包含重复关键字的容器，`erase`的返回值总是1或0。若返回值为0，则表示想要删除的元素并不在容器中**。
 
@@ -4243,7 +4243,7 @@ word_count.insert(map<string, size_t>::value_type(word, 1));
 
 `map`和`unordered_map`的下标操作：
 
-![11-6](CppPrimer.assets/11-6.png)
+![11-6](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/11-6.png)
 
 **对`map`进行下标操作时，返回的是`mapped_type`类型的对象；解引用`map`迭代器时，返回的是`value_type`类型的对象**。
 
@@ -4251,7 +4251,7 @@ word_count.insert(map<string, size_t>::value_type(word, 1));
 
 关联容器的查找操作：
 
-![11-7](CppPrimer.assets/11-7.png)
+![11-7](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/11-7.png)
 
 如果`multimap`或`multiset`中有多个元素具有**相同关键字**，则这些元素在容器中会**相邻存储**。
 
@@ -4307,7 +4307,7 @@ for (auto pos = authors.equal_range(search_item);
 
 无序容器管理操作：
 
-![11-8](CppPrimer.assets/11-8.png)
+![11-8](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/11-8.png)
 
 默认情况下，**无序容器**使用关键字类型的**`==`运算符**比较元素，还使用一个`hash<key_type>`类型的对象来生成每个元素的**哈希值**。标准库为内置类型和一些标准库类型提供了hash模板。因此可以直接定义关键字是这些类型的无序容器，而不能直接定义关键字类型为自定义类类型的无序容器，必须先提供对应的hash模板版本。  
 # 第12章 动态内存
@@ -4331,11 +4331,11 @@ shared_ptr<list<int>> p2;   // shared_ptr that can point at a list of ints
 
 `shared_ptr`和`unique_ptr`都支持的操作：
 
-![12-1](CppPrimer.assets/12-1.png)
+![12-1](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/12-1.png)
 
 `shared_ptr`独有的操作：
 
-![12-2](CppPrimer.assets/12-2.png)
+![12-2](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/12-2.png)
 
 `make_shared`函数（定义在头文件*memory*中）在动态内存中**分配一个对象并初始化它**，返回指向此对象的`shared_ptr`。
 
@@ -4435,7 +4435,7 @@ shared_ptr<int> p2(new int(1024));     // ok: uses direct initialization
 
 默认情况下，用来初始化智能指针的内置指针必须指向动态内存，因为智能指针默认使用`delete`释放它所管理的对象。如果要将智能指针绑定到一个指向其他类型资源的指针上，就必须提供自定义操作来代替`delete`。
 
-![12-3](CppPrimer.assets/12-3.png)
+![12-3](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/12-3.png)
 
 **
 不要混合使用内置指针和智能指针**。当将`shared_ptr`绑定到内置指针后，资源管理就应该交由`shared_ptr`负责。不应该再使用内置指针访问`shared_ptr`指向的内存。
@@ -4543,7 +4543,7 @@ unique_ptr<int> p2 = make_unique<int>(42);
 
 `unique_ptr`操作：
 
-![12-4](CppPrimer.assets/12-4.png)
+![12-4](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/12-4.png)
 
 `release`函数返回`unique_ptr`当前保存的**指针**并将其**置为空**。
 
@@ -4598,7 +4598,7 @@ void f(destination &d /* other needed parameters */)
 
 `weak_ptr`是一种**不控制所指向对象生存期的智能指针**，它指向一个由`shared_ptr`管理的对象。将`weak_ptr`绑定到`shared_ptr`**不会改变**`shared_ptr`的**引用计数**。如果`shared_ptr`被销毁，即使有`weak_ptr`指向对象，对象仍然有可能被释放。
 
-![12-5](CppPrimer.assets/12-5.png)
+![12-5](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/12-5.png)
 
 创建一个`weak_ptr`时，需要使用`shared_ptr`来初始化它。
 
@@ -4669,7 +4669,7 @@ up.release();   // automatically uses delete[] to destroy its pointer
 
 指向数组的`unique_ptr`：
 
-![12-6](CppPrimer.assets/12-6.png)
+![12-6](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/12-6.png)
 
 与`unique_ptr`不同，**`shared_ptr`不直接支持动态数组管理**。如果想用`shared_ptr`管理动态数组，必须提供自定义的**删除器**。
 
@@ -4698,7 +4698,7 @@ auto const p = alloc.allocate(n);   // allocate n unconstructed strings
 
 标准库`allocator`类及其算法：
 
-![12-7](CppPrimer.assets/12-7.png)
+![12-7](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/12-7.png)
 
 `allocator`**分配的内存是未构造的**，程序需要在此内存中构造对象。新标准库的`construct`函数接受一个**指针和零或多个额外参数**，在给定位置构造一个元素。额外参数用来初始化构造的对象，必须与对象类型相匹配。
 
@@ -4726,7 +4726,7 @@ alloc.deallocate(p, n);
 
 `allocator`算法：
 
-![12-8](CppPrimer.assets/12-8.png)
+![12-8](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/12-8.png)
 
 **传递给`uninitialized_copy`的目的位置迭代器必须指向未构造的内存**，它直接在给定位置构造元素。返回（递增后的）目的位置迭代器。  
 # 第13章 拷贝控制
@@ -5327,7 +5327,7 @@ public:
 
 只能重载大多数已有的运算符，无权声明新的运算符号。
 
-![14-1](CppPrimer.assets/14-1.png)
+![14-1](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/14-1.png)
 
 重载运算符的优先级和结合律与对应的内置运算符一致。
 
@@ -5665,7 +5665,7 @@ private:
 
 标准库在头文件*functional*中定义了一组表示**算术运算符、关系运算符和逻辑运算符的类**，每个类分别定义了一个执行命名操作的调用运算符。这些类都被定义为模板的形式，可以为其指定具体的应用类型（即调用运算符的形参类型）。
 
-![14-2](CppPrimer.assets/14-2.png)
+![14-2](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/14-2.png)
 
 关系运算符的函数对象类通常被用来替换算法中的默认运算符，这些类对于指针同样适用。
 
@@ -5684,7 +5684,7 @@ sort(nameTable.begin(), nameTable.end(), less<string*>());
 
 标准库`function`类型是一个模板，定义在头文件*functional*中，用来表示对象的调用形式。
 
-![14-3](CppPrimer.assets/14-3.png)
+![14-3](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/14-3.png)
 
 创建一个具体的`function`类型时必须提供其所表示的对象的调用形式。
 
@@ -6250,7 +6250,7 @@ public:
 };
 ```
 
-![15-1](CppPrimer.assets/15-1.png)
+![15-1](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/15-1.png)
 
 类内使用`using`声明改变访问级别的规则同样适用于重载函数的名字。
 
@@ -6890,7 +6890,7 @@ auto fcn(It beg, It end) -> decltype(*beg)
 
 标准库在头文件*type_traits*中定义了类型转换模板，这些模板常用于模板元程序设计。其中每个模板都有一个名为`type`的公有类型成员，表示一个类型。此类型与模板自身的模板类型参数相关。如果不可能（或不必要）转换模板参数，则`type`成员就是模板参数类型本身。
 
-![16-1](CppPrimer.assets/16-1.png)
+![16-1](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/16-1.png)
 
 使用`remove_reference`可以获得引用对象的元素类型，如果用一个引用类型实例化`remove_reference`，则`type`表示被引用的类型。因为`type`是一个类的类型成员，所以在模板中必须使用关键字`typename`来告知编译器其表示一个类型。
 
@@ -7357,7 +7357,7 @@ fi.Bar();    // uses our specialization of Foo<int>::Bar()
 
 `tuple`是类似`pair`的模板，定义在头文件*tuple*中。与`pair`不同，`tuple`可以有任意数量的成员。如果希望将一些数据组合成单一对象，但又不想定义新数据结构时，可以**使用`tuple`（“快速而随意”的数据结构**）。
 
-![17-1](CppPrimer.assets/17-1.png)
+![17-1](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/17-1.png)
 
 ### 定义和初始化tuple（Defining and Initializing tuples）
 
@@ -7415,7 +7415,7 @@ tuple_element<1, trans>::type cnt = get<1>(item);    // cnt is an int
 
 `bitset`类是一个模板，类似`array`，具**有固定的大小**。定义一个`bitset`时需要指明它包含的二进制位数。
 
-![17-2](CppPrimer.assets/17-2.png)
+![17-2](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/17-2.png)
 
 使用一个整型值初始化`bitset`时，此值会被转换为`unsigned long long`类型并被当作位模式处理。`bitset`中的二进制位就是此模式的副本。如果`bitset`的大小大于`unsigned long long`中的二进制位数，**剩余的高位会被置为0**。如果`bitset`的大小**小于**`unsigned long long`中的二进制位数，则只使用给定值的**低位部分**。
 
@@ -7437,13 +7437,13 @@ bitset<32> bitvec5(str, 5, 4);           // four bits starting at str[5], 1100
 bitset<32> bitvec6(str, str.size()-4);   // use last four characters
 ```
 
-![17-3](CppPrimer.assets/17-3.png)
+![17-3](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/17-3.png)
 
 ### bitset操作（Operations on bitsets）
 
 `bitset`操作：
 
-![17-4](CppPrimer.assets/17-4.png)
+![17-4](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/17-4.png)
 
 `bitset`的下标运算符对`const`属性进行了重载。`const`版本的下标运算符在指定位置置位时返回`true`，否则返回`false`。非`const`版本返回`bitset`定义的一个特殊类型，用来控制指定位置的值。
 
@@ -7467,7 +7467,7 @@ cout << "ulong = " << ulong << endl;
 
 正则表达式是一种描述字符序列的方法。C++11新标准增加了正则表达式库（RE库），定义在头文件*regex*中，包含多个组件。
 
-![17-5](CppPrimer.assets/17-5.png)
+![17-5](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/17-5.png)
 
 `regex`类表示一个正则表达式。
 
@@ -7487,7 +7487,7 @@ if (regex_search(test_str, results, r))     // if there is a match
 
 `regex_match`和`regex_search`函数确定一个给定的字符序列与一个`regex`是否匹配。如果整个输入序列与表达式匹配，则`regex_match`函数返回`true`；如果输入序列中的一个子串与表达式匹配，则`regex_search`函数返回`true`。这两个函数的其中一个重载版本接受一个类型为`smatch`的附加参数。如果匹配成功，函数会将匹配信息保存在给定的`smatch`对象中。二者的参数形式如下：
 
-![17-6](CppPrimer.assets/17-6.png)
+![17-6](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/17-6.png)
 
 ### 使用正则表达式库（Using the Regular Expression Library）
 
@@ -7495,11 +7495,11 @@ if (regex_search(test_str, results, r))     // if there is a match
 
 定义一个`regex`或者对一个`regex`调用`assign`为其赋新值时，可以指定一些标志来影响`regex`的操作。`ECMAScript`、`basic`、`extended`、`awk`、`grep`和`egrep`这六个标志指定编写正则表达式时所使用的语言。这六个标志中必须设置其中之一，且只能设置一个。默认情况下，`ECMAScript`标志被设置，`regex`会使用ECMA-262规范，这也是很多Web浏览器使用的正则表达式语言。
 
-![17-7](CppPrimer.assets/17-7.png)
+![17-7](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/17-7.png)
 
 正则表达式的语法是否正确是在运行期间解析的。如果正则表达式存在错误，标准库会抛出类型为`regex_error`的异常。除了`what`操作外，`regex_error`还有一个名为`code`的成员，用来返回错误类型对应的数值编码。`code`返回的值是由具体实现定义的。RE库能抛出的标准错误如下，`code`返回对应错误的编号（从0开始）。
 
-![17-8](CppPrimer.assets/17-8.png)
+![17-8](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/17-8.png)
 
 正则表达式在程序运行时才编译，这是一个非常慢的操作。因此构造一个`regex`对象或者给一个已经存在的`regex`赋值是很耗时间的。为了最小化这种开销，应该尽量避免创建不必要的`regex`。特别是在循环中使用正则表达式时，应该在循环体外部创建`regex`对象。
 
@@ -7508,7 +7508,7 @@ RE库为不同的输入序列都定义了对应的类型。使用时RE库类型�
 - `regex`类保存`char`类型的正则表达式；`wregex`保存`wchar_t`类型的正则表达式。
 - `smatch`表示`string`类型的输入序列；`cmatch`表示字符数组类型的输入序列；`wsmatch`表示`wstring`类型的输入序列；`wcmatch`表示宽字符数组类型的输入序列。
 
-![17-9](CppPrimer.assets/17-9.png)
+![17-9](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/17-9.png)
 
 ### 匹配与Regex迭代器类型（The Match and Regex Iterator Types）
 
@@ -7516,7 +7516,7 @@ RE库为不同的输入序列都定义了对应的类型。使用时RE库类型�
 
 `sregex_iterator`操作：
 
-![17-10](CppPrimer.assets/17-10.png)
+![17-10](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/17-10.png)
 
 以`sregex_iterator`为例，将`sregex_iterator`绑定到一个`string`和一个`regex`对象时，迭代器自动定位至给定`string`中的第一个匹配位置。即，`sregex_iterator`构造函数对给定`string`和`regex`调用`regex_search`。解引用迭代器时，返回最近一次搜索结果的`smatch`对象。递增迭代器时，它调用`regex_search`在输入`string`中查找下一个匹配位置。
 
@@ -7532,7 +7532,7 @@ for (sregex_iterator it(file.begin(), file.end(), r), end_it;
     cout << it->str() << endl;   // matched word
 ```
 
-![17-11](CppPrimer.assets/17-11.png)
+![17-11](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/17-11.png)
 
 匹配类型有两个名为`prefix`和`suffix`的成员，分别返回表示输入序列中当前匹配之前和之后部分的`ssub_match`对象。一个`ssub_match`对象有两个名为`str`和`length`的成员，分别返回匹配的`string`和该`string`的长度。
 
@@ -7550,11 +7550,11 @@ for (sregex_iterator it(file.begin(), file.end(), r), end_it;
 }
 ```
 
-![17-12](CppPrimer.assets/17-12.png)
+![17-12](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/17-12.png)
 
 `smatch`支持的操作：
 
-![17-13](CppPrimer.assets/17-13.png)
+![17-13](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/17-13.png)
 
 ### 使用子表达式（Using Subexpressions）
 
@@ -7584,17 +7584,17 @@ ECMAScript正则表达式语言的一些特性：
 
 子匹配操作：
 
-![17-14](CppPrimer.assets/17-14.png)
+![17-14](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/17-14.png)
 
 ### 使用regex_replace（Using regex_replace）
 
 正则表达式替换操作：
 
-![17-15](CppPrimer.assets/17-15.png)
+![17-15](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/17-15.png)
 
 标准库定义了用于在正则表达式替换过程中控制匹配或格式的标志。这些标志可以传递给`regex_search`、`regex_match`函数或者`smatch`类的`format`成员。匹配和格式化标志的类型为`match_flag_type`，定义在命名空间*regex_constants*中。由于*regex_constants*定义在*std*中，因此在使用这些名字时，需要同时加上两个命名空间的限定符。
 
-![17-16](CppPrimer.assets/17-16.png)
+![17-16](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/17-16.png)
 
 默认情况下，`regex_replace`输出整个输入序列。未与正则表达式匹配的部分会原样输出，匹配的部分按照格式字符串指定的格式输出。使用`format_no_copy`标志可以只输出匹配部分。
 
@@ -7611,7 +7611,7 @@ cout << regex_replace(s, r, fmt2, format_no_copy) << endl;
 
 头文件*random*中的随机数库定义了一组类来解决`rand`函数的一些问题：随机数引擎类（random-number engines）可以生成`unsigned`随机数序列；随机数分布类（random-number distribution classes）使用引擎类生成指定类型、范围和概率分布的随机数。
 
-![17-17](CppPrimer.assets/17-17.png)
+![17-17](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/17-17.png)
 
 C++程序不应该使用`rand`函数，而应该使用`default_random_engine`类和恰当的分布类对象。
 
@@ -7630,7 +7630,7 @@ for (size_t i = 0; i < 10; ++i)
 
 随机数引擎操作：
 
-![17-18](CppPrimer.assets/17-18.png)
+![17-18](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/17-18.png)
 
 大多数情况下，随机数引擎的输出是不能直接使用的，因为生成的随机数范围通常与程序所需要的不符。
 
@@ -7709,7 +7709,7 @@ for (size_t i = 0; i < 10; ++i)
 
 分布类型操作：
 
-![17-19](CppPrimer.assets/17-19.png)
+![17-19](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/17-19.png)
 
 除了总是生成`bool`类型的`bernouilli_distribution`外，其他分布类型都是模板。每个模板都接受单个类型参数，指定分布生成的结果类型。
 
@@ -7852,7 +7852,7 @@ Precision: 3, Value: 1.41
 
 定义在头文件*iostream*中的操纵符：
 
-![17-20](CppPrimer.assets/17-20.png)
+![17-20](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/17-20.png)
 
 操纵符可以强制流使用科学记数法、定点十进制或十六进制形式输出浮点值。
 
@@ -7944,7 +7944,7 @@ d: #####3.14159next col
 
 头文件*iomanip*中定义的操纵符：
 
-![17-21](CppPrimer.assets/17-21.png)
+![17-21](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/17-21.png)
 
 默认情况下，输入运算符会忽略空白字符（空格符、制表符、换行符、换纸符和回车符）。使用`noskipws`操纵符可以让输入运算符读取空白符，`skipws`操纵符还原默认行为。
 
@@ -7961,7 +7961,7 @@ cin >> skipws;      // reset cin to the default state so that it discards whites
 
 一些未格式化操作每次处理流的一个字节，它们会读取而不是忽略空白符。
 
-![17-22](CppPrimer.assets/17-22.png)
+![17-22](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/17-22.png)
 
 使用未格式化IO操作`get`和`put`可以读取和写入一个字符。
 
@@ -8001,7 +8001,7 @@ while ((ch = cin.get()) != EOF)
 
 一些未格式化IO操作一次处理大块数据，这些操作可以提高程序执行速度，但需要自己分配并管理用来保存和提取数据的字符数组。
 
-![17-23](CppPrimer.assets/17-23.png)
+![17-23](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/17-23.png)
 
 `get`和`getline`函数接受相同的参数，它们的行为类似但不相同。两个函数都一直读取数据，直到遇到下列情况之一：
 
@@ -8035,7 +8035,7 @@ cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
 为了支持随机访问，IO类型通过维护一个标记来确定下一次读写操作的位置。`seek`函数用于移动标记，`tell`函数用于获取标记。标准库实际上定义了两对`seek`和`tell`函数，一对用于输入流（后缀为`g`，表示get），一对用于输出流（后缀为`p`，表示put）。
 
-![17-24](CppPrimer.assets/17-24.png)
+![17-24](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/17-24.png)
 
 虽然标准库为所有流类型都定义了`seek`和`tell`函数，但它们是否有意义取决于流绑定到哪个设备。在大多数系统中，绑定到`cin`、`cout`、`cerr`和`clog`的流不支持随机访问。对这些流可以调用`seek`和`tell`函数，但在运行时会出现错误，流也会被置为无效状态。
 
@@ -8284,7 +8284,7 @@ public:
 
 标准库异常类的继承体系：
 
-![18-1](CppPrimer.assets/18-1.png)
+![18-1](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/18-1.png)
 
 `exception`类型只定义了拷贝构造函数、拷贝赋值运算符、一个虚析构函数和一个名为`what`的虚成员。`what`函数返回一个`const char*`，指向一个以`NULL`结尾的字符数组，并且不会抛出异常。
 
@@ -8655,7 +8655,7 @@ class Panda : public Bear, public Endangered { /* ... */ };
 
 多重继承关系中，派生类对象包含每个基类的子对象。
 
-![18-2](CppPrimer.assets/18-2.png)
+![18-2](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/18-2.png)
 
 构造一个多重继承的派生类对象将同时构造并初始化它的所有基类子对象。
 
@@ -8759,7 +8759,7 @@ class Bear : virtual public ZooAnimal { /* ... */ };
 class Panda : public Bear, public Raccoon, public Endangered { /* ... */ };
 ```
 
-![18-3](CppPrimer.assets/18-3.png)
+![18-3](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/18-3.png)
 
 不论基类是不是虚基类，派生类对象都能被可访问基类的指针或引用操作。
 
@@ -9040,7 +9040,7 @@ bool Base::equal(const Base &rhs) const
 
 `type_info`类的精确定义会根据编译器的不同而略有差异。但是C++规定`type_info`必须定义在头文件*typeinfo*中，并且至少提供以下操作：
 
-![19-1](CppPrimer.assets/19-1.png)
+![19-1](https://gitee.com/yzhu798/bolgImage/raw/master/CppPrimer.assets/19-1.png)
 
 `type_info`类一般是作为一个基类出现，所以它还应该提供一个公有虚析构函数。当编译器希望提供额外的类型信息时，通常在`type_info`的派生类中完成。
 

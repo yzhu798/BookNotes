@@ -47,7 +47,7 @@ double d= 4 + f;//不能调用成员版+操作
 
 > `vector<bool>`有两个问题．第一，它不是一个真正STL容器，第二，它并不保存bool类型．
 
-![image-20200419214634490](C++%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%AC%94%E8%AE%B0_%E4%B8%8B.assets/image-20200419214634490.png)
+![image-20200419214634490](https://gitee.com/yzhu798/bolgImage/raw/master/C++%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%AC%94%E8%AE%B0_%E4%B8%8B.assets/image-20200419214634490.png)
 
 ## 四、pointer-like classes （关于智能指针与迭代器）
 
@@ -85,9 +85,9 @@ iter->method();
 // 相当于(&(*iter))->method()
 ```
 
-![img](C++%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%AC%94%E8%AE%B0_%E4%B8%8B.assets/1244144-20190626190908080-1756617049.png)
+![img](https://gitee.com/yzhu798/bolgImage/raw/master/C++%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%AC%94%E8%AE%B0_%E4%B8%8B.assets/1244144-20190626190908080-1756617049.png)
 
-![](C++%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%AC%94%E8%AE%B0_%E4%B8%8B.assets/image-20200419215901372.png)
+![](https://gitee.com/yzhu798/bolgImage/raw/master/C++%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%AC%94%E8%AE%B0_%E4%B8%8B.assets/image-20200419215901372.png)
 
 （1）C++程序设计中使用**堆内存是非常频繁**的操作，堆内存的**申请和释放**都由程序员自己管理。程序员自己管理堆内存可以提高了程序的效率，但是整体来说堆内存的管理是麻烦的，C++11中引入智能指针，方便管理堆内存。
 
@@ -392,7 +392,7 @@ for (int i : c) {
 
 ## 十五、Reference和Point
 
-![img](C++%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%AC%94%E8%AE%B0_%E4%B8%8B.assets/1244144-20190627021704182-655246197.png)
+![img](https://gitee.com/yzhu798/bolgImage/raw/master/C++%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%AC%94%E8%AE%B0_%E4%B8%8B.assets/1244144-20190627021704182-655246197.png)
 
 - > ####   指针和引用的区别：
   >

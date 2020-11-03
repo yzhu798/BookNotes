@@ -501,7 +501,7 @@ ostream& operator<<(ostream& os, const String& str)
 >步骤：delete ;new; strcpy;
 >class里面有默认的拷贝构造和拷贝赋值函数。如果自己不定义一个拷贝构造函数，在调用拷贝构造函数的时候，就会调用**默认的浅拷贝构造函数**，就会造成问题，所以一定要自己定义拷贝构造函数——深拷贝。
 >
->![img](C++%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%AC%94%E8%AE%B0_%E4%B8%8A.assets/%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E6%B5%85%E6%8B%B7%E8%B4%9D.png)
+>![img](https://gitee.com/yzhu798/bolgImage/raw/master/C++%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%AC%94%E8%AE%B0_%E4%B8%8A.assets/%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E6%B5%85%E6%8B%B7%E8%B4%9D.png)
 
 ## 八、堆，栈与内存管理
 1、static local objects的生命周期
@@ -574,7 +574,7 @@ delete ——》operator delete。删除对象，分两步：
 
 **Debug（左）Release（右）模式下：**
 
-**![img](C++%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%AC%94%E8%AE%B0_%E4%B8%8A.assets/VC%E5%BD%93%E4%B8%AD%E7%9A%84%E5%86%85%E5%AD%98%E5%88%86%E9%85%8Ddebug-1590131562489.png)    ![img](C++%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%AC%94%E8%AE%B0_%E4%B8%8A.assets/VC%E5%BD%93%E4%B8%AD%E7%9A%84%E5%86%85%E5%AD%98%E5%88%86%E9%85%8Drelease-1590131565296.png)**
+**![img](https://gitee.com/yzhu798/bolgImage/raw/master/C++%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%AC%94%E8%AE%B0_%E4%B8%8A.assets/VC%E5%BD%93%E4%B8%AD%E7%9A%84%E5%86%85%E5%AD%98%E5%88%86%E9%85%8Ddebug-1590131562489.png)    ![img](https://gitee.com/yzhu798/bolgImage/raw/master/C++%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%AC%94%E8%AE%B0_%E4%B8%8A.assets/VC%E5%BD%93%E4%B8%AD%E7%9A%84%E5%86%85%E5%AD%98%E5%88%86%E9%85%8Drelease-1590131565296.png)**
 
 **浅绿色：**Complex对象所占实际空间，大小为8bytes。
 
@@ -586,11 +586,11 @@ delete ——》operator delete。删除对象，分两步：
 
 **同样，String对象的空间分配，如图：（左Debug，右Release）**
 
-![img](C++%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%AC%94%E8%AE%B0_%E4%B8%8A.assets/string%E5%86%85%E5%AD%98%E5%88%86%E9%85%8Ddebug.png)    ![img](C++%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%AC%94%E8%AE%B0_%E4%B8%8A.assets/string%E5%86%85%E5%AD%98%E5%88%86%E9%85%8Drelease.png)
+![img](https://gitee.com/yzhu798/bolgImage/raw/master/C++%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%AC%94%E8%AE%B0_%E4%B8%8A.assets/string%E5%86%85%E5%AD%98%E5%88%86%E9%85%8Ddebug.png)    ![img](https://gitee.com/yzhu798/bolgImage/raw/master/C++%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%AC%94%E8%AE%B0_%E4%B8%8A.assets/string%E5%86%85%E5%AD%98%E5%88%86%E9%85%8Drelease.png)
 
 **Debug（左）Release（右）模式下，数组空间的分配：**
 
-![img](C++%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%AC%94%E8%AE%B0_%E4%B8%8A.assets/%E6%95%B0%E7%BB%84%E5%86%85%E5%AD%98%E5%88%86%E9%85%8Ddebug-1590131593574.png)    ![img](C++%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%AC%94%E8%AE%B0_%E4%B8%8A.assets/%E6%95%B0%E7%BB%84%E5%86%85%E5%AD%98%E5%88%86%E9%85%8Drelease.png)
+![img](https://gitee.com/yzhu798/bolgImage/raw/master/C++%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%AC%94%E8%AE%B0_%E4%B8%8A.assets/%E6%95%B0%E7%BB%84%E5%86%85%E5%AD%98%E5%88%86%E9%85%8Ddebug-1590131593574.png)    ![img](https://gitee.com/yzhu798/bolgImage/raw/master/C++%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%AC%94%E8%AE%B0_%E4%B8%8A.assets/%E6%95%B0%E7%BB%84%E5%86%85%E5%AD%98%E5%88%86%E9%85%8Drelease.png)
 
 **灰色：**即3个Complex对象的大小，每个是8bytes，一共24bytes。
 
@@ -710,7 +710,7 @@ bool firstVersion {Program::isFirstVersion()};    // Does not compile when Versi
 
 组合表示has-a。即A类里有B类的对象（非指针）**实心，实在成员**对象（UML）。
 
-![image-20200518193613371](C++%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%AC%94%E8%AE%B0_%E4%B8%8A.assets/has-a.png)
+![image-20200518193613371](https://gitee.com/yzhu798/bolgImage/raw/master/C++%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%AC%94%E8%AE%B0_%E4%B8%8A.assets/has-a.png)
 
 ```cpp
 由内而外template <class T>
@@ -747,7 +747,7 @@ protected:
 ```
 （2）委托`delegation`，即composition by reference：在body中声明一个带指针的另一个类 composition by reference 生命时间：  classA 用一个**指针**指向classB，需要的时候才调用classB，而不是一直拥有classB。叫做**“Copy on write”**
 
-![img](C++%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%AC%94%E8%AE%B0_%E4%B8%8A.assets/%E5%A7%94%E6%89%98%E5%9F%BA%E4%BA%8E%E5%BC%95%E7%94%A8%E7%9A%84%E5%A4%8D%E5%90%88.png)
+![img](https://gitee.com/yzhu798/bolgImage/raw/master/C++%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%AC%94%E8%AE%B0_%E4%B8%8A.assets/%E5%A7%94%E6%89%98%E5%9F%BA%E4%BA%8E%E5%BC%95%E7%94%A8%E7%9A%84%E5%A4%8D%E5%90%88.png)
 
 **指针有点虚（UML）**
 
@@ -775,7 +775,7 @@ String::String(){ ... }
 ```
   （3）继承Inheritance：（三种继承方式：public protected private）is-a，继承主要搭配**虚函数**来使用函数的继承：指的是继承函数的调用权，**子类可以调用父类的函数**，如B继承A，则说明B是A的一种。
 
-![img](C++%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%AC%94%E8%AE%B0_%E4%B8%8A.assets/InheritanceUML.png)
+![img](https://gitee.com/yzhu798/bolgImage/raw/master/C++%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%AC%94%E8%AE%B0_%E4%B8%8A.assets/InheritanceUML.png)
 
 ```cpp
 //继承中的     构造函数与析构调用顺序
@@ -816,13 +816,13 @@ pure virtual 函数：必须重新定义(override 覆写)它，你对它没有�
 
 图形展示
 
-![image-20200519233845305](C++%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%AC%94%E8%AE%B0_%E4%B8%8A.assets/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8FTemplate%20Method.png)
+![image-20200519233845305](https://gitee.com/yzhu798/bolgImage/raw/master/C++%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%AC%94%E8%AE%B0_%E4%B8%8A.assets/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8FTemplate%20Method.png)
 
-![image-20200519235739912](C++%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%AC%94%E8%AE%B0_%E4%B8%8A.assets/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8FObserver.png)
+![image-20200519235739912](https://gitee.com/yzhu798/bolgImage/raw/master/C++%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%AC%94%E8%AE%B0_%E4%B8%8A.assets/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8FObserver.png)
 
-![image-20200520000157555](C++%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%AC%94%E8%AE%B0_%E4%B8%8A.assets/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F_%E7%BB%84%E5%90%88%E6%A8%A1%E5%BC%8F.png)
+![image-20200520000157555](https://gitee.com/yzhu798/bolgImage/raw/master/C++%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%AC%94%E8%AE%B0_%E4%B8%8A.assets/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F_%E7%BB%84%E5%90%88%E6%A8%A1%E5%BC%8F.png)
 
-![image-20200520000235749](C++%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%AC%94%E8%AE%B0_%E4%B8%8A.assets/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8FPrototype.png)
+![image-20200520000235749](https://gitee.com/yzhu798/bolgImage/raw/master/C++%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%AC%94%E8%AE%B0_%E4%B8%8A.assets/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8FPrototype.png)
 
 
 
@@ -941,7 +941,7 @@ int main()
 
 我们的数据设计在类Subject中，窗口（观察者）设计为Observer，这是一个父类，可以被继承（即可以支持派生出不同类型的观察者）。
 
-![image-20200519234006414](C++%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%AC%94%E8%AE%B0_%E4%B8%8A.assets/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8FObserver-1590131631061.png)
+![image-20200519234006414](https://gitee.com/yzhu798/bolgImage/raw/master/C++%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%AC%94%E8%AE%B0_%E4%B8%8A.assets/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8FObserver-1590131631061.png)
 
 **用如下代码来实现：**
 
@@ -973,7 +973,7 @@ public:
 
 用图形来描述：
 
-![img](C++%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%AC%94%E8%AE%B0_%E4%B8%8A.assets/%E8%A7%82%E5%AF%9F%E8%80%85%E7%B1%BBUML.png)
+![img](https://gitee.com/yzhu798/bolgImage/raw/master/C++%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%AC%94%E8%AE%B0_%E4%B8%8A.assets/%E8%A7%82%E5%AF%9F%E8%80%85%E7%B1%BBUML.png)
 
 ### 组合模式
 
