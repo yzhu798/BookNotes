@@ -1,6 +1,8 @@
 # C++程序设计（2）
 
-切勿在浮沙
+> 切勿在浮沙
+
+[TOC]
 
 ## 一、导读
 
@@ -45,7 +47,7 @@ double d= 4 + f;//不能调用成员版+操作
 
 （2）**vector<bool>问题**
 
-> `vector<bool>`有两个问题．第一，它不是一个真正STL容器，第二，它并不保存bool类型．
+> `vector<bool>`有两个问题．**第一，它不是一个真正STL容器，第二，它并不保存bool类型．**
 
 ![image-20200419214634490](https://gitee.com/yzhu798/bolgImage/raw/master/C++面向对象笔记_下.assets/image-20200419214634490.png)
 
@@ -53,7 +55,7 @@ double d= 4 + f;//不能调用成员版+操作
 
 ### 4.1关于智能指针
 
-> 类含一个指针，在C++中，->这个符号比较特殊，这个符号除了第一次作用在shared_ptr对象上，返回原始指针px，还会继续作用在px上，用来调用函数method。链式传递的固定写法
+> 类含一个指针，在C++中，->这个符号比较特殊，这个符号**除了第一次作用在shared_ptr对象上，返回原始指针px，还会继续作用在px上**，用来调用函数method。链式传递的固定写法
 
 ```cpp
 template<class T>
@@ -210,7 +212,6 @@ pair<T1, T2 > make_pair(T1 x, T2 y)
 }
 
 //call
-
 
 class Base1 {};//Base1理解为鱼类
 class derived1 :public Base1 {};//derived1理解为鲫鱼
