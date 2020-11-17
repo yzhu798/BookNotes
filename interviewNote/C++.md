@@ -1,33 +1,144 @@
 * **一.变量**
-    * 1）全局变量与static变量？（作用域、生存周期）
-    * 2）[static函数与普通函数的区别？](temp/C++.md#4static函数与普通函数的区别)
-    * 3）两个文件中声明两个同名变量？（使用了与未使用extern？） 
-    * 4）全局数组和局部数组的初始化？
-    * 5）[指针和引用的区别](https://www.nowcoder.com/ta/nine-chapter/review?page=11)？（代表意义、内存占用、初始化、指向是否可改、能否为空）
-    * 6）[C/C++中的强制转换](https://github.com/arkingc/note/blob/master/C++/EffectiveC++.md#%E6%9D%A1%E6%AC%BE27%E5%B0%BD%E9%87%8F%E5%B0%91%E5%81%9A%E8%BD%AC%E5%9E%8B%E5%8A%A8%E4%BD%9C)
-    * 7）[如何修改const变量、const与volatile](https://blog.csdn.net/heyabo/article/details/8745942)
-    * 8）静态类型获取与动态类型获取（[typeid](https://github.com/arkingc/llc/blob/master/cpp/RTTI/typeid.cpp#L4)、dynamic_cast:转换目标类型必须是引用类型）
+
+    * 1）全局变量与static变量？（**作用域**【源程序、static源文件】、**static只初始化一次**）
+
+    * 2）[static函数与普通函数的区别？](temp/C++.md#4static函数与普通函数的区别)（**作用域 static：本文件可用，1份内存拷贝**；普通函数被调用1次**多1份拷贝**）
+
+    * 3）两个文件中声明两个同名变量？（**是否使用`extern`？**） 
+
+    * 4）全局数组和局部数组的初始化？（**全局0；局部不初始化**）
+
+    * 5）[指针和引用的区别](https://www.nowcoder.com/ta/nine-chapter/review?page=11)？
+
+      【**引用（别名）：sizeof 真实size ，只能初始化、非空、不可改绑定、传参时类型检查**】、【**指针：分配空间存地址，大小4或(8)，不检查参数，随意改指针值**】
+
+    * 6）[C/C++中的强制转换](https://github.com/arkingc/note/blob/master/C++/EffectiveC++.md#%E6%9D%A1%E6%AC%BE27%E5%B0%BD%E9%87%8F%E5%B0%91%E5%81%9A%E8%BD%AC%E5%9E%8B%E5%8A%A8%E4%BD%9C) （【**尽量少做转型**】）
+
+      ```cpp
+  (T)expression ； //将expression转型为T
+      T(expression) ； //将expression转型为T
+      const_cast<T>(expression)；      //使得被指向不可改的变量，变成可修改，被指向是常量未定义
+      dynamic_cast<T>(expression)；    //基类转派生
+      reinterpret_cast<T>(expression)；//位模式下，重新解释
+      static_cast<T>(expression)；
+      ```
+    
+      > `static_cast`:**非底层const。适合大算术转小算术**
+  > `const_cast`:只能**改变底层const**(目的是**修改一些指针/引用的权限**，**使得原来无法通过这些指针/引用修改某块内存的值**)，如果**指向的对象是常量**，**转换再修改对象时，结果未定义**
+      > `reinterpret_cast`:通常为算术对象的位模式提供**较低层次上的重新解释**。如将int*转换成char*。很危险！
+      > `dynamic_cast`:一种**动态类型识别**。转换的目标类型，是指针或者左右值引用，主要用于**基类指针转换成派生类类型的指针(或引用)**，通常需要知道转换源和转换目标的类型。**若转换失败，指针返回0或引用抛出`bad_cast`异常**
+    
+    * 7）[如何修改const变量、const与volatile](https://blog.csdn.net/heyabo/article/details/8745942) 【
+
+      **C++标准，对于修改const变量**，属于：**未定义行为**，看编译器解释VS、Dev可改、VC6不可改】
+
+      ```cpp
+  const volatile int i = 10;
+      int* pi = (int*)(&i);
+      *pi = 100;
+      printf("*pi: %d\n",*pi);
+      printf("i: %d\n",i);
+      printf("pi: %p\n",pi);
+      printf("&i: %p\n", &i);
+      //gdb查看其汇编代码（命令：进入gdb，然后输入：disass main）
+      ```
+    
+      > 注意到：**指针 pi 和 &i（i 的地址）值却是一样的**。So ，Why？
+  > 这就是**C++中的常量折叠**：指**const变量（即常量）值放在编译器的符号表**中，计算时编译器直接从**表中取值**，**省去了访问内存的时间，从而达到了优化**。
+    
+    * 8）静态类型获取与动态类型获取（`typeid()`、`dynamic_cast`:转换目标类型**必须是引用类型**）
+
+      > `typeid(e)`，e可以是任意表达式或类型的名字，**忽略顶层`const`**，作用于**数组或函数时不执行转指针**；作用于指针对象，返回指针的静态编译时类型`typeid`运算符指示的是运算对象的静态类型当运算对象是**虚函数的类的左值时，运行时出结果**。
+  
     * 9）[如何比较浮点数大小？](https://blog.csdn.net/jk110333/article/details/8902707)（[直接使用==比较出现错误的例子](https://stackoverflow.com/questions/26261466/in-current-c-and-java-double-type-and-float-type-if-x-0-0-is-correct)）
+    
+      ```cpp
+      #include <cmath>
+      #define EPSILON 0.000001 //根据精度需要
+  if ( fabs( fa - fb) < EPSILON ){}
+      ```
 * **二.函数**
-    * 1）重载（[参数必须不同(const修饰形参)](https://github.com/arkingc/llc/blob/master/cpp/overload/main.cpp#L9)、重载与作用域、继承中的重载\(using\)、重载与const成员函数） 
+  
+    * 1）重载（[参数必须不同(const修饰形参)](https://github.com/arkingc/llc/blob/master/cpp/overload/main.cpp#L9)、重载与作用域、继承中重载\(using\)、重载与const成员函数） 
+    
+      > **底层const即不能改变所指对象，可传入常量与变量，优先匹配更符合的函数版本。**
+      >
+      > **若未重载非`const`版本**，传入非常量，返回变量引用情况下，需对调用结果进行`const_cast`转换，传常量参数则有`const_cast`转换结果未定义。
 * **三.类**
+    
     * 1）面向对象的三大特性（封装、继承、多态）
+    
+        > **封装**：**隐藏对象的属性和实现细节，仅对外公开接口**用于对象交互（降低耦合）。
+        >
+        > 关键字`public`、`private`和`protected`.
+        >
+        > **继承**：保持**原有类特性的基础上进行扩展**，增加功能，产生新类，称派生类；
+        >
+        > 1、子类继承父类非`private`的属性和方法；
+        >
+        > 2、子类可以拥有自己属性和方法（对父类扩展）；
+        >
+        > 3、子类可以用自己的方式实现父类的方法（重写）。
+        >
+        > ![在这里插入图片描述](assets/20200607213716513.png)
+        >
+        > - 虚函数：即被`virtual`修饰的类成员函数称为虚函数；
+        > - **虚函数表：本质是一个存虚函数指针的指针数组**；
+        > - **虚函数和虚函数表均在代码段**。
+        >
+        > - **独立的作用域、子类和父类中有同名隐藏。**
+        > - **菱形继承是多继承的一种特殊情况；有数据冗余和二义性；**
+        > - **虚拟继承（虚基表）可解决**
+        >
+        > 【基类成员在不同继承方式下的访问】
+        > ![在这里插入图片描述](assets/2020060720493568.png)
+        >
+        > **多态**：多态是在不同继承关系的类对象，去调用同一函数，产生了不同的行为；
+        >
+        > - **必须通过基类的指针或者引用调用虚函数；**
+        > - **被调用的函数必须是虚函数，且派生类已经重写。**
+    
     * 2）[struct和class的区别？](https://blog.csdn.net/qq_37964547/article/details/81835488)
+    
+        > #### 1、默认的继承权限、访问权限
+        >
+        >  **在C语言中**，我们知道struct中是一种数据类型，只能定义数据成员，不能定义函数；**直接使用大括号对所有数据成员**。
+        >
+        > **在C++中class和struct的区别：**
+        > 在C++中对struct的功能进行了扩展，struct可以被继承，可以包含成员函数，也可以实现多态，当用大括号对其进行初始化需要注意：
+        >
+        > - 当struct和class中都**定义了构造函数，就不能使用大括号对其进行初始化.**
+        > - 若没有定义构造函数，struct可以使用{ }进行初始化，而只有当class的所有数据成员及函数为public时，可以使用{ }进行初始化.
+        > - 所以struct是一个数据结构的实现体，class是一个对象的实现体。
+        >
+        > #### 4、关于模板
+        >
+        > **在模板中，类型参数前面可以使用class或typename**，如果使用`struct`，则含义不同，`struct`后面跟的是“non-type template parameter”，而`class`或`typename`后面跟的是类型参数。
+    
     * 3）[访问权限说明符](temp/C++.md/#3访问控制说明符)？（目的是加强类的封装性）
-    * 4）类的静态成员（所属？静态成员函数不能声明成const、类类型的成员、定义时不能重复使用static、具有类内初始值的静态成员定义时不可再设初值）
+    
+        > 访问权限限定符只用于修饰类的成员变量和成员函数；
+        >
+        > 被`private`限定符修饰的成员变量只能被该类的方法和友元函数访问，子类函数无法访问。
+    
+    * 4）类的静态成员（所属？静态成员函数不能声明成`const`、类类型的成员、定义时不能重复使用`static`、具有类内初始值的静态成员定义时不可再设初值）
+    
     * 5）构造函数相关
         - 有哪些构造函数（默认、委托、拷贝、移动）
         - 合成的默认拷贝构造函数（默认行为？什么情况下不会合成？怎么解决？如果成员包含类内初始值，合成默认构造函数会使用该成员的类内初始值初始化该成员）
         - 拷贝构造函数（调用时机、合成版的行为、explict？、为何第一个参数必须是引用类型）
         - 移动拷贝构造函数（非拷贝而是窃取资源、与noexcept?、何时合成）
         - 可否通过对象或对象的引用(指针或引用)调用
+        
     * 6）初始值列表（顺序、效率(内置类型不进行隐式初始化故无所谓,但..)、无默认构造函数的成员,const成员,引用成员必须通过初始值列表初始化）
+    
     * 7）赋值运算符相关
         - 拷贝赋值运算符（合成版的行为？、与delete？、自定义时要注意自赋值，参数与返回类型、大部分组合了拷贝构造函数与析构函数的工作）
         - 阻止拷贝（某些对象应该独一无二(比方说人)、C++11前:private并且不定义(试图拷贝会报链接错误)，C++11:=delete [《Effective C++:条款6》](https://github.com/arkingc/note/blob/master/C++/EffectiveC++.md#%E6%9D%A1%E6%AC%BE06%E8%8B%A5%E4%B8%8D%E6%83%B3%E4%BD%BF%E7%94%A8%E7%BC%96%E8%AF%91%E5%99%A8%E8%87%AA%E5%8A%A8%E7%94%9F%E6%88%90%E7%9A%84%E5%87%BD%E6%95%B0%E5%B0%B1%E8%AF%A5%E6%98%8E%E7%A1%AE%E6%8B%92%E7%BB%9D)）
         - 移动赋值运算符（与noexcept？何时合成）
         - 可以定义为成员或非成员函数，定义成成员函数时第一个操作数隐式绑定到this指针
         - 不可重载的操作符有哪些？（?:，::）
+        
     * 8）析构函数相关
         - 销毁过程的理解（delete会执行哪些操作？[逆序析构成员](https://github.com/arkingc/llc/blob/master/cpp/class/constructorANDdestructor/order.cpp#L1)）
         - 为什么析构函数中不能抛出异常？（不能是指“不应该”，C++本身并不禁止[《Effective C++:条款8》](https://github.com/arkingc/note/blob/master/C++/EffectiveC++.md#%E6%9D%A1%E6%AC%BE08%E5%88%AB%E8%AE%A9%E5%BC%82%E5%B8%B8%E9%80%83%E7%A6%BB%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0)）
@@ -37,25 +148,40 @@
         - 不应该将非继承体系中的类的虚函数声明为虚函数（[《Effective C++:条款7》](https://github.com/arkingc/note/blob/master/C++/EffectiveC++.md#%E6%9D%A1%E6%AC%BE07%E4%B8%BA%E5%A4%9A%E6%80%81%E5%9F%BA%E7%B1%BB%E5%A3%B0%E6%98%8Evirtual%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0)）
         - 不应该继承析构函数非虚的类（[《Effective C++:条款7》](https://github.com/arkingc/note/blob/master/C++/EffectiveC++.md#%E6%9D%A1%E6%AC%BE07%E4%B8%BA%E5%A4%9A%E6%80%81%E5%9F%BA%E7%B1%BB%E5%A3%B0%E6%98%8Evirtual%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0)，final防止继承）
         - [防止继承的方式](https://blog.twofei.com/672/)
+        
     * 9）[删除的合成函数](https://github.com/arkingc/llc/blob/master/cpp/class/delete/README.md)（一般函数而言不想调用的话不定义就好）
+    
     * 10）继承相关
         - 继承体系中的构造、拷贝、析构顺序？（派生类只负责自己成员的拷贝控制，可以(换而言之非必须，如果不显示调用，会调用父类合成的默认版本)在初始值列表或函数体中调用基类相应函数）
         - 继承中的名字查找（作用域嵌套、从子类到父类查找；[成员名字的处理](https://github.com/arkingc/note/blob/master/C++/C++%E5%AF%B9%E8%B1%A1%E6%A8%A1%E5%9E%8B.md#%E5%90%8D%E7%A7%B0%E7%9A%84%E7%89%B9%E6%AE%8A%E5%A4%84%E7%90%86)）
         - [成员函数体内、成员函数的参数列表的名字解析时机](https://github.com/arkingc/note/blob/master/C++/C++%E5%AF%B9%E8%B1%A1%E6%A8%A1%E5%9E%8B.md#31-data-member%E7%9A%84%E7%BB%91%E5%AE%9A)（因此，务必将“内嵌的类型声明”放在class起始处）
         - 同名名字隐藏（如何解决？(域作用符，从指示的类开始查找)、不同作用域无法重载、using的作用？除此之外呢？） 
         - 虚继承（解决什么问题？(多继承中的子对象冗余)）
+        
     * 11）多态的实现？
+    
     * 12）[虚函数的实现原理？对类大小的影响？](https://www.cnblogs.com/malecrab/p/5572730.html)（vtbl是一个由函数指针组成的数组，无论pb指向哪种类型的对象，只要能够确定被调函数在虚函数中的偏移值，待运行时，能够确定具体类型，并能找到相应vptr，进一步能找出真正应该调用的函数）
+    
     * 13）为什么不要在构造、析构函数中调用虚函数？（子对象的base class构造期间，对象的类型是base class [《Effective C++:条款9》](https://github.com/arkingc/note/blob/master/C++/EffectiveC++.md#%E6%9D%A1%E6%AC%BE09%E7%BB%9D%E4%B8%8D%E5%9C%A8%E6%9E%84%E9%80%A0%E5%92%8C%E6%9E%90%E6%9E%84%E8%BF%87%E7%A8%8B%E4%B8%AD%E8%B0%83%E7%94%A8virtual%E5%87%BD%E6%95%B0)，[设置虚函数指针的时机](https://github.com/arkingc/note/blob/master/C++/C++%E5%AF%B9%E8%B1%A1%E6%A8%A1%E5%9E%8B.md#vptr%E7%9A%84%E8%AE%BE%E7%BD%AE)）
+    
     * 14）[虚函数被覆盖？](https://github.com/arkingc/llc/blob/master/cpp/class/inheritance/virtual_function_hide.cpp#L1)
+    
     * 15）virtual函数动态绑定，缺省参数值静态绑定（[《Effective C++:条款37》](https://github.com/arkingc/note/blob/master/C++/EffectiveC++.md#%E6%9D%A1%E6%AC%BE37%E7%BB%9D%E4%B8%8D%E9%87%8D%E6%96%B0%E5%AE%9A%E4%B9%89%E7%BB%A7%E6%89%BF%E8%80%8C%E6%9D%A5%E7%9A%84%E7%BC%BA%E7%9C%81%E5%8F%82%E6%95%B0%E5%80%BC)）
+    
     * 16）纯虚函数与抽象基类（[纯虚函数与虚函数、一般成员函数的选择](../C++/EffectiveC++.md#条款34区分接口继承和实现继承)）
+    
     * 17）静态类型与动态类型（引用是否可实现动态绑定）
+    
     * 18）浅拷贝与深拷贝（安全性、行为像值的类与行为像指针的类）
+    
     * 19）如何定义类内常量？（enum而不是static const [《Effective C++:条款2》](https://github.com/arkingc/note/blob/master/C++/EffectiveC++.md#%E6%9D%A1%E6%AC%BE02%E5%B0%BD%E9%87%8F%E4%BB%A5constenuminline%E6%9B%BF%E6%8D%A2define)）
+    
     * 20）继承与组合(复合)之间如何选择？（[《Effective C++:条款38》](https://github.com/arkingc/note/blob/master/C++/EffectiveC++.md#%E6%9D%A1%E6%AC%BE38%E9%80%9A%E8%BF%87%E5%A4%8D%E5%90%88%E5%A1%91%E6%A8%A1%E5%87%BAhas-a%E6%88%96%E6%A0%B9%E6%8D%AE%E6%9F%90%E7%89%A9%E5%AE%9E%E7%8E%B0%E5%87%BA)）
+    
     * 21）private继承？（[《Effective C++:条款39》](https://github.com/arkingc/note/blob/master/C++/EffectiveC++.md#%E6%9D%A1%E6%AC%BE39%E6%98%8E%E6%99%BA%E8%80%8C%E5%AE%A1%E6%85%8E%E5%9C%B0%E4%BD%BF%E7%94%A8private%E7%BB%A7%E6%89%BF)）
+    
     * 22）[如何定义一个只能在堆上（栈上）生成对象的类？](https://www.nowcoder.com/questionTerminal/0a584aa13f804f3ea72b442a065a7618)
+    
     * 23）[内联函数、构造函数、静态成员函数可以是虚函数吗？](https://www.nowcoder.com/ta/nine-chapter/review?page=24)
 * **四.内存管理**
     * 1）[C++内存分区](../C++/内存分区.md)
@@ -147,3 +273,32 @@
     * 11）[运行时类型识别实现对象比较函数](https://github.com/arkingc/llc/blob/master/cpp/RTTI/RTTI.cpp#L9)
     * 12）[使用C++实现线程安全的单例模式](https://www.cnblogs.com/ccdev/archive/2012/12/19/2825355.html)
     * 13）[什么是异常安全？](../C++/EffectiveC++.md#1异常安全的2个条件)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## public限定符
+
+​     被public限定符所修饰的成员变量和函数可以被类的函数、子类的函数、友元(类的成员)函数，也可以由类的对象（互为友元）来访问，即可以使用成员运算符来访问。
+
+## protected限定符
+
+​      protected限定符修饰的成员变量和成员函数可以被该类的成员函数访问，但是不能被类对象所访问，即不能通过类对象的成员运算符来访问。另外，这些成员可以被子类的函数和友元函数访问，相比public成员 少了一个可以使用类对象直接访问的特性。具体使用与public类似，这里不再贴出代码。
+
+## private限定符
+
+​    被private限定符修饰的成员变量只能被该类的方法和友元函数访问，子类函数无法访问，在这三个限定符中封装程度是最高的，一般来说，应该尽可能将类的成员变量声明为private而不是其他，减少成员变量的暴露，只提供getter和settter方法给外界访问，这样能提高类的安全性。具体使用与public类似。
+
+## 注意事项
+
+​      C++与Java不同，C++中的类没有公有私有之分，在使用时直接声明即可，访问权限限定符只用于修饰类的成员变量和成员函数
