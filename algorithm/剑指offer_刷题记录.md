@@ -7,14 +7,7 @@ https://github.com/IdiotXue/OfferCoding
 [TOC]
 
 # 1. 赋值运算符函数
-## key: 【返引用、传常引用、判同、局部变量换指针（RAII）】
-```cpp
-CMyString& operator=(const CMyString &str)
-//考点1：返回引用，才能连续赋值str1=str2=str3
-//考点2：传入参数类型为常量引用，避免调用复制构造和函数内改变rhs
-//考点3：判断传入rhs和当前this是否为同一实例，避免释放自身空间
-//考点4：创建临时实例，交换空间，出if后自动释放，指针tmp不会释放
-```
+## key: 【返&、传const &、判==、局部变量换point（RAII）】
 > 题目描述
 >
 > 如下为类型CMyString的声明，请为该类型添加赋值运算符函数。
@@ -111,7 +104,7 @@ ostream &operator<<(ostream &out, const CMyString &str);
 
 # 2. 实现Singleton模式
 
-## key: 【返引用，局部静态变量 ，编译器保证】
+## key: 【static函数，返&，局部static变量】
 > 题目描述
 >
 > 设计一个类，我们只能生成该类的一个实例。
@@ -136,56 +129,12 @@ public:
         return instance;
     }
 };
-//C++11，若当变量在初始化时，并发同时进入声明语句，并发线程将会阻塞等待初始化结束。所以具有线程安全性。
+//C++11，若变量在初始化时，并发同时进入声明语句，并发线程将会阻塞等待初始化结束。所以具有线程安全性。
 ```
 
 单例的模板基类
 
 ```cpp
-// brief: a singleton base class offering an easy way to create singleton
-#include <iostream>
-
-template<typename T>
-class Singleton{
-public:
-    static T& get_instance() noexcept(std::is_nothrow_constructible<T>::value){
-        static T instance{token()};
-        return instance;
-    }
-    virtual ~Singleton()  = default;
-    Singleton(const Singleton&) = delete;
-    Singleton& operator =(const Singleton&) = delete;
-protected:
-    struct token{}; // helper class
-    Singleton() noexcept = default;
-};
-
-/********************************************/
-// Example:
-// constructor should be public because protected `token` control the access
-
-class DerivedSingle:public Singleton<DerivedSingle>{
-public:
-   DerivedSingle(token){//重点这个参数，只能继承过来
-       std::cout<<"destructor called!"<<std::endl;
-   }
- 
-   ~DerivedSingle(){	std::cout<<"constructor called!"<<std::endl;	}
-   DerivedSingle(const DerivedSingle&)=delete;
-   DerivedSingle& operator =(const DerivedSingle&)= delete;
-};
- 
-int main(int argc, char* argv[]){
-    DerivedSingle& instance1 = DerivedSingle::get_instance();
-    DerivedSingle& instance2 = DerivedSingle::get_instance();
-    return 0;
-}
-```
-```cpp
-/**
- * 懒汉式(线程安全):双重检测锁定（double checked locking）
- * 需要时创建实例，双重检测避免了创建后每次调用都要加锁，提高了效率
- */
 #include <iostream>
 #include <memory>    //std::shared_ptr
 #include <mutex>     //std::mutex,std::lock_guard
@@ -193,31 +142,30 @@ int main(int argc, char* argv[]){
 class Singleton{
   public:
     static const std::shared_ptr<Singleton> GetInstance(){
-        if (!sm_pInstance) {//避免创建了实例后，每次调用还要加锁
+        if (!sm_pInstance) {//双重检测锁，避免创建了实例后，每次调用还要加锁
             std::lock_guard<std::mutex> guard(sm_mutex);
             if (!sm_pInstance)
-                sm_pInstance.reset(new Singleton());
+                sm_pInstance.reset(new Singleton());//2次进入问题
         }
         return sm_pInstance;
     }
-    ~Singleton() { std::cout << "destruct singleton object" << std::endl; }
-    
   private:
     static std::shared_ptr<Singleton> sm_pInstance;
     static std::mutex sm_mutex;
-    Singleton() { std::cout << "construct singleton object" << std::endl; }
+    
+    Singleton() = default;
     Singleton(const Singleton &) = delete;
     Singleton &operator=(const Singleton &) = delete;
 };
 //Singleton.cpp
 std::shared_ptr<Singleton> Singleton::sm_pInstance;
-std::mutex Singleton::sm_mutex;
+std::mutex Singleton::sm_mutex; //互斥锁
 ```
 
 
 # [3. 数组中重复的数字](https://www.nowcoder.com/practice/623a5ac0ea5b4e5f95552655361ae0a8?tpId=13&tqId=11203&tPage=3&rp=3&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
-## key: 【判nullptr与越界、从0至len,if(A[i] != i){ if(A[i] == A[A[i]])   dup ; swap }】
+## key: 【判nullptr与越界、for：if(A[i] != i){ if(A[i] == A[A[i]])   *dup ; swap }】
 > 题目描述
 >
 > 在一个长度为n的数组里的所有数字都在0到n-1的范围内。 数组中某些数字是重复的，但不知道有几个数字是重复的。请找出数组中任意一个重复的数字。 例如，{2,3,1,0,2,5,3}，那么对应的输出是第一个重复的数字2。
@@ -240,32 +188,27 @@ public:
         if(length < 2 || numbers == nullptr)
             return false;
         
-        for(int i = 0; i < length; ++i)
-        {
+        for(int i = 0; i < length; ++i){
             if(numbers[i] < 0 || numbers[i] > length - 1)
                 return false;//得先判断，否则下面可能越界
         }
         
-        for(int i = 0; i < length; ++i)
-        {
+        for(int i = 0; i < length; ++i){
             if(numbers[i] != i)
             {
-                if(numbers[i] == numbers[numbers[i]])
-                {
+                if(numbers[i] == numbers[numbers[i]]){
                     *duplication = numbers[i];
-                    //duplication[0] = numbers[i];
                     return true;
                 }
                 swap(numbers[i], numbers[numbers[i]]);
             }
         }
-        
-        return false;
+        return false; //容易漏掉分支
     }
 };
 ```
 
-
+## key：【有序，二分，计数，正常1-5应该有5个数字，看计数个数是否5个正常范围数字】
 
 ```cpp
 int duplicate(vector<int> & nums) { //有序情况
@@ -273,7 +216,6 @@ int L = 1 ,R = nums.size()-1;
 while(L < R){
     int mid = (L + R) >> 1; //[L ,mid] [mid +1 , R ]
     int count = 0;
-    
     for(int i = 0; i< nums.size() ;++i){
         if(nums[i] >=L && nums[i] <= R){
             count ++;
@@ -291,14 +233,14 @@ while(L < R){
 
 # [4. 二维数组中的查找](https://www.nowcoder.com/practice/abc3fe2ce8e146608e868a70efebf62e?tpId=13&tqId=11154&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
-## key: 【左上>右上>右下有序, target< 往左，>target往下】
+## key: 【左->右，上->下，有序, if （target<a\[i][j] --j)，(target >a\[i][j] i++)】
 > 题目描述
 >
 > 在一个二维数组中（每个一维数组的长度相同），每一行都按照从左到右递增的顺序排序，每一列都按照从上到下递增的顺序排序。请完成一个函数，输入这样的一个二维数组和一个整数，判断数组中是否含有该整数。
 >
 > 思路：
 >
-> 根据题意，是左到右递增，上到下递增，可从右上角开始，小于target，向下走，大于target，向左走。
+> 根据题意，是左到右递增，上到下递增，可从**右上角开始**，小于target，向下走，大于target，向左走。
 
 ```cpp
 class Solution {
@@ -312,26 +254,26 @@ public:
         
         int i　 = 0;
         int j　 = cols -1;
-        while(( i <= rows -1) &&( j >=0)){
+        while(( i <= rows -1) &&( j >=0)){ //把握边界！！
             if(array [i][j] == target){
                 return true;
             }
-            
             if(array [i][j] > target){
                 --j;//向左走
             }
              if(array [i][j] < target){
                  ++i;//向下走
             }
-        }//end while
-         return false; 
+        }
+        return false; //最后分支
     }
 };
 ```
 
 # [5. 替换空格](https://www.nowcoder.com/practice/4060ac7e3e404ad1a894ef3e17650423?tpId=13&tqId=11155&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
-## key: 【算str长度（一个空格+2），newLen != oldLen且不越界，逆序复制，遇空格则反向填充3字符】
+## key: 【newLen = oldLen+2*space，while: newLen != oldLen,逆拷贝，遇空格则反向填充3字符】
+
 > 题目描述
 >
 > 请实现一个函数，将一个字符串中的每个空格替换成“%20”。例如，当字符串为We Are Happy.则经过替换之后的字符串为We%20Are%20Happy。
@@ -344,9 +286,8 @@ public:
 class Solution {
 public:
 	void replaceSpace(char *str,int length) {
-        if (str == nullptr || length <= 0)
+        if (str == nullptr || length <= 0) //判断 nullptr和length
             return;
-        
         int newStrLen = length;
         for(int i =0 ; i < length -1;i++){
             if(str[i] == ' '){
@@ -372,7 +313,7 @@ public:
 
 # [6. 从尾到头打印链表](https://www.nowcoder.com/practice/d0267f7f55b3412ba93bd35cfa8e8035?tpId=13&tqId=11156&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
-## key: 【vector+reverse、stack<ListNode *>+vectorListNode *node = head】
+## key: 【vector+reverse或stack<ListNode *> +vector 】
 > 题目描述
 >
 > 输入一个链表，按链表从尾到头的顺序返回一个ArrayList。
@@ -400,14 +341,12 @@ public:
         
         ListNode *node = head;//保存指针，拷贝指针比拷贝对象快，本例是int体现不出来
         stack<ListNode *> TempStack; 
-        while (node)
-        {
+        while (node){
             TempStack.push(node);
             node = node->next;
         }
         vector<int> vnTemp(TempStack.size());
-        for (size_t i = 0; i < vnTemp.size(); ++i)
-        {
+        for (size_t i = 0; i < vnTemp.size(); ++i){
             vnTemp[i] = TempStack.top()->val;
             TempStack.pop();
         }
@@ -416,14 +355,12 @@ public:
     //解法2
     vector<int> printListFromTailToHead(ListNode* head) {
         vector<int> retVector;
-        
         ListNode *node = head;//不应该修改head的
         while(node != nullptr){
             retVector.push_back(node->val);
             node =node->next;
         }
         //return vector<int>(retVector.rbegin(), retVector.rend());
-        
         reverse(retVector.begin(),retVector.end());//反转vector
         return retVector;
     }
@@ -438,46 +375,24 @@ public:
 > 输入某二叉树的前序遍历和中序遍历的结果，请重建出该二叉树。假设输入的前序遍历和中序遍历的结果中都不含重复的数字。例如输入前序遍历序列{1,2,4,7,3,5,6,8}和中序遍历序列{4,7,2,1,5,3,8,6}，则重建二叉树并返回。
 >
 
-> 思路：
-> 前序遍历是{根，左子树，右子树}；中序是{左子树，根，右子树}
-> 因此，按如下操作即可
-> （1）在前序中拿出根（第一个元素），用于在中序中分出左右子树
-> （2）根据中序得出的左右子树元素个数，在前序中分出左右子树
-> （3）在（1）（2）中得到左右子树的前序和中序遍历，是原问题的子集
->  即：左右子树的根就是（1）中根的左右子结点
-> （4）递归构建左右子树，直到叶子结点为止
-> 特例：（1）前中序大小不同或大小为0（2）无法构成二叉树（3）部分无左子树或右子树
->
 > 前序加中序序列，分解过程图示如下（王道数据结构P120）
->
+> 
 > ![图片说明](https://gitee.com/yzhu798/bolgImage/raw/master/剑指offerall.assets/807319133_1566201171550_B40B59C37DAF61726E7EDC919A086425)
 > ![图片说明](https://gitee.com/yzhu798/bolgImage/raw/master/剑指offerall.assets/807319133_1566201156302_8051F21823FC87CE1C97D7AE4FAD5B08)
 > 思路：
->
-> 1. 由先序序列第一个**`pre[0]`**在中序序列中找到根节点位置**`gen`**
+> 
+>  1. 由先序序列第一个**`pre[0]`**在中序序列中找到根节点位置**`gen`**
 > 2. 以`gen`为中心遍历
 >    - `0~gen`左子树
->      - 子中序序列：**`0~gen-1`**，放入**`vin_left[]`**
+>     - 子中序序列：**`0~gen-1`**，放入**`vin_left[]`**
 >      - 子先序序列：**`1~gen`**放入**`pre_left[]`**，**`+1`**可以看图，因为头部有根节点
->    - `gen+1~vinlen`为右子树
+>   - `gen+1~vinlen`为右子树
 >      - 子中序序列：**`gen+1 ~ vinlen-1`**放入**`vin_right[]`**
 >      - 子先序序列：**`gen+1 ~ vinlen-1`**放入**`pre_right[]`**
 > 3. 由先序序列**`pre[0]`**创建根节点
-> 4. 连接左子树，按照左子树子序列递归（**`pre_left[]`**和**`vin_left[]`**）
+>4. 连接左子树，按照左子树子序列递归（**`pre_left[]`**和**`vin_left[]`**）
 > 5. 连接右子树，按照右子树子序列递归（**`pre_right[]`**和**`vin_right[]`**）
 > 6. 返回根节点
-
-```cpp
-/**
- * Definition for binary tree
- * struct TreeNode {
- *     int val;
- *     TreeNode *left;
- *     TreeNode *right;
- *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
- * };
- */
-```
 
 ```cpp
 class Solution {
@@ -491,39 +406,24 @@ public:
         return dfs(pre, vin, 0, n - 1, 0, n - 1);
     }
 private:
-    
-    //前序遍历序列{3,9,20,15,7}
-    //中序遍历序列{9,3,15,20,7}
-    //后序遍历序列{9,15,7,20,3}
-    //        3
-    //       / \
-    //     9    20
-    //    / \   / \
-    //   N   N 15  7
-    
     TreeNode* dfs(vector<int> &pre, vector<int> &vin,
                             size_t nPreLeft, size_t nPreRight,
                             size_t nVinLeft, size_t nVinRight)
     {
         //前序 根左右  pre[pl]
         if(nPreLeft > nPreRight) return nullptr;
-        TreeNode* root = new TreeNode(pre[nPreLeft]);  //pre[pl]根
- 
-        int leftLen = pos[pre[nPreLeft]] - nVinLeft;  
+        int rootValue = pre[nPreLeft];
+        TreeNode* root = new TreeNode(rootValue);
+        int leftLen = pos[rootValue] - nVinLeft;  
+        
         //gen = vl + leftLen 
-
-        //左子树 前序[(pl+1),(pl+len)]；  【1~gen】
-        //左子树 中序[(vl),(vl+len-1)]；  【0~gen-1】
+        //左子树 前序[(pl+1),(pl+len)]；
+        //左子树 中序[(vl),(vl+len-1)]；
         root -> left = dfs(pre, vin, nPreLeft + 1, nPreLeft + leftLen,
                            nVinLeft, nVinLeft + leftLen - 1);           
-                           //中序起点，为左子树最右边界
-
         //右子树：【gen+1~vinlen】
-        //前序[(pl+len)+1,pr]
-        //中序[(vl+len-1),vr]
         root -> right = dfs(pre, vin,nPreLeft + leftLen + 1, nPreRight, 
-                            //前序终点，为右子树最左边界
-                            nVinLeft + leftLen + 1, nVinRight);
+                                     nVinLeft + leftLen + 1, nVinRight);
         return root;
     }
     
@@ -533,48 +433,24 @@ private:
 **递归遍历**
 
 ```cpp
-void PreorderTraverse(TreeNode *pRoot) //前遍历
+void PreorderTraverse(TreeNode *pRoot) //遍历
 {
     if (pRoot == nullptr)
         return;
-    std::cout << pRoot->val << " ";
+    //std::cout << pRoot->val << " "; 前遍历
     PreorderTraverse(pRoot->left);
+    // std::cout << pRoot->val << " "; //中序
     PreorderTraverse(pRoot->right);
-}
-void InorderTraverse(TreeNode *pRoot) //中序遍历
-{
-    if (pRoot == nullptr)
-        return;
-    InorderTraverse(pRoot->left);
-    std::cout << pRoot->val << " ";
-    InorderTraverse(pRoot->right);
-}
-void PostorderTraverse(TreeNode *pRoot) //后序遍历
-{
-    if (pRoot == nullptr)
-        return;
-    PostorderTraverse(pRoot->left);
-    PostorderTraverse(pRoot->right);
-    std::cout << pRoot->val << " ";
+    // std::cout << pRoot->val << " ";
 }
 ```
 
 ```cpp
-//        3
-//       / \
-//     9    20
-//    / \   / \
-//   N   N 15  7
-//前序遍历序列{3,9,20,15,7}
-//中序遍历序列{9,3,15,20,7}
-//后续遍历序列{9,15,7,20,3}
-//更简单的非递归前序遍历       根，左，右 用栈（反序）
-void preorderTraversalNew(TreeNode *root, std::vector<int> &path)
-{
+//更简单的非递归前序遍历       根true，左，右 用栈（反序）
+void preorderTraversalNew(TreeNode *root, std::vector<int> &path){
     std::stack<std::pair<TreeNode *, bool> > tmpStack;
     bool isVisited = false;
-    tmpStack.push(make_pair(root, isVisited));//false
-
+    tmpStack.push(make_pair(root, isVisited));//根,false
     while(!tmpStack.empty())
     {
         root = tmpStack.top().first;
@@ -582,33 +458,17 @@ void preorderTraversalNew(TreeNode *root, std::vector<int> &path)
         tmpStack.pop();
         if(root == nullptr)
             continue;
-        if(isVisited)
-        {
+        if(isVisited){
             path.push_back(root->val);
         }
-        else//用栈（反序）
-        {
-//            //前序
-//            tmpStack.push(make_pair(root->right, false));      //右
-//            tmpStack.push(make_pair(root->left, false));       //左
-//            tmpStack.push(make_pair(root, true));              //根
-
-//            //中序
-//            tmpStack.push(make_pair(root->right, false));      //右
-//            tmpStack.push(make_pair(root, true));              //根
-//            tmpStack.push(make_pair(root->left, false));       //左
-
-            //后序
-            tmpStack.push(make_pair(root, true));              //根
+        else//用栈（反序）{
+            tmpStack.push(make_pair(root, true));              //根,true
             tmpStack.push(make_pair(root->right, false));      //右
-            tmpStack.push(make_pair(root->left, false));       //左
+            tmpStack.push(make_pair(root->left, false));      //左
         }
     }
 }
-
 ```
-
-
 
 # [8. 二叉树的下一个结点](https://www.nowcoder.com/practice/9023a0c988684a53960365b889ceaf5e?tpId=13&tqId=11210&tPage=3&rp=3&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
@@ -620,46 +480,21 @@ void preorderTraversalNew(TreeNode *root, std::vector<int> &path)
 > 但是，如果在面试中，方法一肯定上不了台面。但是最优解法该怎么去想呢？想不出来就画图分析，举个中序遍历的图：如下：
 >
 > ![图片说明](https://gitee.com/yzhu798/bolgImage/raw/master/剑指offerall.assets/284295_1590477193692_99D648423BB3F2113395149399A1462A)
-> 红色数字是中序遍历的顺序。接下来，我们就假设，如果当前结点分别是1,2 ... 7，下一结点看有什么规律没？
->
-> [复制代码](https://www.nowcoder.com/practice/9023a0c988684a53960365b889ceaf5e?tpId=13&tqId=11210&tPage=3&rp=3&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking#)
->
-> ```cpp
-> 1 => 2 // 显然下一结点是 1 的父亲结点
-> 2 => 3 // 下一节点是当前结点右孩子的左孩子结点，其实你也应该想到了，应该是一直到左孩子为空的那个结点
-> 3 => 4 // 跟 2 的情况相似，当前结点右孩子结点的左孩子为空的那个结点
-> 4 => 5 // 5 是父亲结点 3 的父亲结点，发现和1有点像，因为 1，3,同样是父亲结点的左孩子
-> 5 => 6 // 跟 4=>5 一样的道理
-> 6 => 7 // 跟 3=>4 一样的道理
-> 7 => null // 因为属于最尾结点
-> ```
+> 红色数字是中序遍历的顺序。接下来，我们就假设，如果当前结点分别是1,2 ... 7，下一结点看有什么规律没
 >
 > 此时，可以总结一下：
-> [1] 是一类：特点：当前结点是父亲结点的左孩子
-> [2 3 6] 是一类，特点：当前结点右孩子结点，那么下一节点就是：右孩子结点的最左孩子结点,如果右孩子结点没有左孩子就是自己
+>[1] 是一类：特点：**当前结点是父亲结点的左孩子**
+> [2 3 6] 是一类，特点：当前结点右孩子结点，那么下一节点就是：**右孩子结点的最左孩子结点**,如果右孩子结点**没有左孩子就是自己**
 > [4 5]是一类，特点：当前结点为父亲结点的右孩子结点，本质还是[1]那一类
-> [7]是一类，特点：最尾结点
+> [7]是一类，特点：**最尾结点**
 
 ```cpp
-/*
-struct TreeLinkNode {
-    int val;
-    struct TreeLinkNode *left;
-    struct TreeLinkNode *right;
-    struct TreeLinkNode *next;//父结点的指针
-    TreeLinkNode(int x) :val(x), left(NULL), right(NULL), next(NULL) {
-        
-    }
-};
-*/
 class Solution {
 public:
-    TreeLinkNode* GetNext(TreeLinkNode* pNode)
-    {
+    TreeLinkNode* GetNext(TreeLinkNode* pNode){
         if (!pNode) {
             return pNode;
         }
- 
         // 属于[2 3 6]类
         if (pNode->right) {
             pNode = pNode->right;
@@ -668,7 +503,6 @@ public:
             }
             return pNode;
         }
- 
         // 属于 [1] 和 [4 5]
         while (pNode->next) {
             TreeLinkNode *root = pNode->next;
@@ -677,9 +511,7 @@ public:
             }
             pNode = pNode->next;
         }
- 
-        // 属于[7]
-        return nullptr;
+        return nullptr; // 属于[7]
     }
 };
 ```
@@ -696,22 +528,19 @@ public:
 class Solution
 {
 public:
-    void push(int node) {
-        stack1.push(node);
-    }
+    void push(int node) {   stack1.push(node);  }
     void copy(stack<int> &inStack, stack<int> &outStack){
         while(inStack.size()){
             outStack.push(inStack.top());
             inStack.pop();
         }
     }
-
     int pop() {
-        copy(stack1, stack2);
+        copy(stack1, stack2);  // 捣腾一次，入栈元素进出栈，取最先入栈元素（stack2 top）
         int res = stack2.top();
         stack2.pop();
         copy(stack2, stack1);
-        return res;
+        return res; 
     }
 private:
     stack<int> stack1;
@@ -731,14 +560,14 @@ private:
 class Solution {
 public:
     int Fibonacci(int n) {
-        if(n == 0 || n == 1)
+        if(n == 0 || n == 1)  //处理小规模，0和1情况
             return n;
         int first = 0, second = 1;
         int res = 0;
-        for(int i = 2; i <= n; i ++)
+        for(int i = 2; i <= n; i ++) //  n在范围内
         {
             res = first + second;
-            first = second;
+            first = second; //滑动处理
             second = res; 
         }
         return res;
@@ -771,14 +600,14 @@ public:
 # [12. 矩形覆盖](https://www.nowcoder.com/practice/72a5a919508a4251859fb2cfb987a0e6?tpId=13&tqId=11163&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
 ## key: 【斐波那契数列的变形res = m + n;】
-> 题目描述
+> 题目描述--动态规划 `f(n) = f(n-1) + f(n-m)`
 >
 > 我们可以用2\*1的小矩形横着或者竖着去覆盖更大的矩形。请问用n个2\*1的小矩形无重叠地覆盖一个2*n的大矩形，总共有多少种方法？
 >
 
 ```cpp
 class Solution {
-    /* 动态规划题目 
+    /* 
      * 竖着放，f(n-1)种方法填充右边
      * 横着放，最下角必须横着一个，需要f(n-2)种方法填充 边
      * 推广：使用 m*1 去 填充 m*n 的矩形，f(n) = f(n-1) + f(n-m)
@@ -803,32 +632,27 @@ class Solution {
 ## key: 【去右等值，判断有序，再二分】
 > 题目描述
 >
-> 把一个数组最开始的若干个元素搬到数组的末尾，我们称之为数组的旋转。输入一个**非递减排序**的数组的一个旋转，输出旋转数组的最小元素。
+> 把一个数组**最开始的若干个元素搬到数组的末尾**，我们称之为数组的旋转。输入一个**非递减排序**的数组的一个旋转，输出旋转数组的最小元素。
 > 例如数组{2,3,4,5,1,2}为{1,2,2,3,4,5}的一个旋转，该数组的最小值为1。
-> NOTE：给出的所有元素都大于0，若数组大小为0，请返回0。
+> NOTE：所有元素都大于0，若数组大小为0，请返回0。
 >
-> 用中间值和高低位比较，看递增/递减，再缩小范围。
+> **用中间值和高低位比较，看递增/递减，再缩小范围。**
 
 ```cpp
 class Solution {
 public:
     int minNumberInRotateArray(vector<int> &nums) {
-        if (nums.empty()) //空数组
-            return 0;
-
-        // 2,4,1,2,2,2
-        // 4,1,2,2,2,2
+        if (nums.empty())  return 0;//空数组
+        // 1,2,2,2,2,4  =>   2,4,1,2,2,2
         size_t left = 0, right = nums.size() - 1;//二分
-        while(nums[right] == nums[0] && right > 0)//移除右边相等元素
+        while(nums[right] == nums[left] && right > 0)//移除右边相等元素
             right --;
-
         if(nums[left] <= nums[right])
             return nums[left];
-        //else ... return nums[rigth]
-
-        while(left < rigth){
+        
+        while(left < rigth){ //未到尾部，二分查找
             int mid = left + rigth >> 1; //[left, mid] [mid+1, rigth]
-            if(nums[mid] < nums[0])
+            if(nums[mid] < nums[0]) //判断在哪边
                 rigth = mid;
             else
                 left = mid + 1;
@@ -1127,6 +951,8 @@ public:
                     return false;
                 hasM = true;
             }
+            
+            
             else if(str[i] == '.'){
                 if(hasE || hasF) //E后无.
                     return false;
@@ -1274,7 +1100,7 @@ public:
                     pFast = pFast->next;
                     pSlow = pSlow->next;
                 }
-                return pFast;
+                return pSlow;
             }
         }
         return nullptr;
@@ -1312,12 +1138,11 @@ class Solution {
 public:
     ListNode* ReverseList(ListNode* pHead) {
         ListNode* newHead = nullptr;
-        while(pHead)
-        {
-            auto tempNode = pHead->next;
+        while(pHead){
+            auto tempNode = pHead->next; //交换
             pHead->next = newHead;
             
-            newHead = pHead;
+            newHead = pHead; 
             pHead = tempNode;
         }
         return newHead;
@@ -1327,7 +1152,7 @@ public:
 
 # [25.合并两个排序的链表](https://www.nowcoder.com/practice/d8b6b4358f774294a89de2a6ac4d9337?tpId=13&tqId=11169&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
-## key: 【逐个比，遇nullptr,接other】
+## key: 【逐个比，接小，后移，遇nullptr,接other】
 > 题目描述
 >
 > 输入两个单调递增的链表，输出两个链表合成后的链表，当然我们需要**合成后的链表满足单调不减规则**。
@@ -1343,14 +1168,14 @@ public:
         ListNode *cur = vhead;
         while (pHead1 && pHead2) {
             if (pHead1->val <= pHead2->val) {
-                cur->next = pHead1;
-                pHead1 = pHead1->next;
+                cur->next = pHead1;  
+                pHead1 = pHead1->next; //移动 1
             }
             else {
                 cur->next = pHead2;
                 pHead2 = pHead2->next;
             }
-            cur = cur->next;
+            cur = cur->next; //记得，移动 2
         }
         cur->next = pHead1 ? pHead1 : pHead2;
         return vhead->next;
@@ -1391,10 +1216,8 @@ public:
         {
             if(pRoot1->val == pSubRoot2->val) //根一致，递归子树
                 result = isSubtree(pRoot1, pSubRoot2); 
-
             if(!result) //根不同，递归左子树
                 result = HasSubtree(pRoot1->left, pSubRoot2);
-            
             if(!result) //左子树不同，递归右子树
                 result =HasSubtree(pRoot1->right, pSubRoot2);
         }
@@ -1405,13 +1228,10 @@ public:
     {
         if(pSubRoot2 == nullptr) //若匹配到的子树nullptr
             return true;
-        
         if(pRoot1 == nullptr)
             return false;
-
         if(pRoot1->val != pSubRoot2->val)
             return false;
-
         return isSubtree(pRoot1->left, pSubRoot2->left)
             && isSubtree(pRoot1->right, pSubRoot2->right);
     }
@@ -1420,7 +1240,7 @@ public:
 
 # [27.二叉树的镜像](https://www.nowcoder.com/practice/564f4c26aa584921bc75623e48ca3011?tpId=13&tqId=11171&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
-## key【root非nullptrr则交换左右】
+## key【root非nullptr则交换左右】
 
 题目描述
 
@@ -1431,13 +1251,11 @@ class Solution {
 public:
     //pRoot 不需要交换
     void Mirror(TreeNode *pRoot) {
-        if(pRoot == nullptr)
-            return;
-        //交换节点
-        swap(pRoot -> left, pRoot -> right);
-        //分别完成 左右树
-        Mirror(pRoot->left);
-        Mirror(pRoot->right);
+        if(pRoot){
+            swap(pRoot->left,pRoot->right);
+            Mirror(pRoot->left); 
+            Mirror(pRoot->right);
+        }
     }
 };
 ```
@@ -1458,13 +1276,13 @@ class Solution {
 public:
     bool isSymmetrical(TreeNode* pRoot)
     {
-        return isSymmetrical(pRoot, pRoot);
+        return isSymmetrical(pRoot, pRoot); //	传入根
     }
     bool isSymmetrical(TreeNode* pRoot1, TreeNode* pRoot2)
     {
-        if(pRoot1 == nullptr && pRoot2 == nullptr)
+        if(pRoot1 == nullptr && pRoot2 == nullptr) //树两边结束
             return true;
-        if(pRoot1 == nullptr || pRoot2 == nullptr)
+        if(pRoot1 == nullptr || pRoot2 == nullptr) //树单边结束
             return false;
         
         if(pRoot1->val != pRoot2->val)
@@ -1505,7 +1323,7 @@ class Solution
                 output.push_back(matrix[up][i]);
             for (int i = up + 1; i <= down; ++i)//上到下，去除一个上
                 output.push_back(matrix[i][right]);
-            if (up != down) //考虑最后一圈是一行
+            if (up != down) //考虑最后一圈是一行，忽略
                 for (int i = right - 1; i >= left; --i)//右到左，去除一个右
                     output.push_back(matrix[down][i]);
             if (left != right) //考虑最后一圈是一列
@@ -1531,30 +1349,33 @@ class Solution
 
 ```cpp
 class Solution {
+   stack<int> dataStack;
+   stack<int> minStack;
 public:
     void push(int value) {
-        stackVal.push(value);    //每次stackVal都push value
+        dataStack.push(value);    //每次stackVal都push value
         int minValue = value;
         if(!stackMin.empty()){
-			value = std::min(stackMin.top(),value);//存真实更小
+			minValue = std::min(minStack.top(),value);//存真实更小
         }
-        stackMin.push(minValue);
+        minStack.push(minValue);
     }
-    void pop() {
-        if(!stackVal.empty()){
-            stackVal.pop();//弹出后还是stackMin
-            stackMin.pop();
-        }
-    }
-    int top() {
-        return stackVal.top();
-    }
-    int min() {
-        return stackMin.top();
-    }
-private:
-    stack<int> stackVal;
-    stack<int> stackMin;
+   void pop() {
+       if(dataStack.empty())
+           throw new exception();
+       dataStack.pop();
+       minStack.pop();
+   }
+   int top() {
+       if(dataStack.empty())
+           throw new exception();
+       return dataStack.top();
+   }
+   int min() {
+       if(dataStack.empty())
+           throw new exception();
+       return minStack.top();
+   }
 };
 ```
 
@@ -1578,7 +1399,8 @@ public:
         while(i < size){
             stack.push(pushV[i++]);//每次压栈
             //出栈时 比较top元素和当前popV
-            while(!stack.empty() && popV[index] == stack.top() && index++ < popV.size()){
+            while(!stack.empty() 
+                  && popV[index] == stack.top() && index++ < popV.size()){
                 stack.pop();
             }
         }
