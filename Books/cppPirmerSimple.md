@@ -282,7 +282,7 @@
     > - **算数类型转换或者指针转换**实现的匹配。
     > - **类类型转换实现的匹配**
 
-14. 函数指针：std::function、Lambda
+14. 函数指针：std::function、Lambda。
 
     ```cpp
     bool lengthCompare(const string &, const string &);
@@ -318,7 +318,7 @@
     }
     ```
 
-18. 函数后面添加`const`关键字，表示**该成员函数不会改变成员中的变量。**
+18. 函数后面添加`const`关键字，表示**该成员函数不会改变成员中的变量,this是常量指针。**
 
     ```cpp
     float getPi() const{ 	return 3.14;	}
@@ -327,18 +327,18 @@
 
 ## 七、抽象数据类型（类）
 
-1. `friend` 友元，用于友元类或者友元函数访问私有成员，单向，不传递。
+1. `friend` 友元，用于友元类或者友元函数**访问私有成员，单向，不传递**。
 
-2. `mutable` 关键字：突破const的限制。
+2. **`mutable` 关键字：突破`const`的限制**。
 
    ```cpp
    mutable int m_iTimes;
    void ClxTest::Output() const{	m_iTimes++;	}	//突破const的限制。
    ```
 
-3. 前向声明：只声明，不定义，一般用于声明对象为指针`A*`或者引用`&`的函数。
+3. 前向声明：只声明，不定义，**一般用于声明对象为指针`A*`或者引用`&`的函数**,`class A;`。
 
-4. 函数在查找参数过程，先查找函数作用域的参数，再查找类成员的参数。
+4. 函数在查找参数过程，**先查找函数作用域的参数，再查找类成员的参数**。
 
    ```cpp
    int height;// 1
@@ -349,7 +349,7 @@
    }
    ```
 
-6. 类的委托构造函数
+6. 类的**委托构造函数**
 
     ```cpp
     class Sales_data{
@@ -360,7 +360,7 @@
     }
     ```
 
-7. `explicit` 关键字：禁止隐式转换，只对单实参的构造函数有效，但可用`static_cast`显示转换。
+7. `explicit` 关键字：**禁止隐式转换，只对单实参的构造函数有效**，但可用`static_cast`显示转换。
 
     ```cpp
     string null_book = "9-999-99999-9";
@@ -370,18 +370,18 @@
     item.combine(static_cast<Sales_data>(cin)); // ok: static_cast can use an explicit constructor
     ```
 
-8. 字面值常量类：数据成员都是字面值类型，类必须有一个`constexpr`的构造函数。
+8. 字面值常量类：**数据成员都是字面值类型**，类必须有一个`constexpr`的构造函数。
 
 9. 类的`static`成员：
 
-    > 1. 由于静态成员无法对象绑定，故不能声明为`const`（const成员函数：不会修改该函数所属对象），也**无法用`this`指针**。
-    > 2. 用户代码可以使用作用域运算符访问静态成员，也可以通过类对象、引用或指针访问。**类的成员函数可访问静态成员**。
+    > 1. 由于**静态成员无法对象绑定，故不能声明为`const`**（const成员函数：不会修改该函数所属对象），也**无法用`this`指针**。
+    > 2. 用户代码可以使用**作用域运算符访问静态成员，也可以通过类对象、引用或指针访问**。**类的成员函数可访问静态成员**。
     > 3. 在**类外**部定义静态成员时，**不能重复`static`关键字**，其只能用于类内部的声明语句。
-    > 4. 通常情况下，不应该在类内部初始化静态成员。而必须在**类外部定义并初始化每个静态成员**。
+    > 4. 通常情况下，**不应该在类内部初始化静态成员**。而必须在**类外部定义并初始化每个静态成员**。
     > 5. **类内初始值初始值必须是常量表达式`constexpr`。**
-    > 6. 静态数据成员的类型，可为其所属的类类型（单例模式）。
+    > 6. 静态数据成员的类型，**可为其所属的类类型（单例模式）**。
     > 7. 可以使用静态成员作为函数的默认实参。
-    > 8. 建议把静态数据成员的定义与其他非内联函数的定义放在同一个源文件中，这样可以确保对象只被定义一次。
+    > 8. 建议**把静态数据成员的定义与其他非内联函数的定义放在同一个源文件中**，这样可以确保对象**只被定义一次**。
 
 ## 八、IO
 
@@ -465,9 +465,9 @@
     //quene也是类似的操作。
     ```
 
-11. 注意：**`vector<bool>`不是一个容器，尽量避免使用**，是按位存储。
+11. 注意：**`vector<bool>`不是一个容器，尽量避免使用**，**是按位存储**。
     
-12. 对于`vector<vector<T>>`在使用for的时候，一定要加`&`引号，例如下面：
+12. 对于`vector<vector<T>>`在使用for的时候，**一定要加`&`引号**，例如下面：
     ```cpp
     vector<vector<int>> v = {{1,0}, {-1,0}, {0,-1}, {0,1}};
     for(auto a : v){}
@@ -481,9 +481,9 @@
 
 1. 泛型算法其实只是我们平时使用容器的类似于`find`/`equal`等方法的泛称，由标准库提供。
 
-2. 只读时，推荐采用`cbegin`和`cend`而非`begin`和`end`。
+2. **只读时，推荐采用`cbegin`和`cend`**而非`begin`和`end`。
 
-3. `accumulate`第三个元素的`+`运算符，故`accumulate(v.cbegin(), v.cend(), "")`不对，因`""`是`const string`， 未重载`+`。
+3. `accumulate`第三个元素的`+`运算符，故`accumulate(v.cbegin(), v.cend(), "")`不对，**因`""`是`const string`， 未重载`+`**。
 
 4. 一些**写入的泛型算法只修改容器内的值**，但**不申请新的空间**。
 
@@ -502,7 +502,7 @@
     fill_n(back_inserter(vec), 10, 0);//就可以向vec中添加10个元素
     ```
 
-6. 自定义排序：谓词
+6. **自定义排序**：谓词
 
     ```cpp
     sort(words.begin(), words.end(), isShorter); 
@@ -521,15 +521,19 @@
     //其中这个捕获的值是在创建的时候捕获，而不是调用的时候捕获，所以应该尽量减少捕获的值，防止在创建到调用这段时间内变量发生变化。
     ```
 
-8. 隐式捕获：f = \[=, &os](){}//os是引用捕获方式，其他为值捕获方式
+8. 隐式捕获：
+
+    ```c++
+    f = [=, &os](){}//os是引用捕获方式，其他为值捕获方式
+    ```
 
 9. `lambda`表达式的返回类型，需要尾置：
 
     ```cpp
-    []() -> int {}
+    []() -> int {}//C++ 14以前
     ```
 
-10. `lambda`的好处：本身是可调用对象，可以作为参数存在，如果想要让函数也有这样的功能，可以使用`bind`方法：
+10. `lambda`的好处：**本身是可调用对象，可以作为参数存在**，如果想要让函数也有这样的功能，可以使用`bind`方法：
 
     ```cpp
     bool check_size(const int, const string);
@@ -539,19 +543,19 @@
     find_if(word.begin(), words,end(), bind(check_size, 1, "str"))
     ```
 
-11. `placeholders` 用于占位，`ref`用于生成一个可以拷贝的引用对象。
+11. **`placeholders` 用于占位，`ref`用于生成一个可以拷贝的引用对象**。
 
-     ```cpp
-     istream_iterator<Sales_item> item_iter(cin);//处理类的输入输出
-     ```
+      ```cpp
+      istream_iterator<Sales_item> item_iter(cin);//处理类的输入输出
+      ```
 
-12. 所有泛型算法的`_if`版本都是可以接受一个谓词作为判断条件的。
+12. 所有**泛型算法的`_if`版本都是可以接受一个谓词**作为判断条件的。
 
 ## 十一、关联容器（主要是map，set）
 
-1. `map.upper_bound(k)`返回第一个`key > k`的元素的迭代器，`count(t)`返回关键字等于k的元素的数量
+1. `map.upper_bound(k)`返回**第一个`key > k`的元素的迭代器**，`count(t)`返回关键字等于k的元素的数量
 
-2. 因为`map`、`multimap`是**有序的**，查找元素可用`lower_bound`和`upper_bound`或者`equal_range`进行搜索，。
+2. **因为`map`、`multimap`是有序的**，**查找元素可用`lower_bound`和`upper_bound`或者`equal_range`进行搜索**，。
 
     ```cpp
     for(auto beg = authors.lower_bound(searchItem), end = authors.upper_bound(searchItem);beg!=end; beg++)
@@ -560,7 +564,9 @@
 
 3. **无序关联容器的本质是使用哈希函数和关键字来进行。**
 
-    > 存储组织上实际是一组桶，每个桶保存0个或者多个元素。用哈希函数将元素映射到桶。管理桶的方法：`bucket_count()`正在使用桶的个数等。自定义类类型作为关键字，需要自定义`hash`如：
+    > **存储组织上实际是一组桶，每个桶保存0个或者多个元素。用哈希函数将元素映射到桶。**
+    >
+    > 管理桶的方法：`bucket_count()`正在使用桶的个数等。**自定义类类型作为关键字**，需要自定义`hash`如：
     >
     > ```cpp
     > size_t hasher(const Sales_data &sd){ return hash<string>()(sd.isbn());}
@@ -1505,7 +1511,7 @@ enum class IntValues{}//限定作用于的枚举类型，在括号外如果没�
 12. 位域：类可以将非静态的数据成员定义成位域(bit field)一个位域中含有一定数量的二进制位，位域的类型必须是整形或者枚举类型
 
     ```cpp
-    typedef unsigned int Bit;
+      typedef unsigned int Bit;
     class File{
             Bit mode : 2;
             Bit modified : 1;
@@ -1514,7 +1520,7 @@ enum class IntValues{}//限定作用于的枚举类型，在括号外如果没�
             Bit prot_world : 3;
     public:
             enum modes{READ = 01, WRITE = 02, EXECUTE = 03};
-            ......
+            ......  
     }
     ```
 13. volatile 限定符：和const是一个性质的，不过具体含义和机器系统有关
