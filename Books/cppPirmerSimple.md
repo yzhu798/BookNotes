@@ -386,13 +386,13 @@
 ## 八、IO
 
 
-1. `unitbuf` 操作符：可以在每次输出操作后立即刷新缓冲区,将缓冲区的数据输出出来，例如 `cout << unitbuf`
-2. `tie`方法：将一个`ios`对象和另一个绑定起来，例如 `cin.tie(&ofs)`，就可以每在命令行中输入一个字符，就打印/写入到文件里面。
-3. 默认情况下，打开一个`ofstream`的时候，会把里面原来的文件内容全部丢弃掉，贼坑！！！！解决方法是加一个app模式，例如
+1. `unitbuf` 操作符：可以在每次输出操作后**立即刷新缓冲区**,将缓冲区的数据输出出来，例如 `cout << unitbuf`
+2. `tie`方法：**将`ios`对象和另一个绑定起来**，例如 `cin.tie(&ofs)`，就可以每在命令行中输入一个字符，就打印/写入到文件里面。
+3. 默认情况下，**打开一个`ofstream`的时候，默认清空，解决方法是加一个app模式**，例如
 
       ```cpp
       ofstream app("filename", ofstream::app)//隐含为输出模式 或者
-      ofstream app("filename", ofstream::app|ofstream::out) 这里的app指的是append
+      ofstream app("filename", ofstream::app|ofstream::out) //这里的app指的是append
       ```
 
 4. `stringstream`对象，其实就相当于一个`string`的缓冲区。用法：
@@ -408,7 +408,7 @@
 ## 九、顺序容器
 
 
-1. 因为std标准库里面的容器效率比较低，所以在有替代品的时候，不推荐使用任何一种容器。
+1. 因为std标准库里面的容器效率比较低，所以在有替代品的时候，不推荐使用任何一种容器,**实际上是推荐使用vector或者string取代原始数组，字符串，性能没有那么重要**。
 
 2. 
     ```cpp
@@ -420,11 +420,11 @@
     string       与vector类似         
     ```
 
-3. 迭代器除了`.begin()` .end()以外还有`.cbegin()`, `.rbegin()`, `.crbegin()`,C指的是`const`，r指的是反向迭代器
+3. 迭代器除了`.begin()` `.end()`以外还有`.cbegin()`, `.rbegin()`, `.crbegin()`,**C指的是`const`，r指的是反向迭代器。**
 
 4. array数组类型与普通数组不同的地方在于，**array数组类型允许类型赋值**，如：`c = {a, b, c}; c2 = c;`
 
-5. 顺序容器的`assign`成员方法：实现顺序容器的拷贝（array除外，不允许拷贝）：
+5. 顺序容器的`assign`成员方法：实现顺序容器的拷贝（**array除外，不允许大小改变，故不允许拷贝**）：
 
     ```cpp
     list<string> names;
@@ -438,7 +438,7 @@
 
     这种做法会让`swap`很快，**但`array`是真的交换数值的**。
 
-7. 范围insert：
+7. 范围`insert`：
 
     ```cpp
     vector<string> v = {"quasi", "simba", "frollo", "scar"}
@@ -447,9 +447,9 @@
     slist.insert(slist.end(),{"these", "words"});
     ```
 
-8. `vector`数组在申请内存的时候，会提前申请大于所需的空间，作为备用。因为如果每`insert`一次就申请内存的话，将会使效率非常低。
+8. `vector`数组在申请内存时，会提前申请大于所需的空间，作为备用。每次`insert`都申请内存的话，效率非常低。
 
-9. `capacity`和`size`的区别：`capacity`现有内存空间最多可容纳元素数量,`size`是现有元素数量。
+9. `capacity`和`size`的区别**：`capacity`现有内存空间最多可容纳元素数量,`size`是现有元素数量**。
 
 10. 容器的适配器（`stack`，`quene` 和 `priority_quene`）
 
@@ -474,7 +474,6 @@
     for(auto& a : v){}
     //说明下，在for中大量对象创建时候，需要考虑构造与析构问题。可以考虑定义在for外
     ```
-    
 
 ## 十、泛型算法
 
@@ -492,7 +491,7 @@
     fill(vec.begin(), 10, 0);//其中vec实际是空的，这时候fill就会报错
     ```
 
-5. `back_inserter`插入迭代器，可以通过向此迭代器赋值来**向容器插入元素**
+5. `back_inserter`插入迭代器，可以**通过向此迭代器赋值来向容器插入元素**
 
     ```cpp
     vector<int> vec;
@@ -502,7 +501,7 @@
     fill_n(back_inserter(vec), 10, 0);//就可以向vec中添加10个元素
     ```
 
-6. **自定义排序**：谓词
+6. **自定义排序**：谓词，推荐使用lambda表达式。
 
     ```cpp
     sort(words.begin(), words.end(), isShorter); 
@@ -524,13 +523,13 @@
 8. 隐式捕获：
 
     ```c++
-    f = [=, &os](){}//os是引用捕获方式，其他为值捕获方式
+    f = [=, &os](){}    //os是引用捕获方式，其他为值捕获方式.
     ```
 
 9. `lambda`表达式的返回类型，需要尾置：
 
     ```cpp
-    []() -> int {}//C++ 14以前
+    []() -> int {}      //C++ 14以前
     ```
 
 10. `lambda`的好处：**本身是可调用对象，可以作为参数存在**，如果想要让函数也有这样的功能，可以使用`bind`方法：
@@ -539,7 +538,7 @@
     bool check_size(const int, const string);
     bind(check_size, 1, "str");
     
-    //此时就可以作为参数调用了，例如 
+    //此时就可以作为参数调用了，例如
     find_if(word.begin(), words,end(), bind(check_size, 1, "str"))
     ```
 
@@ -575,27 +574,29 @@
 
 ## 十二、动态内存、智能指针
 
-1. **静态内存**：局部static变量、类static数据成员、定义在函数之外的变量，编译器自动创建和销毁，在使用之前分配，在程序结束后销毁。
+1. **静态内存**：局部**static变量**、**类static数据成员**、定义在**函数外的变量**，**编译器自动创建和销毁，用之前分配，程序结束后销毁**。
 
-   **栈内存**：保存函数内的非static变量，编译器自动创建和销毁，程序块运行的时候才存在。
+   **栈内存**：**保存函数内的非static变量**，编译器自动创建和销毁，程序块运行的时候才存在。
 
    **堆内存**：动态分配内存。
 
-2. `shared_ptr`类：允许多个指针指向同一个对象除了初始化以外，使用方法和普通指针一样：
+2. `shared_ptr`类：**允许多个指针指向同一个对象**，**推荐make_shared初始化，其他使用方法和普通指针一样**。
    
     ```cpp
     shared_ptr<string> p1; 
     *p1 = "hi"; 
-    swap(p ,q)//交换pq的指针。推荐使用make_shared来进行shared_ptr的创建，相对比较安全（能够防止例如将同一块内存绑定到多个shared_ptr上面：
-shared_ptr<int> p3 = make_shared<int>(42); //安全
+    swap(p ,q);//交换p,q的指针。推荐使用make_shared来进行shared_ptr的创建，相对比较安全
+   //（能够防止例如将同一块内存绑定到多个shared_ptr上面：
+   shared_ptr<int> p3 = make_shared<int>(42); //安全
    ```
    
-3. `shared_ptr` 在最后一个对象销毁前都不会释放内存，若把`shared_ptr`放在容器中重拍后，一部分元素不需要，要`erase`元素。
-4. 使用`auto`进行变量的初始化（已被弃用）：
+3. `shared_ptr` 在最后一个对象销毁前不释放内存，**若把`shared_ptr`放在容器中重排后，部分元素不需要时，需要`erase`元素**。
+4. 使用`auto`进行变量的初始化（**auto_ptr，C++11已被弃用**）：
 
     ```cpp
-    auto p1 = new auto(obj)//这简直太秀了。。。不管不顾的。。，
-    auto //会转义所有权，sort后元素都成为nullptr
+    auto_ptr p1 = new auto_ptr(obj)//这简直太秀了。。。不管不顾的。。，
+    auto_ptr< string > pstr_auto( new string( "Brontosaurus" ) );
+    auto_ptr //会转移所有权，sort后元素都成为nullptr
     ```
 
 5. 定位new
@@ -611,9 +612,9 @@ shared_ptr<int> p3 = make_shared<int>(42); //安全
   - 但是在网易的分享/培训当中却说道：不要使用共享指针。其主要原因是：共享指针的乱用导致：被shared_ptr的资源实际上并没有共享，这样就会使代码出现资源泄漏和一些bug，而且因为有可能会出现其他程序员通过赋值给另一个共享指针而修改了这一段资源，这样的bug就会很难查出来。另一个原因时shared_ptr并不一定是线程安全的，所以要小心。同时有时候会忘记使用make_share来创建shared_ptr，会导致性能下降以及安全问题。同时经常会出现使用delete把智能指针删除的情况。
     另外对于游戏来说不用智能指针更好，因为引用计数本身会带来额外的开销，而且内存分配东一块西一块很不好管理，cache也不友好，最好是对象都放到列表里面，都用数组下标访问，这种方式既容易管理又容易统计还可以把完全不一样的数据结构做出功能上的抽象，比如参考bgfx对于图形API的封装，DX9/DX11/DX12/OpenGL/Vulkan 全都可以用一套API包装起来，texture这样的复杂结构反正也只需要用到一个索引访问----by 果哥
 
-7. 防止野指针：养成在变量离开作用域之前就释放掉或者**在`delete`后将`nullptr`赋给指针**,就表示已经释放掉了但是可能还要用。
+7. 防止野指针：养成在**变量离开作用域之前就释放**掉或者**在`delete`后将`nullptr`赋给指针**,就表示已经释放掉了但是可能还要用。
 
-8. 智能指针不初始化的话,会被初始化成空指针,我们也可以自己初始化:
+8. **智能指针**不初始化的话,会被**初始化成空指针**,我们也可以自己初始化:
 
     ```cpp
     shared_ptr<int> p2(new int(42));
@@ -632,53 +633,53 @@ shared_ptr<int> p3 = make_shared<int>(42); //安全
 
 10. **不要使用智能指针的**get方法返回的**内置指针初始化另一个指针**，或者给智能指针复制。
 
-11. 若程序崩溃发生异常的时`new`出来的对象没有`delete`，则内存永远不会释放。
+11. 若程序崩溃**发生异常的时`new`出来的对象没有`delete`，则内存永远不会释放**。
 
-12. 自定义删除器：
+12. **自定义删除器**`end_connection`：
 
      ```cpp
      shared_ptr<connection> p(&c, end_connection); //p被销毁的时候，会调用end_connection可以做扫尾工作。
      ```
 
-13. `unique_ptr`是不能拷贝和复制的，但是可以通过`release`和`reset`将指针的所有权从一个非`const`的`unique_ptr`转移给另一个。
+13. **`unique_ptr`是不能拷贝和复制的**，但是可以**通过`release`和`reset`将指针的所有权**从一个非`const`的`unique_ptr`**转移**给另一个。
 
-     `unique.release`会切断`unique_ptr`和原来对象间的关系。
+     **`unique.release`会切断`unique_ptr`和原来对象间的关系**。
 
      `reset`是让`unique_ptr`重新指向给定的指针。
 
      ```cpp
-      p2.release()//错误，p2不会释放内存而且我们也丢失了指针
+      p2.release()         //错误，p2不会释放内存而且我们也丢失了指针
       auto p = p2.release()//正确，但要自己 delete(p)
       p3.reset(p2.release())//p2内存交给p3
      ```
 
-14. `weak_ptr`局外人：一种`shared_ptr`，**不增加计数**。在使用`weak_ptr`时要**先用`lock`判断对象是否存在**：
+14. `weak_ptr`局外人：一种`shared_ptr`，**不增加计数**。**在使用`weak_ptr`时要先用`lock`判断对象是否存在**：
 
      ```cpp
-      if(shared_ptr<np> np = wp.lock()){} //是否存在
+      if(shared_ptr<int> np = wp.lock()){} //是否存在
      ```
 
 15. 对动态数组的初始化：
 
      ```cpp
      int *p = new int[10]()//10个都是0的int
-     int *p = new int[0]; //p是一个类似于尾后指针(end())的非空指针。
+     int *p = new int[0];  //p是一个类似于尾后指针(end())的非空指针。
      ```
 
-16. 智能指针支持动态数组，但是**只有`unique_ptr`支持直接下标访问**，`shared_ptr`想要访问的话必须提供自己的删除器，并且通过`get`来修改数组。
+16. **智能指针支持动态数组**，但是**只有`unique_ptr`支持直接下标访问**，`shared_ptr`想要访问的话必须提供自己的删除器，并且通过`get`来修改数组。
 
 17. `new`和`delete`将**对象构造/析构**和**内存申请/释放**结合在了一起（某道面试题），因此`allocator`可以将两个分开来。：
 
-     ```cpp
-     allocator<string> alloc;//可以分配string的allocator对象
-     auto const p = alloc.allocate(n);//可以分配n个未初始化的string
-    
-     alloc.construct(p++);//p为空字符串
-     alloc.destroy(--p);//销毁，这里其实应该有一个while的
-    
-     auto q = uninitialized_copy(vi.begin(), vi.end(), p);//拷贝数据
-     alloc.deallocate(p,n)//释放内存
-     ```
+      ```cpp
+      allocator<string> alloc;//可以分配string的allocator对象
+      auto const p = alloc.allocate(n);//可以分配n个未初始化的string
+     
+      alloc.construct(p++);//p为空字符串
+      alloc.destroy(--p);//销毁，这里其实应该有一个while的
+     
+      auto q = uninitialized_copy(vi.begin(), vi.end(), p);//拷贝数据
+      alloc.deallocate(p,n)//释放内存
+      ```
 
 ## 十三、（对象）拷贝控制
 
@@ -838,7 +839,7 @@ shared_ptr<int> p3 = make_shared<int>(42); //安全
 
 5. 从派生类到基类的转换：自动类型转换只对指针和引用类型有效，同时忽略派生类独有的对象。
    基类向派生类不存在隐式类型转换
-和任何其他成员一样，派生类向基类的类型转换也可能因为由于访问受限而变得不可行。
+   和任何其他成员一样，派生类向基类的类型转换也可能因为由于访问受限而变得不可行。
 6. 多态性：具有继承关系的多个类型成为多态类型。当我们使用基类的引用或者指针调用基类中定义的一个函数时，我们并不知道该函数真正作用的对象是什么类型。
 7. 使用作用域运算符可以实现强迫虚函数执行某个特定版本的功能：
 
@@ -1245,11 +1246,10 @@ shared_ptr<int> p3 = make_shared<int>(42); //安全
 
     ```cpp
     void recoup(int) noexcept;
-void recoup(int) throw();和上面是等价的。
+    void recoup(int) throw();和上面是等价的。
     ```
 
     判断一个函数是不是会抛出异常的：
-    
 ```cpp
     noexcept(recoup(i));//返回true
     void f() noexcept(noexcept(g()));//让f和g的异常说明一致
@@ -1262,7 +1262,7 @@ void recoup(int) throw();和上面是等价的。
     namespace cplusplus_primer{
         class tempClass{
         };
-}//是可以没有分号的
+    }//是可以没有分号的
     ```
     
     注意不要随便写namespace xxx,会导致名字混乱
@@ -1419,7 +1419,7 @@ void recoup(int) throw();和上面是等价的。
         charTyp = 255;.......
     }
     以及可以像类一样进行提前声明
-enum class IntValues{}//限定作用于的枚举类型，在括号外如果没有对象的话就不可访问
+   enum class IntValues{}//限定作用于的枚举类型，在括号外如果没有对象的话就不可访问
    ```
    
 6. 枚举类型的形参匹配：
